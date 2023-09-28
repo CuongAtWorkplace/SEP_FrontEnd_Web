@@ -2,7 +2,7 @@ import { memo } from "react";
 import Header from "../header";
 import Footer from "../footer";
 import Menu from "../menu";
-import "./style.scss"
+import "./style.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 
@@ -23,9 +23,9 @@ const MasterLayout = ({ children, ...props }) => {
                 <Menu />
             </nav>
 
-            <content>
+            <div className="div-content">
                 {children}
-            </content>
+            </div>
 
             <footer>
                 <Footer />

@@ -12,42 +12,32 @@
 }
 
 header {
-  background-color: #333;
-  color: #fff;
+  background-color: #CCFFFF;
+  color: #000;
   padding: 20px;
   grid-area: header;
 }
 
 nav {
-  background-color: #f2f2f2;
+  background-color: #CCFFFF;
   padding: 10px;
   grid-area: menu;
 }
 
-nav ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-nav ul li {
-  margin-bottom: 10px;
-}
-
-content {
+.div-content {
   padding: 20px;
   grid-area: content;
 }
 
 footer {
-  background-color: #333;
-  color: #fff;
+  background-color: #CCFFFF;
+  color: #000;
   padding: 20px;
   grid-column: span 2;
 }
 
 .logo {
-  background-color: #f2f2f2;
+  background-color: #00FFFF;
   padding: 10px;
   grid-area: logo;
 

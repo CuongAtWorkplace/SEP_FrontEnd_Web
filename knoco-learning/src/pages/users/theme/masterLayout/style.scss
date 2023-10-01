@@ -1,60 +1,3 @@
-// .body_page {
-//   margin: 0;
-//   padding: 0;
-//   font-family: Arial, sans-serif;
-//   display: grid;
-//   grid-template-columns: 0.6fr 3.4fr;
-//   grid-template-rows: 1fr 10fr; 
-//   grid-template-areas:
-//     "logo header"
-//     "menu content";
-//   min-height: 100vh;
-// }
-
-// header {
-//   background-color: #CCFFFF;
-//   color: #000;
-//   padding: 20px;
-//   grid-area: header;
-// }
-
-// nav {
-//   background-color: #CCFFFF;
-//   padding: 10px;
-//   grid-area: menu;
-// }
-
-// .div-content {
-//   padding: 20px;
-//   grid-area: content;
-// }
-
-// footer {
-//   background-color: #CCFFFF;
-//   color: #000;
-//   padding: 20px;
-//   grid-column: span 2;
-// }
-
-// .logo {
-//   background-color: #00FFFF;
-//   padding: 10px;
-//   grid-area: logo;
-
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-// }
-
-// .logo-icon{
-//   font-size:30px;
-//   margin-right: 5px;
-// }
-
-// .logo h1 {
-//   margin: 0;
-// }
-
 *{
   margin: 0;
   padding: 0;
@@ -67,6 +10,8 @@
   background: #E5E7EB;
   position: relative;
   display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 #menu{
@@ -135,6 +80,7 @@
   width: calc(100% - 300px);
   margin-left: 300px;
   position: relative;
+  flex: 1;
 }
 
 #interface .navigation{ 
@@ -230,6 +176,75 @@
   font-size: 20px;
   cursor: pointer;
   margin-right: 20px;
+}
+
+.i-name{
+  color: #444a53;
+  padding: 30px 30px 0 30px;
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 70px;
+}
+
+.values{
+  padding: 30px 30px 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.values .val-box{
+  background: #fff;
+  width: 235px;
+  padding: 16px 20px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.values .val-box i{
+  font-size: 25px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 50%;
+  text-align: center;
+  color: #fff;
+  margin-right: 15px;
+}
+.values .val-box:nth-child(1) i{
+  background: #7b74ec;
+}
+.values .val-box:nth-child(2) i{
+  background: #5c8af0;
+}
+.values .val-box:nth-child(3) i{
+  background: #e45d99;
+}
+.values .val-box:nth-child(4) i{
+  background: #74daec;
+}
+.values .val-box h3{
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.values .val-box span{
+  font-size: 15px;
+  color: #828997; 
+}
+
+footer {
+  background: #111827;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
 
 @media (max-width:477px) {

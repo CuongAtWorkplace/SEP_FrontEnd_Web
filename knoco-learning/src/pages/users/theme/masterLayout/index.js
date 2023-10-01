@@ -25,7 +25,7 @@ const MasterLayout = ({ children, ...props }) => {
                     <Header />
                 </header>
 
-                <div className="div-content">
+                <div>
                     {children}
                 </div>
 

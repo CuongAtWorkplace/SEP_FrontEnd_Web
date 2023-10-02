@@ -2,24 +2,25 @@ import { memo } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChalkboardUser } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
 const Header = () => {
     return (
-        <div class="navigation">
-            <div class="n1">
-                <div>
-                    <i id="menu-btn" class="fa-solid fa-bars"></i>
+        <div className="navigation">
+            <div className="n1">
+                <div className="pape-h2">
+                    <h2>Home</h2>
                 </div>
-                <div class="search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    {/* <input type="text" placeholder="Search"> */}
-                    <input name="" placeholder="Search"/>
+                <div className="search">
+                    <FontAwesomeIcon className="icon-search" icon={faMagnifyingGlass} />
+                    <input type="text" placeholder="Search" />
                 </div>
             </div>
 
-            <div class="profile">
-                <i class="fa-solid fa-bell"></i>
-                <FontAwesomeIcon className="img-icon" icon={faChalkboardUser} />
-                <div class="dropdown-menu" id="dropdown-menu">
+            <div className="profile">
+                <FontAwesomeIcon className="icon-profile" icon={faBell} />
+                <FontAwesomeIcon className="icon-img" icon={faChalkboardUser} />
+                <div className="dropdown-menu" id="dropdown-menu">
                     <ul>
                         <li><Link className="link-a" to="#">Change Password</Link></li>
                         <li><Link className="link-a" to="#">Log Out</Link></li>

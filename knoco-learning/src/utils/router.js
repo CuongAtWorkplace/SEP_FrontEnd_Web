@@ -1,9 +1,6 @@
 export const ROUTERS = {
-    // USER: {
-    //     HOME: "",
-    //     PROFILE: "profile"
-    // },
-    ADMIN: {
-        HOME: "dashborad",
-    }
+    USER: {
+        HOME: "",
+        PROFILE: "profile"
+    },
 };

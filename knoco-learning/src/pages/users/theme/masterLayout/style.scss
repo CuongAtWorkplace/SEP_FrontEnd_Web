@@ -15,7 +15,7 @@
 }
 
 #menu{
-  background: #111827;
+  background: #CCFFFF;
   width: 300px;
   height: 100%;
   position: fixed;
@@ -27,12 +27,18 @@
   display: flex;
   align-items: center;
   color: #fff;
-  padding: 30px 0 0 30px;
+  padding: 20px 0 20px 50px;
+  background-color: #74daec;
+}
+
+#menu .logo h1{
+  font-size: 40px;
 }
 
 #menu .logo .logo-icon{
   width: 40px;
-  margin-right: 15px;
+  margin-right: 10px;
+  font-size: 40px;
 }
 
 #menu .items{
@@ -60,7 +66,7 @@
   height: 30px;
   line-height: 30px;
   text-align: center;
-  font-size: 14px;
+  font-size: 20px;
   margin: 0 10px 0 25px;
 }
 
@@ -74,6 +80,7 @@
   color: rgb(134, 141, 151);
   font-weight: 300px;
   transition: 0.3s ease;
+  font-size: 25px;
 }
 
 #interface{
@@ -88,7 +95,7 @@
   align-items: center;
   justify-content: space-between;
   background: #fff;
-  padding: 15px 30px;
+  padding: 25px 30px;
   border-bottom: 3px solid #594ef7;
   position: fixed;
   width: calc(100% - 300px);
@@ -103,7 +110,7 @@
   border-radius: 4px;
 }
 
-#interface .navigation .search i{
+#interface .navigation .search .icon-search{
   margin-right: 14px;
 } 
 
@@ -120,13 +127,13 @@
   position: relative;
 } 
 
-#interface .navigation .profile i{
+#interface .navigation .profile .icon-profile{
   margin-right: 20px;
   font-size: 19px;
   font-weight: 400;
 }
 
-#interface .navigation .profile .img-icon{
+#interface .navigation .profile .icon-img{
   width: 30px;
   height: 30px;
   object-fit: cover;
@@ -245,6 +252,10 @@ footer {
   left: 0;
   bottom: 0;
   width: 100%;
+}
+
+.pape-h2 {
+  padding-right: 20px;
 }
 
 @media (max-width:477px) {

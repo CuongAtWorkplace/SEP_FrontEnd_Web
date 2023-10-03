@@ -1,7 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import Homepage from "./pages/users/homepage";
 import { ROUTERS } from "./utils/router";
-import MasterLayout from "./pages/users/theme/masterLayout";
+//import MasterLayout from "./pages/users/theme/masterLayout";
+import ManagerLayout from "./pages/manager/managerLayout/managerLayout";
 import Profile from "./pages/users/profile";
 
 const renderUserRouter = () => {
@@ -17,13 +18,13 @@ const renderUserRouter = () => {
     ];
 
     return (
-        <MasterLayout>
+        <ManagerLayout>
             <Routes>
                 {userRouters.map((item, key) => (
                     <Route key={key} path={item.path} element={item.component} />
                 ))}
             </Routes>
-        </MasterLayout>
+        </ManagerLayout>
 
     );
 };

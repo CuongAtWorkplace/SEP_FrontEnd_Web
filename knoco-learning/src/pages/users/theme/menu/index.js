@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { memo } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -5,7 +6,15 @@ import { faChalkboardUser } from '@fortawesome/free-solid-svg-icons';
 import { faChalkboard } from '@fortawesome/free-solid-svg-icons';
 import { faListCheck } from '@fortawesome/free-solid-svg-icons';
 import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
+import $ from "jquery";
 const Menu = () => {
+    useEffect(() => {
+        $(document).ready(function() {
+            $('#menu-btn').click(function() {
+                $('#menu').toggleClass("active");
+            });
+        });
+    }, []);
     return (
         <div className="items">
             <ul>

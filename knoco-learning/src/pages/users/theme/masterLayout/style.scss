@@ -141,13 +141,16 @@
 
 #dropdown-menu {
   position: absolute;
-  top: 100%;
+  top: 30px;
   right: 0;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: none;
+}
+#dropdown-menu.active {
+  display: block;
 }
 
 #dropdown-menu ul {

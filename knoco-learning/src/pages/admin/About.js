@@ -2,9 +2,11 @@ import React from 'react';
 
 const About = () => {
     return (
-        <div>
-            <h1>About Page</h1>
-        </div>
+        <main className='main-container'>
+            <div className='main-title'>
+                <h3>ABOUT</h3>
+            </div>
+        </main>
     );
 };
 

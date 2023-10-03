@@ -4,10 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChalkboardUser } from '@fortawesome/free-solid-svg-icons';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 const Header = () => {
     return (
         <div className="navigation">
             <div className="n1">
+                <div>
+                    <FontAwesomeIcon id="menu-btn" icon={faBars} />
+                </div>
                 <div className="pape-h2">
                     <h2>Home</h2>
                 </div>

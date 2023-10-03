@@ -37,6 +37,10 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
+
+            <div className="values">
+                
+            </div>
         </>
     )
 };

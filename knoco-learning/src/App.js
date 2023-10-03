@@ -5,12 +5,14 @@ import Account from './pages/admin/Account';
 import About from './pages/admin/About';
 import Report from './pages/admin/Report';
 import Sidebar from './components/admin/Sidebar'
+import Header from './components/admin/Header';
 
 
 const App = () => {
     return (
-        <div>
+        <div className='grid-container'>
         <BrowserRouter>
+            <Header />
             <Sidebar>
             <Routes>
                 <Route path="/"element={<Dashborad/>}></Route>

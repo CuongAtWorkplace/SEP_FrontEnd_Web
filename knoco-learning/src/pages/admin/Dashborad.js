@@ -1,44 +1,11 @@
-import { memo } from "react";
+import React from 'react';
 
-const DashboardPage = () => {
+const Dashborad = () => {
     return (
-        <>
-            <h3 class="i-name">
-                Dashboard
-            </h3>
-
-            <div class="values">
-                <div class="val-box">
-                    <i class="fa-solid fa-users"></i>
-                    <div>
-                        <h3>8,267</h3>
-                        <span>Total Users</span>
-                    </div>
-                </div>
-                <div class="val-box">
-                    <i class="fa-solid fa-users"></i>
-                    <div>
-                        <h3>8,267</h3>
-                        <span>Topic</span>
-                    </div>
-                </div>
-                <div class="val-box">
-                    <i class="fa-solid fa-users"></i>
-                    <div>
-                        <h3>8,267</h3>
-                        <span>Topic</span>
-                    </div>
-                </div>
-                <div class="val-box">
-                    <i class="fa-solid fa-users"></i>
-                    <div>
-                        <h3>8,267</h3>
-                        <span>Topic</span>
-                    </div>
-                </div>
-            </div>
-        </>
-    )
+        <div>
+            <h1>Dashborad</h1>
+        </div>
+    );
 };
 
-export default memo(DashboardPage);
+export default Dashborad;

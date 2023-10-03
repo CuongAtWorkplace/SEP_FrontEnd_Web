@@ -33,7 +33,7 @@ const MasterLayout = ({ children, ...props }) => {
                     <Footer />
                 </footer>
             </section>
-        </ div>
+        </div>
     );
 };
 

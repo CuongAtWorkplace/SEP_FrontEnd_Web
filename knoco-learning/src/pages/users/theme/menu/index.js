@@ -1,9 +1,7 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faBeer, faDashboard, faUser } from '@fortawesome/free-solid-svg-icons';
-// import { faChalkboard } from '@fortawesome/free-solid-svg-icons';
-// import { faListCheck } from '@fortawesome/free-solid-svg-icons';
+import {faDashboard, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 const Menu = () => {
     return (
@@ -19,12 +17,8 @@ const Menu = () => {
                 </li>
                 <li>
                     <FontAwesomeIcon className="menu-icon" icon={faCircleQuestion} />
-                    <Link className="link-a" to="#">Repoort Form Manager</Link>
+                    <Link className="link-a" to="#">Repoort</Link>
                 </li>
-                {/* <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faCircleQuestion} />
-                    <Link className="link-a" to="#">Manager Help</Link>
-                </li> */}
             </ul>
         </div>
 

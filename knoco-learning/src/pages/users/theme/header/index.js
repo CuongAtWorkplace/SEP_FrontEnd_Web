@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { memo } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,6 +7,11 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 const Header = () => {
+    const [isDropdownVisible, setDropdownVisible] = useState(false);
+
+    const toggleDropdown = () => {
+        setDropdownVisible(!isDropdownVisible);
+    };
     return (
         <div className="navigation">
             <div className="n1">
@@ -23,8 +29,8 @@ const Header = () => {
 
             <div className="profile">
                 <FontAwesomeIcon className="icon-profile" icon={faBell} />
-                <FontAwesomeIcon className="icon-img" icon={faChalkboardUser} />
-                <div className="dropdown-menu" id="dropdown-menu">
+                <FontAwesomeIcon className="icon-img" icon={faChalkboardUser} onClick={toggleDropdown} />
+                <div className={`dropdown-menu ${isDropdownVisible ? "active" : ""}`} id="dropdown-menu">
                     <ul>
                         <li><Link className="link-a" to="#">Change Password</Link></li>
                         <li><Link className="link-a" to="#">Log Out</Link></li>

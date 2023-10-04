@@ -6,6 +6,7 @@ export const ROUTERS = {
 
     TEACHER: {
         HOME: "",
-        CLASS: "classlist"
+        CLASS: "classlist",
+        CLASSEDIT: "classedit"
     },
 };

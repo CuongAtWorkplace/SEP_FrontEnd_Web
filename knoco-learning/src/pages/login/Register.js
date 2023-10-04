@@ -1,14 +1,16 @@
+
 import React, { Component } from "react";
-// import { withRouter } from 'react-router-dom';
+// import { withRouter } from 'react-router-dom/cjs/react-router-dom';
 import "./css/main.css";
 import jwtDecode from "jwt-decode";
-class Login extends Component {
+class Register extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             email: '',
             password: '',
+            adress:'',
         }
     }
 
@@ -36,10 +38,9 @@ class Login extends Component {
                 localStorage.setItem('token', token);
 
                 const decodedToken = jwtDecode(token);
-                
                 localStorage.setItem('id', decodedToken.id);
                 localStorage.setItem('roleid', decodedToken.roleid);
-                
+
                 // this.setState({ nameUser: decodedToken.fullname });
                 // this.setState({ showModal: false, IsLogin: true })
                 // this.setState({ checkLogin: true });
@@ -99,14 +100,20 @@ class Login extends Component {
                     <div class="container-login100">
                         <div class="wrap-login100">
                             <div class="login100-pic js-tilt" data-tilt>
-                                <img src="~/images/img-01.png" alt="IMG"/>
+                                <img src="./KnocoLogo.ico" alt="IMG"/>
                             </div>
 
-                            <form class="login100-form validate-form" >
+                            <form class="login100-form validate-form">
                                 <span class="login100-form-title">
                                     Member Login
                                 </span>
-
+                                <div class="wrap-input100 validate-input" >
+                                    <input class="input100" type="text" name="FullName" onChange={this.handlePasswordChange} value={password} placeholder="phoFullNamenenumber"/>
+                                        <span class="focus-input100"></span>
+                                        <span class="symbol-input100">
+                                            <i class="fa fa-lock" aria-hidden="true"></i>
+                                        </span>
+                                </div>
                                 <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                                     <input class="input100" type="text" name="email"  onChange={this.handleEmailChange} value={email} placeholder="Email"/>
                                         <span class="focus-input100"></span>
@@ -122,9 +129,22 @@ class Login extends Component {
                                             <i class="fa fa-lock" aria-hidden="true"></i>
                                         </span>
                                 </div>
-
+                                <div class="wrap-input100 validate-input" >
+                                    <input class="input100" type="text" name="adress" onChange={this.handlePasswordChange} value={password} placeholder="Address"/>
+                                        <span class="focus-input100"></span>
+                                        <span class="symbol-input100">
+                                            <i class="fa fa-lock" aria-hidden="true"></i>
+                                        </span>
+                                </div>
+                                <div class="wrap-input100 validate-input" >
+                                    <input class="input100" type="text" name="phonenumber" onChange={this.handlePasswordChange} value={password} placeholder="phonenumber"/>
+                                        <span class="focus-input100"></span>
+                                        <span class="symbol-input100">
+                                            <i class="fa fa-lock" aria-hidden="true"></i>
+                                        </span>
+                                </div>
                                 <div class="container-login100-form-btn">
-                                    <button class="login100-form-btn" type="button" onClick={this.handleLogin}>
+                                    <button class="login100-form-btn"  onClick={this.handleLogin}>
                                         Login
                                     </button>
                                 </div>
@@ -155,4 +175,4 @@ class Login extends Component {
     }
 
 }
-export default Login;
+export default Register;

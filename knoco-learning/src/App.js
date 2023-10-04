@@ -11,6 +11,7 @@ import Footer from './components/admin/footer/Footer';
 import Menu from './components/admin/menu/Menu';
 import Login from './pages/admin/login/Login';
 import User from './pages/admin/user/User';
+import Index from './pages/users/homepage/index'
 import './style/admin/global.scss';
 import {
   QueryClient,
@@ -59,6 +60,10 @@ function App() {
         {
           path: "report",
           element: <Report />,
+        },
+        {
+          path: "homepage",
+          element: <Index />,
         },
       ]
     },

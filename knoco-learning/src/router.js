@@ -4,6 +4,8 @@ import { ROUTERS } from "./utils/router";
 //import MasterLayout from "./pages/users/theme/masterLayout";
 import ManagerLayout from "./pages/manager/managerLayout/managerLayout";
 import Profile from "./pages/users/profile";
+import ClassList from "./components/class-list";
+import ClassEdit from "./components/class-edit";
 
 const renderUserRouter = () => {
     const userRouters = [
@@ -14,6 +16,14 @@ const renderUserRouter = () => {
         {
             path: ROUTERS.USER.PROFILE,
             component: <Profile />,
+        },
+        {
+            path: ROUTERS.TEACHER.CLASS,
+            component: <ClassList />,
+        },
+        {
+            path: ROUTERS.TEACHER.CLASSEDIT,
+            component: <ClassEdit />,
         },
     ];
 

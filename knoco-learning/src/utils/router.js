@@ -3,4 +3,10 @@ export const ROUTERS = {
         HOME: "",
         PROFILE: "profile"
     },
+
+    TEACHER: {
+        HOME: "",
+        CLASS: "classlist",
+        CLASSEDIT: "classedit"
+    },
 };

@@ -1,8 +1,8 @@
-import DataTable from "../../components/dataTable/DataTable";
+import DataTable from "../../../components/admin/dataTable/DataTable";
 import "./users.scss";
 import { useState } from "react";
-import Add from "../../components/add/Add";
-import { userRows } from "../../data";
+import Add from "../../../components/admin/add/Add";
+import { userRows } from "../../../data";
 
 const columns = [
   { field: "id", headerName: "ID", width: 90 },

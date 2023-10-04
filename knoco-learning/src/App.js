@@ -1,18 +1,17 @@
-import './App.css';
-import Home from './pages/home/Home';
+import Home from './pages/admin/home/Home';
 import {
   createBrowserRouter,
   RouterProvider,
   Outlet,
 } from "react-router-dom";
-import Users from './pages/users/Users';
-import Report from './pages/report/Report';
-import Navbar from './components/navbar/Navbar';
-import Footer from './components/footer/Footer';
-import Menu from './components/menu/Menu';
-import Login from './pages/login/Login';
-import User from './pages/user/User';
-import './styles/global.scss';
+import Users from './pages/admin/users/Users';
+import Report from './pages/admin/report/Report';
+import Navbar from './components/admin/navbar/Navbar';
+import Footer from './components/admin/footer/Footer';
+import Menu from './components/admin/menu/Menu';
+import Login from './pages/admin/login/Login';
+import User from './pages/admin/user/User';
+import './style/admin/global.scss';
 import {
   QueryClient,
   QueryClientProvider,

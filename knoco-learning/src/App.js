@@ -1,30 +1,77 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Dashborad from './pages/admin/Dashborad';
-import Account from './pages/admin/Account';
-import About from './pages/admin/About';
-import Report from './pages/admin/Report';
-import Sidebar from './components/admin/Sidebar'
-import Header from './components/admin/Header';
+import './App.css';
+import Home from './pages/home/Home';
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,
+} from "react-router-dom";
+import Users from './pages/users/Users';
+import Report from './pages/report/Report';
+import Navbar from './components/navbar/Navbar';
+import Footer from './components/footer/Footer';
+import Menu from './components/menu/Menu';
+import Login from './pages/login/Login';
+import User from './pages/user/User';
+import './styles/global.scss';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 
+const queryClient = new QueryClient();
 
-const App = () => {
+function App() {
+  const Layout = () => {
     return (
-        <div className='grid-container'>
-        <BrowserRouter>
-            <Header />
-            <Sidebar>
-            <Routes>
-                <Route path="/"element={<Dashborad/>}></Route>
-                <Route path="/dashboard"element={<Dashborad/>}></Route>
-                <Route path="/account"element={<Account/>}></Route>
-                <Route path="/report"element={<Report/>}></Route>
-                <Route path="/about"element={<About/>}></Route>
-            </Routes>
-            </Sidebar>
-        </BrowserRouter>
+      <div className="main">
+        <Navbar />
+        <div className="container">
+          <div className="menuContainer">
+            <Menu />
+          </div>
+          <div className="contentContainer">
+            <QueryClientProvider client={queryClient}>
+              <Outlet />
+            </QueryClientProvider>
+          </div>
         </div>
-    );
-};
+        <Footer />
+      </div>
+    )
+  }
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
+        {
+          path: "users",
+          element: <Users />,
+        },
+        {
+          path: "/users/:id",
+          element: <User />,
+        },
+        {
+          path: "report",
+          element: <Report />,
+        },
+      ]
+    },
+    {
+      path: "login",
+      element: <Login />,
+    }
+  ]);
+
+  return (
+    <RouterProvider router={router} />
+  );
+}
 
 export default App;

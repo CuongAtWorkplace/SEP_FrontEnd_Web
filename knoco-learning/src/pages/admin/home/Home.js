@@ -3,7 +3,6 @@ import BigChartBox from "../../../components/admin/bigChartBox/BigChartBox";
 import ChartBox from "../../../components/admin/chartBox/ChartBox";
 import TopBox from "../../../components/admin/topBox/TopBox";
 import {
-  barChartBoxRevenue,
   barChartBoxVisit,
   chartBoxConversion,
   chartBoxProduct,

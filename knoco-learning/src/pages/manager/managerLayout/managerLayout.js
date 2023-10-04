@@ -5,6 +5,7 @@ import ManagerMenu from "../managerMenu/managerMenu";
 import "./style.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
+import ListCourse from "../../../components/manager/ListCourse";
 
 const ManagerLayout = ({ children, ...props }) => {
     return (
@@ -26,7 +27,7 @@ const ManagerLayout = ({ children, ...props }) => {
                 </header>
 
                 <div>
-                    {children}
+                    <ListCourse/>
                 </div>
 
                 <footer>

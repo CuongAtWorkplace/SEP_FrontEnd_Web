@@ -2,13 +2,17 @@ import React, { Component } from "react";
 // import { withRouter } from 'react-router-dom';
 import "./css/main.css";
 import jwtDecode from "jwt-decode";
+
 class Login extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            fullname:'',
             email: '',
             password: '',
+            phone:'',
+            address:'',
         }
     }
 
@@ -18,6 +22,19 @@ class Login extends Component {
     handlePasswordChange = (e) => {
         this.setState({ password: e.target.value });
     };
+    handlePasswordChange = (e) => {
+        this.setState({ password: e.target.value });
+    };
+    handlePasswordChange = (e) => {
+        this.setState({ password: e.target.value });
+    };
+    handlePasswordChange = (e) => {
+        this.setState({ password: e.target.value });
+    };
+    handlePasswordChange = (e) => {
+        this.setState({ password: e.target.value });
+    };
+    
     handleLogin = async () => {
         const { email, password, } = this.state;
         try {
@@ -39,7 +56,7 @@ class Login extends Component {
                 
                 localStorage.setItem('id', decodedToken.id);
                 localStorage.setItem('roleid', decodedToken.roleid);
-                
+                window.location.href = "/r";
                 // this.setState({ nameUser: decodedToken.fullname });
                 // this.setState({ showModal: false, IsLogin: true })
                 // this.setState({ checkLogin: true });

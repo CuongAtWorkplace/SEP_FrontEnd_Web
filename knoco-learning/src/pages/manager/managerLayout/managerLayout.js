@@ -23,7 +23,7 @@ const ManagerLayout = ({ children, ...props }) => {
 
             <section id="interface">
                 <header>
-                    <Header />
+                    <Header/>
                 </header>
 
                 <div>

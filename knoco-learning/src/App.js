@@ -13,8 +13,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/r" element={<Register />} />
         <Route path="/vac" element={<ViewAllClass/>} />
+        <Route path="/" element={<Login />}  />
       </Routes>
       <ToastContainer
         position="top-right"

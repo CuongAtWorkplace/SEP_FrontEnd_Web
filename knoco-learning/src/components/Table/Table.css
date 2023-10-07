@@ -14,7 +14,7 @@ tr{
     border-bottom: 1px solid #eef0f3;
 }
 
-thead td{
+thead tr th{
     font-size: 14px;
     text-transform: uppercase;
     font-weight: 400;

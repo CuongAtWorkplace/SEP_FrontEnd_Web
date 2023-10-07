@@ -8,11 +8,9 @@ class Login extends Component {
         super(props);
 
         this.state = {
-            fullname:'',
             email: '',
             password: '',
-            phone:'',
-            address:'',
+            NewsHome:[],
         }
     }
 
@@ -22,19 +20,18 @@ class Login extends Component {
     handlePasswordChange = (e) => {
         this.setState({ password: e.target.value });
     };
-    handlePasswordChange = (e) => {
-        this.setState({ password: e.target.value });
-    };
-    handlePasswordChange = (e) => {
-        this.setState({ password: e.target.value });
-    };
-    handlePasswordChange = (e) => {
-        this.setState({ password: e.target.value });
-    };
-    handlePasswordChange = (e) => {
-        this.setState({ password: e.target.value });
-    };
+    refreshList() {
+        fetch('https://localhost:7169/api/User/GetAllUser')
+          .then(response => response.json())
+          .then(data => {
+            this.setState({ NewsHome: data });
+          });
+      }
+      componentDidMount() {
+       
+        this.refreshList();
     
+      }
     handleLogin = async () => {
         const { email, password, } = this.state;
         try {
@@ -56,7 +53,7 @@ class Login extends Component {
                 
                 localStorage.setItem('id', decodedToken.id);
                 localStorage.setItem('roleid', decodedToken.roleid);
-                window.location.href = "/r";
+                window.location.href = "/vac";
                 // this.setState({ nameUser: decodedToken.fullname });
                 // this.setState({ showModal: false, IsLogin: true })
                 // this.setState({ checkLogin: true });
@@ -108,8 +105,8 @@ class Login extends Component {
     //     }
     // };
     render() {
-        const { email, password } = this.state;
-
+        const { email, password ,NewsHome } = this.state;
+        console.log(NewsHome);
         return (
             <div>
                 <div class="limiter">

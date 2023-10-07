@@ -2,9 +2,7 @@ import React, { useEffect } from "react";
 import { memo } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChalkboardUser } from '@fortawesome/free-solid-svg-icons';
-import { faChalkboard } from '@fortawesome/free-solid-svg-icons';
-import { faListCheck } from '@fortawesome/free-solid-svg-icons';
+import {faDashboard, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 import $ from "jquery";
 const Menu = () => {
@@ -19,20 +17,16 @@ const Menu = () => {
         <div className="items">
             <ul>
                 <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faChalkboardUser} />
-                    <Link className="link-a" to="#">Class List</Link>
+                    <FontAwesomeIcon className="menu-icon" icon={faDashboard} />
+                    <Link className="link-a" to="DashboardPage">Dashboard</Link>
                 </li>
                 <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faChalkboard} />
-                    <Link className="link-a" to="#">Empty Class</Link>
-                </li>
-                <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faListCheck} />
-                    <Link className="link-a" to="#">Quiz List</Link>
+                    <FontAwesomeIcon className="menu-icon" icon={faUser} />
+                    <Link className="link-a" to="#">Account</Link>
                 </li>
                 <li>
                     <FontAwesomeIcon className="menu-icon" icon={faCircleQuestion} />
-                    <Link className="link-a" to="#">Manager Help</Link>
+                    <Link className="link-a" to="#">Repoort</Link>
                 </li>
             </ul>
         </div>

@@ -2,19 +2,6 @@ import React from "react";
 import { useTable, useSortBy, useFilters  } from "react-table";
 import './Table.css'
 
-const ColumnFilter = ({ column }) => {
-    const { setFilter } = column;
-  
-    return (
-      <input
-        type="text"
-        onChange={(e) => {
-          setFilter(e.target.value || undefined); // Set undefined to remove the filter entirely
-        }}
-        placeholder={`Filter ${column.Header}`}
-      />
-    );
-  };
 const Table = ({columns, data})=>{
     const{
         getTableProps,

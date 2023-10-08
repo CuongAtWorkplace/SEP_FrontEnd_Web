@@ -14,41 +14,41 @@ const ColumnFilter = ({ column }) => {
     );
   };
 
-const TableListClassTeacher = () => {
+const TableListLearnerInClass = () => {
 
     const columns = [
         {
-          Header: 'Class Name',
-          accessor: 'className',
+          Header: 'Learner Name',
+          accessor: 'learnerName',
           Filter: ColumnFilter, // Custom filter component for courseName column
         },
         {
-          Header: 'Class ID',
-          accessor: 'classId',
+          Header: 'Learner ID',
+          accessor: 'learnerId',
           Filter: ColumnFilter, // Custom filter component for courseId column
         },
         {
-          Header: 'Class Subject',
-          accessor: 'classSubject',
+          Header: 'Learner DOB',
+          accessor: 'learnerDob',
           Filter: ColumnFilter, // Custom filter component for courseId column
         },
       ];
 
     const data = [
         {
-            className: "class 1",
-            classId: "1",
-            classSubject: "Math"
+            learnerName: "Le Quang Huy",
+            learnerId :"1",
+            learnerDob: "18/05/2001"
         },
         {
-          className: "class 2",
-          classId: "2",
-          classSubject: "Math"
+            learnerName: "Tran Minh Duc",
+            learnerId :"2",
+            learnerDob: "01/01/2001"
         },
         {
-          className: "class 3",
-          classId: "3",
-          classSubject: "Physics"
+            learnerName: "Nguyen Xuan Ly",
+            learnerId :"3",
+            learnerDob: "12/12/2001"
         },
     ];
     return(
@@ -56,4 +56,4 @@ const TableListClassTeacher = () => {
     );
 }
 
-export default TableListClassTeacher;
+export default TableListLearnerInClass;

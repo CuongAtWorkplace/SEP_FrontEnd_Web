@@ -6,6 +6,9 @@ import './style/admin/global.scss';
 import Login from './pages/login/Login';
 import Register from './pages/login/Register';
 import ViewAllClass from './pages/teachers/ViewAllClass';
+import ClassDetail from './pages/teachers/ClassDetail';
+import ListLearner from './pages/teachers/ListLearner';
+import LearnerDetail from './pages/teachers/LearnerDetail';
 const queryClient = new QueryClient();
 
 function App() {
@@ -13,7 +16,10 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/vac" element={<ViewAllClass/>} />
+        <Route path="/viewallclass" element={<ViewAllClass/>} />
+        <Route path="/classdetail" element={<ClassDetail/>} />
+        <Route path="/learnerdetail" element={<LearnerDetail/>} />
+        <Route path="/listlearner" element={<ListLearner/>} />
         <Route path="/" element={<Login />}  />
       </Routes>
       <ToastContainer

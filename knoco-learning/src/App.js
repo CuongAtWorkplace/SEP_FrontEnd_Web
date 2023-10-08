@@ -9,6 +9,11 @@ import ViewAllClass from './pages/teachers/ViewAllClass';
 import ClassDetail from './pages/teachers/ClassDetail';
 import ListLearner from './pages/teachers/ListLearner';
 import LearnerDetail from './pages/teachers/LearnerDetail';
+import Users from './pages/admin/users/Users';
+import Report from './pages/admin/report/Report';
+import User from './pages/admin/user/User';
+import Home from './pages/admin/home/Home';
+
 const queryClient = new QueryClient();
 
 function App() {
@@ -21,6 +26,10 @@ function App() {
         <Route path="/learnerdetail" element={<LearnerDetail/>} />
         <Route path="/listlearner" element={<ListLearner/>} />
         <Route path="/" element={<Login />}  />
+        <Route path="/dashborad" element={<Home />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/users/:id" element={<User />} />
+        <Route path="/report" element={<Report />} />
       </Routes>
       <ToastContainer
         position="top-right"

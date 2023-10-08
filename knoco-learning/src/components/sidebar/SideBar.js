@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { memo } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,15 +10,7 @@ import { faSchool,
         faClipboard,
         faComment,
         faGear } from '@fortawesome/free-solid-svg-icons';
-import $ from "jquery";
-const SideBar = () => {
-    useEffect(() => {
-        $(document).ready(function() {
-            $('#menu-btn').click(function() {
-                $('#menu').toggleClass("active");
-            });
-        });
-    }, []);
+const SideBar = () => {  
     return (
         <div className="items">
             <ul>

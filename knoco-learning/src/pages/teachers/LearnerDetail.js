@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { memo } from "react";
 import Header from "../../components/header/Header"
 import Footer from "../../components/footer/Footer";
@@ -5,8 +6,16 @@ import SideBar from "../../components/sidebar/SideBar"
 import "./style.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
+import CardLearner from "../../components/detail/learnerDetail/CardLearner";
+import $ from "jquery";
 
 const LearnerDetail = ({ children, ...props }) => {
+    useEffect(() => {
+        // Add click event listener to menu-btn
+        $('.menu-btn').on('click', function() {
+            $('#menu').toggleClass('active'); // Toggle active class on #menu
+        });
+    }, []);
     return (
         <div className="body_page" {...props}>
             <section id="menu">
@@ -26,7 +35,7 @@ const LearnerDetail = ({ children, ...props }) => {
                 </header>
 
                 <div>
-                    {children}
+                    <CardLearner/>
                 </div>
 
                 <footer>

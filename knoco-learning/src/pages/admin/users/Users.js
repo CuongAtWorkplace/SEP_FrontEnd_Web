@@ -1,97 +1,82 @@
 import DataTable from "../../../components/admin/dataTable/DataTable";
 import "./users.scss";
 import React, { Component } from "react";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import Add from "../../../components/admin/add/Add";
 import { userRows } from "../../../data";
 
-class Users extends Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      response: {
-        "userId": 1,
-        "fullName": "Nguyen Xuan Ly",
-        "email": null,
-        "phone": null,
-        "image": null,
-        "address": null,
-        "isBan": true
-      }
-    }
-  }
+const Users = () => {
+  const [open, setOpen] = useState(false);
+  const [userRows, setUserRows] = useState([]); // State để lưu trữ dữ liệu người dùng
 
-  handleUserList = async () => {
-    const { userId, fullName, email, phone, image, address, isBan } = this.state;
-    try {
-        const response = await fetch('https://localhost:7169/api/Admin/GetListUser', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ userId, fullName, email, phone, image, address, isBan }),
-        });
+  useEffect(() => {
+    // Gọi API để lấy dữ liệu người dùng khi thành phần được tạo
+    fetch('https://localhost:7169/api/Admin/GetListUser') // Thay đổi URL thành đường dẫn API thực tế
+      .then((response) => response.json())
+      .then((data) => {
+        // Cập nhật state với dữ liệu người dùng từ phản hồi API
+        setUserRows(data);
+      })
+      .catch((error) => {
+        console.error('Lỗi gọi API:', error);
+      });
+  }, []);
 
-    } catch (error) {
-        console.log('Lỗi gọi API', error);
-    }
-
+  return (
+    <div className="users">
+      <div className="info">
+        <h1>Users</h1>
+        <button onClick={() => setOpen(true)}>Add New User</button>
+      </div>
+      <DataTable slug="users" columns={columns} rows={userRows} />
+      {open && <Add slug="user" columns={columns} setOpen={setOpen} />}
+    </div>
+  );
 };
 
 
-
-
-
-
-
-  // const columns = [
-  //   { field: "id", headerName: "ID", width: 90 },
-  //   {
-  //     field: "img",
-  //     headerName: "Avatar",
-  //     width: 100,
-  //     renderCell: (params) => {
-  //       return <img src={params.row.img || "/noavatar.png"} alt="" />;
-  //     },
-  //   },
-  //   {
-  //     field: "firstName",
-  //     type: "string",
-  //     headerName: "First name",
-  //     width: 150,
-  //   },
-  //   {
-  //     field: "lastName",
-  //     type: "string",
-  //     headerName: "Last name",
-  //     width: 150,
-  //   },
-  //   {
-  //     field: "email",
-  //     type: "string",
-  //     headerName: "Email",
-  //     width: 200,
-  //   },
-  //   {
-  //     field: "phone",
-  //     type: "string",
-  //     headerName: "Phone",
-  //     width: 180,
-  //   },
-  //   {
-  //     field: "createdAt",
-  //     headerName: "Created At",
-  //     width: 180,
-  //     type: "string",
-  //   },
-  //   {
-  //     field: "status",
-  //     headerName: "Status",
-  //     width: 100,
-  //     type: "string",
-  //   },
-  // ];
+  const columns = [
+    { field: "id", headerName: "UserId", width: 90 },
+    {
+      field: "img",
+      headerName: "Image",
+      width: 100,
+      renderCell: (params) => {
+        return <img src={params.row.img || "/noavatar.png"} alt="" />;
+      },
+    },
+    {
+      field: "fullName",
+      type: "string",
+      headerName: "FullName",
+      width: 150,
+    },
+    {
+      field: "email",
+      type: "string",
+      headerName: "Email",
+      width: 200,
+    },
+    {
+      field: "phone",
+      type: "string",
+      headerName: "Phone",
+      width: 180,
+    },
+    {
+      field: "createdAt",
+      headerName: "Address",
+      width: 180,
+      type: "string",
+    },
+    {
+      field: "status",
+      headerName: "Status",
+      width: 100,
+      type: "string",
+    },
+  ];
 
   // const Users = () => {
   //   const [open, setOpen] = useState(false);
@@ -107,5 +92,5 @@ class Users extends Component {
   //     </div>
   //   );
   // };
-}
+
 export default Users;

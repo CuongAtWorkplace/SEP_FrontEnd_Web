@@ -16,6 +16,14 @@ const LearnerDetail = ({ children, ...props }) => {
             $('#menu').toggleClass('active'); // Toggle active class on #menu
         });
     }, []);
+
+    const learnerDetails = {
+        name: "Le Quang Huy",
+        email: "john.doe@example.com",
+        profileImage: "../../components/detail/learnerDetail/profile.jpg",
+        gender: "Male",
+        phone: "0977935037"
+    };
     return (
         <div className="body_page" {...props}>
             <section id="menu">
@@ -35,7 +43,7 @@ const LearnerDetail = ({ children, ...props }) => {
                 </header>
 
                 <div>
-                    <CardLearner/>
+                    <CardLearner learner={learnerDetails}/>
                 </div>
 
                 <footer>

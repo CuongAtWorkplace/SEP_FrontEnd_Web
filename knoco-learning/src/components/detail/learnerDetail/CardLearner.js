@@ -2,15 +2,17 @@ import React from "react";
 import './style.css';
 import myImage from './profile.jpg';
 
-const CardLearner = () =>{
+const CardLearner = (props) =>{
+    const {learner} = props;
+
     return(
         <div className="container">
             <div className="profile-box">
                 <img src={myImage} alt="Profile"/>
-                <h2>Le Quang Huy</h2>
-                <p>Male</p>
-                <p>Email: alksdjalks@gmail.com</p>
-                <p>Phone number: 0977935037</p>
+                <h2>{learner.name}</h2>
+                <p>Gender: {learner.gender}</p>
+                <p>Email: {learner.email}</p>
+                <p>Phone number: {learner.phone}</p>
             </div>
         </div>
     );

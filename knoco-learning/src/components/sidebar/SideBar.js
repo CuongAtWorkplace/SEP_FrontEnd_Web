@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { memo } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,7 +10,15 @@ import { faSchool,
         faClipboard,
         faComment,
         faGear } from '@fortawesome/free-solid-svg-icons';
+import $ from "jquery";
+
 const SideBar = () => {  
+    useEffect(() => {
+        // Add click event listener to menu-btn
+        $('.menu-btn').on('click', function() {
+            $('#menu').toggleClass('active'); // Toggle active class on #menu
+        });
+    }, []);
     return (
         <div className="items">
             <ul>

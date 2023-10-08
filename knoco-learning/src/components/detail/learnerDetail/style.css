@@ -1,0 +1,15 @@
+.container{
+    margin-top: 90px;
+    padding-left: 100px;
+}
+.profile-box img{
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+}
+.profile-box h2{
+    text-align: center;
+}
+.profile-box p{
+    padding-left: 10px;
+}

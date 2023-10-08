@@ -1,7 +1,8 @@
 import { DataGrid, GridToolbar } from "@mui/x-data-grid"
 import "./dataTable.scss"
-import {GrTrash, GrView} from 'react-icons/gr'
+import { GrTrash, GrView } from 'react-icons/gr'
 import { Link } from "react-router-dom"
+import { useEffect } from "react"
 
 const DataTable = props => {
   const handleDelete = id => {
@@ -18,11 +19,11 @@ const DataTable = props => {
         <div className="action">
           <Link to={`/${props.slug}/${params.row.id}`}>
             {/* <img src="/view.svg" alt="" /> */}
-            <GrView alt=""/>
+            <GrView alt="" />
           </Link>
           <div className="delete" onClick={() => handleDelete(params.row.id)}>
             {/* <img src="/delete.svg" alt="" /> */}
-            <GrTrash alt=""/>
+            <GrTrash alt="" />
           </div>
         </div>
       )

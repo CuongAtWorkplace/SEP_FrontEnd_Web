@@ -17,13 +17,6 @@ const ClassDetail = ({ children, ...props }) => {
         });
     }, []);
 
-    const classDetails = {
-        name: "G63",
-        subject: "SEP490",
-        member: "5",
-        start: "01/09/2023",
-        end: "30/12/2023"
-    }
     return (
         <div className="body_page" {...props}>
             <section id="menu">
@@ -43,7 +36,7 @@ const ClassDetail = ({ children, ...props }) => {
                 </header>
 
                 <div>
-                    <CardClass classDt = {classDetails}/>
+                    <CardClass/>
                 </div>
 
                 <footer>

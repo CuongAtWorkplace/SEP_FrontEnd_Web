@@ -1,18 +1,50 @@
 import React from "react";
 import './style.css'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faUser,
+        faPeopleGroup,
+        faCalendarDays}from '@fortawesome/free-solid-svg-icons';
 const CardClass = (props) => {
     const {classDt} = props;
 
     return(
-        <div className="container">
-            <div className="classDetail">
-                <h2>Class Name: {classDt.name}</h2>
-                <p>Subject: {classDt.subject}</p>
-                <p>Members: {classDt.member}</p>
-                <p>Start date: {classDt.start}</p>
-                <p>End date: {classDt.end}</p>
+        <div className="conval">
+            <div className="values">
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faPeopleGroup} />
+                    <div>
+                        <h3>{classDt.name}</h3>
+                        <span>{classDt.subject}</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faUser} />
+                    <div>
+                        <h3>{classDt.member}</h3>
+                        <span>Members</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
+                    <div>
+                        <h3>{classDt.start}</h3>
+                        <span>Start date</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
+                    <div>
+                        <h3>{classDt.end}</h3>
+                        <span>End date</span>
+                    </div>
+                </div>
+                <div>
+                    <button className="btn-edit">
+                        Edit class
+                    </button>
             </div>
+            </div>
+            
         </div>
     );
 }

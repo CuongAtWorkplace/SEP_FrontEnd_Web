@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import $ from "jquery";
 import CardClass from "../../components/detail/classDetail/CardClass";
+import TableListLearnerInClass from "../../components/Table/TableListLearnerInClass";
 
 const ClassDetail = ({ children, ...props }) => {
     useEffect(() => {
@@ -44,6 +45,7 @@ const ClassDetail = ({ children, ...props }) => {
 
                 <div>
                     <CardClass classDt = {classDetails}/>
+                    <TableListLearnerInClass/>
                 </div>
 
                 <footer>

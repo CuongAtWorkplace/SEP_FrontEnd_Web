@@ -205,7 +205,7 @@
   
   .values .val-box{
     background: #fff;
-    width: 235px;
+    width: 220px;
     padding: 16px 20px;
     border-radius: 5px;
     display: flex;
@@ -213,7 +213,7 @@
     align-items: center;
   }
   
-  .values .val-box i{
+  .values .val-box .menu-icon{
     font-size: 25px;
     width: 60px;
     height: 60px;
@@ -223,16 +223,16 @@
     color: #fff;
     margin-right: 15px;
   }
-  .values .val-box:nth-child(1) i{
+  .values .val-box:nth-child(1){
     background: #7b74ec;
   }
-  .values .val-box:nth-child(2) i{
+  .values .val-box:nth-child(2){
     background: #5c8af0;
   }
-  .values .val-box:nth-child(3) i{
+  .values .val-box:nth-child(3){
     background: #e45d99;
   }
-  .values .val-box:nth-child(4) i{
+  .values .val-box:nth-child(4){
     background: #74daec;
   }
   .values .val-box h3{
@@ -241,8 +241,7 @@
   }
   
   .values .val-box span{
-    font-size: 15px;
-    color: #828997; 
+    font-size: 15px; 
   }
   
   footer {
@@ -259,6 +258,9 @@
   
   .pape-h2 {
     padding-right: 20px;
+  }
+  .children{
+    margin-top: 90px;
   }
   
   @media(max-width:769px){

@@ -34,7 +34,7 @@ const ListLearner = ({ children, ...props }) => {
                     <Header/>
                 </header>
 
-                <div>
+                <div className="children">
                     <TableListLearnerInClass/>
                 </div>
 

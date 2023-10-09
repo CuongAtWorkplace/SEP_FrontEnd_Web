@@ -13,6 +13,7 @@ import Users from './pages/admin/users/Users';
 import Report from './pages/admin/report/Report';
 import User from './pages/admin/user/User';
 import Home from './pages/admin/home/Home';
+import ViewAllCourse from './pages/manager/Course/ViewAllCourse';
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/users/:id" element={<User />} />
         <Route path="/report" element={<Report />} />
+        <Route path="/course" element={<ViewAllCourse />} />
       </Routes>
       <ToastContainer
         position="top-right"

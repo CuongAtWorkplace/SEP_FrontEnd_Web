@@ -11,12 +11,12 @@ import { faSchool,
         faComment,
         faGear } from '@fortawesome/free-solid-svg-icons';
 import $ from "jquery";
-const SideBar = () => {
+
+const SideBar = () => {  
     useEffect(() => {
-        $(document).ready(function() {
-            $('#menu-btn').click(function() {
-                $('#menu').toggleClass("active");
-            });
+        // Add click event listener to menu-btn
+        $('.menu-btn').on('click', function() {
+            $('#menu').toggleClass('active'); // Toggle active class on #menu
         });
     }, []);
     return (

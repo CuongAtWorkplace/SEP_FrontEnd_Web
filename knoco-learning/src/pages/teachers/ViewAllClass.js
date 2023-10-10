@@ -34,7 +34,7 @@ const ViewAllClass = ({ children, ...props }) => {
                     <Header/>
                 </header>
 
-                <div>
+                <div className="children">
                     <TableListClassTeacher/>
                 </div>
 

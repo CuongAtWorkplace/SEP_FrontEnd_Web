@@ -4,7 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faUser,
     faPeopleGroup,
-    faCalendarDays
+    faCalendarDays,
+    faSchool,
+    faHashtag,
+    faMoneyCheckDollar,
+    faFileLines,
+    faCalendarWeek,
+    faPhone
 } from '@fortawesome/free-solid-svg-icons';
 
 const CardClass = (props) => {
@@ -26,115 +32,113 @@ const CardClass = (props) => {
     };
 
     return (
+   
         <div className="conval">
             {classDt ? (
                 <div className="values">
-                    <div className="val-box">
-                        <FontAwesomeIcon className="menu-icon" icon={faPeopleGroup} />
-                        <div>
-                            <h3>Class Name</h3>
-                            <span>{classDt.className}</span>
-                        </div>
-                    </div>
-                    <div className="val-box">
-                        <FontAwesomeIcon className="menu-icon" icon={faPeopleGroup} />
-                        <div>
-                            <h3>Teacher Name</h3>
-                            <span>{classDt.teacherName}</span>
-                        </div>
-                    </div>
-                    <div className="val-box">
-                        <FontAwesomeIcon className="menu-icon" icon={faPeopleGroup} />
-                        <div>
-                            <h3>Course Name</h3>
-                            <span>{classDt.courseName}</span>
-                        </div>
-                    </div>
-                    <div className="val-box">
-                        <FontAwesomeIcon className="menu-icon" icon={faPeopleGroup} />
-                        <div>
-                            <h3>Number Student</h3>
-                            <span>{classDt.numberStudent}</span>
-                        </div>
-                    </div>
-                    <div className="val-box">
-                        <FontAwesomeIcon className="menu-icon" icon={faPeopleGroup} />
-                        <div>
-                            <h3>Topic</h3>
-                            <span>{classDt.topic}</span>
-                        </div>
-                    </div>
-                    <div className="val-box">
-                        <FontAwesomeIcon className="menu-icon" icon={faPeopleGroup} />
-                        <div>
-                            <h3>Quizze Name</h3>
-                            <span>{classDt.quizzeName}</span>
-                        </div>
-                    </div>
-                    <div className="val-box">
-                        <FontAwesomeIcon className="menu-icon" icon={faPeopleGroup} />
-                        <div>
-                            <h3>Schedule</h3>
-                            <span>{classDt.schedule}</span>
-                        </div>
-                    </div>
-                    <div className="val-box">
-                        <FontAwesomeIcon className="menu-icon" icon={faUser} />
-                        <div>
-                            <h3>Fee</h3>
-                            <span>{classDt.fee}</span>
-                        </div>
-                    </div>
-                    <div className="val-box">
-                        <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
-                        <div>
-                            <h3>Number Of Week</h3>
-                            <span>{classDt.numberOfWeek}</span>
-                        </div>
-                    </div>
-                    <div className="val-box">
-                        <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
-                        <div>
-                            <h3>Number Phone</h3>
-                            <span>{classDt.numberPhone}</span>
-                        </div>
-                    </div>
-                    <div className="val-box">
-                        <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
-                        <div>
-                            <h3>Description</h3>
-                            <span>{classDt.description}</span>
-                        </div>
-                    </div>
-                    <div className="val-box">
-                        <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
-                        <div>
-                            <h3>Create Date</h3>
-                            <span>{classDt.createDate}</span>
-                        </div>
-                    </div>
-                    <div className="val-box">
-                        <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
-                        <div>
-                            <h3>startDate</h3>
-                            <span>{classDt.startDate}</span>
-                        </div>
-                    </div>
-                    <div className="val-box">
-                        <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
-                        <div>
-                            <h3>endDate</h3>
-                            <span>endDate{classDt.endDate}</span>
-                        </div>
-                    </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faPeopleGroup} />
                     <div>
-                        <button className="btn-edit">
-                            Edit class
-                        </button>
+                        <h3>Class Name</h3>
+                        <span>{classDt.className}</span>
                     </div>
                 </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faUser} />
+                    <div>
+                        <h3>Teacher Name</h3>
+                        <span>{classDt.teacherName}</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faSchool} />
+                    <div>
+                        <h3>Course Name</h3>
+                        <span>{classDt.courseName}</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faPeopleGroup} />
+                    <div>
+                        <h3>Number Student</h3>
+                        <span>{classDt.numberStudent}</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faHashtag} />
+                    <div>
+                        <h3>Topic</h3>
+                        <span>{classDt.topic}</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faMoneyCheckDollar} />
+                    <div>
+                        <h3>Fee</h3>
+                        <span>{classDt.fee}</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faCalendarWeek} />
+                    <div>
+                        <h3>Number Of Week</h3>
+                        <span>{classDt.numberOfWeek}</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faPhone} />
+                    <div>
+                        <h3>Number Phone</h3>
+                        <span>{classDt.numberPhone}</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faFileLines} />
+                    <div>
+                        <h3>Description</h3>
+                        <span>{classDt.description}</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
+                    <div>
+                        <h3>Create Date</h3>
+                        <span>{classDt.createDate}</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
+                    <div>
+                        <h3>startDate</h3>
+                        <span>{classDt.startDate}</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
+                    <div>
+                        <h3>endDate</h3>
+                        <span>{classDt.endDate}</span>
+                    </div>
+                </div>
+                <div className="val-box-btn">
+                    <button className="btn btn-edit">
+                        Edit class
+                    </button>
+                </div>
+                <div className="val-box-btn">
+                    <button className="btn btn-edit">
+                        List Quizz
+                    </button>
+                </div>
+                <div className="val-box-btn">
+                    <button className="btn btn-edit">
+                        Schedule
+                    </button>
+                </div>
+            </div>
             ) : (
                 <p>Loading class information...</p>
+                
             )}
         </div>
     );

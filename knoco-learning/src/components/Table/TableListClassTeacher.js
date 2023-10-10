@@ -14,7 +14,8 @@ const ColumnFilter = ({ column }) => {
   );
 };
 
-const TableListClassTeacher = () => {
+const TableListClassTeacher = (props) => {
+  const { userId } = props;
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const TableListClassTeacher = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('https://localhost:7169/api/Class/GetAllClassDetail/GetAllClassDetail'); // Thay thế URL bằng API thực tế
+      const response = await fetch(`https://localhost:7169/api/Class/GetAllClassToTeacher/${2}`); // Thay thế URL bằng API thực tế
       const responseData = await response.json();
       setData(responseData);
     } catch (error) {
@@ -98,7 +99,7 @@ const TableListClassTeacher = () => {
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
   ];
-  
+
   return (
     <Table columns={columns} data={data} />
   );

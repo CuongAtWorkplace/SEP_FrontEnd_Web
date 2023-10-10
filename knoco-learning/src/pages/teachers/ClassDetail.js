@@ -37,7 +37,7 @@ const ClassDetail = ({ children, ...props }) => {
                 </header>
 
                 <div>
-                    <CardClass classDt = {classDetails}/>
+                    <CardClass/>
                     <TableListLearnerInClass/>
                 </div>
 

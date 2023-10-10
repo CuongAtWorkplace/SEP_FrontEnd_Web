@@ -1,19 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import './style.css';
 import myImage from './profile.jpg';
 
 const CardLearner = (props) =>{
-    const {learner} = props;
+    const {userId} = props;
+    const [learnerId, setClassDt] = useState(null);
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`https://localhost:7169/api/User/GetStudentInClassById/${3}`); // Thay thế URL bằng API thực tế
+            const responseData = await response.json();
+            setClassDt(responseData);
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu lớp học:', error);
+        }
+    };
 
     return(
         <div className="container">
-            <div className="profile-box">
+            {learnerId ? (
+                <div className="profile-box">
                 <img src={myImage} alt="Profile"/>
-                <h2>{learner.name}</h2>
-                <p>Gender: {learner.gender}</p>
-                <p>Email: {learner.email}</p>
-                <p>Phone number: {learner.phone}</p>
+                <h2>{learnerId.fullName}</h2>
+                <p>Email: {learnerId.email}</p>
+                <p>Phone number: {learnerId.phone}</p>
+                <p>Description: {learnerId.description}</p>
+                <p>Address: {learnerId.address}</p>
             </div>
+            ) : (
+                <p>Loading class information...</p>
+            )}
+            
         </div>
     );
 }

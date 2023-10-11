@@ -7,10 +7,9 @@ import "./style.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import $ from "jquery";
-import CardClass from "../../components/detail/classDetail/CardClass";
-import TableListLearnerInClass from "../../components/Table/TableListLearnerInClass";
+import CardEditClass from "../../components/edit/CardEditClass";
 
-const ClassDetail = ({ children, ...props }) => {
+const EditClass = ({ children, ...props }) => {
     useEffect(() => {
         // Add click event listener to menu-btn
         $('.menu-btn').on('click', function() {
@@ -36,9 +35,8 @@ const ClassDetail = ({ children, ...props }) => {
                     <Header/>
                 </header>
 
-                <div>
-                    <CardClass/>
-                    <TableListLearnerInClass/>
+                <div className="children">
+                    <CardEditClass/>
                 </div>
 
                 <footer>
@@ -49,4 +47,4 @@ const ClassDetail = ({ children, ...props }) => {
     );
 };
 
-export default memo(ClassDetail);
+export default memo(EditClass);

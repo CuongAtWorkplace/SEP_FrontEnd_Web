@@ -26,6 +26,12 @@ class ViewAllCourse extends Component {
             originalData: [],
             showModal: false,
             searchText: "",
+            courseId: "",
+            courseName: "",
+            Description: "",
+            CreateDate: "",
+            Image: "",
+            IsDelete: false
         }
     }
 
@@ -53,12 +59,23 @@ class ViewAllCourse extends Component {
         // Lấy ID của hàng được click và xử lý nó
         this.setState({ showModal: true });
         const clickedRowId = params.row.courseId;
+        fetch(`https://localhost:7169/api/Course/GetCourseById?courseId=${clickedRowId}`)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    courseId: data.courseId,
+                    courseName: data.courseName,
+                    Description: data.Description,
+                    CreateDate: data.CreateDate,
+                    Image: data.Image,
+                });
+            });
+
         console.log('Đã click vào hàng có ID:', clickedRowId);
     };
     handleSearchChange = (e) => {
         const { originalData } = this.state;
         const searchText = e.target.value;
-
 
         const filteredCourses = originalData.filter(course =>
             course.courseName.toLowerCase().includes(searchText.toLowerCase())
@@ -67,9 +84,11 @@ class ViewAllCourse extends Component {
 
         this.setState({ searchText, ListAllCourse: filteredCourses });
     }
-    render() {
-        const { ListAllCourse, showModal, searchText } = this.state;
 
+
+    render() {
+        const { ListAllCourse, showModal, searchText ,courseId,courseName,Description,CreateDate,Image} = this.state;
+        console.log(courseName);
 
 
         const columns = [
@@ -110,7 +129,7 @@ class ViewAllCourse extends Component {
                                     </div>
                                     <div className="search">
                                         <FontAwesomeIcon className="icon-search" icon={faMagnifyingGlass} />
-                                        <input type="text"  onChange={this.handleSearchChange} placeholder="Search" />
+                                        <input type="text" onChange={this.handleSearchChange} placeholder="Search" />
                                     </div>
                                 </div>
 
@@ -168,8 +187,8 @@ class ViewAllCourse extends Component {
                                     <form >
                                         <div class="formsix-pos">
                                             <div className="form-group i-email">
-                                                <input type="text" class="form-control" required="" id=""
-                                                    placeholder="Course Name" />
+                                                <input type="text" class="form-control" required="" id="" value={this.state.courseId}
+                                                    placeholder="Course Id" />
                                             </div>
                                         </div>
                                         {/* <div class="formsix-pos">

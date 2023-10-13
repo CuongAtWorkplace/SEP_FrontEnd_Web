@@ -5,9 +5,9 @@ import { Link } from "react-router-dom"
 import { useEffect } from "react"
 
 const DataTable = props => {
-  const handleDelete = id => {
+  const handleDelete = userId => {
     // delete the item
-    // mutation.mutate(id)
+    // mutation.mutate(userId)
   }
 
   const actionColumn = {
@@ -17,11 +17,11 @@ const DataTable = props => {
     renderCell: params => {
       return (
         <div className="action">
-          <Link to={`/${props.slug}/${params.row.id}`}>
+          <Link to={`/${props.slug}/${params.row.userId}`}>
             {/* <img src="/view.svg" alt="" /> */}
             <GrView alt="" />
           </Link>
-          <div className="delete" onClick={() => handleDelete(params.row.id)}>
+          <div className="delete" onClick={() => handleDelete(params.row.userId)}>
             {/* <img src="/delete.svg" alt="" /> */}
             <GrTrash alt="" />
           </div>

@@ -75,7 +75,7 @@ class ViewAllCourse extends Component {
                             <Footer />
                         </footer>
                     </section>
-                </ div>
+                </div>
 
 
             </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import './style.css';
 import myImage from './profile.jpg';
 
-const CardLearner = (props) =>{
+const CardLearner = ({ learner, onClose },props) =>{
     const {userId} = props;
     const [learnerId, setClassDt] = useState(null);
 
@@ -30,9 +30,21 @@ const CardLearner = (props) =>{
                 <p>Phone number: {learnerId.phone}</p>
                 <p>Description: {learnerId.description}</p>
                 <p>Address: {learnerId.address}</p>
+                <button onClick={onClose}>Back</button>
             </div>
             ) : (
-                <p>Loading class information...</p>
+                <div className="container">
+                    <div className="profile-box">
+                    <img src={myImage} alt="Profile"/>
+                    <h2>fullName</h2>
+                    <p>Email: email</p>
+                    <p>Phone number: phone</p>
+                    <p>Description: description</p>
+                    <p>Address: address</p>
+                    <button onClick={onClose}>Back</button>
+                    </div>
+                </div>
+
             )}
             
         </div>

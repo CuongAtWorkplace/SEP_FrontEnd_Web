@@ -13,7 +13,7 @@ import {
     faPhone
 } from '@fortawesome/free-solid-svg-icons';
 
-const CardClass = (props) => {
+const CardClass = ({ setIsEditClassPopupVisible },props) => {
     const { classId } = props;
     const [classDt, setClassDt] = useState(null);
 
@@ -137,8 +137,110 @@ const CardClass = (props) => {
                 </div>
             </div>
             ) : (
-                <p>Loading class information...</p>
-                
+                //<p>Loading class information...</p>
+                <div className="conval">
+                    <div className="values">
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faPeopleGroup} />
+                    <div>
+                        <h3>Class Name</h3>
+                        <span>className</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faUser} />
+                    <div>
+                        <h3>Teacher Name</h3>
+                        <span>teacherName</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faSchool} />
+                    <div>
+                        <h3>Course Name</h3>
+                        <span>courseName</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faPeopleGroup} />
+                    <div>
+                        <h3>Number Student</h3>
+                        <span>numberStudent</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faHashtag} />
+                    <div>
+                        <h3>Topic</h3>
+                        <span>topic</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faMoneyCheckDollar} />
+                    <div>
+                        <h3>Fee</h3>
+                        <span>fee</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faCalendarWeek} />
+                    <div>
+                        <h3>Number Of Week</h3>
+                        <span>numberOfWeek</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faPhone} />
+                    <div>
+                        <h3>Number Phone</h3>
+                        <span>numberPhone</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faFileLines} />
+                    <div>
+                        <h3>Description</h3>
+                        <span>description</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
+                    <div>
+                        <h3>Create Date</h3>
+                        <span>createDate</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
+                    <div>
+                        <h3>startDate</h3>
+                        <span>startDate</span>
+                    </div>
+                </div>
+                <div className="val-box">
+                    <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
+                    <div>
+                        <h3>endDate</h3>
+                        <span>endDate</span>
+                    </div>
+                </div>
+                <div className="val-box-btn">
+                    <button className="btn btn-edit" onClick={() => setIsEditClassPopupVisible(true)}>
+                        Edit class
+                    </button>
+                </div>
+                <div className="val-box-btn">
+                    <button className="btn btn-edit">
+                        List Quizz
+                    </button>
+                </div>
+                <div className="val-box-btn">
+                    <button className="btn btn-edit" >
+                        Schedule
+                    </button>
+                </div>
+            </div>
+                </div>
             )}
         </div>
     );

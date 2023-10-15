@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import './CardEditClass.css'
 
-const CardEditClass = (props) => {
+const CardEditClass = ({ closePopup }) => {
+
     const { classId } = props;
     const [classDt, setClassDt] = useState(null);
 
@@ -42,6 +43,7 @@ const CardEditClass = (props) => {
         e.preventDefault();
         // Add your form submission logic here
         console.log(formData); // For example, log the form data to the console
+        closePopup();
     };
 
     return (
@@ -74,6 +76,7 @@ const CardEditClass = (props) => {
                     <input type="date" name="EndDate" value={classDt.endDate} onChange={handleInputChange} required />
 
                     <input id="submit" type="submit" name="submit" value="Edit class" />
+                    <button type="button" onClick={closePopup} className="btn-cancel">Cancel</button>
                 </form>
             ) : (
                 <p>Loading class information...</p>

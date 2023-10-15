@@ -24,6 +24,18 @@ const SideBar = () => {
             <ul>
                 <li>
                     <FontAwesomeIcon className="menu-icon" icon={faSchool} />
+                    <Link className="link-a" to="#">Dashboard</Link>
+                </li>
+                <li>
+                    <FontAwesomeIcon className="menu-icon" icon={faSchool} />
+                    <Link className="link-a" to="#">User Manage</Link>
+                </li>
+                <li>
+                    <FontAwesomeIcon className="menu-icon" icon={faSchool} />
+                    <Link className="link-a" to="#">Report</Link>
+                </li>
+                <li>
+                    <FontAwesomeIcon className="menu-icon" icon={faSchool} />
                     <Link className="link-a" to="#">Manage Courses</Link>
                 </li>
                 <li>

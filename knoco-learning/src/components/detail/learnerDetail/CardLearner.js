@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import './style.css';
 import myImage from './profile.jpg';
 
-const CardLearner = ({ learner, onClose },props) =>{
+const CardLearner = ({ learner, onBackClick },props) =>{
     const {userId} = props;
     const [learnerId, setClassDt] = useState(null);
 
@@ -30,7 +30,7 @@ const CardLearner = ({ learner, onClose },props) =>{
                 <p>Phone number: {learnerId.phone}</p>
                 <p>Description: {learnerId.description}</p>
                 <p>Address: {learnerId.address}</p>
-                <button onClick={onClose}>Back</button>
+                <button>Back</button>
             </div>
             ) : (
                 <div className="container">
@@ -41,7 +41,7 @@ const CardLearner = ({ learner, onClose },props) =>{
                     <p>Phone number: phone</p>
                     <p>Description: description</p>
                     <p>Address: address</p>
-                    <button onClick={onClose}>Back</button>
+                    <button onClick={onBackClick}>Back</button>
                     </div>
                 </div>
 

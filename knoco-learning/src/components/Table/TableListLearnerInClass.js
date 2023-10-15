@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import CardLearner from "../detail/learnerDetail/CardLearner";
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
 
@@ -17,6 +18,7 @@ const ColumnFilter = ({ column }) => {
 const TableListLearnerInClass = (props) => {
   const { userId } = props;
   const [data, setData] = useState([]);
+  const [selectedLearner, setSelectedLearner] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -32,9 +34,7 @@ const TableListLearnerInClass = (props) => {
     }
   };
   const handleRowClick = (row) => {
-    // Handle the row click event here, for example, navigate to a new page or open a modal
-    console.log('Clicked row data:', row);
-    // Implement your logic here, e.g., redirect to a new page
+    setSelectedLearner(row.original);
   };
   const columns = [
     {
@@ -65,7 +65,11 @@ const TableListLearnerInClass = (props) => {
   ];
 
   return (
-    <Table columns={columns} data={data} onRowClick={handleRowClick}/>
+    <div>
+        <Table columns={columns} data={data} onRowClick={handleRowClick}/>
+        {selectedLearner && <CardLearner learner={selectedLearner} onClose={() => setSelectedLearner(null)} />}
+    </div>
+    
   );
 }
 

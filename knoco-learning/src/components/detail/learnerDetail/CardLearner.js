@@ -12,7 +12,7 @@ const CardLearner = (props) =>{
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/User/GetStudentInClassById/${3}`); // Thay thế URL bằng API thực tế
+            const response = await fetch(`https://localhost:7169/api/User/GetStudentDetailInClass/${3}`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setClassDt(responseData);
         } catch (error) {

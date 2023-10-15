@@ -27,6 +27,7 @@
     "recharts": "^2.8.0",
     "sass": "^1.68.0",
     "sourcemap-codec": "^1.4.8",
+    "stringee-react-native": "^1.5.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

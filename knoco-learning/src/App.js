@@ -15,6 +15,7 @@ import User from './pages/admin/user/User';
 import Home from './pages/admin/home/Home';
 import ViewAllCourse from './pages/manager/Course/ViewAllCourse';
 import EditClass from './pages/teachers/EditClass';
+import VideoCall from './pages/teachers/VideoCall';
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/report" element={<Report />} />
         <Route path="/course" element={<ViewAllCourse />} />
         <Route path="/editclass" element={<EditClass />} />
+        <Route path="/videocall" element={<VideoCall />} />
       </Routes>
       <ToastContainer
         position="top-right"

@@ -23,7 +23,7 @@ const CardClass = (props) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/Class/GetClassToTeacherById/${1}`); // Thay thế URL bằng API thực tế
+            const response = await fetch(`https://localhost:7169/api/Class/GetTeacherClassDetail/${1}`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setClassDt(responseData);
         } catch (error) {

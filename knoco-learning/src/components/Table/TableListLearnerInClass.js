@@ -24,7 +24,7 @@ const TableListLearnerInClass = (props) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`https://localhost:7169/api/User/GetAllStudentInClass/${1}`); // Thay thế URL bằng API thực tế
+      const response = await fetch(`https://localhost:7169/api/User/GetListStudentInClass/${1}`); // Thay thế URL bằng API thực tế
       const responseData = await response.json();
       setData(responseData);
     } catch (error) {

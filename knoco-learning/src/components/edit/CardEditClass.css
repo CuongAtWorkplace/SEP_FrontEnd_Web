@@ -7,7 +7,7 @@ form{
     border: 1px solid #80808000;
     grid-column: 6/9;
     grid-row: 3;
-    height: 670px;
+    height: 550px;
     width: 352px;
     display: flex;
     flex-direction: column;
@@ -19,8 +19,8 @@ form{
     margin-bottom: 60px;
 }
 .card-edit-class h2{
-    margin-top: 50px;
-    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .card-edit-class label{
     display: block;
@@ -29,8 +29,8 @@ form{
 input{
     display: block;
     border-bottom: 2px solid #00BCD4;
-    margin-top: 6px;
-    margin-bottom: 10px;
+    margin-top: 2px;
+    margin-bottom: 5px;
     outline-style: none;
 }
 input[type="text"]{
@@ -55,7 +55,15 @@ input#submit{
     border-radius: 10px;
     border: none;
     position: absolute;
-    bottom: 10px;
+    bottom: 5px;
+    cursor: pointer;
+    background: linear-gradient(to right, #fc00ff, #00dbde);
+}
+.btn-cancel{
+    padding: 7px;
+    width: 50%;
+    border-radius: 10px;
+    border: none;
     cursor: pointer;
     background: linear-gradient(to right, #fc00ff, #00dbde);
 }

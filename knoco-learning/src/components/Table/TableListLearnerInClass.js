@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import CardLearner from "../detail/learnerDetail/CardLearner";
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
 
@@ -17,6 +18,7 @@ const ColumnFilter = ({ column }) => {
 const TableListLearnerInClass = (props) => {
   const { userId } = props;
   const [data, setData] = useState([]);
+  const [selectedLearner, setSelectedLearner] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -31,7 +33,9 @@ const TableListLearnerInClass = (props) => {
       console.error('Lỗi khi lấy dữ liệu:', error);
     }
   };
-  
+  const handleRowClick = (row) => {
+    setSelectedLearner(row.original);
+  };
   const columns = [
     {
       Header: 'Full Name',
@@ -61,7 +65,11 @@ const TableListLearnerInClass = (props) => {
   ];
 
   return (
-    <Table columns={columns} data={data} />
+    <div>
+        <Table columns={columns} data={data} onRowClick={handleRowClick}/>
+        {selectedLearner && <CardLearner learner={selectedLearner} onClose={() => setSelectedLearner(null)} />}
+    </div>
+    
   );
 }
 

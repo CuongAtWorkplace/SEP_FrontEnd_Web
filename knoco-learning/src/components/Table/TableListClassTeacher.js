@@ -31,7 +31,11 @@ const TableListClassTeacher = (props) => {
       console.error('Lỗi khi lấy dữ liệu:', error);
     }
   };
-
+  const handleRowClick = (row) => {
+    // Handle the row click event here, for example, navigate to a new page or open a modal
+    console.log('Clicked row data:', row);
+    // Implement your logic here, e.g., redirect to a new page
+  };
   const columns = [
     {
       Header: 'Class Name',
@@ -101,7 +105,7 @@ const TableListClassTeacher = (props) => {
   ];
 
   return (
-    <Table columns={columns} data={data} />
+    <Table columns={columns} data={data} onRowClick={handleRowClick}/>
   );
 }
 

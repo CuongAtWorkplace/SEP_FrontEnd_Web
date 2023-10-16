@@ -33,8 +33,11 @@ const TableListLearnerInClass = (props) => {
       console.error('Lỗi khi lấy dữ liệu:', error);
     }
   };
-  const handleRowClick = (row) => {
-    setSelectedLearner(row.original);
+  const handleRowClick = (learner) => {
+    setSelectedLearner(learner);
+  };
+  const handleBackButtonClick = () => {
+    setSelectedLearner(null); // Reset selectedLearner to hide the popup
   };
   const columns = [
     {
@@ -63,11 +66,57 @@ const TableListLearnerInClass = (props) => {
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
   ];
-
+  const datafake = [
+    {
+      fullName: "alksdjf",
+      email: "kjasdhfkjasdf",
+      phone: "3213535434",
+      image: "alksdjfalskdf",
+      address:"ajshdkajsdf",
+    },
+    {
+      fullName: "alksdjf",
+      email: "kjasdhfkjasdf",
+      phone: "3213535434",
+      image: "alksdjfalskdf",
+      address:"ajshdkajsdf",
+    },
+    {
+      fullName: "alksdjf",
+      email: "kjasdhfkjasdf",
+      phone: "3213535434",
+      image: "alksdjfalskdf",
+      address:"ajshdkajsdf",
+    },
+    {
+      fullName: "alksdjf",
+      email: "kjasdhfkjasdf",
+      phone: "3213535434",
+      image: "alksdjfalskdf",
+      address:"ajshdkajsdf",
+    },
+    {
+      fullName: "alksdjf",
+      email: "kjasdhfkjasdf",
+      phone: "3213535434",
+      image: "alksdjfalskdf",
+      address:"ajshdkajsdf",
+    },
+    {
+      fullName: "4444",
+      email: "kjasdhfkjasdf",
+      phone: "3213535434",
+      image: "alksdjfalskdf",
+      address:"ajshdkajsdf",
+    },
+  ]
   return (
     <div>
-        <Table columns={columns} data={data} onRowClick={handleRowClick}/>
-        {selectedLearner && <CardLearner learner={selectedLearner} onClose={() => setSelectedLearner(null)} />}
+      {selectedLearner ? (
+        <CardLearner learner={selectedLearner} onBackClick={handleBackButtonClick} />
+      ) : (
+        <Table columns={columns} data={datafake} onRowClick={handleRowClick} />
+      )}
     </div>
     
   );

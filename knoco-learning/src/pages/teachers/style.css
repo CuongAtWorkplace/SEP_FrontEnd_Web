@@ -250,6 +250,7 @@
   }
   .children{
     margin-top: 90px;
+    margin-bottom: 100px;
   }
   .popup {
     position: fixed;

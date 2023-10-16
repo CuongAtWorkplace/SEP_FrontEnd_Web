@@ -40,7 +40,7 @@ const ClassDetail = ({ children, ...props }) => {
                     <Header/>
                 </header>
 
-                <div>
+                <div className="children">
                     <CardClass setIsEditClassPopupVisible={setIsEditClassPopupVisible}/>
                     <TableListLearnerInClass/>
                     {isEditClassPopupVisible && (

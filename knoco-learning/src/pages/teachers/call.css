@@ -1,31 +1,25 @@
-#video-container {
-    position: relative;
-    margin: auto;
-    width: 640px;
+[v-cloak] { display: none; }
+
+.header-highlight {
+  color: #ff4954;
 }
 
-video {
-    background: #dee;
+.info {
+  padding: 1.5rem;
 }
 
-#localVideo {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 120px;
-    z-index: 10;
-    background: #333;
+.container {
+  padding-top: 1rem;
 }
 
-#remoteVideo {
-    width: 100%;
+#videos {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
 }
 
-#action-buttons {
-    margin: auto;
-    text-align: center;
-}
-
-.hidden-first {
-    display: none;
+#videos video {
+  flex: 1 1 50%;
+  padding: 0;
+  min-width: 0;
 }

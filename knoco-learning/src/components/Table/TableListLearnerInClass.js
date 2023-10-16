@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Table from "./Table";
 import CardLearner from "../detail/learnerDetail/CardLearner";
+
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
-
+  
   return (
     <input
       type="text"
@@ -16,9 +18,10 @@ const ColumnFilter = ({ column }) => {
 };
 
 const TableListLearnerInClass = (props) => {
-  const { userId } = props;
+  const { classId } = props;
   const [data, setData] = useState([]);
   const [selectedLearner, setSelectedLearner] = useState(null);
+  const params = useParams();
 
   useEffect(() => {
     fetchData();
@@ -26,7 +29,7 @@ const TableListLearnerInClass = (props) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`https://localhost:7169/api/User/GetListStudentInClass/${1}`); // Thay thế URL bằng API thực tế
+      const response = await fetch(`https://localhost:7169/api/User/GetListStudentInClass/${params.classId}`); // Thay thế URL bằng API thực tế
       const responseData = await response.json();
       setData(responseData);
     } catch (error) {
@@ -66,56 +69,13 @@ const TableListLearnerInClass = (props) => {
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
   ];
-  const datafake = [
-    {
-      fullName: "alksdjf",
-      email: "kjasdhfkjasdf",
-      phone: "3213535434",
-      image: "alksdjfalskdf",
-      address:"ajshdkajsdf",
-    },
-    {
-      fullName: "alksdjf",
-      email: "kjasdhfkjasdf",
-      phone: "3213535434",
-      image: "alksdjfalskdf",
-      address:"ajshdkajsdf",
-    },
-    {
-      fullName: "alksdjf",
-      email: "kjasdhfkjasdf",
-      phone: "3213535434",
-      image: "alksdjfalskdf",
-      address:"ajshdkajsdf",
-    },
-    {
-      fullName: "alksdjf",
-      email: "kjasdhfkjasdf",
-      phone: "3213535434",
-      image: "alksdjfalskdf",
-      address:"ajshdkajsdf",
-    },
-    {
-      fullName: "alksdjf",
-      email: "kjasdhfkjasdf",
-      phone: "3213535434",
-      image: "alksdjfalskdf",
-      address:"ajshdkajsdf",
-    },
-    {
-      fullName: "4444",
-      email: "kjasdhfkjasdf",
-      phone: "3213535434",
-      image: "alksdjfalskdf",
-      address:"ajshdkajsdf",
-    },
-  ]
+  
   return (
     <div>
       {selectedLearner ? (
         <CardLearner learner={selectedLearner} onBackClick={handleBackButtonClick} />
       ) : (
-        <Table columns={columns} data={datafake} onRowClick={handleRowClick} />
+        <Table columns={columns} data={data} onRowClick={handleRowClick} />
       )}
     </div>
     

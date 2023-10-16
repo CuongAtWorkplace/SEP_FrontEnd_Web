@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Table from "./Table";
+
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
-
   return (
     <input
       type="text"
@@ -15,8 +15,8 @@ const ColumnFilter = ({ column }) => {
   );
 };
 
-const TableListClassTeacher = (props) => {
-  const { userId } = props;
+const TableListClassTeacher = () => {
+  //const { userId = 2 } = props;
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
@@ -26,19 +26,19 @@ const TableListClassTeacher = (props) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`https://localhost:7169/api/Class/GetTeacherClassList/${2}`); // Thay thế URL bằng API thực tế
+      const response = await fetch(`https://localhost:7169/api/Class/GetTeacherClassList/${2}`);
       const responseData = await response.json();
       setData(responseData);
     } catch (error) {
       console.error('Lỗi khi lấy dữ liệu:', error);
     }
   };
+
   const handleRowClick = (row) => {
-    // Handle the row click event here
     console.log('Clicked row data:', row);
-    // Implement your logic here, e.g., navigate to a new page with the userId parameter
-    navigate(`/classdetail?id=${row.userId}`); // Navigate to the new page with the userId parameter in the URL
+    navigate(`/classdetail/${row.classId}`);
   };
+
   const columns = [
     {
       Header: 'Class Name',
@@ -106,40 +106,8 @@ const TableListClassTeacher = (props) => {
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
   ];
-  const datafake = [
-    {
-      className: "alksdasdf",
-      teacherName: "kljflkjgflk",
-      courseName: "kjkjkcxnvm",
-      numberStudent: "m,ncv,xmvn,mxc",
-      topic: "oiwuroiwer",
-      quizzName: "lkasjdlkasjdf",
-      schedule: "xcaasdfasd",
-      fee: "owiuurwer",
-      numberOfWeek: "popoaipaf",
-      createDate: "qwerqwerl",
-      startDate: "asfalkdsfj",
-      endDate: "aksdn,masd",
-      status: "laksdjlkasdf"
-    },
-    {
-      className: "alksdasdf",
-      teacherName: "kljflkjgflk",
-      courseName: "kjkjkcxnvm",
-      numberStudent: "m,ncv,xmvn,mxc",
-      topic: "oiwuroiwer",
-      quizzName: "lkasjdlkasjdf",
-      schedule: "xcaasdfasd",
-      fee: "owiuurwer",
-      numberOfWeek: "popoaipaf",
-      createDate: "qwerqwerl",
-      startDate: "asfalkdsfj",
-      endDate: "aksdn,masd",
-      status: "laksdjlkasdf"
-    },
-  ];
   return (
-    <Table columns={columns} data={datafake} onRowClick={handleRowClick}/>
+    <Table columns={columns} data={data} onRowClick={handleRowClick} />
   );
 }
 

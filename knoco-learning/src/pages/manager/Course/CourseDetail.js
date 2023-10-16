@@ -16,15 +16,17 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { BsSuitHeartFill, BsBookmarkPlusFill } from "react-icons/bs";
+import { useParams } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 // import { Modal, Button } from 'react-bootstrap';
 import "./ViewAllCourse.scss";
 
-class ViewAllCourse extends Component {
+class CourseDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ListAllCourse: [],
-            originalData: [],
+            CourseDetail: {},
+            classInCourse: [],
             showModal: false,
             searchText: "",
             courseId: "",
@@ -36,16 +38,54 @@ class ViewAllCourse extends Component {
         }
     }
 
-    refreshListByGenre() {
-        fetch(`https://localhost:7169/api/Course/GetAllCourse`)
+    CourseDetail() {
+
+        fetch(`https://localhost:7169/api/Course/GetCourseById?courseId=1`)
             .then(response => response.json())
             .then(data => {
                 this.setState({
-                    originalData: data,
-                    ListAllCourse: data
+                    CourseDetail: data,
                 });
             });
     }
+
+    classInCourse() {
+
+        fetch(`https://localhost:7169/api/Course/GetClassInCourse?courseId=1`)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    classInCourse: data,
+                });
+            });
+    }
+
+    UpdateCourse = async () => {
+
+
+        const { } = this.state;
+        try {
+            const response = await fetch(``, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({}),
+            });
+
+            if (response.ok) {
+
+                window.location.href = "/coursedetail";
+            } else {
+
+            }
+        } catch (error) {
+            // Xử lý lỗi gọi API
+            console.log('Lỗi gọi API', error);
+        }
+
+    };
+
     handleShow = () => {
         this.setState({ showModal: true })
     }
@@ -53,25 +93,11 @@ class ViewAllCourse extends Component {
         this.setState({ showModal: false });
     }
     componentDidMount() {
-        this.refreshListByGenre();
+        this.CourseDetail();
+        this.classInCourse();
     };
 
     handleRowClick = (courseId) => {
-        window.location.href = `/coursedetail/${courseId}`
-        // Lấy ID của hàng được click và xử lý nó
-     
-        // const clickedRowId = params.row.courseId;
-        // fetch(`https://localhost:7169/api/Course/GetCourseById?courseId=${clickedRowId}`)
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         this.setState({
-        //             courseId: data.courseId,
-        //             courseName: data.courseName,
-        //             Description: data.Description,
-        //             CreateDate: data.CreateDate,
-        //             Image: data.Image,
-        //         });
-        //     });
 
         console.log('Đã click vào hàng có ID:', courseId);
     };
@@ -89,29 +115,19 @@ class ViewAllCourse extends Component {
 
 
     render() {
-        const { ListAllCourse, showModal, searchText ,courseId,courseName,Description,CreateDate,Image} = this.state;
-        console.log(courseName);
+
+        const { CourseDetail, classInCourse } = this.state;
 
 
         const columns = [
             // Định nghĩa cấu trúc cột cho DataGrid
 
-            { field: 'courseId', headerName: 'ID', width: 70 },
-            { field: 'courseName', headerName: 'Name', width: 150 },
-            { field: 'description', headerName: 'Description', width: 250 },
-            { field: 'createDate', headerName: 'CreateDate', width: 250 },
-            { field: 'image', headerName: 'Image', width: 250 },
-            { field: 'isDelete', headerName: 'isDelete', width: 250 },
-            { field: 'edit', headerName: 'Sửa', width: 100 , 
-            renderCell: (params) => (
-                <div>
-                  <BsBookmarkPlusFill size={20} color="red" onClick={() => this.handleRowClick(params.row.courseId)}/>
-                </div>
-              ),
-            },
+            { field: 'classId', headerName: 'ID', width: 70 },
+            { field: 'className', headerName: 'Clas Name', width: 150 },
         ];
         const getRowId = (row) => row.courseId;
-
+        // const { cid } = this.props.match.params;
+        // console.log(cid);
         return (
 
             <div>
@@ -119,70 +135,70 @@ class ViewAllCourse extends Component {
                     <section id="menu">
                         <div className="logo">
                             <FontAwesomeIcon className="logo-icon" icon={faBook} />
-                            <a onClick={this.handleShow}>Knoco</a>
-
+                            <h1>Knoco</h1>
                         </div>
+
                         <nav>
                             <SideBar />
-
                         </nav>
                     </section>
 
                     <section id="interface">
                         <header>
-
-                            <div className="navigation">
-                                <div className="n1">
-                                    <div>
-                                        <FontAwesomeIcon id="menu-btn" icon={faBars} />
-                                    </div>
-                                    <div className="search">
-                                        <FontAwesomeIcon className="icon-search" icon={faMagnifyingGlass} />
-                                        <input type="text" onChange={this.handleSearchChange} placeholder="Search" />
-                                    </div>
-                                </div>
-
-                                {/* <div className="profile">
-                <FontAwesomeIcon className="icon-profile" icon={faBell} />
-                <FontAwesomeIcon className="icon-img" icon={faChalkboardUser} onClick={toggleDropdown} />
-                <div className={`dropdown-menu ${isDropdownVisible ? "active" : ""}`} id="dropdown-menu">
-                    <ul>
-                        <li><Link className="link-a" to="#">Change Password</Link></li>
-                        <li><Link className="link-a" to="#">Log Out</Link></li>
-                    </ul>
-                </div>
-            </div> */}
-                            </div>
+                            <Header />
                         </header>
 
+                        <div className="children">
+                            <div >
+                                <form >
+                                   
+                                    <div class="col-md-8 ">
+                                        <div class="">
+                                            {/* {notiU == false &&
+                                                <h3>Thông tin tài khoản chưa chính sác</h3>
+                                            } */}
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <h4 class="text-right">Thông Tin Tài Khoản</h4>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-md-12"><label class="labels">Tên Khóa Học</label><input type="text" class="form-control" required="" value={CourseDetail.courseName} /></div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-md-12"><label class="labels">Description</label><input type="text" class="form-control" value={CourseDetail.description} /></div>
+                                                <div class="col-md-12"><label class="labels">Image</label><input type="text" class="form-control" value={CourseDetail.image} /></div>
+                                                <div class="col-md-12"><label class="labels">Nút Xóa </label><input type="text" class="form-control" /></div>
+                                            </div>
 
-                        <div>
-                            <input
-                                type="text"
-                                value={searchText}
-                                onChange={this.handleSearchChange}
-                                placeholder="Search Name Course"
-                            />
-                            <div className='TableLayout' style={{ height: 'auto', width: '100%' }}>
+                                            <div class="mt-5 text-center"><button class="btn btn-primary profile-button" onClick={this.UpdateProfile} type="button">Thay đổi thông tin</button></div>
+                                        </div>
 
-                                <DataGrid
-                                    rows={ListAllCourse} // Sử dụng dữ liệu từ state
-                                    columns={columns}
-                                    pageSize={5}
-                                    checkboxSelection
-                                    disableRowSelectionOnClick
-                                    getRowId={getRowId}
-                                    //  onRowClick={this.handleRowClick}
-                                />
+                                    </div>
+                                    
+                                </form>
+                                <div class="col-md-4 ">
+                                        <h1>danh sách lớp</h1>
+                                        <div className='TableLayout' style={{ height: 'auto', width: '50%' }}>
+
+                                            <DataGrid
+                                                rows={classInCourse} // Sử dụng dữ liệu từ state
+                                                columns={columns}
+                                                pageSize={5}
+                                                checkboxSelection
+                                                disableRowSelectionOnClick
+                                                getRowId={getRowId}
+                                            //  onRowClick={this.handleRowClick}
+                                            />
+                                        </div>
+                                    </div>
                             </div>
+
                         </div>
 
                         <footer>
                             <Footer />
-
                         </footer>
                     </section>
-                    <Modal
+                    {/* <Modal
                         show={showModal}
                         onClose={this.handleClose}
                         backdrop="static"
@@ -200,7 +216,7 @@ class ViewAllCourse extends Component {
                                                     placeholder="Course Id" />
                                             </div>
                                         </div>
-                                        {/* <div class="formsix-pos">
+                                        <div class="formsix-pos">
                                         <div className="form-group i-email">
                                             <input type="text" class="form-control" required="" id="email2" 
                                                 placeholder="" />
@@ -223,7 +239,7 @@ class ViewAllCourse extends Component {
                                             <input type="text" className="form-control" required="" id="password2" 
                                                  placeholder="" />
                                         </div>
-                                    </div> */}
+                                    </div>
 
                                         <div class="login_btn_wrapper">
                                             <button style={{ width: "100%" }} type="button" onClick={this.handleClose} className=" btn btn-block mybtn btn-primary tx-tfm">Thêm</button>
@@ -237,7 +253,7 @@ class ViewAllCourse extends Component {
 
                         </Modal.Body>
 
-                    </Modal>
+                    </Modal> */}
                 </ div>
 
 
@@ -247,4 +263,4 @@ class ViewAllCourse extends Component {
         )
     }
 }
-export default ViewAllCourse;
+export default CourseDetail;

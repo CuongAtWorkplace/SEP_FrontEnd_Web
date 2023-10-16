@@ -2,7 +2,7 @@ import React from "react";
 import { useTable, useSortBy, useFilters  } from "react-table";
 import './Table.css'
 
-const Table = ({columns, data})=>{
+const Table = ({columns, data, onRowClick})=>{
     const{
         getTableProps,
         getTableBodyProps,
@@ -46,7 +46,11 @@ const Table = ({columns, data})=>{
           {rows.map((row, i) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()} key={i}>
+              <tr {...row.getRowProps()} 
+                onClick={() => onRowClick(row.original)} // Handle row click event here
+                key={i}
+                className="row-clickable" // Add a CSS class for cursor pointer
+                >
                 {row.cells.map((cell) => {
                   return <td {...cell.getCellProps()} key={cell.column.id}>{cell.render("Cell")}</td>;
                 })}

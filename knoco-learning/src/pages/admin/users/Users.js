@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { DataGrid } from '@mui/x-data-grid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import DataTable from "../../../components/admin/dataTable/DataTable";
@@ -7,12 +6,13 @@ import Header from "../../../components/header/Header";
 import Footer from "../../../components/footer/Footer";
 import SideBar from "../../../components/sidebar/SideBar";
 import Add from "../../../components/admin/add/Add";
+import '../users/users.scss'
 
 const Users = () => {
   const [listUser, setListUser] = useState([]);
   const [open, setOpen] = useState(false);
 
-  const [selectedRow, setSelectedRow] = useState(null);
+  //const [selectedRow, setSelectedRow] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -29,22 +29,49 @@ const Users = () => {
   };
 
   const columns = [
-    { field: 'userId', headerName: 'ID', width: 90 },
-    { field: 'image', headerName: 'Image', width: 100 },
-    { field: 'fullName', headerName: 'Full Name', width: 150 },
-    { field: 'email', headerName: 'Email', width: 200 },
-    { field: 'phone', headerName: 'Phone', width: 180 },
-    { field: 'address', headerName: 'Address', width: 180 },
-    { field: 'isBan', headerName: 'Status', width: 100 },
+    { field: "userId", headerName: "ID", width: 90 },
+    {
+      field: "image",
+      headerName: "Avatar",
+      width: 100,
+      renderCell: (params) => {
+        return <img src={params.row.image || "/noavatar.png"} alt="" />;
+      },
+    },
+    {
+      field: "fullName",
+      headerName: "Full Name",
+      width: 150,
+    },
+    {
+      field: "email",
+      headerName: "Email",
+      width: 200,
+    },
+    {
+      field: "phone",
+      headerName: "Phone",
+      width: 180,
+    },
+    {
+      field: "address",
+      headerName: "Address",
+      width: 180,
+    },
+    {
+      field: "isBan",
+      headerName: "Status",
+      width: 100,
+    },
   ];
 
-  const generateRowId = (row) => row.id;
+  // const generateRowId = (row) => row.id;
 
-  const handleRowClick = (row) => {
-    alert(`Clicked on user with ID: ${row.userId}`);
-    setSelectedRow(row); // Optionally, you can set the selected row state if needed
-  };
-  
+  // const handleRowClick = (row) => {
+  //   alert(`Clicked on user with ID: ${row.userId}`);
+  //   setSelectedRow(row); // Optionally, you can set the selected row state if needed
+  // };
+
 
   return (
     <div>
@@ -70,16 +97,8 @@ const Users = () => {
                 <h1>Users</h1>
                 <button onClick={() => setOpen(true)}>Add New User</button>
               </div>
-              <div className="dataTable">
-                <DataGrid
-                  rows={listUser}
-                  columns={columns}
-                  getRowId={generateRowId}
-                  onRowClick={(params) => handleRowClick(params.row)}
-                  selectionModel={[selectedRow]}
-                />
-
-              </div>
+              <DataTable slug="users" columns={columns} rows={listUser} />
+              {open && <Add slug="user" columns={columns} setOpen={setOpen} />}
             </div>
           </div>
 

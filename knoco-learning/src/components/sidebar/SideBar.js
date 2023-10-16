@@ -9,7 +9,8 @@ import { faSchool,
         faFlag,
         faClipboard,
         faComment,
-        faGear } from '@fortawesome/free-solid-svg-icons';
+        faGear,
+        faDashboard } from '@fortawesome/free-solid-svg-icons';
 import $ from "jquery";
 
 const SideBar = () => {  
@@ -23,16 +24,16 @@ const SideBar = () => {
         <div className="items">
             <ul>
                 <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faSchool} />
-                    <Link className="link-a" to="#">Dashboard</Link>
+                    <FontAwesomeIcon className="menu-icon" icon={faDashboard} />
+                    <Link className="link-a" to="/dashboard">Dashboard</Link>
                 </li>
                 <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faSchool} />
-                    <Link className="link-a" to="#">User Manage</Link>
+                    <FontAwesomeIcon className="menu-icon" icon={faUser} />
+                    <Link className="link-a" to="/users">User Manage</Link>
                 </li>
                 <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faSchool} />
-                    <Link className="link-a" to="#">Report</Link>
+                    <FontAwesomeIcon className="menu-icon" icon={faFlag} />
+                    <Link className="link-a" to="/report">Report</Link>
                 </li>
                 <li>
                     <FontAwesomeIcon className="menu-icon" icon={faSchool} />

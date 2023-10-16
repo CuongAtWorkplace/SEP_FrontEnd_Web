@@ -21,10 +21,10 @@ const DataTable = props => {
             {/* <img src="/view.svg" alt="" /> */}
             <GrView alt="" />
           </Link>
-          <div className="delete" onClick={() => handleDelete(params.row.userId)}>
-            {/* <img src="/delete.svg" alt="" /> */}
+          {/* <div className="delete" onClick={() => handleDelete(params.row.userId)}>
+            <img src="/delete.svg" alt="" />
             <GrTrash alt="" />
-          </div>
+          </div> */}
         </div>
       )
     }

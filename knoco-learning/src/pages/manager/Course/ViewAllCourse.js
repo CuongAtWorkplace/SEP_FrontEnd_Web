@@ -57,7 +57,7 @@ class ViewAllCourse extends Component {
     };
 
     handleRowClick = (courseId) => {
-        window.location.href = `/coursedetail/${courseId}`
+        window.location.href = `/coursedetail/${courseId}`;
         // Lấy ID của hàng được click và xử lý nó
      
         // const clickedRowId = params.row.courseId;

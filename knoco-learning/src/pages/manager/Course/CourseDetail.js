@@ -10,7 +10,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useState } from "react";
 import { memo } from "react";
 import { Link } from "react-router-dom";
-
+import { withRouter } from "react-router-dom";
 import { faChalkboardUser } from '@fortawesome/free-solid-svg-icons';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
@@ -50,7 +50,7 @@ class CourseDetail extends Component {
     }
 
     classInCourse() {
-
+        const { cid } = this.props.match.params;
         fetch(`https://localhost:7169/api/Course/GetClassInCourse?courseId=1`)
             .then(response => response.json())
             .then(data => {
@@ -263,4 +263,4 @@ class CourseDetail extends Component {
         )
     }
 }
-export default CourseDetail;
+export default withRouter(CourseDetail);

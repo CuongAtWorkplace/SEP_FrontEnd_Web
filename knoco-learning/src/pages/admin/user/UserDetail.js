@@ -1,25 +1,22 @@
-import Single from "../../../components/admin/single/Single"
-import { singleUser } from "../../../data"
-import { useState, useEffect } from "react";
-import { Component } from "react";
-import "./user.scss"
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBook } from '@fortawesome/free-solid-svg-icons';
+import Single from "../../../components/admin/single/Single";
+import Header from "../../../components/header/Header";
+import Footer from "../../../components/footer/Footer";
+import SideBar from "../../../components/sidebar/SideBar";
+import "./user.scss";
+import {useParams} from 'react-router-dom';
 
-const UserDetail = ({ userId }) => {
-
-  // return (
-    // <div className="user">
-    //   <Single {...singleUser}/>
-    // </div>
-  // )
+const UserDetail = () => {
   const [userDetails, setUserDetails] = useState({});
   const [loading, setLoading] = useState(true);
-
+  const {userId} = useParams();
+  // console.log(I);
   useEffect(() => {
-    // Gọi API để lấy thông tin chi tiết người dùng dựa trên userId
-    fetch(`https://localhost:7169/api/Admin/GetUserById/${userId}`) // Thay đổi URL thành đường dẫn API thực tế
+    fetch(`https://localhost:7169/api/Admin/GetUserById/${userId}`)
       .then((response) => response.json())
       .then((data) => {
-        // Cập nhật state với thông tin chi tiết người dùng từ phản hồi API
         setUserDetails(data);
         setLoading(false);
       })
@@ -32,23 +29,118 @@ const UserDetail = ({ userId }) => {
     return <div>Loading...</div>;
   }
 
+  const singleUser = {
+    id: userDetails.userId,
+    title: userDetails.fullName,
+    img: userDetails.image, // Assuming 'image' is a property in userDetails
+    info: {
+      fullname: userDetails.fullName,
+      email: userDetails.email,
+      phone: userDetails.phone,
+      status: userDetails.isBan,
+    },
+    chart: {
+      dataKeys: [
+        { name: "visits", color: "#82ca9d" },
+        { name: "clicks", color: "#8884d8" },
+      ],
+      data: [
+        {
+          name: "Sun",
+          visits: 4000,
+          clicks: 2400,
+        },
+        {
+          name: "Mon",
+          visits: 3000,
+          clicks: 1398,
+        },
+        {
+          name: "Tue",
+          visits: 2000,
+          clicks: 3800,
+        },
+        {
+          name: "Wed",
+          visits: 2780,
+          clicks: 3908,
+        },
+        {
+          name: "Thu",
+          visits: 1890,
+          clicks: 4800,
+        },
+        {
+          name: "Fri",
+          visits: 2390,
+          clicks: 3800,
+        },
+        {
+          name: "Sat",
+          visits: 3490,
+          clicks: 4300,
+        },
+      ],
+    },
+    activities: [
+      {
+        text: "John Doe purchased Playstation 5 Digital Edition",
+        time: "3 day ago",
+      },
+      {
+        text: "John Doe added 3 items into their wishlist",
+        time: "1 week ago",
+      },
+      {
+        text: "John Doe purchased Sony Bravia KD-32w800",
+        time: "2 weeks ago",
+      },
+      {
+        text: "John Doe reviewed a product",
+        time: "1 month ago",
+      },
+      {
+        text: "John Doe added 1 items into their wishlist",
+        time: "1 month ago",
+      },
+      {
+        text: "John Doe reviewed a product",
+        time: "2 months ago",
+      },
+    ],
+  };
+
   return (
-    <div className="user">
-    <Single {...userDetails}/>
-      {/* <h1>Chi tiết người dùng</h1>
-      <p>ID: {userDetails.userId}</p>
-      <p>Tên: {userDetails.fullName}</p>
-      <p>Email: {userDetails.email}</p>
-      <p>Phone: {userDetails.phone}</p>
-      <p>Image: {userDetails.image}</p>
-      <p>Descripton: {userDetails.description}</p>
-      <p>address: {userDetails.address}</p>
-      <p>createDate: {userDetails.createDate}</p>
-      <p>isBan: {userDetails.isBan}</p>
-      <p>balance: {userDetails.balance}</p>
-      <p>role: {userDetails.role}</p>
-      Hiển thị thông tin chi tiết người dùng tại đây, thay đổi thuộc tính tương ứng từ API */}
+    <div>
+      <div className="body_page">
+        <section id="menu">
+          <div className="logo">
+            <FontAwesomeIcon className="logo-icon" icon={faBook} />
+            <h1>Knoco</h1>
+          </div>
+
+          <nav>
+            <SideBar />
+          </nav>
+        </section>
+
+        <section id="interface">
+          <header>
+            <Header />
+          </header>
+          <div className="TableLayout">
+            <div className="user">
+              <Single {...singleUser} />
+            </div>
+          </div>
+
+          <footer>
+            <Footer />
+          </footer>
+        </section>
+      </div>
     </div>
   );
-}
-export default UserDetail
+};
+
+export default UserDetail;

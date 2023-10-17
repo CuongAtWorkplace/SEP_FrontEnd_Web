@@ -6,7 +6,7 @@ import Header from "../../../components/header/Header";
 import Footer from "../../../components/footer/Footer";
 import SideBar from "../../../components/sidebar/SideBar";
 import Add from "../../../components/admin/add/Add";
-import '../users/users.scss'
+import '../users/users.scss';
 
 const Users = () => {
   const [listUser, setListUser] = useState([]);

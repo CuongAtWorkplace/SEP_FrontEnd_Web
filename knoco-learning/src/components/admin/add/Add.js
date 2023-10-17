@@ -1,25 +1,35 @@
 import "./add.scss";
+import { useState } from "react";
 
 const Add = (props) => {
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [isBan, setIsBan] = useState('');
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Define the data to be sent to the API based on the form inputs
-    const formData = {};
-    props.columns
-      .filter((item) => item.field !== "id" && item.field !== "image")
-      .forEach((column) => {
-        formData[column.field] = e.target[column.field].value;
-      });
+    const userAdd = {
+      fullName: fullName,
+      email: email,
+      phone: phone,
+      address: address,
+      status: isBan
+    };
 
     // Send a POST request to the API
     try {
-      const response = await fetch(`https://localhost:7169/api/Admin/AddNewUser`, {
+      const response = await fetch('https://localhost:7169/api/Admin/AddNewUser', {
         method: "POST",
+        mode: 'cors',
+        credentials: 'same-origin',
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(userAdd),
       });
 
       if (response.ok) {
@@ -27,7 +37,8 @@ const Add = (props) => {
         console.log("Data added successfully");
       } else {
         // Handle errors if the request was not successful
-        console.error("Error adding data");
+        const errorResponse = await response.json();
+        console.error("Error adding data. Server response:", errorResponse);
       }
 
       // Close the modal
@@ -35,6 +46,7 @@ const Add = (props) => {
     } catch (error) {
       console.error("Error making the API request:", error);
     }
+
   };
 
   return (

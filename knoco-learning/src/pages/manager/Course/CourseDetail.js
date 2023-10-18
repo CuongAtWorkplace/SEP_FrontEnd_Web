@@ -10,7 +10,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useState } from "react";
 import { memo } from "react";
 import { Link } from "react-router-dom";
-import { withRouter } from "react-router-dom";
+//import { withRouter } from "react-router-dom";
 import { faChalkboardUser } from '@fortawesome/free-solid-svg-icons';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
@@ -263,4 +263,5 @@ class CourseDetail extends Component {
         )
     }
 }
-export default withRouter(CourseDetail);
+//export default withRouter(CourseDetail);
+export default CourseDetail;

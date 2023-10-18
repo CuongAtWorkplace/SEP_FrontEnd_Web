@@ -6,8 +6,23 @@ import SideBar from "../../../components/sidebar/SideBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 import TableListClassTeacher from "../../../components/Table/TableListClassTeacher";
+
 import Modal from "react-bootstrap/Modal";
 import { Link, useParams } from "react-router-dom";
+
+import { useState } from "react";
+import { memo } from "react";
+import { Link } from "react-router-dom";
+//import { withRouter } from "react-router-dom";
+import { faChalkboardUser } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { BsSuitHeartFill, BsBookmarkPlusFill } from "react-icons/bs";
+import { useParams } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+// import { Modal, Button } from 'react-bootstrap';
+
 import "./ViewAllCourse.scss";
 
 function CourseDetail() {
@@ -190,5 +205,6 @@ function CourseDetail() {
     </div>
   );
 }
+
 
 export default CourseDetail;

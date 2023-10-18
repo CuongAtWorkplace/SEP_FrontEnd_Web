@@ -16,7 +16,8 @@ import Home from './pages/admin/home/Home';
 import ViewAllCourse from './pages/manager/Course/ViewAllCourse';
 import CourseDetail from './pages/manager/Course/CourseDetail';
 import EditClass from './pages/teachers/EditClass';
-import TestModal from './pages/manager/Course/TestModal';
+import VideoCall from './pages/teachers/VideoCall';
+//import TestModal from './pages/manager/Course/TestModal';
 
 const queryClient = new QueryClient();
 
@@ -26,7 +27,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/viewallclass" element={<ViewAllClass/>} />
-        <Route path="/classdetail" element={<ClassDetail/>} />
+        <Route path="/classdetail/:classId" element={<ClassDetail/>} />
         <Route path="/learnerdetail" element={<LearnerDetail/>} />
         <Route path="/listlearner" element={<ListLearner/>} />
         <Route path="/" element={<Login />}  />
@@ -35,11 +36,10 @@ function App() {
         <Route path="/users/:id" element={<User />} />
         <Route path="/report" element={<Report />} />
         <Route path="/course" element={<ViewAllCourse />} />
-        <Route path="/testmodal/:tid" element={<TestModal />} />
+
         <Route path="/coursedetail/:cid" element={<CourseDetail />} />
-
         <Route path="/editclass" element={<EditClass />} />
-
+        <Route path="/videocall" element={<VideoCall />} />
       </Routes>
       <ToastContainer
         position="top-right"

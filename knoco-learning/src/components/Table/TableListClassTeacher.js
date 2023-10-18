@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Table from "./Table";
+
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
-
   return (
     <input
       type="text"
@@ -15,8 +15,8 @@ const ColumnFilter = ({ column }) => {
   );
 };
 
-const TableListClassTeacher = (props) => {
-  const { userId } = props;
+const TableListClassTeacher = () => {
+  //const { userId = 2 } = props;
   const [data, setData] = useState([]);
   const [allClass, setallClass] = useState([]);
   const navigate = useNavigate();
@@ -27,6 +27,7 @@ const TableListClassTeacher = (props) => {
 
   const fetchData = async () => {
     try {
+
       fetch(`https://localhost:7169/api/Class/GetAllClass`)
       .then((response) => response.json())
       .then((data) => {
@@ -34,19 +35,23 @@ const TableListClassTeacher = (props) => {
       });
 
       const response = await fetch(`https://localhost:7169/api/Class/GetAllClassToTeacher/${2}`); 
+
       const responseData = await response.json();
       setData(responseData);
     } catch (error) {
       console.error('Lỗi khi lấy dữ liệu:', error);
     }
   };
+
   const handleRowClick = (row) => {
-    // Handle the row click event here
     console.log('Clicked row data:', row);
-    // Implement your logic here, e.g., navigate to a new page with the userId parameter
-    navigate(`/classdetail?id=${row.userId}`); // Navigate to the new page with the userId parameter in the URL
+    navigate(`/classdetail/${row.classId}`);
   };
+
   const [columns, setColumns] = useState([
+
+
+
     {
       Header: 'Class Name',
       accessor: 'className',
@@ -112,6 +117,7 @@ const TableListClassTeacher = (props) => {
       accessor: 'status',
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
+
   ]);
 
   const [apiData, setApiData] = useState([]);
@@ -146,6 +152,9 @@ const TableListClassTeacher = (props) => {
   // ];
   return (
     <Table columns={columns} data={allClass} onRowClick={handleRowClick}/>
+
+  ];
+
   );
 }
 

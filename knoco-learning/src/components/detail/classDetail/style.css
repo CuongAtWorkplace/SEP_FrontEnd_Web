@@ -8,12 +8,12 @@
     font-size: 18px;
     font-weight: 600;
     border-radius: 5px;
-    padding: 35px 30px;
+    padding: 10px 30px;
 }
 .val-box-btn{
     background: #fff;
-    width: 220px;
-    height: 92px;
+    width: 200px;
+    height: 50px;
     border-radius: 5px;
     display: flex;
     justify-content: flex-start;
@@ -54,6 +54,9 @@
   .values .val-box:nth-child(12){
     background: #74daec;
   }
+
+
+  
 
   
   

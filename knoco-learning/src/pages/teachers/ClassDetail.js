@@ -14,7 +14,7 @@ import CardEditClass from "../../components/edit/CardEditClass"
 const ClassDetail = ({ children, ...props }) => {
     useEffect(() => {
         // Add click event listener to menu-btn
-        $('.menu-btn').on('click', function() {
+        $('.menu-btn').on('click', function () {
             $('#menu').toggleClass('active'); // Toggle active class on #menu
         });
     }, []);
@@ -31,21 +31,21 @@ const ClassDetail = ({ children, ...props }) => {
                 </div>
 
                 <nav>
-                    <SideBar/>
+                    <SideBar />
                 </nav>
             </section>
 
             <section id="interface">
                 <header>
-                    <Header/>
+                    <Header />
                 </header>
 
                 <div className="children">
-                    <CardClass setIsEditClassPopupVisible={setIsEditClassPopupVisible}/>
-                    <TableListLearnerInClass/>
+                    <CardClass setIsEditClassPopupVisible={setIsEditClassPopupVisible} />
+                    <TableListLearnerInClass />
                     {isEditClassPopupVisible && (
                         <div className="popup">
-                            <CardEditClass closePopup={closeEditClassPopup}/>
+                            <CardEditClass closePopup={closeEditClassPopup} />
                         </div>
                     )}
                 </div>

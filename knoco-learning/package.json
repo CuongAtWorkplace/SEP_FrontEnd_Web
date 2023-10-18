@@ -14,6 +14,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.5.1",
     "bootstrap": "^5.3.2",
     "jquery": "^3.7.1",
     "jwt-decode": "^3.1.2",
@@ -31,6 +32,7 @@
     "recharts": "^2.8.0",
     "sass": "^1.68.0",
     "sourcemap-codec": "^1.4.8",
+    "stringee-react-native": "^1.5.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

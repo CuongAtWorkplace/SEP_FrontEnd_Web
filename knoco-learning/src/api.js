@@ -2,7 +2,7 @@ const PROJECT_ID = "SK.0.ojRoevvlbfbUykUJiH8NKEjjbvoh2j";
 const PROJECT_SECRET = "eE0wTGY0NzlsUXd1ZGtLOXVJQW55TXNWb2FSeGt6N0k=";
 const BASE_URL = "https://api.stringee.com/v1/room2";
 
-class API {
+class API extends Component {
   constructor(projectId, projectSecret) {
     this.projectId = projectId;
     this.projectSecret = projectSecret;

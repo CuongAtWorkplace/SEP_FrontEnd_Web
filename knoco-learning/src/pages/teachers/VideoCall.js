@@ -1,178 +1,211 @@
-// import React, { useState, useEffect } from 'react';
-// import './call.css';
-// import { StringeeClient, StringeeVideo } from 'stringee-react-native';
+import React, { useState, useEffect } from 'react';
+import './call.css';
+import Axios from 'axios';
 
-// const VideoCall = () => {
-//   const [userToken, setUserToken] = useState('');
-//   const [roomId, setRoomId] = useState('');
-//   const [roomToken, setRoomToken] = useState('');
-//   const [room, setRoom] = useState(undefined);
-//   const [callClient, setCallClient] = useState(undefined);
+const PROJECT_ID = "SK.0.ojRoevvlbfbUykUJiH8NKEjjbvoh2j";
+const PROJECT_SECRET = "eE0wTGY0NzlsUXd1ZGtLOXVJQW55TXNWb2FSeGt6N0k=";
+const BASE_URL = "https://api.stringee.com/v1/room2";
 
-//   useEffect(() => {
-//     const urlParams = new URLSearchParams(window.location.search);
-//     const roomId = urlParams.get('room');
-//     if (roomId) {
-//       setRoomId(roomId);
-//       join();
-//     }
-//   }, []);
+class API {
+  constructor(projectId, projectSecret) {
+    this.projectId = projectId;
+    this.projectSecret = projectSecret;
+    this.restToken = "";
+  }
 
-//   const authen = async () => {
-//     return new Promise(async (resolve) => {
-//       const userId = `${(Math.random() * 100000).toFixed(6)}`;
-//       const userToken = await api.getUserToken(userId);
-//       setUserToken(userToken);
+  async createRoom() {
+    const roomName = Math.random().toFixed(4);
+    const response = await Axios.post(
+      `${BASE_URL}/create`,
+      {
+        name: roomName,
+        uniqueName: roomName
+      },
+      {
+        headers: this._authHeader()
+      }
+    );
 
-//       if (!callClient) {
-//         const client = new StringeeClient();
+    const room = response.data;
+    console.log({ room });
+    return room;
+  }
 
-//         client.on('authen', (res) => {
-//           console.log('on authen: ', res);
-//           resolve(res);
-//         });
-//         setCallClient(client);
-//       }
-//       callClient.connect(userToken);
-//     });
-//   };
+  async listRoom() {
+    const response = await Axios.get(`${BASE_URL}/list`, {
+      headers: this._authHeader()
+    });
 
-//   const publish = async (screenSharing = false) => {
-//     const localTrack = await StringeeVideo.createLocalVideoTrack(callClient, {
-//       audio: true,
-//       video: true,
-//       screen: screenSharing,
-//       videoDimensions: { width: 640, height: 360 },
-//     });
+    const rooms = response.data.list;
+    console.log({ rooms });
+    return rooms;
+  }
 
-//     const videoElement = localTrack.attach();
-//     addVideo(videoElement);
+  async deleteRoom(roomId) {
+    const response = await Axios.put(`${BASE_URL}/delete`, {
+      roomId
+    }, {
+      headers: this._authHeader()
+    })
 
-//     const roomData = await StringeeVideo.joinRoom(callClient, roomToken);
-//     const room = roomData.room;
-//     console.log({ roomData, room });
+    console.log({ response })
 
-//     if (!room) {
-//       setRoom(room);
-//       room.clearAllOnMethos();
-//       room.on('addtrack', (e) => {
-//         const track = e.info.track;
+    return response.data;
+  }
 
-//         console.log('addtrack', track);
-//         if (track.serverId === localTrack.serverId) {
-//           console.log('local');
-//           return;
-//         }
-//         subscribe(track);
-//       });
-//       room.on('removetrack', (e) => {
-//         const track = e.track;
-//         if (!track) {
-//           return;
-//         }
+  async clearAllRooms() {
+    const rooms = await this.listRoom()
+    const response = await Promise.all(rooms.map(room => this.deleteRoom(room.roomId)))
 
-//         const mediaElements = track.detach();
-//         mediaElements.forEach((element) => element.remove());
-//       });
+    return response;
+  }
 
-//       // Join existing tracks
-//       roomData.listTracksInfo.forEach((info) => subscribe(info));
-//     }
+  async setRestToken() {
+    const tokens = await this._getToken({ rest: true });
+    const restToken = tokens.rest_access_token;
+    this.restToken = restToken;
 
-//     await room.publish(localTrack);
-//     console.log('room publish successful');
-//   };
+    return restToken;
+  }
 
-//   const createRoom = async () => {
-//     const room = await api.createRoom();
-//     const { roomId } = room;
-//     const roomToken = await api.getRoomToken(roomId);
+  async getUserToken(userId) {
+    const tokens = await this._getToken({ userId });
+    return tokens.access_token;
+  }
 
-//     setRoomId(roomId);
-//     setRoomToken(roomToken);
-//     console.log({ roomId, roomToken });
+  async getRoomToken(roomId) {
+    const tokens = await this._getToken({ roomId });
+    return tokens.room_token;
+  }
 
-//     await authen();
-//     await publish();
-//   };
+  async _getToken({ userId, roomId, rest }) {
+    const response = await Axios.get(
+      "https://v2.stringee.com/web-sdk-conference-samples/php/token_helper.php",
+      {
+        params: {
+          keySid: this.projectId,
+          keySecret: this.projectSecret,
+          userId,
+          roomId,
+          rest
+        }
+      }
+    );
 
-//   const join = async () => {
-//     const roomToken = await api.getRoomToken(roomId);
-//     setRoomToken(roomToken);
+    const tokens = response.data;
+    console.log({ tokens });
+    return tokens;
+  }
 
-//     await authen();
-//     await publish();
-//   };
+  isSafari() {
+    const ua = navigator.userAgent.toLowerCase();
+    return !ua.includes('chrome') && ua.includes('safari');
+  }
 
-//   const joinWithId = async () => {
-//     const roomId = prompt('Enter Room ID:');
-//     if (roomId) {
-//       setRoomId(roomId);
-//       await join();
-//     }
-//   };
+  _authHeader() {
+    return {
+      "X-STRINGEE-AUTH": this.restToken
+    };
+  }
+}
 
-//   const subscribe = async (trackInfo) => {
-//     const track = await room.subscribe(trackInfo.serverId);
-//     track.on('ready', () => {
-//       const videoElement = track.attach();
-//       addVideo(videoElement);
-//     });
-//   };
+const VideoCall = () => {
+  const [userToken, setUserToken] = useState('');
+  const [roomId, setRoomId] = useState('');
+  const [roomToken, setRoomToken] = useState('');
+  const [callClient, setCallClient] = useState(undefined);
 
-//   const addVideo = (video) => {
-//     video.setAttribute('controls', 'true');
-//     video.setAttribute('playsinline', 'true');
-//     const videoContainer = document.querySelector('#videos');
-//     videoContainer.appendChild(video);
-//   };
+  const api = new API(PROJECT_ID, PROJECT_SECRET);
 
-//   const roomUrl = `https://${window.location.hostname}?room=${roomId}`;
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const roomId = urlParams.get('room');
+    const client = new window.StringeeClient();
+    if (roomId) {
+      setRoomId(roomId);
+      join();
+    }
+  }, []);
 
-//   return (
-//     <div>
-//       <div class="container has-text-centered" v-cloak id="app">
-//         <h1 class="title">
-//           Ứng dụng Clone Zoom cực cool ngầu với
-//           <span class="header-highlight">Stringee API</span>
-//         </h1>
+  const authen = async () => {
+    return new Promise(async (resolve) => {
+      const userId = `${(Math.random() * 100000).toFixed(6)}`;
+      const userToken = await api.getUserToken(userId);
+      setUserToken(userToken);
 
-//         <div>
-//           <button class="button is-primary" v-if="!room" onClick="createRoom">
-//             Tạo Meeting
-//           </button>
+      if (!callClient) {
+        const client = new window.StringeeClient();
 
-//           <button class="button is-info" v-if="!room" onClick="joinWithId">
-//             Join Meeting
-//           </button>
+        client.on('authen', (res) => {
+          console.log('on authen: ', res);
+          resolve(res);
+        });
+        setCallClient(client);
+      }
+      callClient.connect(userToken);
+    });
+  };
 
-//           <button class="button is-info" v-if="room" onClick="publish(true)">
-//             Share Desktop
-//           </button>
-//         </div>
+  const publish = async (screenSharing = false) => {
+    const localTrack = await window.StringeeVideo.createLocalVideoTrack(callClient, {
+      audio: true,
+      video: true,
+      screen: screenSharing,
+      videoDimensions: { width: 640, height: 360 },
+    });
 
-//         <div v-if="roomId" class="info">
-//           <p>Bạn đang ở trong room <strong>roomId</strong>.</p>
-//           <p>
-//             Gửi link này cho bạn bè cùng join room nhé
-//             <a target="_blank">roomUrl</a>.
-//           </p>
-//           <p>Hoặc bạn cũng có thể copy <code>roomId</code> để share.</p>
-//         </div>
-//       </div>
+    const videoElement = localTrack.attach();
+    addVideo(videoElement);
 
-//       <div class="container">
-//         <div id="videos"></div>
-//       </div>
+    const roomData = await window.StringeeVideo.joinRoom(callClient, roomToken);
+    const room = roomData.room;
+    console.log({ roomData, room });
 
-//       <div id="app">
-//         <div id="videos"></div>
-//         <button onClick={createRoom}>Create Room</button>
-//         <button onClick={joinWithId}>Join Room</button>
-//       </div>
-//     </div>
+    room.publish(localTrack).then(() => {
+      console.log("Publish success");
+    }).catch((error) => {
+      console.error("Publish error: ", error);
+    });
+  };
 
-//   );
-// };
+  const join = async () => {
+    await authen();
+    const roomToken = await api.getRoomToken(roomId);
+    setRoomToken(roomToken);
+    await publish();
+  };
 
-// export default VideoCall;
+  const createRoom = async () => {
+    const room = await api.createRoom();
+    const roomUrl = `${window.location.origin}?room=${room.roomId}`;
+    setRoomId(room.roomId);
+    setRoomToken(room.token);
+    console.log({ roomUrl });
+  };
+
+  const joinWithId = async () => {
+    const roomId = prompt("Enter room ID:");
+    if (roomId) {
+      setRoomId(roomId);
+      await join();
+    }
+  };
+
+  const addVideo = (element) => {
+    const videosElement = document.getElementById("videos");
+    videosElement.appendChild(element);
+  };
+
+  return (
+    <div>
+      <h1>Video Call</h1>
+      <div>
+        <button onClick={createRoom}>Create Room</button>
+        <button onClick={joinWithId}>Join with ID</button>
+      </div>
+      <div id="videos"></div>
+    </div>
+  );
+};
+
+export default VideoCall;

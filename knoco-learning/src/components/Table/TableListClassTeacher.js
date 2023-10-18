@@ -18,6 +18,7 @@ const ColumnFilter = ({ column }) => {
 const TableListClassTeacher = (props) => {
   const { userId } = props;
   const [data, setData] = useState([]);
+  const [allClass, setallClass] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,7 +27,13 @@ const TableListClassTeacher = (props) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`https://localhost:7169/api/Class/GetAllClassToTeacher/${2}`); // Thay thế URL bằng API thực tế
+      fetch(`https://localhost:7169/api/Class/GetAllClass`)
+      .then((response) => response.json())
+      .then((data) => {
+        setallClass(data);
+      });
+
+      const response = await fetch(`https://localhost:7169/api/Class/GetAllClassToTeacher/${2}`); 
       const responseData = await response.json();
       setData(responseData);
     } catch (error) {
@@ -39,7 +46,7 @@ const TableListClassTeacher = (props) => {
     // Implement your logic here, e.g., navigate to a new page with the userId parameter
     navigate(`/classdetail?id=${row.userId}`); // Navigate to the new page with the userId parameter in the URL
   };
-  const columns = [
+  const [columns, setColumns] = useState([
     {
       Header: 'Class Name',
       accessor: 'className',
@@ -105,41 +112,40 @@ const TableListClassTeacher = (props) => {
       accessor: 'status',
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
-  ];
-  const datafake = [
-    {
-      className: "alksdasdf",
-      teacherName: "kljflkjgflk",
-      courseName: "kjkjkcxnvm",
-      numberStudent: "m,ncv,xmvn,mxc",
-      topic: "oiwuroiwer",
-      quizzName: "lkasjdlkasjdf",
-      schedule: "xcaasdfasd",
-      fee: "owiuurwer",
-      numberOfWeek: "popoaipaf",
-      createDate: "qwerqwerl",
-      startDate: "asfalkdsfj",
-      endDate: "aksdn,masd",
-      status: "laksdjlkasdf"
-    },
-    {
-      className: "alksdasdf",
-      teacherName: "kljflkjgflk",
-      courseName: "kjkjkcxnvm",
-      numberStudent: "m,ncv,xmvn,mxc",
-      topic: "oiwuroiwer",
-      quizzName: "lkasjdlkasjdf",
-      schedule: "xcaasdfasd",
-      fee: "owiuurwer",
-      numberOfWeek: "popoaipaf",
-      createDate: "qwerqwerl",
-      startDate: "asfalkdsfj",
-      endDate: "aksdn,masd",
-      status: "laksdjlkasdf"
-    },
-  ];
+  ]);
+
+  const [apiData, setApiData] = useState([]);
+
+  useEffect(() => {
+    // Call your API to get data
+    fetch('https://localhost:7169/api/Class/GetAllClass')
+      .then((response) => response.json())
+      .then((data) => {
+        setApiData(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+  // const datafake = [
+  //   {
+  //     className: "alksdasdf",
+  //     teacherName: "kljflkjgflk",
+  //     courseName: "kjkjkcxnvm",
+  //     numberStudent: "m,ncv,xmvn,mxc",
+  //     topic: "oiwuroiwer",
+  //     quizzName: "lkasjdlkasjdf",
+  //     schedule: "xcaasdfasd",
+  //     fee: "owiuurwer",
+  //     numberOfWeek: "popoaipaf",
+  //     createDate: "qwerqwerl",
+  //     startDate: "asfalkdsfj",
+  //     endDate: "aksdn,masd",
+  //     status: "laksdjlkasdf"
+  //   },
+  // ];
   return (
-    <Table columns={columns} data={datafake} onRowClick={handleRowClick}/>
+    <Table columns={columns} data={allClass} onRowClick={handleRowClick}/>
   );
 }
 

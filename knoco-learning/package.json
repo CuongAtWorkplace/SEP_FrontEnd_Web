@@ -25,6 +25,7 @@
     "react-scripts": "5.0.1",
     "react-table": "^7.8.0",
     "react-toastify": "^9.1.3",
+    "reactstrap": "^9.2.0",
     "recharts": "^2.8.0",
     "sass": "^1.68.0",
     "sourcemap-codec": "^1.4.8",

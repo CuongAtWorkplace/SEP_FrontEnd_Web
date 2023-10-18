@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import './style.css';
 import myImage from './profile.jpg';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const CardLearner = ({ learner, onBackClick }, props) => {
     const { userId } = props;
@@ -30,7 +32,7 @@ const CardLearner = ({ learner, onBackClick }, props) => {
                     <p>Phone number: {learnerId.phone}</p>
                     <p>Description: {learnerId.description}</p>
                     <p>Address: {learnerId.address}</p>
-                    <button onClick={onBackClick}>Back</button>
+                    <button onClick={onBackClick}><FontAwesomeIcon icon={faArrowLeft}/> Back</button>
                 </div>
             ) : (
                 <div className="container">
@@ -41,7 +43,7 @@ const CardLearner = ({ learner, onBackClick }, props) => {
                         <p>Phone number: phone</p>
                         <p>Description: description</p>
                         <p>Address: address</p>
-                        <button onClick={onBackClick}>Back</button>
+                        <button onClick={onBackClick}><FontAwesomeIcon icon={faArrowLeft}/> Back</button>
                     </div>
                 </div>
 

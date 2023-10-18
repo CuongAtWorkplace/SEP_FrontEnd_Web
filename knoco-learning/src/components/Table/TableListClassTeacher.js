@@ -18,6 +18,7 @@ const ColumnFilter = ({ column }) => {
 const TableListClassTeacher = () => {
   //const { userId = 2 } = props;
   const [data, setData] = useState([]);
+  const [allClass, setallClass] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,7 +27,15 @@ const TableListClassTeacher = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`https://localhost:7169/api/Class/GetTeacherClassList/${2}`);
+
+      fetch(`https://localhost:7169/api/Class/GetAllClass`)
+      .then((response) => response.json())
+      .then((data) => {
+        setallClass(data);
+      });
+
+      const response = await fetch(`https://localhost:7169/api/Class/GetAllClassToTeacher/${2}`); 
+
       const responseData = await response.json();
       setData(responseData);
     } catch (error) {
@@ -39,7 +48,10 @@ const TableListClassTeacher = () => {
     navigate(`/classdetail/${row.classId}`);
   };
 
-  const columns = [
+  const [columns, setColumns] = useState([
+
+
+
     {
       Header: 'Class Name',
       accessor: 'className',
@@ -105,9 +117,44 @@ const TableListClassTeacher = () => {
       accessor: 'status',
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
-  ];
+
+  ]);
+
+  const [apiData, setApiData] = useState([]);
+
+  useEffect(() => {
+    // Call your API to get data
+    fetch('https://localhost:7169/api/Class/GetAllClass')
+      .then((response) => response.json())
+      .then((data) => {
+        setApiData(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+  // const datafake = [
+  //   {
+  //     className: "alksdasdf",
+  //     teacherName: "kljflkjgflk",
+  //     courseName: "kjkjkcxnvm",
+  //     numberStudent: "m,ncv,xmvn,mxc",
+  //     topic: "oiwuroiwer",
+  //     quizzName: "lkasjdlkasjdf",
+  //     schedule: "xcaasdfasd",
+  //     fee: "owiuurwer",
+  //     numberOfWeek: "popoaipaf",
+  //     createDate: "qwerqwerl",
+  //     startDate: "asfalkdsfj",
+  //     endDate: "aksdn,masd",
+  //     status: "laksdjlkasdf"
+  //   },
+  // ];
   return (
-    <Table columns={columns} data={data} onRowClick={handleRowClick} />
+    <Table columns={columns} data={allClass} onRowClick={handleRowClick}/>
+
+  ];
+
   );
 }
 

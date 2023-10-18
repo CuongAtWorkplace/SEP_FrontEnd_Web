@@ -83,7 +83,6 @@ class ViewAllCourse extends Component {
             course.courseName.toLowerCase().includes(searchText.toLowerCase())
         );
 
-
         this.setState({ searchText, ListAllCourse: filteredCourses });
     }
 

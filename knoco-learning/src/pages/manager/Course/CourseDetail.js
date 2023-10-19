@@ -10,16 +10,15 @@ import TableListClassTeacher from "../../../components/Table/TableListClassTeach
 import Modal from "react-bootstrap/Modal";
 import { Link, useParams } from "react-router-dom";
 
-import { useState } from "react";
 import { memo } from "react";
-import { Link } from "react-router-dom";
+
 //import { withRouter } from "react-router-dom";
 import { faChalkboardUser } from '@fortawesome/free-solid-svg-icons';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { BsSuitHeartFill, BsBookmarkPlusFill } from "react-icons/bs";
-import { useParams } from "react-router-dom";
+
 import { Routes, Route } from "react-router-dom";
 // import { Modal, Button } from 'react-bootstrap';
 
@@ -158,7 +157,7 @@ function CourseDetail() {
                         <input
                           type="text"
                           className="form-control"
-                      
+                          value={courseDetail.description}
                           onChange={(e) => setDescription(e.target.value)}
                         />
                       </div>

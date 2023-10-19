@@ -152,9 +152,6 @@ const TableListClassTeacher = () => {
   // ];
   return (
     <Table columns={columns} data={allClass} onRowClick={handleRowClick}/>
-
-  ];
-
   );
 }
 

@@ -28,16 +28,6 @@ class Users extends Component {
     }
   }
 
-  // addNew = async (data) => {
-  //   const response = await fetch(`https://localhost:7169/api/Admin/AddNewUser`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(data),
-  //   });
-  // }
-
   async componentDidMount() {
     await this.getListUser();
   };

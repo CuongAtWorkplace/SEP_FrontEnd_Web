@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './call.css';
 import Axios from 'axios';
 
-const PROJECT_ID = "SK.0.ojRoevvlbfbUykUJiH8NKEjjbvoh2j";
-const PROJECT_SECRET = "eE0wTGY0NzlsUXd1ZGtLOXVJQW55TXNWb2FSeGt6N0k=";
+const PROJECT_ID = "SK.0.iq6RLONUX0wgNilGRrMPiCH49kNge";
+const PROJECT_SECRET = "WVEwS2syR1p5ODFaZTIzVGRrdTBGbkZMNlhoWUZNUg==";
 const BASE_URL = "https://api.stringee.com/v1/room2";
 
 class API {
@@ -120,7 +120,7 @@ const VideoCall = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const roomId = urlParams.get('room');
-    const client = new window.StringeeClient();
+    //const client = new window.StringeeClient();
     if (roomId) {
       setRoomId(roomId);
       join();

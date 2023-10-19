@@ -21,19 +21,18 @@ const TableListClassTeacher = () => {
   const [allClass, setallClass] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   const fetchData = async () => {
     try {
 
-      fetch(`https://localhost:7169/api/Class/GetAllClass`)
-      .then((response) => response.json())
-      .then((data) => {
-        setallClass(data);
-      });
-
+      // fetch(`https://localhost:7169/api/Class/GetAllClass`)
+      // .then((response) => response.json())
+      // .then((data) => {
+      //   setallClass(data);
+      // });
       const response = await fetch(`https://localhost:7169/api/Class/GetAllClassToTeacher/${2}`); 
 
       const responseData = await response.json();
@@ -49,9 +48,6 @@ const TableListClassTeacher = () => {
   };
 
   const [columns, setColumns] = useState([
-
-
-
     {
       Header: 'Class Name',
       accessor: 'className',
@@ -124,34 +120,19 @@ const TableListClassTeacher = () => {
 
   useEffect(() => {
     // Call your API to get data
-    fetch('https://localhost:7169/api/Class/GetAllClass')
+    fetch(`https://localhost:7169/api/Class/GetTeacherClassList/${2}`)
       .then((response) => response.json())
       .then((data) => {
-        setApiData(data);
+        console.log(data);
+        setData(data);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
   }, []);
-  // const datafake = [
-  //   {
-  //     className: "alksdasdf",
-  //     teacherName: "kljflkjgflk",
-  //     courseName: "kjkjkcxnvm",
-  //     numberStudent: "m,ncv,xmvn,mxc",
-  //     topic: "oiwuroiwer",
-  //     quizzName: "lkasjdlkasjdf",
-  //     schedule: "xcaasdfasd",
-  //     fee: "owiuurwer",
-  //     numberOfWeek: "popoaipaf",
-  //     createDate: "qwerqwerl",
-  //     startDate: "asfalkdsfj",
-  //     endDate: "aksdn,masd",
-  //     status: "laksdjlkasdf"
-  //   },
-  // ];
+
   return (
-    <Table columns={columns} data={allClass} onRowClick={handleRowClick}/>
+    <Table columns={columns} data={data} onRowClick={handleRowClick}/>
   );
 }
 

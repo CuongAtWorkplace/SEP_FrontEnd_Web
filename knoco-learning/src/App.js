@@ -17,6 +17,9 @@ import ViewAllCourse from './pages/manager/Course/ViewAllCourse';
 import CourseDetail from './pages/manager/Course/CourseDetail';
 import EditClass from './pages/teachers/EditClass';
 import VideoCall from './pages/teachers/VideoCall';
+import ViewListQuizzInClass from './pages/teachers/ViewListQuizzInClass';
+import ViewNotificationTeacher from './pages/teachers/ViewNotificationTeacher';
+import QuizzDetail from './pages/teachers/QuizzDetail';
 //import TestModal from './pages/manager/Course/TestModal';
 
 const queryClient = new QueryClient();
@@ -40,6 +43,9 @@ function App() {
         <Route path="/coursedetail/:cid" element={<CourseDetail />} />
         <Route path="/editclass" element={<EditClass />} />
         <Route path="/videocall" element={<VideoCall />} />
+        <Route path='/listquizzinclass' element={<ViewListQuizzInClass/>}/>
+        <Route path='/notificationteacher' element={<ViewNotificationTeacher/>}/>
+        <Route path='/quizzdetail' element={<QuizzDetail/>}/>
       </Routes>
       <ToastContainer
         position="top-right"

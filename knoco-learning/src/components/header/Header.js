@@ -6,11 +6,16 @@ import { faChalkboardUser } from '@fortawesome/free-solid-svg-icons';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from "react-router-dom";
 const Header = () => {
     const [isDropdownVisible, setDropdownVisible] = useState(false);
 
     const toggleDropdown = () => {
         setDropdownVisible(!isDropdownVisible);
+    };
+    const navigate = useNavigate();
+    const handleNotiClick = () => {
+        navigate(`/notificationteacher`);
     };
     return (
         <div className="navigation">
@@ -25,7 +30,7 @@ const Header = () => {
             </div>
 
             <div className="profile">
-                <FontAwesomeIcon className="icon-profile" icon={faBell} />
+                <FontAwesomeIcon className="icon-profile" icon={faBell} onClick={handleNotiClick}/>
                 <FontAwesomeIcon className="icon-img" icon={faChalkboardUser} onClick={toggleDropdown} />
                 <div className={`dropdown-menu ${isDropdownVisible ? "active" : ""}`} id="dropdown-menu">
                     <ul>

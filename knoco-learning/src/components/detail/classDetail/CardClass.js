@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams , useNavigate} from "react-router-dom";
 import './style.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -17,6 +17,7 @@ import {
 const CardClass = ({ setIsEditClassPopupVisible }) => {
     const [classDt, setClassDt] = useState(null);
     const params = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchData();
@@ -31,7 +32,10 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
             console.error('Lỗi khi lấy dữ liệu lớp học:', error);
         }
     };
-
+    const handleQuizzClick = () =>{
+        console.log("Button quizz clicked!");
+        navigate(`/listquizzinclass`);
+    }
     return (
         <div className="conval">
             {classDt ? (
@@ -126,7 +130,7 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
                         </button>
                     </div>
                     <div className="val-box-btn">
-                        <button className="btn btn-edit">
+                        <button className="btn btn-edit" onClick={handleQuizzClick}>
                             List Quizz
                         </button>
                     </div>
@@ -230,7 +234,7 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
                             </button>
                         </div>
                         <div className="val-box-btn">
-                            <button className="btn btn-edit">
+                            <button className="btn btn-edit" onClick={handleQuizzClick}>
                                 List Quizz
                             </button>
                         </div>

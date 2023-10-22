@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './call.css';
-import Axios from 'axios';
+import axios from 'axios';
+import { StringeeClient, StringeeChat } from "stringee-chat-js-sdk";
 
-const PROJECT_ID = "SK.0.iq6RLONUX0wgNilGRrMPiCH49kNge";
-const PROJECT_SECRET = "WVEwS2syR1p5ODFaZTIzVGRrdTBGbkZMNlhoWUZNUg==";
+const PROJECT_ID = "SK.0.SbdigpaBHMHaq5Zz9oRcRvVSWlagDcqR";
+const PROJECT_SECRET = "WlN6c3QyMFdiMUt3NFdPWkY3Z0NNWFhvSmc2d2tKVzI=";
 const BASE_URL = "https://api.stringee.com/v1/room2";
 
 class API {
@@ -15,24 +16,40 @@ class API {
 
   async createRoom() {
     const roomName = Math.random().toFixed(4);
-    const response = await Axios.post(
-      `${BASE_URL}/create`,
-      {
-        name: roomName,
-        uniqueName: roomName
-      },
-      {
-        headers: this._authHeader()
+    console.log(roomName);
+  
+   const authToken = this._authHeader()["X-STRINGEE-AUTH"];
+    const url = `${BASE_URL}/create`;
+    const requestBody = {
+      name: roomName,
+      uniqueName: roomName,
+    };
+  
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-STRINGEE-AUTH": authToken,
+        },
+        body: JSON.stringify(requestBody),
+      });
+  
+      if (!response.ok) {
+        // Handle non-2xx HTTP status codes here
+        throw new Error(`Request failed with status ${response.status}`);
       }
-    );
-
-    const room = response.data;
-    console.log({ room });
-    return room;
+  
+      const room = await response.json();
+      console.log({ room });
+      return room;
+    } catch (error) {
+      // Handle network errors, request errors, or any other issues here
+      console.error("Error creating room:", error);
+    }
   }
-
   async listRoom() {
-    const response = await Axios.get(`${BASE_URL}/list`, {
+    const response = await axios.get(`${BASE_URL}/list`, {
       headers: this._authHeader()
     });
 
@@ -42,7 +59,7 @@ class API {
   }
 
   async deleteRoom(roomId) {
-    const response = await Axios.put(`${BASE_URL}/delete`, {
+    const response = await axios.put(`${BASE_URL}/delete`, {
       roomId
     }, {
       headers: this._authHeader()
@@ -64,7 +81,6 @@ class API {
     const tokens = await this._getToken({ rest: true });
     const restToken = tokens.rest_access_token;
     this.restToken = restToken;
-
     return restToken;
   }
 
@@ -79,7 +95,7 @@ class API {
   }
 
   async _getToken({ userId, roomId, rest }) {
-    const response = await Axios.get(
+    const response = await axios.get(
       "https://v2.stringee.com/web-sdk-conference-samples/php/token_helper.php",
       {
         params: {
@@ -104,12 +120,12 @@ class API {
 
   _authHeader() {
     return {
-      "X-STRINGEE-AUTH": this.restToken
+      "X-STRINGEE-AUTH": "eyJjdHkiOiJzdHJpbmdlZS1hcGk7dj0xIiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJqdGkiOiJTSy4wLlNiZGlncGFCSE1IYXE1Wno5b1JjUnZWU1dsYWdEY3FSLTE2OTc5ODM5NjQiLCJpc3MiOiJTSy4wLlNiZGlncGFCSE1IYXE1Wno5b1JjUnZWU1dsYWdEY3FSIiwiZXhwIjoxNzk3OTgzOTY0LCJyZXN0X2FwaSI6dHJ1ZX0._izw0KgSQ-veDvLiBlJcMXSWKcMMr-1BdkoVVUHbu4c"
     };
   }
 }
 
-const VideoCall = () => {
+const VideoCallDemo = () => {
   const [userToken, setUserToken] = useState('');
   const [roomId, setRoomId] = useState('');
   const [roomToken, setRoomToken] = useState('');
@@ -130,11 +146,11 @@ const VideoCall = () => {
   const authen = async () => {
     return new Promise(async (resolve) => {
       const userId = `${(Math.random() * 100000).toFixed(6)}`;
-      const userToken = await api.getUserToken(userId);
-      setUserToken(userToken);
+     const userToken = await api.getUserToken(userId);
+    setUserToken(userToken);
 
       if (!callClient) {
-        const client = new window.StringeeClient();
+        const client = new StringeeClient();
 
         client.on('authen', (res) => {
           console.log('on authen: ', res);
@@ -147,8 +163,9 @@ const VideoCall = () => {
   };
 
   const publish = async (screenSharing = false) => {
-    const localTrack = await window.StringeeVideo.createLocalVideoTrack(callClient, {
-      audio: true,
+    const localTrack = await window.StringeeVideo.createLocalVideoTrack(
+     callClient, {
+      audio:true,
       video: true,
       screen: screenSharing,
       videoDimensions: { width: 640, height: 360 },
@@ -169,7 +186,7 @@ const VideoCall = () => {
   };
 
   const join = async () => {
-    await authen();
+    //  await authen();
     const roomToken = await api.getRoomToken(roomId);
     setRoomToken(roomToken);
     await publish();
@@ -181,6 +198,9 @@ const VideoCall = () => {
     setRoomId(room.roomId);
     setRoomToken(room.token);
     console.log({ roomUrl });
+    // await authen();
+    await publish();
+    
   };
 
   const joinWithId = async () => {
@@ -191,11 +211,15 @@ const VideoCall = () => {
     }
   };
 
+  // const addVideo = (element) => {
+  //   const videosElement = document.getElementById("videos");
+  //   videosElement.appendChild(element);
+  // };
   const addVideo = (element) => {
-    const videosElement = document.getElementById("videos");
-    videosElement.appendChild(element);
+    //const videosElement = document.getElementById("videos");
+    const videoContainer = document.querySelector("#videos");
+    videoContainer.appendChild(element);
   };
-
   return (
     <div>
       <h1>Video Call</h1>
@@ -208,4 +232,4 @@ const VideoCall = () => {
   );
 };
 
-export default VideoCall;
+export default VideoCallDemo;

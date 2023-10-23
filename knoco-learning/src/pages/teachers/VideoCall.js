@@ -17,14 +17,14 @@ class API {
   async createRoom() {
     const roomName = Math.random().toFixed(4);
     console.log(roomName);
-  
-   const authToken = this._authHeader()["X-STRINGEE-AUTH"];
+
+    const authToken = this._authHeader()["X-STRINGEE-AUTH"];
     const url = `${BASE_URL}/create`;
     const requestBody = {
       name: roomName,
       uniqueName: roomName,
     };
-  
+
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -34,12 +34,12 @@ class API {
         },
         body: JSON.stringify(requestBody),
       });
-  
+
       if (!response.ok) {
         // Handle non-2xx HTTP status codes here
         throw new Error(`Request failed with status ${response.status}`);
       }
-  
+
       const room = await response.json();
       console.log({ room });
       return room;
@@ -146,8 +146,8 @@ const VideoCallDemo = () => {
   const authen = async () => {
     return new Promise(async (resolve) => {
       const userId = `${(Math.random() * 100000).toFixed(6)}`;
-     const userToken = await api.getUserToken(userId);
-    setUserToken(userToken);
+      const userToken = await api.getUserToken(userId);
+      setUserToken(userToken);
 
       if (!callClient) {
         const client = new StringeeClient();
@@ -164,8 +164,8 @@ const VideoCallDemo = () => {
 
   const publish = async (screenSharing = false) => {
     const localTrack = await window.StringeeVideo.createLocalVideoTrack(
-     callClient, {
-      audio:true,
+      callClient, {
+      audio: true,
       video: true,
       screen: screenSharing,
       videoDimensions: { width: 640, height: 360 },
@@ -200,7 +200,7 @@ const VideoCallDemo = () => {
     console.log({ roomUrl });
     // await authen();
     await publish();
-    
+
   };
 
   const joinWithId = async () => {

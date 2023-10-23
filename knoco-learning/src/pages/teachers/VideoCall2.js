@@ -19,7 +19,7 @@ class API {
         this.projectId = projectId;
         this.projectSecret = projectSecret;
         this.restToken = "";
-      }
+    }
 
     async createRoom() {
         const roomName = Math.random().toFixed(4);
@@ -184,14 +184,14 @@ class API {
 
     _authHeader() {
         return {
-            "X-STRINGEE-AUTH": "eyJjdHkiOiJzdHJpbmdlZS1hcGk7dj0xIiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJqdGkiOiJTSy4wLlNiZGlncGFCSE1IYXE1Wno5b1JjUnZWU1dsYWdEY3FSLTE2OTgwNjA3MTIiLCJpc3MiOiJTSy4wLlNiZGlncGFCSE1IYXE1Wno5b1JjUnZWU1dsYWdEY3FSIiwiZXhwIjoxNzk4MDYwNzEyLCJyZXN0X2FwaSI6dHJ1ZX0.UESR2KsgYqcvg5o04AP0e05KmZz87iPHnW7vuwlJpuA"
+            "X-STRINGEE-AUTH": "eyJjdHkiOiJzdHJpbmdlZS1hcGk7dj0xIiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJqdGkiOiJTSy4wLlNiZGlncGFCSE1IYXE1Wno5b1JjUnZWU1dsYWdEY3FSLTE2OTc5ODM5NjQiLCJpc3MiOiJTSy4wLlNiZGlncGFCSE1IYXE1Wno5b1JjUnZWU1dsYWdEY3FSIiwiZXhwIjoxNzk3OTgzOTY0LCJyZXN0X2FwaSI6dHJ1ZX0._izw0KgSQ-veDvLiBlJcMXSWKcMMr-1BdkoVVUHbu4c"
             //"X-STRINGEE-AUTH": this.state.restToken
         };
     }
 
 }
 
-const Call = () => {
+const VideoCall2 = () => {
     const [userToken, setUserToken] = useState('');
     const [roomId, setRoomId] = useState('');
     const [roomToken, setRoomToken] = useState('');
@@ -206,7 +206,7 @@ const Call = () => {
         const roomId = urlParams.get('room');
         if (roomId) {
             setRoomId(roomId);
-            //join();
+            join();
         }
     }, []);
 
@@ -262,7 +262,6 @@ const Call = () => {
                 if (!track) {
                     return;
                 }
-
                 const mediaElements = track.detach();
                 mediaElements.forEach((element) => element.remove());
             });
@@ -270,7 +269,6 @@ const Call = () => {
             // Join existing tracks
             roomData.listTracksInfo.forEach((info) => subscribe(info));
         }
-
         await room.publish(localTrack);
         console.log('room publish successful');
     };
@@ -281,7 +279,7 @@ const Call = () => {
         setRoomId(room.roomId);
         setRoomToken(room.token);
         console.log({ roomUrl });
-        // await authen();
+        await authen();
         await publish();
 
         // const room = await api.createRoom();
@@ -323,15 +321,16 @@ const Call = () => {
     const addVideo = (video) => {
         video.setAttribute('controls', 'true');
         video.setAttribute('playsinline', 'true');
-        const videoContainer = document.querySelector('#videos');
         videoContainer.appendChild(video);
     };
 
     return (
         <div class="app-container">
             <div>
+                <p>Bạn đang ở trong room <strong>{roomId}</strong>.</p>
                 <button onClick={createRoom}>Create Room</button>
                 <button onClick={joinWithId}>Join with ID</button>
+                <div id="videos"></div>
             </div>
             <div class="app-main">
                 <div class="video-call-wrapper">
@@ -399,4 +398,4 @@ const Call = () => {
     );
 };
 
-export default Call;
+export default VideoCall2;

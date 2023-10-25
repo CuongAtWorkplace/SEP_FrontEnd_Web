@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './call.css';
 import axios from 'axios';
 import { StringeeClient, StringeeChat } from "stringee-chat-js-sdk";
+import { Component } from 'react';
 
 const PROJECT_ID = "SK.0.SbdigpaBHMHaq5Zz9oRcRvVSWlagDcqR";
 const PROJECT_SECRET = "WlN6c3QyMFdiMUt3NFdPWkY3Z0NNWFhvSmc2d2tKVzI=";
@@ -120,7 +121,7 @@ class API {
 
   _authHeader() {
     return {
-      "X-STRINGEE-AUTH": "eyJjdHkiOiJzdHJpbmdlZS1hcGk7dj0xIiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJqdGkiOiJTSy4wLlNiZGlncGFCSE1IYXE1Wno5b1JjUnZWU1dsYWdEY3FSLTE2OTc5ODM5NjQiLCJpc3MiOiJTSy4wLlNiZGlncGFCSE1IYXE1Wno5b1JjUnZWU1dsYWdEY3FSIiwiZXhwIjoxNzk3OTgzOTY0LCJyZXN0X2FwaSI6dHJ1ZX0._izw0KgSQ-veDvLiBlJcMXSWKcMMr-1BdkoVVUHbu4c"
+      "X-STRINGEE-AUTH": this.restToken
     };
   }
 }
@@ -133,7 +134,9 @@ const VideoCallDemo = () => {
 
   const api = new API(PROJECT_ID, PROJECT_SECRET);
 
+
   useEffect(() => {
+      api.setRestToken();
     const urlParams = new URLSearchParams(window.location.search);
     const roomId = urlParams.get('room');
     //const client = new window.StringeeClient();
@@ -143,6 +146,7 @@ const VideoCallDemo = () => {
     }
   }, []);
 
+  
   const authen = async () => {
     return new Promise(async (resolve) => {
       const userId = `${(Math.random() * 100000).toFixed(6)}`;
@@ -150,7 +154,7 @@ const VideoCallDemo = () => {
       setUserToken(userToken);
 
       if (!callClient) {
-        const client = new StringeeClient();
+        const client = new window.StringeeClient();
 
         client.on('authen', (res) => {
           console.log('on authen: ', res);
@@ -162,14 +166,35 @@ const VideoCallDemo = () => {
     });
   };
 
-  const publish = async (screenSharing = false) => {
-    const localTrack = await window.StringeeVideo.createLocalVideoTrack(
-      callClient, {
+  const publish = async () => {
+    const localTrack = await window.StringeeVideo.createLocalVideoTrack(callClient, {
       audio: true,
       video: true,
-      screen: screenSharing,
+      screen: false,
       videoDimensions: { width: 640, height: 360 },
     });
+    const videoElement = localTrack.attach();
+    addVideo(videoElement);
+
+    const roomData = await window.StringeeVideo.joinRoom(callClient, roomToken);
+    const room = roomData.room;
+    console.log({ roomData, room });
+
+    room.publish(localTrack).then(() => {
+      console.log("Publish success");
+    }).catch((error) => {
+      console.error("Publish error: ", error);
+    });
+  };
+
+  const publishscreenSharing = async () => {
+    const localTrack = await window.StringeeVideo.createLocalVideoTrack(callClient, {
+      audio: true,
+      video: true,
+      screen: true,
+      videoDimensions: { width: 640, height: 360 },
+    });
+
 
     const videoElement = localTrack.attach();
     addVideo(videoElement);
@@ -185,8 +210,9 @@ const VideoCallDemo = () => {
     });
   };
 
+
   const join = async () => {
-    //  await authen();
+     await authen();
     const roomToken = await api.getRoomToken(roomId);
     setRoomToken(roomToken);
     await publish();
@@ -198,7 +224,9 @@ const VideoCallDemo = () => {
     setRoomId(room.roomId);
     setRoomToken(room.token);
     console.log({ roomUrl });
-    // await authen();
+    console.log({roomToken});
+    console.log(room.roomId);
+    await authen();
     await publish();
 
   };
@@ -226,6 +254,7 @@ const VideoCallDemo = () => {
       <div>
         <button onClick={createRoom}>Create Room</button>
         <button onClick={joinWithId}>Join with ID</button>
+         <button onClick={publishscreenSharing}>Join with ID</button> 
       </div>
       <div id="videos"></div>
     </div>

@@ -15,45 +15,70 @@ class API {
     this.restToken = "";
   }
 
+  // async createRoom() {
+  //   const roomName = Math.random().toFixed(4);
+  //   console.log(roomName);
+
+  //   const authToken = this._authHeader()["X-STRINGEE-AUTH"];
+  //   const url = `${BASE_URL}/create`;
+  //   const requestBody = {
+  //     name: roomName,
+  //     uniqueName: roomName,
+  //   };
+
+  //   try {
+  //     const response = await fetch(url, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "X-STRINGEE-AUTH": authToken,
+  //       },
+  //       body: JSON.stringify(requestBody),
+  //     });
+
+  //     if (!response.ok) {
+  //       // Handle non-2xx HTTP status codes here
+  //       throw new Error(`Request failed with status ${response.status}`);
+  //     }
+
+  //     const room = await response.json();
+  //     console.log({ room });
+  //     return room;
+  //   } catch (error) {
+  //     // Handle network errors, request errors, or any other issues here
+  //     console.error("Error creating room:", error);
+  //   }
+  // }
+
   async createRoom() {
     const roomName = Math.random().toFixed(4);
-    console.log(roomName);
-
-    const authToken = this._authHeader()["X-STRINGEE-AUTH"];
-    const url = `${BASE_URL}/create`;
-    const requestBody = {
-      name: roomName,
-      uniqueName: roomName,
-    };
-
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-STRINGEE-AUTH": authToken,
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      if (!response.ok) {
-        // Handle non-2xx HTTP status codes here
-        throw new Error(`Request failed with status ${response.status}`);
+    const response = await axios.post(
+      `${BASE_URL}/create`,
+      {
+        name: roomName,
+        uniqueName: roomName
+      },
+      {
+        headers: this._authHeader()
       }
-
-      const room = await response.json();
-      console.log({ room });
-      return room;
-    } catch (error) {
-      // Handle network errors, request errors, or any other issues here
-      console.error("Error creating room:", error);
-    }
+    );
+    const room = response.data;
+    console.log({ room });
+    return room;
   }
+  // async listRoom() {
+  //   const response = await axios.get(`${BASE_URL}/list`, {
+  //     headers: this._authHeader()
+  //   });
+
+  //   const rooms = response.data.list;
+  //   console.log({ rooms });
+  //   return rooms;
+  // }
   async listRoom() {
     const response = await axios.get(`${BASE_URL}/list`, {
       headers: this._authHeader()
     });
-
     const rooms = response.data.list;
     console.log({ rooms });
     return rooms;
@@ -130,8 +155,9 @@ const VideoCallDemo = () => {
   const [userToken, setUserToken] = useState('');
   const [roomId, setRoomId] = useState('');
   const [roomToken, setRoomToken] = useState('');
-  const [callClient, setCallClient] = useState(undefined);
-
+  const [callClient, setCallClient] = useState(true);
+  const [room, setRoom] = useState(undefined);
+  const getRoomUrl = () => `https://${window.location.hostname}?room=${roomId}`;
   const api = new API(PROJECT_ID, PROJECT_SECRET);
 
 
@@ -140,6 +166,7 @@ const VideoCallDemo = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const roomId = urlParams.get('room');
     //const client = new window.StringeeClient();
+    console.log('Trang đã được render lại.');
     if (roomId) {
       setRoomId(roomId);
       join();
@@ -148,25 +175,25 @@ const VideoCallDemo = () => {
 
   
   const authen = async () => {
-    return new Promise(async (resolve) => {
+    return new Promise(async resolve => {
       const userId = `${(Math.random() * 100000).toFixed(6)}`;
       const userToken = await api.getUserToken(userId);
       setUserToken(userToken);
 
-      if (!callClient) {
-        const client = new window.StringeeClient();
+      // if (!callClient) {
+      //   const client = new StringeeClient();
 
-        client.on('authen', (res) => {
-          console.log('on authen: ', res);
-          resolve(res);
-        });
-        setCallClient(client);
-      }
-      callClient.connect(userToken);
+      //   client.on('authen', (res) => {
+      //     console.log('on authen: ', res);
+      //     resolve(res);
+      //   });
+      //   setCallClient(client);
+      // }
+      // callClient.connect(userToken);
     });
   };
 
-  const publish = async () => {
+  const publish = async (screenSharing = false) => {
     const localTrack = await window.StringeeVideo.createLocalVideoTrack(callClient, {
       audio: true,
       video: true,
@@ -187,11 +214,11 @@ const VideoCallDemo = () => {
     });
   };
 
-  const publishscreenSharing = async () => {
+  const publishscreenSharing = async (screenSharing = false) => {
     const localTrack = await window.StringeeVideo.createLocalVideoTrack(callClient, {
       audio: true,
       video: true,
-      screen: true,
+      screen: screenSharing,
       videoDimensions: { width: 640, height: 360 },
     });
 
@@ -203,6 +230,32 @@ const VideoCallDemo = () => {
     const room = roomData.room;
     console.log({ roomData, room });
 
+    if (!room) {
+      setRoom(room);
+      room.clearAllOnMethos();
+      room.on("addtrack", e => {
+        const track = e.info.track;
+
+        console.log("addtrack", track);
+        if (track.serverId === localTrack.serverId) {
+          console.log("local");
+          return;
+        }
+        subscribe(track);
+      });
+      room.on("removetrack", e => {
+        const track = e.track;
+        if (!track) {
+          return;
+        }
+
+        const mediaElements = track.detach();
+        mediaElements.forEach(element => element.remove());
+      });
+
+      // Join existing tracks
+      roomData.listTracksInfo.forEach(info => subscribe(info));
+    }
     room.publish(localTrack).then(() => {
       console.log("Publish success");
     }).catch((error) => {
@@ -211,38 +264,76 @@ const VideoCallDemo = () => {
   };
 
 
-  const join = async () => {
-     await authen();
-    const roomToken = await api.getRoomToken(roomId);
-    setRoomToken(roomToken);
-    await publish();
-  };
+ 
 
   const createRoom = async () => {
     const room = await api.createRoom();
-    const roomUrl = `${window.location.origin}?room=${room.roomId}`;
+     const roomUrl = `${window.location.origin}?room=${room.roomId}`;
+    // setRoomId(room.roomId);
+    // setRoomToken(room.token);
+    // console.log({ roomUrl });
+    // console.log(room.roomToken);
+    // console.log(room.roomId);
+    console.log(room);
+    const {roomId} = room;
+    const roomToken = await api.getRoomToken(roomId);
     setRoomId(room.roomId);
-    setRoomToken(room.token);
-    console.log({ roomUrl });
-    console.log({roomToken});
-    console.log(room.roomId);
-    await authen();
+    setRoomToken(roomToken);
+    console.log({ roomId, roomToken });
     await publish();
-
+    await authen();
   };
 
-  const joinWithId = async () => {
-    const roomId = prompt("Enter room ID:");
-    if (roomId) {
-      setRoomId(roomId);
-      await join();
-    }
-  };
+  
 
+//   const joinWithId = async () => {
+//     const roomId = prompt("Enter room ID:");
+//     if (roomId) {
+//       setRoomId(roomId);
+//       console.log(roomId);
+//       await join();
+//     }
+//   };
+// const join = async () => {
+  
+//     const roomToken = await api.getRoomToken(roomId);
+//     setRoomToken(roomToken);
+//     await authen();
+//     await publish();
+//   };
+
+
+
+const joinWithId = async () => {
+  const roomId = prompt("Enter room ID:");
+  if (roomId) {
+    setRoomId(roomId);
+    console.log(roomId);
+    await join();
+  }
+};
+const join = async () => {
+  console.log("token + " + roomId);
+  const roomToken = await api.getRoomToken("room-vn-1-96H9Z8L7PT-1698277255025");
+  setRoomToken(roomToken);
+  console.log(roomToken);
+  await publish();
+  await authen();
+
+};
   // const addVideo = (element) => {
   //   const videosElement = document.getElementById("videos");
   //   videosElement.appendChild(element);
   // };
+
+  
+  const subscribe = async (trackInfo) => {
+    const track = await this.room.subscribe(trackInfo.serverId);
+    track.on("ready", () => {
+      const videoElement = track.attach();
+      this.addVideo(videoElement);
+    }); 
+  };
   const addVideo = (element) => {
     //const videosElement = document.getElementById("videos");
     const videoContainer = document.querySelector("#videos");

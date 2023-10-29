@@ -21,6 +21,8 @@ import ViewListQuizzInClass from './pages/teachers/ViewListQuizzInClass';
 import ViewNotificationTeacher from './pages/teachers/ViewNotificationTeacher';
 import QuizzDetail from './pages/teachers/QuizzDetail';
 import VideoCall2 from './pages/teachers/VideoCall2';
+import ViewPostListManager from './pages/manager/ViewPostListManager';
+import ViewPostDetailManager from './pages/manager/ViewPostDetailManager';
 //import TestModal from './pages/manager/Course/TestModal';
 
 const queryClient = new QueryClient();
@@ -48,6 +50,8 @@ function App() {
         <Route path='/notificationteacher' element={<ViewNotificationTeacher/>}/>
         <Route path='/quizzdetail' element={<QuizzDetail/>}/>
         <Route path="/call" element={<VideoCall2 />} />
+        <Route path="/viewpostlistmanager" element={<ViewPostListManager />} />
+        <Route path="/viewpostdetailmanager" element={<ViewPostDetailManager />} />
       </Routes>
       <ToastContainer
         position="top-right"

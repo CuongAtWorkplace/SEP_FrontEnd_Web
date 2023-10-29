@@ -23,10 +23,6 @@ const Header = () => {
                 <div>
                     <FontAwesomeIcon id="menu-btn" icon={faBars} />
                 </div>
-                <div className="search">
-                    <FontAwesomeIcon className="icon-search" icon={faMagnifyingGlass} />
-                    <input type="text" placeholder="Search" />
-                </div>
             </div>
 
             <div className="profile">

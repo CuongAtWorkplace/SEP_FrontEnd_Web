@@ -326,12 +326,6 @@ const VideoCall2 = () => {
 
     return (
         <div class="app-container">
-            <div>
-                <p>Bạn đang ở trong room <strong>{roomId}</strong>.</p>
-                <button onClick={createRoom}>Create Room</button>
-                <button onClick={joinWithId}>Join with ID</button>
-                <div id="videos"></div>
-            </div>
             <div class="app-main">
                 <div class="video-call-wrapper">
                     <div class="video-participant">

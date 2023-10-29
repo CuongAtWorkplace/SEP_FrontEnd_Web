@@ -16,25 +16,17 @@ const ColumnFilter = ({ column }) => {
 };
 
 const TableListClassTeacher = () => {
-  //const { userId = 2 } = props;
   const [data, setData] = useState([]);
-  const [allClass, setallClass] = useState([]);
+  //const [allClass, setallClass] = useState([]);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const fetchData = async () => {
     try {
-
-      // fetch(`https://localhost:7169/api/Class/GetAllClass`)
-      // .then((response) => response.json())
-      // .then((data) => {
-      //   setallClass(data);
-      // });
-      const response = await fetch(`https://localhost:7169/api/Class/GetAllClassToTeacher/${2}`); 
-
+      const response = await fetch(`https://localhost:7169/api/Class/GetTeacherClassList/${2}`); 
       const responseData = await response.json();
       setData(responseData);
     } catch (error) {
@@ -116,20 +108,19 @@ const TableListClassTeacher = () => {
 
   ]);
 
-  const [apiData, setApiData] = useState([]);
-
-  useEffect(() => {
-    // Call your API to get data
-    fetch(`https://localhost:7169/api/Class/GetTeacherClassList/${2}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setData(data);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
+  // const [apiData, setApiData] = useState([]);
+  // useEffect(() => {
+  //   // Call your API to get data
+  //   fetch(`https://localhost:7169/api/Class/GetTeacherClassList/${2}`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setData(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching data:', error);
+  //     });
+  // }, []);
 
   return (
     <Table columns={columns} data={data} onRowClick={handleRowClick}/>

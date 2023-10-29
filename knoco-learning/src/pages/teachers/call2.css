@@ -20,7 +20,7 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 button {
@@ -108,14 +108,14 @@ a {
     height: 100%;
 }
 
-.navigation {
+/* .navigations {
     display: flex;
     flex-direction: column;
     background-color: var(--navigation-bg);
     padding: 24px;
     border-radius: 10px;
     box-shadow: var(--navigation-box-shadow);
-}
+} */
 
 .nav-link+.nav-link {
     margin-top: 32px;

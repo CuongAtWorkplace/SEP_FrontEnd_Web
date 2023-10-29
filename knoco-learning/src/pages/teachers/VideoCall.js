@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './call.css';
 import axios from 'axios';
 import { Component } from 'react';
-
+// import { StringeeClient, StringeeChat } from "stringee-chat-js-sdk";
 const PROJECT_ID = "SK.0.SbdigpaBHMHaq5Zz9oRcRvVSWlagDcqR";
 const PROJECT_SECRET = "WlN6c3QyMFdiMUt3NFdPWkY3Z0NNWFhvSmc2d2tKVzI=";
 const BASE_URL = "https://api.stringee.com/v1/room2";
@@ -158,7 +158,7 @@ const VideoCallDemo = () => {
   const [userTokenConnect, setUserToken] = useState('');
   const [roomId, setRoomId] = useState('');
   const [roomToken, setRoomToken] = useState('');
-  const [callClient, setCallClient] = useState(undefined);
+  const [callClient, setCallClient] = useState(true);
   const [room, setRoom] = useState(undefined);
   const getRoomUrl = () => `https://${window.location.hostname}?room=${roomId}`;
 
@@ -189,27 +189,29 @@ const VideoCallDemo = () => {
       setUserToken(userToken); 
       console.log(userTokenConnect + "aaaas1a");
 
-      const script = document.createElement('script');
-      script.src = 'https://cdn.stringee.com/sdk/web/latest/stringee-web-sdk.min.js';
-      script.onload = function () {
-        // Thư viện đã được tải xong ở đây. Bạn có thể sử dụng nó ngay bây giờ.
+      //   const script = document.createElement('script');
+      //   script.src = 'https://cdn.stringee.com/sdk/web/2.2.1/stringee-web-sdk.min.js';
+      //   script.onload = function () {
 
-       // Gọi các hàm sử dụng thư viện ở đây
-        if (!callClient) {
-          // var clienta = new StringeeClient() ;
-          const client = new window.StringeeClient(); // Ví dụ về cách tạo một đối tượng stringeeClient
-          client.on("authen", function(res) {
-            console.log("on authen: ", res);
-            resolve(res);
-          });
+      //   if (!callClient) {
+      //     // const client = new window.StringeeClient({
+      //     //   script: 'https://cdn.stringee.com/sdk/web/latest/stringee-web-sdk.min.js',
+      //     //   // Other required or optional properties
+      //     // });
+      //      const client = new window.StringeeClient(); // Ví dụ về cách tạo một đối tượng stringeeClient
+         
+      //     client.on("authen", function(res) {
+      //       console.log("on authen: ", res);
+      //       resolve(res);
+      //     });
 
-          setCallClient(client);
-          console.log(client);
-        }
-        // callClient.connect(userTokenConnect);
-      };
+      //     setCallClient(client);
+      //     console.log(client);
+      //   }
+      //    callClient.connect(userToken);
+      // };
 
-      document.head.appendChild(script);
+      // document.head.appendChild(script);
 
 
 
@@ -348,7 +350,7 @@ const VideoCallDemo = () => {
     setRoomToken(roomToken);
     console.log(roomToken);
     
-    await authen();
+    // await authen();
     await publish();
 
 

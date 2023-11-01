@@ -1,7 +1,4 @@
-
 const videoContainer = document.querySelector("#videos");
-
-
 
 const PROJECT_ID = "SK.0.SbdigpaBHMHaq5Zz9oRcRvVSWlagDcqR";
 const PROJECT_SECRET = "WlN6c3QyMFdiMUt3NFdPWkY3Z0NNWFhvSmc2d2tKVzI=";
@@ -156,10 +153,10 @@ const vm = new Vue({
         this.callClient.connect(userToken);
       });
     },
-    checkCam:  function() {
-      const stream = navigator.mediaDevices.getUserMedia({ video: true });
-      videoElement.srcObject = stream;
-    },
+    // checkCam:  function() {
+    //   const stream = navigator.mediaDevices.getUserMedia({ video: true });
+    //   videoElement.srcObject = stream;
+    // },
     publish: async function(screenSharing = false) {
       const localTrack = await StringeeVideo.createLocalVideoTrack(
         this.callClient,

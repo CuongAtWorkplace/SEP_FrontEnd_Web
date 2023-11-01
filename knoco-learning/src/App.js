@@ -21,6 +21,7 @@ import ViewListQuizzInClass from './pages/teachers/ViewListQuizzInClass';
 import ViewNotificationTeacher from './pages/teachers/ViewNotificationTeacher';
 import QuizzDetail from './pages/teachers/QuizzDetail';
 import VideoCall2 from './pages/teachers/VideoCall2';
+import VideoCallDemo from './pages/teachers/VideoCallDemo';
 import ViewPostListManager from './pages/manager/ViewPostListManager';
 import ViewPostDetailManager from './pages/manager/ViewPostDetailManager';
 import GroupChat from './pages/teachers/GroupChat';
@@ -47,6 +48,7 @@ function App() {
         <Route path="/coursedetail/:cid" element={<CourseDetail />} />
         <Route path="/editclass" element={<EditClass />} />
         <Route path="/videocall" element={<VideoCall />} />
+        <Route path="/videocalldemo/:roomId" element={<VideoCallDemo />} />
         <Route path='/listquizzinclass' element={<ViewListQuizzInClass/>}/>
         <Route path='/notificationteacher' element={<ViewNotificationTeacher/>}/>
         <Route path='/quizzdetail' element={<QuizzDetail/>}/>

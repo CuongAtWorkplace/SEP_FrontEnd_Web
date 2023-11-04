@@ -10,10 +10,14 @@ import Footer from "../../components/footer/Footer";
 import SideBar from "../../components/sidebar/SideBar"
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import $ from "jquery";
+import CardEditProfile from "../../components/edit/CardEditProfile";
+import CardChangePassword from "../../components/edit/CardChangePassword";
 
 const ProfileTeacher = ({ onBackClick, children, ...props }) => {
-    const { userId } = props;
+    //const { userId } = props;
     const [teacherId, setClassDt] = useState(null);
+    const [isEditClassPopupVisible, setEditClassPopupVisible] = useState(false);
+    const [isChangePasswordPopupVisible, setChangePasswordPopupVisible] = useState(false);
 
     useEffect(() => {
         fetchData();
@@ -25,13 +29,29 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/User/GetStudentDetailInClass/${2}`); // Thay thế URL bằng API thực tế
+            const response = await fetch(`https://localhost:7169/api/User/GetUserProfile/${2}`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setClassDt(responseData);
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu lớp học:', error);
         }
     };
+
+    const openEditClassPopup = () => {
+        setEditClassPopupVisible(true);
+    }
+
+    const closeEditClassPopup = () => {
+        setEditClassPopupVisible(false);
+    }
+
+    const openChangePasswordPopup = () => {
+        setChangePasswordPopupVisible(true);
+    }
+
+    const closeChangePasswordPopup = () => {
+        setChangePasswordPopupVisible(false);
+    }
 
     return (
         <div className="body_page" {...props}>
@@ -61,11 +81,12 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                                             <img src={myImage} alt="Profile" />
                                         </li>
                                         <li>
-                                            <button>Edit</button>
-                                            <button>Change password</button>
+                                            <button>Change image</button>
+                                            <button onClick={openChangePasswordPopup}>Change password</button>
                                         </li>
                                         <li>
                                             <button onClick={onBackClick}><FontAwesomeIcon icon={faArrowLeft} /> Back</button>
+                                            <button onClick={openEditClassPopup}>Edit profile</button>
                                         </li>
                                     </ul>
                                 </div>
@@ -97,11 +118,12 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                                             <img src={myImage} alt="Profile" />
                                         </li>
                                         <li>
-                                            <button>Edit</button>
-                                            <button>Change password</button>
+                                            <button>Change image</button>
+                                            <button onClick={openChangePasswordPopup}>Change password</button>
                                         </li>
                                         <li>
                                             <button onClick={onBackClick}><FontAwesomeIcon icon={faArrowLeft} /> Back</button>
+                                            <button onClick={openEditClassPopup}>Edit profile</button>
                                         </li>
                                     </ul>
                                 </div>
@@ -118,6 +140,18 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
 
                                 </div>
                             </div>
+                        </div>
+                    )}
+
+                    {isEditClassPopupVisible && (
+                        <div className="popup">
+                            <CardEditProfile closePopup={closeEditClassPopup} />
+                        </div>
+                    )}
+
+                    {isChangePasswordPopupVisible && (
+                        <div className="popup">
+                            <CardChangePassword closePopup={closeChangePasswordPopup} />
                         </div>
                     )}
                 </div>

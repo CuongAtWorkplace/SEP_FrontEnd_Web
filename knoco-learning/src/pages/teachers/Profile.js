@@ -16,12 +16,11 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
     const [teacherId, setClassDt] = useState(null);
 
     useEffect(() => {
+        fetchData();
         // Add click event listener to menu-btn
         $('.menu-btn').on('click', function () {
             $('#menu').toggleClass('active'); // Toggle active class on #menu
         });
-
-        fetchData();
     }, []);
 
     const fetchData = async () => {
@@ -71,15 +70,19 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                                     </ul>
                                 </div>
                                 <div className="col-2">
-                                    <h2>{teacherId.className} </h2>
-                                    <p className="title">Email: </p>
-                                    <p>null</p>
-                                    <p className="title">Phone number: </p>
-                                    <p>null</p>
-                                    <p className="title">Description: </p>
-                                    <p>null</p>
-                                    <p className="title">Address: </p>
-                                    <p>null</p>
+                                    <h2>{teacherId.fullName} </h2>
+                                    <p className="email">Email: </p>
+                                    <p>{teacherId.email}</p>
+                                    <p className="phone">Phone number: </p>
+                                    <p>{teacherId.phone}</p>
+                                    <p className="description">Description: </p>
+                                    <p>{teacherId.description}</p>
+                                    <p className="address">Address: </p>
+                                    <p>{teacherId.address}</p>
+                                    <p className="createdate">Create date: </p>
+                                    <p>{teacherId.createDate}</p>
+                                    <p className="balance">Balance: </p>
+                                    <p>{teacherId.balance}</p>
 
                                 </div>
                             </div>

@@ -6,25 +6,29 @@ const VideoCallDemo = () => {
   const { roomId } = useParams();
 
   const myMeeting = async (element) => {
-    const appID = 421828278;
-    const serverSecret = "afc78dde2cf741311179428544f8074d";
+    const appID = 699383273;
+    const serverSecret = "630bf62f2c2285d34c5a982bc39440f8";
     const kitToke = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomId, Date.now().toString(), "piii");
   const zc = ZegoUIKitPrebuilt.create(kitToke);
   zc.joinRoom({
-    container:element,
-    scenario:{
-      mode:ZegoUIKitPrebuilt.OneONoneCall,
+    container: element,
+    sharedLinks: [{
+        url: window.location.protocol + '//' + window.location.host + window.location.pathname + '?roomID=' + roomId,
+    }],
+    scenario: {
+      mode: ZegoUIKitPrebuilt.VideoConference,
     },
-    showScreenSharingButton:false,
-  });
-  
+
+});
   }
 
 
 
   return (
     <div>
-      <div ref={myMeeting}/>
+      <div class="col-md-6"><div ref={myMeeting}/> </div>
+      <div class="col-md-6">s </div>
+      
     </div>
   )
 }

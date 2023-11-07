@@ -33,6 +33,10 @@ const SideBar = () => {
                     <Link className="link-a" to="/profile-teacher">Profile</Link>
                 </li>
                 <li>
+                    <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
+                    <Link className="link-a" to="/list-all-course">Profile</Link>
+                </li>
+                <li>
                     <FontAwesomeIcon className="menu-icon" icon={faSchool} />
                     <Link className="link-a" to="#">Manage Courses</Link>
                 </li>

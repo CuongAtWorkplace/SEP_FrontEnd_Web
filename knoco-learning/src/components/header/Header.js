@@ -7,8 +7,11 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
+import CardChangePassword from "../../components/edit/CardChangePassword";
+
 const Header = () => {
     const [isDropdownVisible, setDropdownVisible] = useState(false);
+    const [isChangePasswordPopupVisible, setChangePasswordPopupVisible] = useState(false);
 
     const toggleDropdown = () => {
         setDropdownVisible(!isDropdownVisible);
@@ -17,6 +20,15 @@ const Header = () => {
     const handleNotiClick = () => {
         navigate(`/notificationteacher`);
     };
+
+    const openChangePasswordPopup = () => {
+        setChangePasswordPopupVisible(true);
+    }
+
+    const closeChangePasswordPopup = () => {
+        setChangePasswordPopupVisible(false);
+    }
+
     return (
         <div className="navigation">
             <div className="n1">
@@ -26,15 +38,20 @@ const Header = () => {
             </div>
 
             <div className="profile">
-                <FontAwesomeIcon className="icon-profile" icon={faBell} onClick={handleNotiClick}/>
+                <FontAwesomeIcon className="icon-profile" icon={faBell} onClick={handleNotiClick} />
                 <FontAwesomeIcon className="icon-img" icon={faChalkboardUser} onClick={toggleDropdown} />
                 <div className={`dropdown-menu ${isDropdownVisible ? "active" : ""}`} id="dropdown-menu">
                     <ul>
-                        <li><Link className="link-a" to="#">Change Password</Link></li>
+                        <li><Link className="link-a" to="#" onClick={openChangePasswordPopup}>Change Password</Link></li>
                         <li><Link className="link-a" to="#">Log Out</Link></li>
                     </ul>
                 </div>
             </div>
+            {isChangePasswordPopupVisible && (
+                <div className="popup">
+                    <CardChangePassword closePopup={closeChangePasswordPopup} />
+                </div>
+            )}
         </div>
     )
 };

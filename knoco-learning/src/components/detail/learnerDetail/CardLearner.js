@@ -5,8 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const CardLearner = ({ learner, onBackClick }, props) => {
-    const { userId } = props;
+    //const { userId } = props;
     const [learnerId, setClassDt] = useState(null);
+    console.log(learner);
 
     useEffect(() => {
         fetchData();
@@ -14,7 +15,7 @@ const CardLearner = ({ learner, onBackClick }, props) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/User/GetStudentDetailInClass/${userId}`); // Thay thế URL bằng API thực tế
+            const response = await fetch(`https://localhost:7169/api/User/GetStudentDetailInClass/${learner.userId}`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setClassDt(responseData);
         } catch (error) {

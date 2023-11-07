@@ -32,6 +32,12 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
             console.error('Lỗi khi lấy dữ liệu lớp học:', error);
         }
     };
+
+    const formatDate = (date) => {
+        const formattedDate = new Date(date).toISOString().split('T')[0];
+        return formattedDate;
+    };
+
     const handleQuizzClick = () => {
         console.log("Button quizz clicked!");
         navigate(`/listquizzinclass`);
@@ -107,21 +113,21 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
                         <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
                         <div>
                             <h3>Create Date</h3>
-                            <span>{classDt.createDate}</span>
+                            <span>{formatDate(classDt.createDate)}</span>
                         </div>
                     </div>
                     <div className="val-box">
                         <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
                         <div>
                             <h3>startDate</h3>
-                            <span>{classDt.startDate}</span>
+                            <span>{formatDate(classDt.startDate)}</span>
                         </div>
                     </div>
                     <div className="val-box">
                         <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
                         <div>
                             <h3>endDate</h3>
-                            <span>{classDt.endDate}</span>
+                            <span>{formatDate(classDt.endDate)}</span>
                         </div>
                     </div>
                     <div className="val-box-btn">

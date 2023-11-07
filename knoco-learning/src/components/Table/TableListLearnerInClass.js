@@ -5,7 +5,7 @@ import CardLearner from "../detail/learnerDetail/CardLearner";
 
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
-  
+
   return (
     <input
       type="text"
@@ -18,7 +18,7 @@ const ColumnFilter = ({ column }) => {
 };
 
 const TableListLearnerInClass = (props) => {
-  const { classId } = props;
+  //const { classId } = props;
   const [data, setData] = useState([]);
   const [selectedLearner, setSelectedLearner] = useState(null);
   const params = useParams();
@@ -37,7 +37,9 @@ const TableListLearnerInClass = (props) => {
     }
   };
   const handleRowClick = (learner) => {
+    console.log(selectedLearner);
     setSelectedLearner(learner);
+    //console.log(selectedLearner.userId);
   };
   const handleBackButtonClick = () => {
     setSelectedLearner(null); // Reset selectedLearner to hide the popup
@@ -69,7 +71,7 @@ const TableListLearnerInClass = (props) => {
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
   ];
-  
+
   return (
     <div>
       {selectedLearner ? (
@@ -78,7 +80,7 @@ const TableListLearnerInClass = (props) => {
         <Table columns={columns} data={data} onRowClick={handleRowClick} />
       )}
     </div>
-    
+
   );
 }
 

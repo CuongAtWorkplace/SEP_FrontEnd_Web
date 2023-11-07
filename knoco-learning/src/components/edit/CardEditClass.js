@@ -104,8 +104,8 @@ const CardEditClass = ({ closePopup }) => {
                 <label>End Date:</label>
                 <input type="date" name="EndDate" value={endDate} onChange={(e) => setEndDate(e.target.value)} required />
 
-                <input id="submit" type="submit" name="submit" value="Edit" />
-                <button type="button" onClick={closePopup} className="btn-cancel">Cancel</button>
+                <button type="submit" id="submit" name="submit" className="btn-btn">Edit</button>
+                <button type="button" onClick={closePopup} className="btn-btn">Cancel</button>
             </form>
         </div>
     );

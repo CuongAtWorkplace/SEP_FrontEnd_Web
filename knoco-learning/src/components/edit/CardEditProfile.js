@@ -81,8 +81,8 @@ const CardEditProfile = ({ closePopup }) => {
                 <label>Address:</label>
                 <textarea id="Address" name="Address" value={address} onChange={(e) => setAddress(e.target.value)} required />
 
-                <input id="submit" type="submit" name="submit" value="Edit" />
-                <button type="button" onClick={closePopup} className="btn-cancel">Cancel</button>
+                <button type="submit" id="submit" name="submit" className="btn-btn">Edit</button>
+                <button type="button" onClick={closePopup} className="btn-btn">Cancel</button>
             </form>
         </div>
     );

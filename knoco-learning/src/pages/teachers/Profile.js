@@ -12,12 +12,14 @@ import { faBook } from '@fortawesome/free-solid-svg-icons';
 import $ from "jquery";
 import CardEditProfile from "../../components/edit/CardEditProfile";
 import CardChangePassword from "../../components/edit/CardChangePassword";
+import CardChangeImage from "../../components/edit/CardChangeImage";
 
 const ProfileTeacher = ({ onBackClick, children, ...props }) => {
     //const { userId } = props;
     const [teacherId, setClassDt] = useState(null);
     const [isEditClassPopupVisible, setEditClassPopupVisible] = useState(false);
     const [isChangePasswordPopupVisible, setChangePasswordPopupVisible] = useState(false);
+    const [isChangeImagePopupVisible, setChangeImagePopupVisible] = useState(false);
 
     useEffect(() => {
         fetchData();
@@ -53,6 +55,14 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
         setChangePasswordPopupVisible(false);
     }
 
+    const openChangeImagePopup = () => {
+        setChangeImagePopupVisible(true);
+    }
+
+    const closeChangeImagePopup = () => {
+        setChangeImagePopupVisible(false);
+    }
+
     return (
         <div className="body_page" {...props}>
             <section id="menu">
@@ -81,7 +91,7 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                                             <img src={myImage} alt="Profile" />
                                         </li>
                                         <li>
-                                            <button>Change image</button>
+                                            <button onClick={openChangeImagePopup}>Change image</button>
                                             <button onClick={openChangePasswordPopup}>Change password</button>
                                         </li>
                                         <li>
@@ -118,7 +128,7 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                                             <img src={myImage} alt="Profile" />
                                         </li>
                                         <li>
-                                            <button>Change image</button>
+                                            <button onClick={openChangeImagePopup}>Change image</button>
                                             <button onClick={openChangePasswordPopup}>Change password</button>
                                         </li>
                                         <li>
@@ -152,6 +162,12 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                     {isChangePasswordPopupVisible && (
                         <div className="popup">
                             <CardChangePassword closePopup={closeChangePasswordPopup} />
+                        </div>
+                    )}
+
+                    {isChangeImagePopupVisible && (
+                        <div className="popup">
+                            <CardChangeImage closePopup={closeChangeImagePopup} />
                         </div>
                     )}
                 </div>

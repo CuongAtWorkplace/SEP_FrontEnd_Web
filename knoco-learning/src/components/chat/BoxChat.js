@@ -5,6 +5,7 @@ import { FormControl } from "react-bootstrap";
 import { faArrowLeft, faLocationArrow, faPaperclip } from "@fortawesome/free-solid-svg-icons";
 
 const BoxChat = () => {
+	const [messageText, setMessageText] = useState(''); // Thêm state để lưu trữ nội dung tin nhắn
 	const [messages, setMessages] = useState([]);
 	const [classData, setClassData] = useState([]);
 	const scrollViewRef = useRef(null);
@@ -63,6 +64,31 @@ const BoxChat = () => {
 		isSent: message.createBy === 2,
 	}));
 
+	const sendMessage = async () => {
+        if (messageText.trim() !== '') {
+            try {
+                const response = await fetch(`http://localhost:7169/api/ChatRoom/AddMessage/9/4`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+						content: messageText ,
+						photo:""
+					}),
+                });
+                if (response.ok) {
+                    // Nếu gửi thành công, cập nhật lại danh sách tin nhắn
+                    setMessageText(""); // Xóa nội dung tin nhắn sau khi gửi
+                } else {
+                    throw new Error('Failed to send message');
+                }
+            } catch (error) {
+                console.error('Error sending message:', error);
+            }
+        }
+    };
+
 	return (
 		<div className="chat-box">
 			<div className="card">
@@ -114,8 +140,14 @@ const BoxChat = () => {
 								<FontAwesomeIcon icon={faPaperclip} />
 							</span>
 						</div>
-						<textarea name="" className="form-control type_msg" placeholder="Type your message..."></textarea>
-						<div className="input-group-append btn-right">
+						<textarea
+							name=""
+							className="form-control type_msg"
+							placeholder="Type your message..."
+							value={messageText}
+							onChange={(e) => setMessageText(e.target.value)}
+						></textarea>
+						<div className="input-group-append btn-right" onClick={sendMessage}>
 							<span className="send_btn">
 								<FontAwesomeIcon icon={faLocationArrow} />
 							</span>
@@ -137,7 +169,7 @@ const Message = ({ text, time, isSent, messageId, image }) => {
 				<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
 			</div>
 			{image !== '' && ( // Nếu có ảnh
-				<img src={`http://localhost:7169/api/ChatRoom/GetImage/${messageId}`} style={{ height: '170px', width: '170px' ,borderRadius:'20px' }} />
+				<img src={`http://localhost:7169/api/ChatRoom/GetImage/${messageId}`} style={{ height: '170px', width: '170px', borderRadius: '20px', display: 'block' }} />
 			)}
 		</div>
 

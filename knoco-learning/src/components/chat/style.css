@@ -300,7 +300,10 @@
 }
 
 .rounded-circle{border-radius:50%!important}
-.d-flex{display:-ms-flexbox!important;display:flex!important}
+.d-flex{display:-ms-flexbox!important;display:flex!important ;}
+
+
+
 .justify-content-start{-ms-flex-pack:start!important;justify-content:flex-start!important}
 .mb-4{margin-bottom:1.5rem!important}
 .justify-content-end{-ms-flex-pack:end!important;justify-content:flex-end!important}

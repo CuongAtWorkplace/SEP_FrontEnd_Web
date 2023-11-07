@@ -1,43 +1,67 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import './style.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormControl } from "react-bootstrap";
 import { faArrowLeft, faLocationArrow, faPaperclip } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
-import { useEffect } from "react";
 
 const BoxChat = () => {
-
 	const [messages, setMessages] = useState([]);
+	const [classData, setClassData] = useState([]);
+	const scrollViewRef = useRef(null);
 
 	useEffect(() => {
-		const fetchData = async () => {
+		const fetchMessages = async () => {
 			try {
-				const response = await fetch('https://86c6-14-232-78-85.ngrok-free.app/api/ChatRoom/GetAllClassMessages/9');
+				const response = await fetch('http://localhost:7169/api/ChatRoom/GetAllClassMessages/9');
 				if (response.ok) {
 					const data = await response.json();
 					setMessages(data);
 				} else {
-					throw new Error('Failed to fetch data');
+					throw new Error('Failed to fetch messages');
 				}
 			} catch (error) {
 				console.error('Error fetching messages:', error);
 			}
 		};
 
-		fetchData();
+		const fetchClassData = async () => {
+			try {
+				const response = await fetch('http://localhost:7169/api/Class/GetClassById/GetClassById/9');
+				if (response.ok) {
+					const data = await response.json();
+					setClassData(data);
+				} else {
+					throw new Error('Failed to fetch class data');
+				}
+			} catch (error) {
+				console.error('Error fetching class data:', error);
+			}
+		};
+
+		fetchMessages();
+		fetchClassData();
 	}, []);
 
-	const transformedMessages = messages.map(message => {
-		return {
-			id: message.messageId,
-			text: message.content,
-			time: message.createDate,
-			sender: message.createBy === 2 ? message.fullName : "Other User",
-			image: message.photo,
-			isSent: message.createBy === 2 ? true : false
-		};
-	});
+	useEffect(() => {
+		if (scrollViewRef.current) {
+			scrollViewRef.current.scrollTo({
+				top: scrollViewRef.current.scrollHeight,
+				behavior: 'smooth'
+			});
+		}
+	}, [messages]);
+
+	const classname = classData.length > 0 ? classData[0].classname : "Loading...";
+	const numberStudent = classData.length > 0 ? classData[0].numberStudent : "Loading...";
+
+	const transformedMessages = messages.map(message => ({
+		id: message.messageId,
+		text: message.content,
+		time: message.createDate,
+		sender: message.createBy === 2 ? message.fullName : "Other User",
+		image: message.photo,
+		isSent: message.createBy === 2,
+	}));
 
 	return (
 		<div className="chat-box">
@@ -54,22 +78,22 @@ const BoxChat = () => {
 							<span className="online_icon"></span>
 						</div>
 						<div className="user_info">
-							<span>khalid Charif</span>
-							<p>1767 Messages</p>
+							<span>{classname}</span>
+							<p>student in class: {numberStudent}</p>
 						</div>
 					</div>
 					<span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
 					<div className="action_menu">
 						<ul>
-							<li><i class="fas fa-user-circle"></i> View profile</li>
-							<li><i class="fas fa-users"></i> Add to close friends</li>
-							<li><i class="fas fa-plus"></i> Add to group</li>
-							<li><i class="fas fa-ban"></i> Block</li>
+							<li><i className="fas fa-user-circle"></i> View profile</li>
+							<li><i className="fas fa-users"></i> Add to close friends</li>
+							<li><i className="fas fa-plus"></i> Add to group</li>
+							<li><i className="fas fa-ban"></i> Block</li>
 						</ul>
 					</div>
 				</div>
 
-				<div className="card-body msg_card_body">
+				<div ref={scrollViewRef} className="card-body msg_card_body">
 					{transformedMessages.map(message => (
 						<Message
 							key={message.id}
@@ -78,6 +102,7 @@ const BoxChat = () => {
 							time={message.time}
 							image={message.image}
 							isSent={message.isSent}
+							messageId={message.id}
 						/>
 					))}
 				</div>
@@ -99,25 +124,37 @@ const BoxChat = () => {
 				</div>
 			</div>
 		</div>
-
 	)
 }
 
-const Message = ({ text, time, image, isSent }) => {
+const Message = ({ text, time, isSent, messageId, image }) => {
 	const messageContainerClass = isSent ? 'msg_cotainer_send' : 'msg_cotainer';
-	const messageBoxClass = isSent ? 'msg_cotainer' : 'msg_cotainer_send';
 
 	return (
-		<div className={`d-flex justify-content-${isSent ? 'end' : 'start'} mb-4`}>
-			<div className="img_cont_msg">
-				<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" className="rounded-circle user_img_msg" />
-			</div>
+		<div className={`d-flex flex-column ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
 			<div className={messageContainerClass}>
 				{text}
-				<span className={isSent ? "msg_time_send" : "msg_time"}>{time}</span>
+				<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
 			</div>
+			{image !== '' && ( // Nếu có ảnh
+				<img src={`http://localhost:7169/api/ChatRoom/GetImage/${messageId}`} style={{ height: '170px', width: '170px' ,borderRadius:'20px' }} />
+			)}
 		</div>
+
 	);
+};
+
+const formattedDateTime = (dateTimeString) => {
+	const date = new Date(dateTimeString);
+	const options = {
+		year: 'numeric',
+		month: 'numeric',
+		day: 'numeric',
+		hour: 'numeric',
+		minute: 'numeric',
+		second: 'numeric',
+	};
+	return date.toLocaleDateString(undefined, options);
 };
 
 export default BoxChat;

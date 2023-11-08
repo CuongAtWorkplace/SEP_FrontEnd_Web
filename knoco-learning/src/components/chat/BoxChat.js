@@ -11,7 +11,7 @@ const BoxChat = () => {
 	const [messageText, setMessageText] = useState(''); // Thêm state để lưu trữ nội dung tin nhắn
 	const [messages, setMessages] = useState([]);
 	const [classData, setClassData] = useState([]);
-	const [imagePicker, setImagePicker] = useState(null);
+	const [imagePicker, setImagePicker] = useState('');
 	const [image, setImage] = useState(null);
 
 	const scrollViewRef = useRef(null);
@@ -88,30 +88,60 @@ const BoxChat = () => {
 		isSent: message.createBy === 2,
 	}));
 
-	const sendMessage = async () => {
-		if (messageText.trim() !== '') {
-			try {
-				const response = await fetch(`http://localhost:7169/api/ChatRoom/AddMessage/9/4`, {
+	const uploadImage = async () => {
+		try {
+			const formData = new FormData();
+			
+			// Đảm bảo rằng imagePicker chứa dữ liệu ảnh
+			if (imagePicker) {
+				const blob = await fetch(imagePicker).then((res) => res.blob());
+				formData.append('file', blob, 'image.jpg');
+			
+				const uploadResponse = await fetch('http://localhost:7169/api/Post/UploadImage', {
 					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({
-						content: messageText,
-						photo: ""
-					}),
+					body: formData,
 				});
-				if (response.ok) {
-					// Nếu gửi thành công, cập nhật lại danh sách tin nhắn
-					setMessageText(""); // Xóa nội dung tin nhắn sau khi gửi
+	
+				if (uploadResponse.ok) {
+					const responseJson = await uploadResponse.text();
+					sendMessage(responseJson); // Gửi tin nhắn với link ảnh sau khi upload thành công
 				} else {
-					throw new Error('Failed to send message');
+					throw new Error('Failed to upload image');
 				}
-			} catch (error) {
-				console.error('Error sending message:', error);
+			} else {
+				throw new Error('No image data found to upload');
 			}
+		} catch (error) {
+			console.error('Error uploading image:', error);
 		}
 	};
+	
+	
+	const sendMessage = async (photo) => {
+		try {
+			const messageData = {
+				content: messageText,
+				photo: photo // Gán link ảnh vào phần photo của tin nhắn
+			};
+	
+			const response = await fetch(`http://localhost:7169/api/ChatRoom/AddMessage/9/4`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(messageData),
+			});
+	
+			if (response.ok) {
+				setMessageText("");
+			} else {
+				throw new Error('Failed to send message');
+			}
+		} catch (error) {
+			console.error('Error sending message:', error);
+		}
+	};
+	
 
 	return (
 		<div className="chat-box">
@@ -156,7 +186,7 @@ const BoxChat = () => {
 						/>
 					))}
 				</div>
-				{imagePicker && <img src={imagePicker} style={{height:100 , width:100, borderRadius:20 , marginLeft:30}}/>}
+				{imagePicker && <img src={imagePicker} style={{ height: 100, width: 100, borderRadius: 20, marginLeft: 30 }} />}
 
 				<div className="card-footer">
 					<div className="input-group">
@@ -173,7 +203,7 @@ const BoxChat = () => {
 							value={messageText}
 							onChange={(e) => setMessageText(e.target.value)}
 						></textarea>
-						<div className="input-group-append btn-right" onClick={sendMessage}>
+						<div className="input-group-append btn-right" onClick={uploadImage}>
 							<span className="send_btn">
 								<FontAwesomeIcon icon={faLocationArrow} />
 							</span>

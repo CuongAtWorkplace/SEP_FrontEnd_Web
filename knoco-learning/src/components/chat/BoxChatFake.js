@@ -2,7 +2,7 @@ import React from "react";
 import './style.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormControl } from "react-bootstrap";
-import { faArrowLeft, faLocationArrow, faPaperclip } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faLocationArrow, faPaperclip, faTrash } from "@fortawesome/free-solid-svg-icons";
 const BoxChatFake = () => {
     return(
         <div className="chat-box">
@@ -80,6 +80,9 @@ const BoxChatFake = () => {
 					</div>
 				</div>
 				<div className="d-flex justify-content-end mb-4">
+					<div className="btn_del_msg">
+						<button><FontAwesomeIcon icon={faTrash}/></button>
+					</div>
 					<div className="msg_cotainer_send">
                         Lorem ipsum
 						<span className="msg_time_send">9:10 AM, Today</span>
@@ -93,8 +96,11 @@ const BoxChatFake = () => {
 						<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" className="rounded-circle user_img_msg"/>
 					</div>
 					<div className="msg_cotainer">
-						Bye, see you
-					    <span className="msg_time">9:12 AM, Today</span>
+						Bye 
+					    <span className="msg_time">9:12 AM, Today</span> 
+					</div>
+					<div className="btn_del_msg">
+						<button><FontAwesomeIcon icon={faTrash}/></button>
 					</div>
 				</div>
                 <div className="d-flex justify-content-start mb-4">
@@ -104,6 +110,9 @@ const BoxChatFake = () => {
 					<div className="msg_cotainer">
                         <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"/>
 					    <span className="msg_time">9:12 AM, Today</span>
+					</div>
+					<div className="btn_del_msg">
+						<button><FontAwesomeIcon icon={faTrash}/></button>
 					</div>
 				</div>
                 <div className="d-flex justify-content-end mb-4">

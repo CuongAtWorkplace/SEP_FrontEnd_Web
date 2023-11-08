@@ -3,11 +3,17 @@ import './style.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormControl } from "react-bootstrap";
 import { faArrowLeft, faLocationArrow, faPaperclip } from "@fortawesome/free-solid-svg-icons";
+import { useDropzone } from 'react-dropzone';
+
+
 
 const BoxChat = () => {
 	const [messageText, setMessageText] = useState(''); // Thêm state để lưu trữ nội dung tin nhắn
 	const [messages, setMessages] = useState([]);
 	const [classData, setClassData] = useState([]);
+	const [imagePicker, setImagePicker] = useState(null);
+	const [image, setImage] = useState(null);
+
 	const scrollViewRef = useRef(null);
 
 	useEffect(() => {
@@ -55,6 +61,24 @@ const BoxChat = () => {
 	const classname = classData.length > 0 ? classData[0].classname : "Loading...";
 	const numberStudent = classData.length > 0 ? classData[0].numberStudent : "Loading...";
 
+	const onDrop = (acceptedFiles) => {
+		// Xử lý khi người dùng chọn ảnh thành công
+		const file = acceptedFiles[0];
+		const reader = new FileReader();
+
+		reader.onload = () => {
+			// Cập nhật state với ảnh đã chọn
+			console.log("Cập nhật state với ảnh đã chọn");
+			setImagePicker(reader.result);
+		};
+
+		reader.readAsDataURL(file);
+	};
+
+	const { getRootProps, getInputProps } = useDropzone({ onDrop });
+
+
+
 	const transformedMessages = messages.map(message => ({
 		id: message.messageId,
 		text: message.content,
@@ -65,29 +89,29 @@ const BoxChat = () => {
 	}));
 
 	const sendMessage = async () => {
-        if (messageText.trim() !== '') {
-            try {
-                const response = await fetch(`http://localhost:7169/api/ChatRoom/AddMessage/9/4`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ 
-						content: messageText ,
-						photo:""
+		if (messageText.trim() !== '') {
+			try {
+				const response = await fetch(`http://localhost:7169/api/ChatRoom/AddMessage/9/4`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						content: messageText,
+						photo: ""
 					}),
-                });
-                if (response.ok) {
-                    // Nếu gửi thành công, cập nhật lại danh sách tin nhắn
-                    setMessageText(""); // Xóa nội dung tin nhắn sau khi gửi
-                } else {
-                    throw new Error('Failed to send message');
-                }
-            } catch (error) {
-                console.error('Error sending message:', error);
-            }
-        }
-    };
+				});
+				if (response.ok) {
+					// Nếu gửi thành công, cập nhật lại danh sách tin nhắn
+					setMessageText(""); // Xóa nội dung tin nhắn sau khi gửi
+				} else {
+					throw new Error('Failed to send message');
+				}
+			} catch (error) {
+				console.error('Error sending message:', error);
+			}
+		}
+	};
 
 	return (
 		<div className="chat-box">
@@ -132,13 +156,15 @@ const BoxChat = () => {
 						/>
 					))}
 				</div>
+				{imagePicker && <img src={imagePicker} style={{height:100 , width:100, borderRadius:20 , marginLeft:30}}/>}
 
 				<div className="card-footer">
 					<div className="input-group">
 						<div className="input-group-append btn-left">
-							<span className="attach_btn">
+							<div {...getRootProps()} className="attach_btn">
+								<input {...getInputProps()} />
 								<FontAwesomeIcon icon={faPaperclip} />
-							</span>
+							</div>
 						</div>
 						<textarea
 							name=""
@@ -164,16 +190,17 @@ const Message = ({ text, time, isSent, messageId, image }) => {
 
 	return (
 		<div className={`d-flex flex-column ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
-			<div className={messageContainerClass}>
-				{text}
-				<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
-			</div>
-			<div className={messageContainerClass}>
-				{image !== '' && ( // Nếu có ảnh
+			{image !== '' ? (
+				<div className={messageContainerClass}>
 					<img src={`http://localhost:7169/api/ChatRoom/GetImage/${messageId}`} />
-				)}
-				<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
-			</div>
+					<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
+				</div>
+			) : (
+				<div className={messageContainerClass}>
+					{text}
+					<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
+				</div>
+			)}
 		</div>
 
 	);

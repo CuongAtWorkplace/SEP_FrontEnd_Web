@@ -168,9 +168,12 @@ const Message = ({ text, time, isSent, messageId, image }) => {
 				{text}
 				<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
 			</div>
-			{image !== '' && ( // Nếu có ảnh
-				<img src={`http://localhost:7169/api/ChatRoom/GetImage/${messageId}`} style={{ height: '170px', width: '170px', borderRadius: '20px', display: 'block' }} />
-			)}
+			<div className={messageContainerClass}>
+				{image !== '' && ( // Nếu có ảnh
+					<img src={`http://localhost:7169/api/ChatRoom/GetImage/${messageId}`} />
+				)}
+				<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
+			</div>
 		</div>
 
 	);

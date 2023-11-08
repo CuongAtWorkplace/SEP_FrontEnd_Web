@@ -335,6 +335,10 @@
     margin-right: 10px;
     color: white;
 }
+.msg_cotainer img, .msg_cotainer_send img{
+	height: 170px;
+	width: auto;
+}
 @media(max-width: 576px) {
 	.contacts_card {
 		margin-bottom: 15px !important;

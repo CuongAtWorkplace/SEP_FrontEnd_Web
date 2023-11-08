@@ -7,6 +7,7 @@ import "./style.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import BoxChat from "../../components/chat/BoxChat";
+import BoxChatFake from "../../components/chat/BoxChatFake";
 import $ from "jquery";
 
 const GroupChat = ({ children, ...props }) => {

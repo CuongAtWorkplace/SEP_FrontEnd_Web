@@ -7,8 +7,9 @@ const VideoCallDemo = () => {
   const { roomId } = useParams();
   const [userName1 ,setuserName ] = useState("hiuhiu");
   const [checkToken , setcheckToken] = useState(false);
+
   useEffect(() => {
-    const token = localStorage.getItem("token");  
+    const token = localStorage.getItem("token");
     console.log(token);
     if (token != null) {
       const decodedToken = jwtDecode(token);

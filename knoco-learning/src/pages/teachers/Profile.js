@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import '../../style/Teacher/Teacher.css';
-import "./style.css";
 import myImage from '../../assets/profile.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -37,6 +36,11 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu lớp học:', error);
         }
+    };
+
+    const formatDate = (date) => {
+        const formattedDate = new Date(date).toISOString().split('T')[0];
+        return formattedDate;
     };
 
     const openEditClassPopup = () => {
@@ -102,17 +106,17 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                                 </div>
                                 <div className="col-2">
                                     <h2>{teacherId.fullName} </h2>
-                                    <p className="email">Email: </p>
+                                    <p className="title email">Email: </p>
                                     <p>{teacherId.email}</p>
-                                    <p className="phone">Phone number: </p>
+                                    <p className="title phone">Phone number: </p>
                                     <p>{teacherId.phone}</p>
-                                    <p className="description">Description: </p>
+                                    <p className="title description">Description: </p>
                                     <p>{teacherId.description}</p>
-                                    <p className="address">Address: </p>
+                                    <p className="title address">Address: </p>
                                     <p>{teacherId.address}</p>
-                                    <p className="createdate">Create date: </p>
-                                    <p>{teacherId.createDate}</p>
-                                    <p className="balance">Balance: </p>
+                                    <p className="title createdate">Create date: </p>
+                                    <p>{formatDate(teacherId.createDate)}</p>
+                                    <p className="title balance">Balance: </p>
                                     <p>{teacherId.balance}</p>
 
                                 </div>

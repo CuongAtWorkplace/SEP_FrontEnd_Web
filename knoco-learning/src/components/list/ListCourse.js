@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "../../style/Teacher/List.css";
 const ListCourse = () => {
     const [data, setData] = useState([]);
+    
     useEffect(() => {
         fetchData();
     }, []);

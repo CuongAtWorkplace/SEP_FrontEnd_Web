@@ -50,7 +50,7 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
                         <FontAwesomeIcon className="menu-icon" icon={faPeopleGroup} />
                         <div>
                             <h3>Class Name</h3>
-                            <span>{classDt.className}</span>
+                            <span>{classDt.classname}</span>
                         </div>
                     </div>
                     <div className="val-box">

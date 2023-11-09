@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import Header from "../../../components/header/Header";
-import Footer from "../../../components/footer/Footer";
-import SideBar from "../../../components/sidebar/SideBar";
+// import Header from "../../../components/header/Header";
+// import Footer from "../../../components/footer/Footer";
+// import SideBar from "../../../components/sidebar/SideBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 import TableListClassTeacher from "../../../components/Table/TableListClassTeacher";
@@ -66,11 +66,11 @@ function CourseDetail() {
   };
 
   const handleCourseNameChange = (e) => {
-    setDescription(e.target.value)
+    setCourseName(e.target.value)
   };
 
-  const handleDescriptionChange = () => {
-    setShowModal(false);
+  const handleDescriptionChange = (e) => {
+    setDescription(e.target.value)
   };
   const handleImageChange = () => {
     setShowModal(false);
@@ -117,19 +117,19 @@ function CourseDetail() {
 
   return (
     <div>
-      <div className="body_page">
+      <div className="">
         <section id="menu">
           <div className="logo">
             <FontAwesomeIcon className="logo-icon" icon={faBook} />
             <h1>Knoco</h1>
           </div>
           <nav>
-            <SideBar />
+           
           </nav>
         </section>
         <section id="interface">
           <header>
-            <Header />
+            
           </header>
           <div className="children">
             <div className="coursedetail">
@@ -146,7 +146,8 @@ function CourseDetail() {
                           type="text"
                           className="form-control"
                           required=""
-                          value={courseDetail.courseName}
+                          placeholder={courseDetail.courseName}
+                          value={courseName}
                           onChange={handleCourseNameChange}
                         />
                       </div>
@@ -157,8 +158,9 @@ function CourseDetail() {
                         <input
                           type="text"
                           className="form-control"
-                          value={courseDetail.description}
-                          onChange={(e) => setDescription(e.target.value)}
+                          placeholder={courseDetail.description}
+                          value={description}
+                          onChange={handleDescriptionChange}
                         />
                       </div>
                       <div className="col-md-12">
@@ -166,7 +168,8 @@ function CourseDetail() {
                         <input
                           type="text"
                           className="form-control"
-                          value={courseDetail.image}
+                          placeholder={courseDetail.image}
+                          value={image}
                           onChange={(e) => setImage(e.target.value)}
                         />
                       </div>
@@ -196,8 +199,96 @@ function CourseDetail() {
               </div>
             </div>
           </div>
+          <div className="container">
+                <div className="row">
+                    <div className="col-md-8">
+                        <section className="panel tasks-widget">
+                            <header className="panel-heading">
+                                <h2>Update Topic</h2>
+                            </header>
+                        </section>
+                        <div className="panel-body">
+                            <form>
+                                <div className="form-group">
+                                    <label className="control-label">Topic Name:</label>
+                                    {/* <input name="ProductPrice" className="form-control" value={TopicName} onChange={(e) => this.onChangeTopicName(e)} /> */}
+                                </div>
+
+                                <div className="form-group">
+                                    <label className="control-label">Topic Description:</label>
+                                    <div className="App">
+                                        {/* <CKEditor
+                                            editor={ClassicEditor}
+                                            data={Description}
+                                            onReady={editor => {
+                                                console.log('Editor is ready to use!', editor);
+                                            }}
+                                            onChange={(event, editor) => {
+                                                const data = editor.getData();
+                                                this.setState({ Description: data })
+                                            }}
+                                        /> */}
+                                    </div>
+                                </div>
+
+                                <div className="form-group">
+                                    <label className="control-label">Topic Categories:</label> <br></br>
+                                    {/* <select className="form-select"
+                                        onChange={(e) => this.setState({GenreId: e.target.value})
+                                        } 
+                                        value={GenreId}
+                                    >
+                                        {Genre.map(gen => <option value={gen.id} key={gen.id}>
+                                            {gen.genreName}
+                                        </option>)}
+                                    </select> */}
+                                </div>
+                                <div className="form-group">
+                                    <label className="control-label">Assign To Writer:</label>
+                                    {/* <select className="form-select"
+                                        onChange={(e) => this.setState({ WriterId: e.target.value })}
+                                        value={WriterId}
+                                    >
+                                        {User.map(u => u.roleId == 4 && 
+                                            <option value={u.id} key={u.id} selected>
+                                                {u.fullName}
+                                            </option> 
+                                        )}
+                                    </select> */}
+                                    {/* {ErrorTopicName == null ? <input type="hidden" /> : <p style={{ color: 'red' }}>{ErrorTopicName}</p>} */}
+                                </div>
+                                <div className="form-group">
+                                    <label className="control-label">Assign To Reporter:</label>
+                                    {/* <select className="form-select"
+                                        onChange={(e) => this.setState({ReporterId: e.target.value})}
+                                        value={ReporterId}
+                                    >
+                                        {User.map(u => u.roleId == 5 &&
+                                            <option value={u.id} key={u.id} >
+                                                {u.fullName}
+                                            </option>
+                                        )}
+                                    </select> */}
+                                    {/* {ErrorTopicName == null ? <input type="hidden" /> : <p style={{ color: 'red' }}>{ErrorTopicName}</p>} */}
+                                </div>
+                                <div className="form-group">
+                                    <label className="control-label">Create Date:</label>
+                                    {/* <input type="datetime-local" className="form-control" value={StartDate} onChange={(e) => this.setState({StartDate: e.target.value})} /> */}
+                                    {/* {ErrorTopicName == null ? <input type="hidden" /> : <p style={{ color: 'red' }}>{ErrorTopicName}</p>} */}
+                                </div>
+                                <div className="form-group">
+                                    <label className="control-label">EndDate:</label>
+                                    {/* <input type="datetime-local" className="form-control" value={EndDate} onChange={(e) =>  this.setState({EndDate: e.target.value})}/> */}
+                                    {/* {ErrorTopicName == null ? <input type="hidden" /> : <p style={{ color: 'red' }}>{ErrorTopicName}</p>} */}
+                                </div> <br />
+                                {/* <button type="button" className="btn btn-info" onClick={() => this.updateClick()}>Update AssignTask</button> */}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
           <footer>
-            <Footer />
+            
           </footer>
         </section>
       </div>

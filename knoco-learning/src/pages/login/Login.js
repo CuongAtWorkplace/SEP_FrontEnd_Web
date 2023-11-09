@@ -53,7 +53,7 @@ class Login extends Component {
                 
                 localStorage.setItem('id', decodedToken.id);
                 localStorage.setItem('roleid', decodedToken.roleid);
-                window.location.href = "/course";
+                window.location.href = "/videocalldemo/room123";
                 // this.setState({ nameUser: decodedToken.fullname });
                 // this.setState({ showModal: false, IsLogin: true })
                 // this.setState({ checkLogin: true });

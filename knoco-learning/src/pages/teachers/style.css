@@ -262,8 +262,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-  
+  }
+  .children-chat{
+    margin-top: 60px;
+  }
   @media(max-width:769px){
     #menu{
         width: 270px;

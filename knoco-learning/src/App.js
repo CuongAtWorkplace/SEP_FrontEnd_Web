@@ -16,7 +16,7 @@ import Home from './pages/admin/home/Home';
 import ViewAllCourse from './pages/manager/Course/ViewAllCourse';
 import CourseDetail from './pages/manager/Course/CourseDetail';
 import EditClass from './pages/teachers/EditClass';
-import VideoCall from './pages/teachers/VideoCall';
+import VideoCallDemo from './pages/teachers/VideoCallDemo';
 import ViewListQuizzInClass from './pages/teachers/ViewListQuizzInClass';
 import ViewNotificationTeacher from './pages/teachers/ViewNotificationTeacher';
 import QuizzDetail from './pages/teachers/QuizzDetail';
@@ -26,6 +26,7 @@ import ViewPostDetailManager from './pages/manager/ViewPostDetailManager';
 import Profile from './pages/teachers/Profile';
 import ClassEmpty from './pages/teachers/ClassEmpty';
 import ListAllCourse from './pages/teachers/ListAllCourse';
+import GroupChat from './pages/teachers/GroupChat';
 //import TestModal from './pages/manager/Course/TestModal';
 
 const queryClient = new QueryClient();
@@ -48,16 +49,17 @@ function App() {
 
         <Route path="/coursedetail/:cid" element={<CourseDetail />} />
         <Route path="/editclass" element={<EditClass />} />
-        <Route path="/videocall" element={<VideoCall />} />
+        {/* <Route path="/videocall" element={<VideoCall />} /> */}
         <Route path='/listquizzinclass' element={<ViewListQuizzInClass/>}/>
         <Route path='/notificationteacher' element={<ViewNotificationTeacher/>}/>
         <Route path='/quizzdetail' element={<QuizzDetail/>}/>
-        <Route path="/call" element={<VideoCall2 />} />
+        <Route path="/videocalldemo/:roomId" element={<VideoCallDemo />} />
         <Route path="/viewpostlistmanager" element={<ViewPostListManager />} />
         <Route path="/viewpostdetailmanager" element={<ViewPostDetailManager />} />
         <Route path="/profile-teacher" element={<Profile />} />
         <Route path="/class-empty/:courseId" element={<ClassEmpty/>} />
         <Route path="/list-all-course" element={<ListAllCourse/>} />
+        <Route path="/chat" element={<GroupChat />} />
       </Routes>
       <ToastContainer
         position="top-right"

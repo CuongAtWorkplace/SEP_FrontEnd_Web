@@ -16,7 +16,7 @@ import Home from './pages/admin/home/Home';
 import ViewAllCourse from './pages/manager/Course/ViewAllCourse';
 import CourseDetail from './pages/manager/Course/CourseDetail';
 import EditClass from './pages/teachers/EditClass';
-import VideoCall from './pages/teachers/VideoCall';
+import VideoCallDemo from './pages/teachers/VideoCallDemo';
 import ViewListQuizzInClass from './pages/teachers/ViewListQuizzInClass';
 import ViewNotificationTeacher from './pages/teachers/ViewNotificationTeacher';
 import QuizzDetail from './pages/teachers/QuizzDetail';
@@ -46,11 +46,11 @@ function App() {
 
         <Route path="/coursedetail/:cid" element={<CourseDetail />} />
         <Route path="/editclass" element={<EditClass />} />
-        <Route path="/videocall" element={<VideoCall />} />
+        {/* <Route path="/videocall" element={<VideoCall />} /> */}
         <Route path='/listquizzinclass' element={<ViewListQuizzInClass/>}/>
         <Route path='/notificationteacher' element={<ViewNotificationTeacher/>}/>
         <Route path='/quizzdetail' element={<QuizzDetail/>}/>
-        <Route path="/call" element={<VideoCall2 />} />
+        <Route path="/videocalldemo/:roomId" element={<VideoCallDemo />} />
         <Route path="/viewpostlistmanager" element={<ViewPostListManager />} />
         <Route path="/viewpostdetailmanager" element={<ViewPostDetailManager />} />
         <Route path="/chat" element={<GroupChat />} />

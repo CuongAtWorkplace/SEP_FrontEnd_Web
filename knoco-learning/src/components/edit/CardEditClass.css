@@ -33,10 +33,10 @@ input{
     margin-bottom: 5px;
     outline-style: none;
 }
-input[type="text"]{
+/* input[type="text"]{
     padding: 5px;
     width: 70%;
-}
+} */
 input[type="tel"]{
     padding: 5px;
     width: 70%;
@@ -67,7 +67,7 @@ input#submit{
     cursor: pointer;
     background: linear-gradient(to right, #fc00ff, #00dbde);
 }
-input#submit:hover{
+input #submit{
     background: linear-gradient(to right, #fc466b, #3f5efb);
 }
 textarea{

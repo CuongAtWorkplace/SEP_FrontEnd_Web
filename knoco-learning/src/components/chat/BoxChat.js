@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import './style.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormControl } from "react-bootstrap";
-import { faArrowLeft, faLocationArrow, faPaperclip } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faLocationArrow, faPaperclip, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useDropzone } from 'react-dropzone';
 
 
@@ -91,17 +91,17 @@ const BoxChat = () => {
 	const uploadImage = async () => {
 		try {
 			const formData = new FormData();
-			
+
 			// Đảm bảo rằng imagePicker chứa dữ liệu ảnh
 			if (imagePicker) {
 				const blob = await fetch(imagePicker).then((res) => res.blob());
 				formData.append('file', blob, 'image.jpg');
-			
+
 				const uploadResponse = await fetch('http://localhost:7169/api/Post/UploadImage', {
 					method: 'POST',
 					body: formData,
 				});
-	
+
 				if (uploadResponse.ok) {
 					const responseJson = await uploadResponse.text();
 					sendMessage(responseJson); // Gửi tin nhắn với link ảnh sau khi upload thành công
@@ -115,15 +115,20 @@ const BoxChat = () => {
 			console.error('Error uploading image:', error);
 		}
 	};
-	
-	
+
+	const handleCancelImage = () => {
+		setImagePicker("");
+
+	}
+
+
 	const sendMessage = async (photo) => {
 		try {
 			const messageData = {
 				content: messageText,
 				photo: photo // Gán link ảnh vào phần photo của tin nhắn
 			};
-	
+
 			const response = await fetch(`http://localhost:7169/api/ChatRoom/AddMessage/9/4`, {
 				method: 'POST',
 				headers: {
@@ -131,7 +136,7 @@ const BoxChat = () => {
 				},
 				body: JSON.stringify(messageData),
 			});
-	
+
 			if (response.ok) {
 				setMessageText("");
 			} else {
@@ -141,7 +146,7 @@ const BoxChat = () => {
 			console.error('Error sending message:', error);
 		}
 	};
-	
+
 
 	return (
 		<div className="chat-box">
@@ -186,7 +191,26 @@ const BoxChat = () => {
 						/>
 					))}
 				</div>
-				{imagePicker && <img src={imagePicker} style={{ height: 100, width: 100, borderRadius: 20, marginLeft: 30 }} />}
+				{imagePicker &&
+					<div style={{ position: 'relative', display: 'inline-block' }}>
+						<div style={{ position: 'relative', display: 'inline-block' }}>
+							<img
+								src={imagePicker}
+								style={{
+									height: 100,
+									width: 100,
+									borderRadius: 20,
+									display: 'block',
+								}}
+								alt="Picked Image"
+							/>
+							<div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} onClick={handleCancelImage}>
+								<FontAwesomeIcon icon={faXmark} style={{ color: "#e9eaec", fontSize: '25px' }} />
+							</div>
+						</div>
+					</div>
+
+				}
 
 				<div className="card-footer">
 					<div className="input-group">
@@ -222,6 +246,7 @@ const Message = ({ text, time, isSent, messageId, image }) => {
 		<div className={`d-flex flex-column ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
 			{image !== '' ? (
 				<div className={messageContainerClass}>
+					{text}
 					<img src={`http://localhost:7169/api/ChatRoom/GetImage/${messageId}`} />
 					<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
 				</div>

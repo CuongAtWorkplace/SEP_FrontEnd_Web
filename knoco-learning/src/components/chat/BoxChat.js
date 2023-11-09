@@ -90,32 +90,32 @@ const BoxChat = () => {
 
 	const uploadImage = async () => {
 		try {
-			const formData = new FormData();
-
-			// Đảm bảo rằng imagePicker chứa dữ liệu ảnh
-			if (imagePicker) {
-				const blob = await fetch(imagePicker).then((res) => res.blob());
-				formData.append('file', blob, 'image.jpg');
-
-				const uploadResponse = await fetch('http://localhost:7169/api/Post/UploadImage', {
-					method: 'POST',
-					body: formData,
-				});
-
-				if (uploadResponse.ok) {
-					const responseJson = await uploadResponse.text();
-					sendMessage(responseJson); // Gửi tin nhắn với link ảnh sau khi upload thành công
-				} else {
-					throw new Error('Failed to upload image');
-				}
+		  const formData = new FormData();
+	  
+		  // Check if imagePicker contains image data
+		  if (imagePicker) {
+			const blob = await fetch(imagePicker).then((res) => res.blob());
+			formData.append('file', blob, 'image.jpg');
+	  
+			const uploadResponse = await fetch('http://localhost:7169/api/Post/UploadImage', {
+			  method: 'POST',
+			  body: formData,
+			});
+	  
+			if (uploadResponse.ok) {
+			  const responseJson = await uploadResponse.text();
+			  sendMessage(responseJson); // Sending message with the image link after successful upload
 			} else {
-				throw new Error('No image data found to upload');
+			  throw new Error('Failed to upload image');
 			}
+		  } else {
+			sendMessage(""); // Call sendMessage("") if imagePicker is an empty string
+		  }
 		} catch (error) {
-			console.error('Error uploading image:', error);
+		  console.error('Error uploading image:', error);
 		}
-	};
-
+	  };
+	  
 	const handleCancelImage = () => {
 		setImagePicker("");
 
@@ -138,6 +138,7 @@ const BoxChat = () => {
 			});
 
 			if (response.ok) {
+				handleCancelImage();
 				setMessageText("");
 			} else {
 				throw new Error('Failed to send message');

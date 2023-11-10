@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+//import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import './style/admin/global.scss';
 
 import Login from './pages/login/Login';
-import Register from './pages/login/Register';
+//import Register from './pages/login/Register';
 import ViewAllClass from './pages/teachers/ViewAllClass';
 import ClassDetail from './pages/teachers/ClassDetail';
 import ListLearner from './pages/teachers/ListLearner';
@@ -20,7 +20,7 @@ import VideoCallDemo from './pages/teachers/VideoCallDemo';
 import ViewListQuizzInClass from './pages/teachers/ViewListQuizzInClass';
 import ViewNotificationTeacher from './pages/teachers/ViewNotificationTeacher';
 import QuizzDetail from './pages/teachers/QuizzDetail';
-import VideoCall2 from './pages/teachers/VideoCall2';
+//import VideoCall2 from './pages/teachers/VideoCall2';
 import ViewPostListManager from './pages/manager/ViewPostListManager';
 import ViewPostDetailManager from './pages/manager/ViewPostDetailManager';
 import Profile from './pages/teachers/Profile';
@@ -29,7 +29,7 @@ import GroupChat from './pages/teachers/GroupChat';
 import ListAllCourse from './pages/teachers/ListAllCourse';
 //import TestModal from './pages/manager/Course/TestModal';
 
-const queryClient = new QueryClient();
+//const queryClient = new QueryClient();
 
 function App() {
   return (

@@ -26,24 +26,24 @@ const CardLearner = ({ learner, onBackClick }, props) => {
     return (
         <div className="container">
             {learnerId ? (
-                <div className="profile-box">
+                <div className="user-box">
                     <img src={myImage} alt="Profile" />
                     <h2>{learnerId.fullName}</h2>
-                    <p>Email: {learnerId.email}</p>
-                    <p>Phone number: {learnerId.phone}</p>
-                    <p>Description: {learnerId.description}</p>
-                    <p>Address: {learnerId.address}</p>
+                    <p><strong>Email: </strong> {learnerId.email}</p>
+                    <p><strong>Phone number: </strong> {learnerId.phone}</p>
+                    <p><strong>Description: </strong> {learnerId.description}</p>
+                    <p><strong>Address: </strong> {learnerId.address}</p>
                     <button onClick={onBackClick}><FontAwesomeIcon icon={faArrowLeft}/> Back</button>
                 </div>
             ) : (
                 <div className="container">
-                    <div className="profile-box">
+                    <div className="user-box">
                         <img src={myImage} alt="Profile" />
-                        <h2>fullName</h2>
-                        <p>Email: email</p>
-                        <p>Phone number: phone</p>
-                        <p>Description: description</p>
-                        <p>Address: address</p>
+                        <h2>Full name</h2>
+                        <p><strong>Email: </strong> email</p>
+                        <p><strong>Phone number: </strong> phone</p>
+                        <p><strong>Description: </strong> description</p>
+                        <p><strong>Address: </strong> address</p>
                         <button onClick={onBackClick}><FontAwesomeIcon icon={faArrowLeft}/> Back</button>
                     </div>
                 </div>

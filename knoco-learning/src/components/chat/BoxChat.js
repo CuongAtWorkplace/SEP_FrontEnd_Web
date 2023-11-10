@@ -4,8 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormControl } from "react-bootstrap";
 import { faArrowLeft, faLocationArrow, faPaperclip, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useDropzone } from 'react-dropzone';
+import { HubConnectionBuilder } from "@microsoft/signalr";
 
-
+const User = 2;
 
 const BoxChat = () => {
 	const [messageText, setMessageText] = useState(''); // Thêm state để lưu trữ nội dung tin nhắn
@@ -13,6 +14,10 @@ const BoxChat = () => {
 	const [classData, setClassData] = useState([]);
 	const [imagePicker, setImagePicker] = useState('');
 	const [image, setImage] = useState(null);
+	const [connection, setConnection] = useState(null);
+
+
+
 
 	const scrollViewRef = useRef(null);
 
@@ -49,6 +54,47 @@ const BoxChat = () => {
 		fetchClassData();
 	}, []);
 
+
+	useEffect(() => {
+		const newConnection = new HubConnectionBuilder()
+		  .withUrl('https://testdoan.ngrok.dev/chatHub')
+		  .build();
+	
+		setConnection(newConnection);
+	
+		newConnection
+		  .start()
+		  .then(() => {
+			console.log('Connected to SignalR Hub');
+			newConnection.on('ReceiveMessage', (message) => {
+			  console.log('Received message:', message);
+			  setMessages((prevMessages) => [...prevMessages, message]);
+			});
+		  })
+		  .catch((error) =>
+			console.log('Error connecting to SignalR Hub: ' + error)
+		  );
+	
+		newConnection.onclose((error) => {
+		  console.log('SignalR connection closed:', error);
+		});
+	
+		return () => {
+		  if (newConnection) {
+			newConnection.off('ReceiveMessage');
+			newConnection.stop();
+		  }
+		};
+	  }, [messages]);
+
+	useEffect(() => {
+		return () => {
+			if (connection) {
+				connection.stop();
+			}
+		};
+	}, [connection]);
+
 	useEffect(() => {
 		if (scrollViewRef.current) {
 			scrollViewRef.current.scrollTo({
@@ -83,39 +129,39 @@ const BoxChat = () => {
 		id: message.messageId,
 		text: message.content,
 		time: message.createDate,
-		sender: message.createBy === 2 ? message.fullName : "Other User",
+		sender: message.createBy === User ? message.fullName : "Other User",
 		image: message.photo,
-		isSent: message.createBy === 2,
+		isSent: message.createBy === User,
 	}));
 
 	const uploadImage = async () => {
 		try {
-		  const formData = new FormData();
-	  
-		  // Check if imagePicker contains image data
-		  if (imagePicker) {
-			const blob = await fetch(imagePicker).then((res) => res.blob());
-			formData.append('file', blob, 'image.jpg');
-	  
-			const uploadResponse = await fetch('http://localhost:7169/api/Post/UploadImage', {
-			  method: 'POST',
-			  body: formData,
-			});
-	  
-			if (uploadResponse.ok) {
-			  const responseJson = await uploadResponse.text();
-			  sendMessage(responseJson); // Sending message with the image link after successful upload
+			const formData = new FormData();
+
+			// Check if imagePicker contains image data
+			if (imagePicker) {
+				const blob = await fetch(imagePicker).then((res) => res.blob());
+				formData.append('file', blob, 'image.jpg');
+
+				const uploadResponse = await fetch('http://localhost:7169/api/Post/UploadImage', {
+					method: 'POST',
+					body: formData,
+				});
+
+				if (uploadResponse.ok) {
+					const responseJson = await uploadResponse.text();
+					sendMessage(responseJson); // Sending message with the image link after successful upload
+				} else {
+					throw new Error('Failed to upload image');
+				}
 			} else {
-			  throw new Error('Failed to upload image');
+				sendMessage(""); // Call sendMessage("") if imagePicker is an empty string
 			}
-		  } else {
-			sendMessage(""); // Call sendMessage("") if imagePicker is an empty string
-		  }
 		} catch (error) {
-		  console.error('Error uploading image:', error);
+			console.error('Error uploading image:', error);
 		}
-	  };
-	  
+	};
+
 	const handleCancelImage = () => {
 		setImagePicker("");
 
@@ -129,7 +175,7 @@ const BoxChat = () => {
 				photo: photo // Gán link ảnh vào phần photo của tin nhắn
 			};
 
-			const response = await fetch(`http://localhost:7169/api/ChatRoom/AddMessage/9/4`, {
+			const response = await fetch(`http://localhost:7169/api/ChatRoom/AddMessage/9/` + User, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

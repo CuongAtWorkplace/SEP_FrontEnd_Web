@@ -102,7 +102,7 @@ class Users extends Component {
         width: 180,
       },
       {
-        field: "isBan",
+        field: "status",
         headerName: "Status",
         width: 100,
       },

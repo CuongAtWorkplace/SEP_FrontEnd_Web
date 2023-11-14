@@ -58,9 +58,9 @@ class Report extends Component {
 
     const columns = [
       { id: 'reportUserId', label: 'ID', minWidth: 50 },
-      { id: 'fromUser', label: 'Form User', minWidth: 150 },
+      { id: 'fromAccountName', label: 'Form User', minWidth: 150 },
       {
-        id: 'toUser',
+        id: 'toAccountName',
         label: 'To User',
         minWidth: 170,
       },

@@ -4,19 +4,14 @@ import { faBook } from '@fortawesome/free-solid-svg-icons';
 import Header from "../../../components/header/Header";
 import Footer from "../../../components/footer/Footer";
 import SideBar from "../../../components/sidebar/SideBar";
-import ChartBox from "../../../components/admin/chartBox/ChartBox";
 import TopBox from "../../../components/admin/topBox/TopBox";
-import {
-  chartBoxConversion,
-  chartBoxCourse,
-  chartBoxReport,
-  chartBoxUser,
-} from "../../../data";
 import "./home.scss";
+import TotalUser from "../../../components/admin/chartBox/TotalUserChart";
+import TotalCourse from "../../../components/admin/chartBox/TotalCourseChart";
+import TotalPost from "../../../components/admin/chartBox/TotalPostChart";
+import TotalReport from "../../../components/admin/chartBox/TotalReportChart";
 
 class Home extends Component {
-
-
 
   render() {
     return (
@@ -47,23 +42,17 @@ class Home extends Component {
                     <TopBox />
                   </div>
                   <div className="box box2">
-                    <ChartBox {...chartBoxUser} />
+                    <TotalUser />
                   </div>
                   <div className="box box3">
-                    <ChartBox {...chartBoxCourse} />
+                    <TotalCourse />
                   </div>
                   <div className="box box5">
-                    <ChartBox {...chartBoxReport} />
+                    <TotalPost />
                   </div>
                   <div className="box box6">
-                    <ChartBox {...chartBoxConversion} />
+                    <TotalReport />
                   </div>
-                  {/* <div className="box box7">
-                    <BigChartBox />
-                  </div> */}
-                  {/* <div className="box box8">
-                    <BarChartBox {...barChartBoxVisit} />
-                  </div> */}
                 </div>
               </div>
             </div>

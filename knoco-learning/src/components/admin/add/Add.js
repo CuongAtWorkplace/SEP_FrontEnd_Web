@@ -3,32 +3,16 @@ import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 class Add extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      // formData: {
-        fullName: '',
-        email: '',
-        phone: '',
-        status: false,
-        address: ''
-      // }
+      fullName: '',
+      email: '',
+      password: '',
+      phone: '',
+      role: '',
+      address: ''
     };
-  }
-
-  // addNewUser = async (data) => {
-  //   await fetch(`https://localhost:7169/api/Admin/AddNewUser`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(data),
-  //   });
-  // }
-
-  componentDidMount() {
-
   }
 
   toggle = () => {
@@ -36,32 +20,27 @@ class Add extends Component {
   }
 
   handleOnChangeInput = (event, id) => {
-    let copyState = { ...this.state };
-    copyState[id] = event.target.value;
-
     this.setState({
-      ...copyState
+      [id]: event.target.value
     });
   }
 
-  checkValideInput = () => {
-    let isValid = true;
-    let arrInput = ['fullName', 'email', 'phone', 'status', 'address'];
+  checkValidInput = () => {
+    const arrInput = ['fullName', 'email', 'password', 'phone', 'role', 'address'];
     for (let i = 0; i < arrInput.length; i++) {
       if (!this.state[arrInput[i]]) {
-        isValid = false;
-        alert('Missing parameter:' + arrInput[i]);
-        break;
+        return false;
       }
     }
-    return isValid;
+    return true;
   }
 
   handleAddNewUser = () => {
-    let isValid = this.checkValideInput();
-    if (isValid == true) {
-      //call api add user
+    if (this.checkValidInput()) {
       this.props.createNewUser(this.state);
+    } else {
+      // You might want to handle validation messages in a more user-friendly way
+      alert('Please fill in all required fields.');
     }
   }
 
@@ -74,23 +53,33 @@ class Add extends Component {
             <div className="row">
               <div className="col-6 form-group">
                 <label>Full Name</label>
-                <input type="text" className="form-control" placeholder="Enter fullname"
+                <input type="text" className="form-control" placeholder="Enter Fullname" required
                   onChange={(event) => { this.handleOnChangeInput(event, "fullName") }} value={this.state.fullName} />
               </div>
               <div className="col-6 form-group">
                 <label>Email</label>
-                <input type="text" className="form-control" placeholder="Enter email"
+                <input type="email" className="form-control" placeholder="Enter Email" required
                   onChange={(event) => { this.handleOnChangeInput(event, "email") }} value={this.state.email} />
               </div>
               <div className="col-6 form-group">
+                <label>Password</label>
+                <input type="password" className="form-control" placeholder="Enter Password" required
+                  onChange={(event) => { this.handleOnChangeInput(event, "password") }} value={this.state.password} />
+              </div>
+              <div className="col-6 form-group">
                 <label>Phone</label>
-                <input type="text" className="form-control" placeholder="Enter phone"
+                <input type="text" className="form-control" placeholder="Enter phone" required maxLength={10}
                   onChange={(event) => { this.handleOnChangeInput(event, "phone") }} value={this.state.phone} />
               </div>
               <div className="col-6 form-group">
-                <label>Status</label>
-                <input type="text" className="form-control" placeholder="Enter status"
-                  onChange={(event) => { this.handleOnChangeInput(event, "status") }} value={this.state.status} />
+                <label>Role</label>
+                <select className="form-control" required onChange={(event) => { this.handleOnChangeInput(event, "role") }} value={this.state.role}>
+                  <option value="None">None</option>
+                  <option value="Teacher">Teacher</option>
+                  <option value="Manager">Manager</option>
+                </select>
+                {/* <input type="text" className="form-control" placeholder="Enter Role" required
+                  onChange={(event) => { this.handleOnChangeInput(event, "status") }} value={this.state.status} /> */}
               </div>
               <div className="col-12 form-group">
                 <label>Address</label>

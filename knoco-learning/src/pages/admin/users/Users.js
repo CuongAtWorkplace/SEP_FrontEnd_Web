@@ -46,6 +46,12 @@ class Users extends Component {
 
   createNewUser = async (data) => {
     try {
+      // Ensure that the data includes the required 'RoleName' field
+      if (!data.RoleName) {
+        alert('RoleName is required.'); // You might want to handle this differently based on your UI/UX design
+        return;
+      }
+  
       const response = await fetch(`https://localhost:7169/api/Admin/AddNewUser`, {
         method: 'POST',
         headers: {
@@ -53,20 +59,34 @@ class Users extends Component {
         },
         body: JSON.stringify(data),
       });
+  
       if (response.ok) {
-        // alert('User added successfully'); // Thay đổi thông báo
+        alert('User added successfully');
         await this.getListUser();
         this.setState({
           isOpenModal: false
         });
       } else {
-        alert('Failed to add user'); // Thay đổi thông báo
+        const errorData = await response.json();
+        console.error('Failed to add user:', errorData);
+  
+        if (errorData.errors) {
+          // Display validation errors
+          const validationErrors = Object.values(errorData.errors.RoleName)
+            .map((error) => `- ${error}`);
+          alert(`Failed to add user. Validation errors:\n${validationErrors.join('\n')}`);
+        } else {
+          // Display a generic error message
+          alert('Failed to add user. Check console for details.');
+        }
       }
     } catch (error) {
-      console.error(error);
-      alert('Error occurred'); // Thay đổi thông báo
+      console.error('Error occurred:', error);
+      alert('Error occurred. Check console for details.');
     }
-  }
+  };
+  
+  
 
   render() {
 

@@ -49,28 +49,13 @@ const TableListClassEmpty = (props) => {
       Filter: ColumnFilter, // Custom filter component for courseName column
     },
     {
-      Header: 'Teacher Name',
-      accessor: 'teacherName',
-      Filter: ColumnFilter, // Custom filter component for courseId column
-    },
-    {
       Header: 'CourseName',
       accessor: 'courseName',
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
     {
-      Header: 'NumberStudent',
-      accessor: 'numberStudent',
-      Filter: ColumnFilter, // Custom filter component for courseId column
-    },
-    {
       Header: 'Topic',
       accessor: 'topic',
-      Filter: ColumnFilter, // Custom filter component for courseId column
-    },
-    {
-      Header: 'QuizzeName',
-      accessor: 'quizzeName',
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
     {
@@ -94,21 +79,10 @@ const TableListClassEmpty = (props) => {
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
     {
-      Header: 'StartDate',
-      accessor: 'startDate',
-      Filter: ColumnFilter, // Custom filter component for courseId column
-    },
-    {
-      Header: 'EndDate',
-      accessor: 'endDate',
-      Filter: ColumnFilter, // Custom filter component for courseId column
-    },
-    {
       Header: 'Status',
       accessor: 'status',
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
-
   ]);
 
   return (

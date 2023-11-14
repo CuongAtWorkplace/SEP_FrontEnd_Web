@@ -15,10 +15,16 @@
     grid-gap: 10px;
 }
 
-.col-1 ul li {
+.col-1 {
     vertical-align: baseline;
     grid-column: 1;
     display: flex;
+    align-items: center;
+}
+
+.imgbtn-profile li {
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
 

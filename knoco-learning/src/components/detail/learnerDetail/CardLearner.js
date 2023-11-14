@@ -4,8 +4,7 @@ import myImage from './profile.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
-const CardLearner = ({ learner, onBackClick }, props) => {
-    //const { userId } = props;
+const CardLearner = ({ learner, onBackClick }) => {
     const [learnerId, setClassDt] = useState(null);
     console.log(learner);
 

@@ -90,7 +90,7 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                         <div className="containers">
                             <div className="profile-box">
                                 <div className="col-1">
-                                    <ul>
+                                    <ul className="imgbtn-profile">
                                         <li>
                                             <img src={myImage} alt="Profile" />
                                         </li>

@@ -45,7 +45,7 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
     return (
         <div className="conval">
             {classDt ? (
-                <div className="values">
+                <div className="class-detail">
                     <div className="val-box">
                         <div>
                             <h2><FontAwesomeIcon className="menu-icon" icon={faPeopleGroup} /> Class name: {classDt.classname}</h2>
@@ -102,19 +102,19 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
                     <div className="val-box">
                         <div>
                             <h3><FontAwesomeIcon className="menu-icon" icon={faCalendarDays} /> Create date</h3>
-                            <span>{formatDate(classDt.createDate)}</span>
+                            {/* <span>{formatDate(classDt.createDate)}</span> */}
                         </div>
                     </div>
                     <div className="val-box">
                         <div>
                             <h3><FontAwesomeIcon className="menu-icon" icon={faCalendarDays} /> Start date</h3>
-                            <span>{formatDate(classDt.startDate)}</span>
+                            {/* <span>{formatDate(classDt.startDate)}</span> */}
                         </div>
                     </div>
                     <div className="val-box">
                         <div>
                             <h3><FontAwesomeIcon className="menu-icon" icon={faCalendarDays} /> End date</h3>
-                            <span>{formatDate(classDt.endDate)}</span>
+                            {/* <span>{formatDate(classDt.endDate)}</span> */}
                         </div>
                     </div>
                     <div className="val-box-btn">

@@ -46,12 +46,6 @@ class Users extends Component {
 
   createNewUser = async (data) => {
     try {
-      // Ensure that the data includes the required 'RoleName' field
-      if (!data.RoleName) {
-        alert('RoleName is required.'); // You might want to handle this differently based on your UI/UX design
-        return;
-      }
-  
       const response = await fetch(`https://localhost:7169/api/Admin/AddNewUser`, {
         method: 'POST',
         headers: {
@@ -59,6 +53,7 @@ class Users extends Component {
         },
         body: JSON.stringify(data),
       });
+      console.log(data);
   
       if (response.ok) {
         alert('User added successfully');
@@ -68,17 +63,7 @@ class Users extends Component {
         });
       } else {
         const errorData = await response.json();
-        console.error('Failed to add user:', errorData);
-  
-        if (errorData.errors) {
-          // Display validation errors
-          const validationErrors = Object.values(errorData.errors.RoleName)
-            .map((error) => `- ${error}`);
-          alert(`Failed to add user. Validation errors:\n${validationErrors.join('\n')}`);
-        } else {
-          // Display a generic error message
-          alert('Failed to add user. Check console for details.');
-        }
+        console.error('Failed to add user:', errorData);     
       }
     } catch (error) {
       console.error('Error occurred:', error);

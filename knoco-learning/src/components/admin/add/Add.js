@@ -10,7 +10,7 @@ class Add extends Component {
       email: '',
       password: '',
       phone: '',
-      role: '',
+      roleName: 'Teacher',
       address: ''
     };
   }
@@ -26,7 +26,7 @@ class Add extends Component {
   }
 
   checkValidInput = () => {
-    const arrInput = ['fullName', 'email', 'password', 'phone', 'role', 'address'];
+    const arrInput = ['fullName', 'email', 'password', 'phone', 'roleName', 'address'];
     for (let i = 0; i < arrInput.length; i++) {
       if (!this.state[arrInput[i]]) {
         return false;
@@ -36,6 +36,7 @@ class Add extends Component {
   }
 
   handleAddNewUser = () => {
+    //console.log('data', this.state)
     if (this.checkValidInput()) {
       this.props.createNewUser(this.state);
     } else {
@@ -52,29 +53,28 @@ class Add extends Component {
           <div className="container">
             <div className="row">
               <div className="col-6 form-group">
-                <label>Full Name</label>
-                <input type="text" className="form-control" placeholder="Enter Fullname" required
+                <label>Full Name <span className="errmsg">*</span></label>
+                <input type="text" className="form-control" required
                   onChange={(event) => { this.handleOnChangeInput(event, "fullName") }} value={this.state.fullName} />
               </div>
               <div className="col-6 form-group">
-                <label>Email</label>
-                <input type="email" className="form-control" placeholder="Enter Email" required
+                <label>Email <span className="errmsg">*</span></label>
+                <input type="email" className="form-control" required
                   onChange={(event) => { this.handleOnChangeInput(event, "email") }} value={this.state.email} />
               </div>
               <div className="col-6 form-group">
-                <label>Password</label>
-                <input type="password" className="form-control" placeholder="Enter Password" required
+                <label>Password <span className="errmsg">*</span></label>
+                <input type="password" className="form-control" required
                   onChange={(event) => { this.handleOnChangeInput(event, "password") }} value={this.state.password} />
               </div>
               <div className="col-6 form-group">
-                <label>Phone</label>
-                <input type="text" className="form-control" placeholder="Enter phone" required maxLength={10}
+                <label>Phone <span className="errmsg">*</span></label>
+                <input type="text" className="form-control" required maxLength={10}
                   onChange={(event) => { this.handleOnChangeInput(event, "phone") }} value={this.state.phone} />
               </div>
               <div className="col-6 form-group">
-                <label>Role</label>
-                <select className="form-control" required onChange={(event) => { this.handleOnChangeInput(event, "role") }} value={this.state.role}>
-                  <option value="None">None</option>
+                <label>Role <span className="errmsg">*</span></label>
+                <select className="form-control" required onChange={(event) => { this.handleOnChangeInput(event, "roleName") }} value={this.state.roleName}>
                   <option value="Teacher">Teacher</option>
                   <option value="Manager">Manager</option>
                 </select>
@@ -82,8 +82,8 @@ class Add extends Component {
                   onChange={(event) => { this.handleOnChangeInput(event, "status") }} value={this.state.status} /> */}
               </div>
               <div className="col-12 form-group">
-                <label>Address</label>
-                <input type="text" className="form-control" placeholder="Enter address"
+                <label>Address <span className="errmsg">*</span></label>
+                <textarea type="text" className="form-control"
                   onChange={(event) => { this.handleOnChangeInput(event, "address") }} value={this.state.address} />
               </div>
             </div>
@@ -91,7 +91,7 @@ class Add extends Component {
         </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={() => { this.handleAddNewUser() }}>Add</Button>{' '}
-          <Button color="secondary" onClick={() => { this.toggle() }}>Cancel</Button>
+          <Button className="btn btn-danger" onClick={() => { this.toggle() }}>Cancel</Button>
         </ModalFooter>
       </Modal>
     );

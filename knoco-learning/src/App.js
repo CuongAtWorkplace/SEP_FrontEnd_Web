@@ -35,12 +35,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/viewallclass" element={<ViewAllClass/>} />
         <Route path="/classdetail/:classId" element={<ClassDetail/>} />
         <Route path="/learnerdetail" element={<LearnerDetail/>} />
         <Route path="/listlearner" element={<ListLearner/>} />
-        <Route path="/" element={<Login />}  /> */}
+        <Route path="/" element={<Login />}  />
         <Route path="/dashboard" element={<Home />} />
         <Route path="/users" element={<Users />} />
         <Route path="/users/:userId" element={<UserDetail />} />

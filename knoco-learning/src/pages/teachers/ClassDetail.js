@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { memo } from "react";
 import Header from "../../components/header/Header"
 import Footer from "../../components/footer/Footer";
@@ -8,22 +8,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import $ from "jquery";
 import CardClass from "../../components/detail/classDetail/CardClass";
+import TableListLearnerInClass from "../../components/Table/TableListLearnerInClass";
+import CardEditClass from "../../components/edit/CardEditClass"
 
 const ClassDetail = ({ children, ...props }) => {
     useEffect(() => {
         // Add click event listener to menu-btn
-        $('.menu-btn').on('click', function() {
+        $('.menu-btn').on('click', function () {
             $('#menu').toggleClass('active'); // Toggle active class on #menu
         });
     }, []);
-
-    const classDetails = {
-        name: "G63",
-        subject: "SEP490",
-        member: "5",
-        start: "01/09/2023",
-        end: "30/12/2023"
-    }
+    const [isEditClassPopupVisible, setIsEditClassPopupVisible] = useState(false);
+    const closeEditClassPopup = () => {
+        setIsEditClassPopupVisible(false);
+    };
     return (
         <div className="body_page" {...props}>
             <section id="menu">
@@ -33,17 +31,23 @@ const ClassDetail = ({ children, ...props }) => {
                 </div>
 
                 <nav>
-                    <SideBar/>
+                    <SideBar />
                 </nav>
             </section>
 
             <section id="interface">
                 <header>
-                    <Header/>
+                    <Header />
                 </header>
 
-                <div>
-                    <CardClass classDt = {classDetails}/>
+                <div className="children">
+                    <CardClass setIsEditClassPopupVisible={setIsEditClassPopupVisible} />
+                    <TableListLearnerInClass />
+                    {isEditClassPopupVisible && (
+                        <div className="popup">
+                            <CardEditClass closePopup={closeEditClassPopup} />
+                        </div>
+                    )}
                 </div>
 
                 <footer>

@@ -1,0 +1,62 @@
+.conval{
+    margin-top: 70px;
+}
+.btn{
+    color: white;
+    width: 100%;
+    height: 100%;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    padding: 10px 30px;
+}
+.val-box-btn{
+    background: #fff;
+    width: 200px;
+    height: 50px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px 0;
+}
+.btn-edit{
+    background-color: green;
+}
+.values .val-box:nth-child(1){
+    background: #7b74ec;
+  }
+  .values .val-box:nth-child(2){
+    background: #5c8af0;
+  }
+  .values .val-box:nth-child(3){
+    background: #e45d99;
+  }
+  .values .val-box:nth-child(4){
+    background: #74daec;
+  }
+  .values .val-box:nth-child(5){
+    background: #cccc00;
+  }.values .val-box:nth-child(6){
+    background: #ac39ac;
+  }.values .val-box:nth-child(7){
+    background: #7b74ec;
+  }.values .val-box:nth-child(8){
+    background: #cc0000;
+  }.values .val-box:nth-child(9){
+    background: #e65c00;
+  }.values .val-box:nth-child(10){
+    background: #74daec;
+  }
+  .values .val-box:nth-child(11){
+    background: #74daec;
+  }
+  .values .val-box:nth-child(12){
+    background: #74daec;
+  }
+
+
+  
+
+  
+  

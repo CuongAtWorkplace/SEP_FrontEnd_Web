@@ -22,7 +22,10 @@ import { BsSuitHeartFill, BsBookmarkPlusFill } from "react-icons/bs";
 import { Routes, Route } from "react-router-dom";
 // import { Modal, Button } from 'react-bootstrap';
 
-import "./ViewAllCourse.scss";
+import "./ViewAllCourse.css";
+import SideBar from "../../../components/sidebar/SideBar";
+import Header from "../../../components/header/Header";
+import Footer from "../../../components/footer/Footer";
 
 function CourseDetail() {
   const [courseDetail, setCourseDetail] = useState({});
@@ -86,6 +89,7 @@ function CourseDetail() {
     // const token = localStorage.getItem("token");
     // const decodedToken = jwtDecode(token);
     // const cBy = decodedToken.id;
+
     const coursenew = {
       courseId: cid,
       courseName: courseName,
@@ -145,14 +149,17 @@ function CourseDetail() {
             <FontAwesomeIcon className="logo-icon" icon={faBook} />
             <h1>Knoco</h1>
           </div>
+
           <nav>
             <SideBar />
           </nav>
         </section>
+
         <section id="interface">
           <header>
             <Header />
           </header>
+
           <div className="children">
             <div className="coursedetail">
               <form className="">
@@ -207,9 +214,9 @@ function CourseDetail() {
                 </div>
               </form>
             </div>
-            <div className="coursedetail">
-              <h1>Danh sách lớp</h1>
-              <div className="TableLayout" style={{ height: "auto", width: "100%" }}>
+            <div className="classListInCourse">
+              <div className="TableLayout">
+                <h1>Danh sách lớp</h1>
                 <DataGrid
                   rows={classInCourse}
                   columns={columns}
@@ -221,6 +228,96 @@ function CourseDetail() {
               </div>
             </div>
           </div>
+
+          <div className="container">
+            <div className="row">
+              <div className="col-md-8">
+                <section className="panel tasks-widget">
+                  <header className="panel-heading">
+                    <h2>Update Topic</h2>
+                  </header>
+                </section>
+                <div className="panel-body">
+                  <form>
+                    <div className="form-group">
+                      <label className="control-label">Topic Name:</label>
+                      {/* <input name="ProductPrice" className="form-control" value={TopicName} onChange={(e) => this.onChangeTopicName(e)} /> */}
+                    </div>
+
+                    <div className="form-group">
+                      <label className="control-label">Topic Description:</label>
+                      <div className="App">
+                        {/* <CKEditor
+                                            editor={ClassicEditor}
+                                            data={Description}
+                                            onReady={editor => {
+                                                console.log('Editor is ready to use!', editor);
+                                            }}
+                                            onChange={(event, editor) => {
+                                                const data = editor.getData();
+                                                this.setState({ Description: data })
+                                            }}
+                                        /> */}
+                      </div>
+                    </div>
+
+                    <div className="form-group">
+                      <label className="control-label">Topic Categories:</label> <br></br>
+                      {/* <select className="form-select"
+                                        onChange={(e) => this.setState({GenreId: e.target.value})
+                                        } 
+                                        value={GenreId}
+                                    >
+                                        {Genre.map(gen => <option value={gen.id} key={gen.id}>
+                                            {gen.genreName}
+                                        </option>)}
+                                    </select> */}
+                    </div>
+                    <div className="form-group">
+                      <label className="control-label">Assign To Writer:</label>
+                      {/* <select className="form-select"
+                                        onChange={(e) => this.setState({ WriterId: e.target.value })}
+                                        value={WriterId}
+                                    >
+                                        {User.map(u => u.roleId == 4 && 
+                                            <option value={u.id} key={u.id} selected>
+                                                {u.fullName}
+                                            </option> 
+                                        )}
+                                    </select> */}
+                      {/* {ErrorTopicName == null ? <input type="hidden" /> : <p style={{ color: 'red' }}>{ErrorTopicName}</p>} */}
+                    </div>
+                    <div className="form-group">
+                      <label className="control-label">Assign To Reporter:</label>
+                      {/* <select className="form-select"
+                                        onChange={(e) => this.setState({ReporterId: e.target.value})}
+                                        value={ReporterId}
+                                    >
+                                        {User.map(u => u.roleId == 5 &&
+                                            <option value={u.id} key={u.id} >
+                                                {u.fullName}
+                                            </option>
+                                        )}
+                                    </select> */}
+                      {/* {ErrorTopicName == null ? <input type="hidden" /> : <p style={{ color: 'red' }}>{ErrorTopicName}</p>} */}
+                    </div>
+                    <div className="form-group">
+                      <label className="control-label">Create Date:</label>
+                      {/* <input type="datetime-local" className="form-control" value={StartDate} onChange={(e) => this.setState({StartDate: e.target.value})} /> */}
+                      {/* {ErrorTopicName == null ? <input type="hidden" /> : <p style={{ color: 'red' }}>{ErrorTopicName}</p>} */}
+                    </div>
+                    <div className="form-group">
+                      <label className="control-label">EndDate:</label>
+                      {/* <input type="datetime-local" className="form-control" value={EndDate} onChange={(e) =>  this.setState({EndDate: e.target.value})}/> */}
+                      {/* {ErrorTopicName == null ? <input type="hidden" /> : <p style={{ color: 'red' }}>{ErrorTopicName}</p>} */}
+                    </div> <br />
+                    {/* <button type="button" className="btn btn-info" onClick={() => this.updateClick()}>Update AssignTask</button> */}
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <footer>
             <Footer />
           </footer>

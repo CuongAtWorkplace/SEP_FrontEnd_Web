@@ -1,29 +1,42 @@
 import './navbar.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChalkboardUser } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { BsSearch, BsBell } from "react-icons/bs";
 import {MdOutlineSettings } from "react-icons/md";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
+    const [isDropdownVisible, setDropdownVisible] = useState(false);
+
+    const toggleDropdown = () => {
+        setDropdownVisible(!isDropdownVisible);
+    };
+
     return (
-        <div className='navbar'>
-            <div className='logo'>
-                <span>Knoco</span>
+        <div className="navigation">
+            <div className="n1">
+                <div>
+                    <FontAwesomeIcon id="menu-btn" icon={faBars} />
+                </div>
+                {/* <div className="search">
+                    <FontAwesomeIcon className="icon-search" icon={faMagnifyingGlass} />
+                    <input type="text" placeholder="Search" />
+                </div> */}
             </div>
-            <div className='icons'>
-                <BsSearch className="icon"/>
-                {/* <img src="/app.svg" alt="" className="icon" />
-                <img src="/expand.svg" alt="" className="icon" /> */}
-                <div className="notification">
-                    <BsBell/>
-                    <span>1</span>
+
+            <div className="profile">
+                <FontAwesomeIcon className="icon-profile" icon={faBell} />
+                <FontAwesomeIcon className="icon-img" icon={faChalkboardUser} onClick={toggleDropdown} />
+                <div className={`dropdown-menu ${isDropdownVisible ? "active" : ""}`} id="dropdown-menu">
+                    <ul>
+                        <li><Link className="link-a" to="#">Change Password</Link></li>
+                        <li><Link className="link-a" to="#">Log Out</Link></li>
+                    </ul>
                 </div>
-                <div className="user">
-                    <img
-                        src="https://images.pexels.com/photos/11038549/pexels-photo-11038549.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
-                        alt=""
-                    />
-                    <span>Xuan Ly</span>
-                </div>
-                <MdOutlineSettings className="icon" />
             </div>
         </div>
     );

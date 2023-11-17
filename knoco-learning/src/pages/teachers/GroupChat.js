@@ -36,7 +36,7 @@ const GroupChat = ({ children, ...props }) => {
                 </header>
 
                 <div className="children-chat">
-                    <BoxChatFake/>
+                    <BoxChat/>
                 </div>
 
                 <footer>

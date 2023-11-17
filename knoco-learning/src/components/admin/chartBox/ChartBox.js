@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom"
 import "./chartBox.scss"
+import { Link } from "react-router-dom"
 import { Line, LineChart, ResponsiveContainer, Tooltip } from "recharts"
 
 const ChartBox = props => {
@@ -12,14 +12,14 @@ const ChartBox = props => {
           <span>{props.title}</span>
         </div>
         <h1>{props.number}</h1>
-        <Link to="/" style={{ color: props.color }}>
+        <Link to="" style={{ color: props.color }}>
           View all
         </Link>
       </div>
       <div className="chartInfo">
         <div className="chart">
           <ResponsiveContainer width="99%" height="100%">
-            <LineChart data={props.chartData}>
+            <LineChart LineChartdata={props.chartData}>
               <Tooltip
                 contentStyle={{ background: "transparent", border: "none" }}
                 labelStyle={{ display: "none" }}

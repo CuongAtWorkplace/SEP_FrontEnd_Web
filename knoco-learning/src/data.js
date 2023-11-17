@@ -103,7 +103,7 @@ export const chartBoxUser = {
   ],
 };
 
-export const chartBoxProduct = {
+export const chartBoxCourse = {
   color: "skyblue",
   icon: <BsBook />,
   title: "Total Courses",
@@ -120,7 +120,7 @@ export const chartBoxProduct = {
     { name: "Sat", course: 450 },
   ],
 };
-export const chartBoxRevenue = {
+export const chartBoxReport = {
   color: "teal",
   icon: <GoReport/>,
   title: "Total Reports",

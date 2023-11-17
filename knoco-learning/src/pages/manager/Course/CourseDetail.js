@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-// import Header from "../../../components/header/Header";
-// import Footer from "../../../components/footer/Footer";
-// import SideBar from "../../../components/sidebar/SideBar";
+import Header from "../../../components/header/Header";
+import Footer from "../../../components/footer/Footer";
+import SideBar from "../../../components/sidebar/SideBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 import TableListClassTeacher from "../../../components/Table/TableListClassTeacher";
@@ -35,8 +35,9 @@ function CourseDetail() {
   const [courseName, setCourseName] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
-
-
+  const [PhotoFileName, setPhotoFileName] = useState('');
+  const [ImageCover, setImageCover] = useState('');
+  const [PhotoPath, setPhotoPath] = useState('https://localhost:7169/Photos/');
   const { cid } = useParams();
 
   useEffect(() => {
@@ -44,6 +45,7 @@ function CourseDetail() {
       .then((response) => response.json())
       .then((data) => {
         setCourseDetail(data);
+        setPhotoFileName(data.image);
       });
 
     fetch(`https://localhost:7169/api/Course/GetClassInCourse?courseId=${cid}`)
@@ -93,7 +95,7 @@ function CourseDetail() {
       courseName: courseName,
       description: description,
       createDate: new Date().toISOString().slice(0, 16),
-      image: image,
+      image: PhotoFileName,
       isDelete: false
     };
     fetch('https://localhost:7169/api/Course/UpdateCourse', {
@@ -104,7 +106,10 @@ function CourseDetail() {
       body: JSON.stringify(coursenew),
     })
       .then((response) => {
-        if (!response.ok) {
+        if (response.ok) {
+
+        }
+        else if (!response.ok) {
           throw new Error('Failed to add product');
         }
         return response.json();
@@ -117,7 +122,25 @@ function CourseDetail() {
 
     setSearchText(searchText);
   };
+  const imageUpload = (e) => {
+    e.preventDefault();
+    const jwt = localStorage.getItem('token');
 
+    setPhotoFileName(e.target.files[0].name);
+    setImageCover(e.target.files[0].name);
+
+    const formData = new FormData();
+    formData.append("file", e.target.files[0], e.target.files[0].name);
+
+    fetch('https://localhost:7169/api/Post/SaveFile', {
+      method: 'POST',
+      body: formData
+    })
+      .then(res => res.json())
+      .then(data => {
+        setPhotoFileName(data);
+      })
+  }
   return (
     <div>
       <div className="body_page">
@@ -140,54 +163,54 @@ function CourseDetail() {
           <div className="children">
             <div className="coursedetail">
               <form className="">
-                <div className="">
-                  <div className="">
-                    <div className="d-flex justify-content-between align-items-center mb-3">
-                      <h4 className="text-right">Thông Tin Khóa Học</h4>
-                    </div>
-                    <div className="row mt-2">
-                      <div className="col-md-12">
-                        <label className="labels">Tên Khóa Học</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          required=""
-                          placeholder={courseDetail.courseName}
-                          value={courseName}
-                          onChange={handleCourseNameChange}
-                        />
-                      </div>
-                    </div>
-                    <div className="row mt-3">
-                      <div className="col-md-12">
-                        <label className="labels">Description</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder={courseDetail.description}
-                          value={description}
-                          onChange={handleDescriptionChange}
-                        />
-                      </div>
-                      <div className="col-md-12">
-                        <label className="labels">Image</label>
-                        <input
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                  <h4 className="text-right">Thông Tin Khóa Học</h4>
+                </div>
+                <div className="row mt-2">
+                  <div className="col-md-12">
+                    <label className="labels">Tên Khóa Học</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      required=""
+                      placeholder={courseDetail.courseName}
+                      value={courseName}
+                      onChange={handleCourseNameChange}
+                    />
+                  </div>
+                </div>
+                <div className="row mt-3">
+                  <div className="col-md-12">
+                    <label className="labels">Description</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder={courseDetail.description}
+                      value={description}
+                      onChange={handleDescriptionChange}
+                    />
+                  </div>
+                  <div className="col-md-12">
+                    <label className="labels">Image</label>
+                    {/* <input
                           type="text"
                           className="form-control"
                           placeholder={courseDetail.image}
                           value={image}
                           onChange={(e) => setImage(e.target.value)}
-                        />
-                      </div>
-                      <div className="col-md-12">
-                        <label className="labels">Nút Xóa</label>
-                        <input type="text" className="form-control" />
-                      </div>
-                    </div>
-                    <div className="mt-5 text-center">
-                      <button style={{ width: "100%" }} type="button" onClick={NewCourse} className=" btn btn-block mybtn btn-primary tx-tfm">Thay Đổi</button>
-                    </div>
+                        /> */}
+                    {PhotoFileName != '' &&
+                      <img width="250px" height="250px"
+                        src={PhotoPath + PhotoFileName} />
+                    }
                   </div>
+                  <div className="col-md-12">
+                    <label className="labels">Hình ảnh</label>
+                    <input className="m-2" type="file" onChange={imageUpload} />
+                  </div>
+                </div>
+                <div className="mt-5 text-center">
+                  <button style={{ width: "100%" }} type="button" onClick={NewCourse} className=" btn btn-block mybtn btn-primary tx-tfm">Thay Đổi</button>
                 </div>
               </form>
             </div>
@@ -205,6 +228,7 @@ function CourseDetail() {
               </div>
             </div>
           </div>
+
           <div className="container">
             <div className="row">
               <div className="col-md-8">
@@ -293,6 +317,7 @@ function CourseDetail() {
               </div>
             </div>
           </div>
+
           <footer>
             <Footer />
           </footer>

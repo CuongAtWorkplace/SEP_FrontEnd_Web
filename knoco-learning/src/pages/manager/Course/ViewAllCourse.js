@@ -16,7 +16,9 @@ import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { BsSuitHeartFill, BsBookmarkPlusFill } from "react-icons/bs";
 // import { Modal, Button } from 'react-bootstrap';
-import "./ViewAllCourse.css";
+
+import "./ViewAllCourse.scss";
+import TableListCourse from "../../../components/Table/TableListCourse";
 
 class ViewAllCourse extends Component {
     constructor(props) {
@@ -95,7 +97,7 @@ class ViewAllCourse extends Component {
             // Định nghĩa cấu trúc cột cho DataGrid
 
             { field: 'courseId', headerName: 'ID', width: 70 },
-            { field: 'courseName', headerName: 'Name', width: 150 },
+            { field: 'courseName', headerName: 'courseName', width: 150 },
             { field: 'description', headerName: 'Description', width: 250 },
             { field: 'createDate', headerName: 'CreateDate', width: 250 },
             { field: 'image', headerName: 'Image', width: 250 },
@@ -129,12 +131,31 @@ class ViewAllCourse extends Component {
 
                     <section id="interface">
                         <header>
-                            <Header />
+
+
+                            <div className="navigation">
+                                <div className="n1">
+                                    <div>
+                                        <FontAwesomeIcon id="menu-btn" icon={faBars} />
+                                    </div>
+                                    <div className="search">
+                                        <FontAwesomeIcon className="icon-search" icon={faMagnifyingGlass} />
+                                        <input type="text" onChange={this.handleSearchChange} placeholder="Search" />
+                                    </div>
+                                </div>
+                            </div>
                         </header>
 
 
-                        <div className="children">
-                            <div className='TableLayout' style={{ height: 'auto', width: '100%' }}>
+                        <div>
+                            <input
+                                type="text"
+                                value={searchText}
+                                onChange={this.handleSearchChange}
+                                placeholder="Search Name Course"
+                            />
+                                <TableListCourse/>
+                            {/* <div className='TableLayout' style={{ height: 'auto', width: '100%' }}>
 
                                 <DataGrid
                                     rows={ListAllCourse} // Sử dụng dữ liệu từ state
@@ -145,7 +166,7 @@ class ViewAllCourse extends Component {
                                     getRowId={getRowId}
                                 //  onRowClick={this.handleRowClick}
                                 />
-                            </div>
+                            </div> */}
                         </div>
 
                         <footer>

@@ -42,7 +42,7 @@ const TableListClassTeacher = () => {
   const [columns, setColumns] = useState([
     {
       Header: 'Class Name',
-      accessor: 'classname',
+      accessor: 'className',
       Filter: ColumnFilter, // Custom filter component for courseName column
     },
     {

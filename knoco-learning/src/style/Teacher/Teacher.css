@@ -35,8 +35,10 @@
 .profile-box img {
     width: 200px;
     height: 200px;
-    border-radius: 20%;
+    object-fit: cover;
+    border-radius: 20px;
     margin-bottom: 20px;
+    border: 2px solid #0055FF;
 }
 
 .profile-box h2 {

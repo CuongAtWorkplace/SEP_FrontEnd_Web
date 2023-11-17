@@ -18,6 +18,7 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
     const [classDt, setClassDt] = useState(null);
     const params = useParams();
     const navigate = useNavigate();
+    console.log(classDt);
 
     useEffect(() => {
         fetchData();
@@ -48,7 +49,7 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
                 <div className="class-detail">
                     <div className="val-box">
                         <div>
-                            <h2><FontAwesomeIcon className="menu-icon" icon={faPeopleGroup} /> Class name: {classDt.classname}</h2>
+                            <h2><FontAwesomeIcon className="menu-icon" icon={faPeopleGroup} /> Class name: {classDt.className}</h2>
                         </div>
                     </div>
                     <div className="val-box">
@@ -123,7 +124,7 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
                         </button>
 
                         <button className="btn-item" onClick={handleQuizzClick}>
-                            List quizz
+                            Meeting Room
                         </button>
 
                         <button className="btn-item" >

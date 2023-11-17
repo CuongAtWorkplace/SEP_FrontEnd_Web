@@ -23,7 +23,7 @@ const CardEditClass = ({ closePopup }) => {
             const response = await fetch(`https://localhost:7169/api/Class/GetTeacherClassDetail/${params.classId}`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setClassDt(responseData);
-            setClassName(responseData.className || '');
+            setClassName(responseData.classname || '');
             setTopic(responseData.topic || '');
             setFee(responseData.fee || '');
             setNumberOfWeek(responseData.numberOfWeek || '');

@@ -20,6 +20,5 @@ const VideoCall2 = () => {
             <button onClick={handleJoinRoom} ></button>
         </div>
     )
-
 }
 export default VideoCall2;

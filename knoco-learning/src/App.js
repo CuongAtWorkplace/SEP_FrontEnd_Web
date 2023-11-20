@@ -27,6 +27,7 @@ import Profile from './pages/teachers/Profile';
 import ClassEmpty from './pages/teachers/ClassEmpty';
 import ListAllCourse from './pages/teachers/ListAllCourse';
 import GroupChat from './pages/teachers/GroupChat';
+import ViewLeanerList from './pages/manager/Leaner/ViewLeanerList';
 //import TestModal from './pages/manager/Course/TestModal';
 
 const queryClient = new QueryClient();
@@ -48,6 +49,7 @@ function App() {
         <Route path="/course" element={<ViewAllCourse />} />
 
         <Route path="/coursedetail/:cid" element={<CourseDetail />} />
+        <Route path='/viewleanerlist' element={<ViewLeanerList />} />
         <Route path="/editclass" element={<EditClass />} />
         {/* <Route path="/videocall" element={<VideoCall />} /> */}
         <Route path='/listquizzinclass' element={<ViewListQuizzInClass/>}/>

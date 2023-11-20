@@ -34,10 +34,11 @@ const UserDetail = () => {
     title: userDetails.fullName,
     img: userDetails.image, // Assuming 'image' is a property in userDetails
     info: {
-      fullname: userDetails.fullName,
-      email: userDetails.email,
-      phone: userDetails.phone,
-      status: userDetails.isBan,
+      FullName: userDetails.fullName,
+      Email: userDetails.email,
+      Phone: userDetails.phone,
+      Balance: userDetails.balance,
+      Status: userDetails.status,
     },
     chart: {
       dataKeys: [

@@ -47,6 +47,7 @@ function App() {
         <Route path="/users/:userId" element={<UserDetail />} />
         <Route path="/report" element={<Report />} />
         <Route path="/course" element={<ViewAllCourse />} />
+        <Route path="/viewleanerlist" element={<ViewLeanerList />} />
 
         <Route path="/coursedetail/:cid" element={<CourseDetail />} />
         <Route path="/editclass" element={<EditClass />} />

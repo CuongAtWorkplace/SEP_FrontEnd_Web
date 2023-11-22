@@ -22,11 +22,7 @@ import { BsSuitHeartFill, BsBookmarkPlusFill } from "react-icons/bs";
 import { Routes, Route } from "react-router-dom";
 // import { Modal, Button } from 'react-bootstrap';
 
-<<<<<<< HEAD
-import "./ViewAllCourse.css";
-=======
 import "./ViewAllCourse.scss";
->>>>>>> parent of 5a7353c (Merge branch 'main' into Lynx)
 
 function CourseDetail() {
   const [courseDetail, setCourseDetail] = useState({});

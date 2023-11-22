@@ -17,13 +17,9 @@ import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { BsSuitHeartFill, BsBookmarkPlusFill } from "react-icons/bs";
 // import { Modal, Button } from 'react-bootstrap';
-<<<<<<< HEAD
 
 // import "./ViewAllCourse.scss";
-import TableListCourse from "../../../components/Table/TableListCourse";
-=======
-import "./ViewAllCourse.scss";
->>>>>>> parent of 5a7353c (Merge branch 'main' into Lynx)
+// import TableListCourse from "../../../components/Table/TableListCourse";
 
 class ViewAllCourse extends Component {
     constructor(props) {

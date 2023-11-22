@@ -131,7 +131,7 @@ class Users extends Component {
             <header>
               <Header />
             </header>
-            <div className="TableLayout">
+            <div className="tableLayout">
               <div className="users">
                 <div className="info">
                   <h1>Users</h1>

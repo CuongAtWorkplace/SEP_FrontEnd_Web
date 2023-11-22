@@ -17,7 +17,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { BsSuitHeartFill, BsBookmarkPlusFill } from "react-icons/bs";
 // import { Modal, Button } from 'react-bootstrap';
 
-import "./ViewAllCourse.scss";
+// import "./ViewAllCourse.scss";
 import TableListCourse from "../../../components/Table/TableListCourse";
 
 class ViewAllCourse extends Component {

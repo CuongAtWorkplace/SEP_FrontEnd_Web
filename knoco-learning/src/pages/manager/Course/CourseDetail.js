@@ -23,9 +23,6 @@ import { Routes, Route } from "react-router-dom";
 // import { Modal, Button } from 'react-bootstrap';
 
 import "./ViewAllCourse.css";
-import SideBar from "../../../components/sidebar/SideBar";
-import Header from "../../../components/header/Header";
-import Footer from "../../../components/footer/Footer";
 
 function CourseDetail() {
   const [courseDetail, setCourseDetail] = useState({});

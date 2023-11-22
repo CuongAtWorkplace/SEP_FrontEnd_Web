@@ -49,7 +49,6 @@ function App() {
         <Route path="/course" element={<ViewAllCourse />} />
 
         <Route path="/coursedetail/:cid" element={<CourseDetail />} />
-        <Route path='/viewleanerlist' element={<ViewLeanerList />} />
         <Route path="/editclass" element={<EditClass />} />
         {/* <Route path="/videocall" element={<VideoCall />} /> */}
         <Route path='/listquizzinclass' element={<ViewListQuizzInClass/>}/>

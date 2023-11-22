@@ -1,9 +1,14 @@
 import { DataGrid, GridToolbar } from "@mui/x-data-grid"
 import "./dataTable.scss"
-import { GrView } from 'react-icons/gr'
+import { GrTrash, GrView } from 'react-icons/gr'
 import { Link } from "react-router-dom"
+import { useEffect } from "react"
 
 const DataTable = props => {
+  const handleDelete = userId => {
+    // delete the item
+    // mutation.mutate(userId)
+  }
 
   const actionColumn = {
     field: "action",
@@ -16,6 +21,10 @@ const DataTable = props => {
             {/* <img src="/view.svg" alt="" /> */}
             <GrView alt="" />
           </Link>
+          {/* <div className="delete" onClick={() => handleDelete(params.row.userId)}>
+            <img src="/delete.svg" alt="" />
+            <GrTrash alt="" />
+          </div> */}
         </div>
       )
     }
@@ -42,7 +51,7 @@ const DataTable = props => {
           }
         }}
         pageSizeOptions={[5]}
-        // checkboxSelection
+        checkboxSelection
         disableRowSelectionOnClick
         disableColumnFilter
         disableDensitySelector

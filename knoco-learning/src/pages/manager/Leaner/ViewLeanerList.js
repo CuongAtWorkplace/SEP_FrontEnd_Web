@@ -13,7 +13,6 @@ class ViewLeanerList extends Component {
             ListLeaner: [],
         }
     }
-
     getListUser = async () => {
         try {
             const response = await fetch(`https://localhost:7169/api/User/GetListLeaner/GetListLeaner`);
@@ -23,13 +22,10 @@ class ViewLeanerList extends Component {
             console.error('Lỗi gọi API', error);
         }
     }
-
     async componentDidMount() {
         await this.getListUser();
     };
-
     render() {
-
         const { ListLeaner } = this.state;
         const columns = [
             { field: "userId", headerName: "ID", width: 90 },
@@ -61,13 +57,8 @@ class ViewLeanerList extends Component {
                 headerName: "Address",
                 width: 180,
             },
-            // {
-            //     field: "status",
-            //     headerName: "Status",
-            //     width: 100,
-            // },
-        ];
 
+        ];
         return (
             <div>
                 <div className="body_page">
@@ -76,12 +67,10 @@ class ViewLeanerList extends Component {
                             <FontAwesomeIcon className="logo-icon" icon={faBook} />
                             <h1>Knoco</h1>
                         </div>
-
                         <nav>
                             <SideBar />
                         </nav>
                     </section>
-
                     <section id="interface">
                         <header>
                             <Header />
@@ -94,7 +83,6 @@ class ViewLeanerList extends Component {
                                 <DataTable slug="users" columns={columns} rows={ListLeaner} />
                             </div>
                         </div>
-
                         <footer>
                             <Footer />
                         </footer>
@@ -104,5 +92,4 @@ class ViewLeanerList extends Component {
         );
     };
 };
-
 export default ViewLeanerList;

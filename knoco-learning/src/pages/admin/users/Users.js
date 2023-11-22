@@ -71,6 +71,8 @@ class Users extends Component {
     }
   };
 
+
+
   render() {
 
     const { ListUser } = this.state;
@@ -81,12 +83,7 @@ class Users extends Component {
         headerName: "Avatar",
         width: 100,
         renderCell: (params) => {
-          if(params != null){
-            return <img src={params.row.image} alt="" />;
-          } else{
-            return <img src={"/noavatar.png"} alt="" />;
-          }
-          // return <img src={params.row.image || "/noavatar.png"} alt="" />;
+          return <img src={params.row.image || "/noavatar.png"} alt="" />;
         },
       },
       {

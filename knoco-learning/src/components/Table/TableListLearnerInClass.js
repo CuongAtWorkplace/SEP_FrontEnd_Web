@@ -21,7 +21,6 @@ const TableListLearnerInClass = (props) => {
   //const { classId } = props;
   const [data, setData] = useState([]);
   const [selectedLearner, setSelectedLearner] = useState(null);
-  const [isLearnerDetailPopupVisible, setLearnerDetailPopupVisible] = useState(null);
   const params = useParams();
 
   useEffect(() => {
@@ -45,14 +44,6 @@ const TableListLearnerInClass = (props) => {
   const handleBackButtonClick = () => {
     setSelectedLearner(null); // Reset selectedLearner to hide the popup
   };
-
-  const openLearnerDetailPopup = (learner) => {
-    setLearnerDetailPopupVisible(learner);
-  }
-
-  const closeLearnerDetailPopup = () => {
-    setLearnerDetailPopupVisible(null);
-  }
   const columns = [
     {
       Header: 'Full Name',
@@ -83,11 +74,10 @@ const TableListLearnerInClass = (props) => {
 
   return (
     <div>
-      <Table columns={columns} data={data} onRowClick={openLearnerDetailPopup} />
-      {isLearnerDetailPopupVisible && (
-        <div className="popup">
-          <CardLearner learner={isLearnerDetailPopupVisible} onBackClick={closeLearnerDetailPopup} />
-        </div>
+      {selectedLearner ? (
+        <CardLearner learner={selectedLearner} onBackClick={handleBackButtonClick} />
+      ) : (
+        <Table columns={columns} data={data} onRowClick={handleRowClick} />
       )}
     </div>
 

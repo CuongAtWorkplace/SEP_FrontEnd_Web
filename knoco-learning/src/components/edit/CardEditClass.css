@@ -35,7 +35,7 @@ form{
     border-radius: 10px;
     border: none;
     cursor: pointer;
-    border: 2px solid #0055FF;
+    border: 2px solid #4CAF50;
 }
 textarea{
     border-bottom: 2px solid #00BCD4;
@@ -47,9 +47,9 @@ form img{
     width: 200px;
     height: 200px;
     object-fit: cover;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    border: 2px solid #0055FF;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #4CAF50;
   }
 
 input{
@@ -59,15 +59,6 @@ input{
     margin-bottom: 5px;
     outline-style: none;
 }
-
-input .image{
-    display: block;
-    border: 2px solid #00BCD4;
-    margin-top: 2px;
-    margin-bottom: 5px;
-    outline-style: none;
-}
-
 /* input[type="text"]{
     padding: 5px;
     width: 70%;

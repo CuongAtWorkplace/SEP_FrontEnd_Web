@@ -111,7 +111,7 @@ class Report extends Component {
             <header>
               <Header />
             </header>
-            <div className="TableLayout">
+            <div className="tableLayout">
               <div className="users">
                 <div className="info">
                   <h1>Report</h1>

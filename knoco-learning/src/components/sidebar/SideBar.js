@@ -45,7 +45,7 @@ const SideBar = () => {
                 </li>
                 <li>
                     <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
-                    <Link className="link-a" to="/list-all-course">Choose class</Link>
+                    <Link className="link-a" to="/list-all-course">Profile</Link>
                 </li>
                 <li>
                     <FontAwesomeIcon className="menu-icon" icon={faSchool} />

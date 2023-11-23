@@ -12,7 +12,7 @@ import $ from "jquery";
 const ListLearner = ({ children, ...props }) => {
     useEffect(() => {
         // Add click event listener to menu-btn
-        $('.menu-btn').on('click', function() {
+        $('.menu-btn').on('click', function () {
             $('#menu').toggleClass('active'); // Toggle active class on #menu
         });
     }, []);
@@ -25,24 +25,24 @@ const ListLearner = ({ children, ...props }) => {
                 </div>
 
                 <nav>
-                    <SideBar/>
+                    <SideBar />
                 </nav>
             </section>
 
             <section id="interface">
                 <header>
-                    <Header/>
+                    <Header />
                 </header>
 
                 <div className="children">
-                    <TableListLearnerInClass/>
+                    <TableListLearnerInClass />
                 </div>
 
                 <footer>
                     <Footer />
                 </footer>
             </section>
-        </ div>
+        </div>
     );
 };
 

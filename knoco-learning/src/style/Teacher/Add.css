@@ -1,0 +1,9 @@
+.btn-btn {
+    padding: 5px;
+    width: 50%;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    border: 2px solid #0055FF;
+}

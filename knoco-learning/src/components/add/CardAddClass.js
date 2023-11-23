@@ -79,7 +79,7 @@ const CardAddClass = ({ closePopup }) => {
     return (
         <div className="card-edit-class">
             <form onSubmit={handleSubmit}>
-                <h2>Edit Class</h2>
+                <h2>Add new class</h2>
                 <label>Class Name:</label>
                 <input type="text" id="ClassName" name="ClassName" value={className} onChange={(e) => setClassName(e.target.value)} required />
 

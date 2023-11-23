@@ -21,6 +21,7 @@
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 10;
   }
   
   #menu .logo{
@@ -98,6 +99,7 @@
     border-bottom: 3px solid #594ef7;
     position: fixed;
     width: calc(100% - 300px);
+    z-index: 10;
   }
   
   #interface .navigation .search{ 
@@ -133,10 +135,11 @@
   }
   
   #interface .navigation .profile .icon-img{
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     object-fit: cover;
-    border-radius: 50%;
+    border-radius: 100%;
+    border: 2px solid #0055FF;
   }
   
   #dropdown-menu {

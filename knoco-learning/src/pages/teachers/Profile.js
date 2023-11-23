@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import '../../style/Teacher/Teacher.css';
-import "./style.css";
 import myImage from '../../assets/profile.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -20,6 +19,7 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
     const [isEditProfilePopupVisible, setEditProfilePopupVisible] = useState(false);
     const [isChangePasswordPopupVisible, setChangePasswordPopupVisible] = useState(false);
     const [isChangeImagePopupVisible, setChangeImagePopupVisible] = useState(false);
+    const [imageSource, setImageSource] = useState("");
 
     useEffect(() => {
         fetchData();
@@ -27,13 +27,14 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
         $('.menu-btn').on('click', function () {
             $('#menu').toggleClass('active'); // Toggle active class on #menu
         });
+        fetchImage();
     }, []);
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/User/GetUserProfile/${2}`); // Thay thế URL bằng API thực tế
+            const response = await fetch(`https://localhost:7169/api/User/GetUserProfile/${UserID}`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
-            setClassDt(responseData);
+            setUserDt(responseData);
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu lớp học:', error);
         }
@@ -99,13 +100,13 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                 </header>
 
                 <div className="children">
-                    {teacherId ? (
+                    {userDt ? (
                         <div className="containers">
                             <div className="profile-box">
-                                <div className="col-1">
-                                    <ul>
+                                <div className="colums-1">
+                                    <ul className="imgbtn-profile">
                                         <li>
-                                            <img src={myImage} alt="Profile" />
+                                            <img src={imageSource || myImage} alt={userDt.image || "Profile"} />
                                         </li>
                                         <li>
                                             <button onClick={openChangeImagePopup}>Change image</button>
@@ -117,20 +118,20 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                                         </li>
                                     </ul>
                                 </div>
-                                <div className="col-2">
-                                    <h2>{teacherId.fullName} </h2>
-                                    <p className="email">Email: </p>
-                                    <p>{teacherId.email}</p>
-                                    <p className="phone">Phone number: </p>
-                                    <p>{teacherId.phone}</p>
-                                    <p className="description">Description: </p>
-                                    <p>{teacherId.description}</p>
-                                    <p className="address">Address: </p>
-                                    <p>{teacherId.address}</p>
-                                    <p className="createdate">Create date: </p>
-                                    <p>{teacherId.createDate}</p>
-                                    <p className="balance">Balance: </p>
-                                    <p>{teacherId.balance}</p>
+                                <div className="colums-2">
+                                    <h2>{userDt.fullName} </h2>
+                                    <p className="title email">Email: </p>
+                                    <p>{userDt.email}</p>
+                                    <p className="title phone">Phone number: </p>
+                                    <p>{userDt.phone}</p>
+                                    <p className="title description">Description: </p>
+                                    <p>{userDt.description}</p>
+                                    <p className="title address">Address: </p>
+                                    <p>{userDt.address}</p>
+                                    <p className="title createdate">Create date: </p>
+                                    <p>{formatDate(userDt.createDate)}</p>
+                                    <p className="title balance">Balance: </p>
+                                    <p>{userDt.balance}</p>
 
                                 </div>
                             </div>
@@ -139,8 +140,8 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                         // <p>Loading class information...</p>
                         <div className="containers">
                             <div className="profile-box">
-                                <div className="col-1">
-                                    <ul>
+                                <div className="colums-1">
+                                    <ul className="imgbtn-profile">
                                         <li>
                                             <img src={myImage} alt="Profile" />
                                         </li>
@@ -154,7 +155,7 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                                         </li>
                                     </ul>
                                 </div>
-                                <div className="col-2">
+                                <div className="colums-2">
                                     <h2>null</h2>
                                     <p className="title">Email: </p>
                                     <p>null</p>

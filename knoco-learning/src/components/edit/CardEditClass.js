@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import './CardEditClass.css'
+import '../../style/Teacher/Edit.css'
 
 const CardEditClass = ({ closePopup }) => {
     const params = useParams();

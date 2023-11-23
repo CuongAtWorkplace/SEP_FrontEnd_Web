@@ -29,7 +29,7 @@ const ListCourse = () => {
                 data.map((course, index) => (
                     <div key={index} className="items-course">
                         <div className="img-course">
-                            <img src="https://reactjs.org/logo-og.png" alt={course.courseName} />
+                            <img src={"https://reactjs.org/logo-og.png" || "https://reactjs.org/logo-og.png"} alt={course.courseName} />
                         </div>
                         <div className="course">
                             <div className="first-info">
@@ -42,7 +42,20 @@ const ListCourse = () => {
                     </div>
                 ))
             ) : (
-                <p>Loading class information...</p>
+                // <p>Loading class information...</p>
+                <div className="items-course">
+                    <div className="img-course">
+                        <img src={"https://reactjs.org/logo-og.png" || "https://reactjs.org/logo-og.png"} alt="courseName" />
+                    </div>
+                    <div className="course">
+                        <div className="first-info">
+                            <small className="m-0"><i className="text-primary"></i></small>
+                            <small className="m-0"><i className="text-primary"></i>Null</small>
+                        </div>
+                        <Link className="a-link h5" to={`/class-empty/0`}>Null</Link>
+                        <p>Null</p>
+                    </div>
+                </div>
             )}
         </div>
     )

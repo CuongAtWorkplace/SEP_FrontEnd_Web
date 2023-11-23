@@ -16,7 +16,7 @@ import CardChangeImage from "../../components/edit/CardChangeImage";
 const ProfileTeacher = ({ onBackClick, children, ...props }) => {
     const UserID = 2;
     const [userDt, setUserDt] = useState(null);
-    const [isEditClassPopupVisible, setEditClassPopupVisible] = useState(false);
+    const [isEditProfilePopupVisible, setEditProfilePopupVisible] = useState(false);
     const [isChangePasswordPopupVisible, setChangePasswordPopupVisible] = useState(false);
     const [isChangeImagePopupVisible, setChangeImagePopupVisible] = useState(false);
     const [imageSource, setImageSource] = useState("");
@@ -57,12 +57,12 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
         return formattedDate;
     };
 
-    const openEditClassPopup = () => {
-        setEditClassPopupVisible(true);
+    const openEditProfilePopup = () => {
+        setEditProfilePopupVisible(true);
     }
 
-    const closeEditClassPopup = () => {
-        setEditClassPopupVisible(false);
+    const closeEditProfilePopup = () => {
+        setEditProfilePopupVisible(false);
     }
 
     const openChangePasswordPopup = () => {
@@ -114,7 +114,7 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                                         </li>
                                         <li>
                                             <button onClick={onBackClick}><FontAwesomeIcon icon={faArrowLeft} /> Back</button>
-                                            <button onClick={openEditClassPopup}>Edit profile</button>
+                                            <button onClick={openEditProfilePopup}>Edit profile</button>
                                         </li>
                                     </ul>
                                 </div>
@@ -151,7 +151,7 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                                         </li>
                                         <li>
                                             <button onClick={onBackClick}><FontAwesomeIcon icon={faArrowLeft} /> Back</button>
-                                            <button onClick={openEditClassPopup}>Edit profile</button>
+                                            <button onClick={openEditProfilePopup}>Edit profile</button>
                                         </li>
                                     </ul>
                                 </div>
@@ -171,9 +171,9 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                         </div>
                     )}
 
-                    {isEditClassPopupVisible && (
+                    {isEditProfilePopupVisible && (
                         <div className="popup">
-                            <CardEditProfile closePopup={closeEditClassPopup} />
+                            <CardEditProfile closePopup={closeEditProfilePopup} />
                         </div>
                     )}
 

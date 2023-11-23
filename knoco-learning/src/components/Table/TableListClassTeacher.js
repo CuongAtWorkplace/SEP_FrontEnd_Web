@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Table from "./Table";
+import '../../style/Teacher/Tag.css';
+import CardAddClass from "../add/CardAddClass";
 
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
@@ -19,6 +21,7 @@ const TableListClassTeacher = () => {
   const [data, setData] = useState([]);
   //const [allClass, setallClass] = useState([]);
   const navigate = useNavigate();
+  const [isAddClassPopupVisible, setAddClassPopupVisible] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -26,7 +29,7 @@ const TableListClassTeacher = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`https://localhost:7169/api/Class/GetTeacherClassList/${2}`); 
+      const response = await fetch(`https://localhost:7169/api/Class/GetClassListForRole/${2}`);
       const responseData = await response.json();
       setData(responseData);
     } catch (error) {
@@ -38,6 +41,14 @@ const TableListClassTeacher = () => {
     console.log('Clicked row data:', row);
     navigate(`/classdetail/${row.classId}`);
   };
+
+  const openAddClassPopup = () => {
+    setAddClassPopupVisible(true);
+  }
+
+  const closeAddClassPopup = () => {
+    setAddClassPopupVisible(false);
+  }
 
   const [columns, setColumns] = useState([
     {
@@ -123,7 +134,18 @@ const TableListClassTeacher = () => {
   // }, []);
 
   return (
-    <Table columns={columns} data={data} onRowClick={handleRowClick}/>
+    <div>
+      <button className="btn-add" onClick={openAddClassPopup}>Add new class</button>
+      <Table columns={columns} data={data} onRowClick={handleRowClick} />
+
+      {
+        isAddClassPopupVisible && (
+          <div className="popup">
+            <CardAddClass closePopup={closeAddClassPopup} />
+          </div>
+        )
+      }
+    </div>
   );
 }
 

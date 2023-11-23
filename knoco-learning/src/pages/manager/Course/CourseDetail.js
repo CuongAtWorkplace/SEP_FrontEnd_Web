@@ -57,7 +57,7 @@ function CourseDetail() {
       .then((response) => response.json())
       .then((data) => {
         setClassInCourse(data);
-        console.log("ok");
+        console.log("ok")
       });
     } catch (error) {
       console.error('Error fetching data:', error);

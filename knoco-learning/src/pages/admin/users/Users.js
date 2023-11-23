@@ -54,7 +54,7 @@ class Users extends Component {
         body: JSON.stringify(data),
       });
       console.log(data);
-
+  
       if (response.ok) {
         alert('User added successfully');
         await this.getListUser();
@@ -63,13 +63,15 @@ class Users extends Component {
         });
       } else {
         const errorData = await response.json();
-        console.error('Failed to add user:', errorData);
+        console.error('Failed to add user:', errorData);     
       }
     } catch (error) {
       console.error('Error occurred:', error);
       alert('Error occurred. Check console for details.');
     }
   };
+  
+  
 
   render() {
 
@@ -81,18 +83,13 @@ class Users extends Component {
         headerName: "Avatar",
         width: 100,
         renderCell: (params) => {
-          if(params != null){
-            return <img src={params.row.image} alt="" />;
-          } else{
-            return <img src={"/noavatar.png"} alt="" />;
-          }
-          // return <img src={params.row.image || "/noavatar.png"} alt="" />;
+          return <img src={params.row.image || "/noavatar.png"} alt="" />;
         },
       },
       {
         field: "fullName",
         headerName: "Full Name",
-        width: 200,
+        width: 150,
       },
       {
         field: "email",
@@ -102,12 +99,17 @@ class Users extends Component {
       {
         field: "phone",
         headerName: "Phone",
-        width: 170,
+        width: 180,
       },
       {
         field: "address",
         headerName: "Address",
         width: 180,
+      },
+      {
+        field: "status",
+        headerName: "Status",
+        width: 100,
       },
     ];
 
@@ -129,7 +131,7 @@ class Users extends Component {
             <header>
               <Header />
             </header>
-            <div className="TableLayout">
+            <div className="tableLayout">
               <div className="users">
                 <div className="info">
                   <h1>Users</h1>
@@ -144,8 +146,10 @@ class Users extends Component {
                   />
                 </div>
                 <DataTable slug="users" columns={columns} rows={ListUser} />
+                {/* {open && <Add slug="user" setOpen={setOpen} />} */}
               </div>
             </div>
+
             <footer>
               <Footer />
             </footer>

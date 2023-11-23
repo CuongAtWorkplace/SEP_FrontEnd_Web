@@ -22,7 +22,6 @@ class Home extends Component {
               <FontAwesomeIcon className="logo-icon" icon={faBook} />
               <h1>Knoco</h1>
             </div>
-
             <nav>
               <SideBar />
             </nav>
@@ -32,7 +31,7 @@ class Home extends Component {
             <header>
               <Header />
             </header>
-            <div className="TableLayout">
+            <div className="tableLayout">
               <div className="users">
                 <div className="info">
                   <h1>Dashboard</h1>

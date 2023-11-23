@@ -10,6 +10,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useState } from "react";
 import { memo } from "react";
 import { Link } from "react-router-dom";
+
 import { faChalkboardUser } from '@fortawesome/free-solid-svg-icons';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
@@ -17,8 +18,10 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { BsSuitHeartFill, BsBookmarkPlusFill } from "react-icons/bs";
 // import { Modal, Button } from 'react-bootstrap';
 
+
 import "./ViewAllCourse.css";
 import TableListCourse from "../../../components/Table/TableListCourse";
+
 
 class ViewAllCourse extends Component {
     constructor(props) {
@@ -60,7 +63,7 @@ class ViewAllCourse extends Component {
     handleRowClick = (courseId) => {
         window.location.href = `/coursedetail/${courseId}`;
         // Lấy ID của hàng được click và xử lý nó
-
+     
         // const clickedRowId = params.row.courseId;
         // fetch(`https://localhost:7169/api/Course/GetCourseById?courseId=${clickedRowId}`)
         //     .then(response => response.json())
@@ -89,7 +92,7 @@ class ViewAllCourse extends Component {
 
 
     render() {
-        const { ListAllCourse, showModal, searchText, courseId, courseName, Description, CreateDate, Image } = this.state;
+        const { ListAllCourse, showModal, searchText ,courseId,courseName,Description,CreateDate,Image} = this.state;
         console.log(courseName);
 
 
@@ -97,18 +100,17 @@ class ViewAllCourse extends Component {
             // Định nghĩa cấu trúc cột cho DataGrid
 
             { field: 'courseId', headerName: 'ID', width: 70 },
-            { field: 'courseName', headerName: 'courseName', width: 150 },
+            { field: 'courseName', headerName: 'Name', width: 150 },
             { field: 'description', headerName: 'Description', width: 250 },
             { field: 'createDate', headerName: 'CreateDate', width: 250 },
             { field: 'image', headerName: 'Image', width: 250 },
             { field: 'isDelete', headerName: 'isDelete', width: 250 },
-            {
-                field: 'edit', headerName: 'Sửa', width: 100,
-                renderCell: (params) => (
-                    <div>
-                        <BsBookmarkPlusFill size={20} color="red" onClick={() => this.handleRowClick(params.row.courseId)} />
-                    </div>
-                ),
+            { field: 'edit', headerName: 'Sửa', width: 100 , 
+            renderCell: (params) => (
+                <div>
+                  <BsBookmarkPlusFill size={20} color="red" onClick={() => this.handleRowClick(params.row.courseId)}/>
+                </div>
+              ),
             },
         ];
         const getRowId = (row) => row.courseId;
@@ -132,7 +134,6 @@ class ViewAllCourse extends Component {
                     <section id="interface">
                         <header>
 
-
                             <div className="navigation">
                                 <div className="n1">
                                     <div>
@@ -143,6 +144,17 @@ class ViewAllCourse extends Component {
                                         <input type="text" onChange={this.handleSearchChange} placeholder="Search" />
                                     </div>
                                 </div>
+
+                                {/* <div className="profile">
+                <FontAwesomeIcon className="icon-profile" icon={faBell} />
+                <FontAwesomeIcon className="icon-img" icon={faChalkboardUser} onClick={toggleDropdown} />
+                <div className={`dropdown-menu ${isDropdownVisible ? "active" : ""}`} id="dropdown-menu">
+                    <ul>
+                        <li><Link className="link-a" to="#">Change Password</Link></li>
+                        <li><Link className="link-a" to="#">Log Out</Link></li>
+                    </ul>
+                </div>
+            </div> */}
                             </div>
                         </header>
 
@@ -154,8 +166,7 @@ class ViewAllCourse extends Component {
                                 onChange={this.handleSearchChange}
                                 placeholder="Search Name Course"
                             />
-                                <TableListCourse/>
-                            {/* <div className='TableLayout' style={{ height: 'auto', width: '100%' }}>
+                            <div className='TableLayout' style={{ height: 'auto', width: '100%' }}>
 
                                 <DataGrid
                                     rows={ListAllCourse} // Sử dụng dữ liệu từ state
@@ -164,9 +175,9 @@ class ViewAllCourse extends Component {
                                     checkboxSelection
                                     disableRowSelectionOnClick
                                     getRowId={getRowId}
-                                //  onRowClick={this.handleRowClick}
+                                    //  onRowClick={this.handleRowClick}
                                 />
-                            </div> */}
+                            </div>
                         </div>
 
                         <footer>

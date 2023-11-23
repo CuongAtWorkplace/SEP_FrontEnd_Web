@@ -57,7 +57,7 @@ function App() {
         <Route path='/quizzdetail' element={<QuizzDetail/>}/>
         <Route path="/videocalldemo/:roomId" element={<VideoCallDemo />} />
         <Route path="/viewpostlistmanager" element={<ViewPostListManager />} />
-        <Route path="/viewpostdetailmanager" element={<ViewPostDetailManager />} />
+        <Route path="/viewpostdetailmanager/:pid" element={<ViewPostDetailManager />} />
         <Route path="/profile-teacher" element={<Profile />} />
         <Route path="/class-empty/:courseId" element={<ClassEmpty/>} />
         <Route path="/list-all-course" element={<ListAllCourse/>} />

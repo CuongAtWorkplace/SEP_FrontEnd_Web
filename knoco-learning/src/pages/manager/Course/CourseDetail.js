@@ -35,6 +35,7 @@ function CourseDetail() {
   const [searchText, setSearchText] = useState("");
   const [courseName, setCourseName] = useState('');
   const [description, setDescription] = useState('');
+  const [createDate ,setCreateDate] = useState('');
   const [image, setImage] = useState('');
   const [PhotoFileName, setPhotoFileName] = useState('');
   const [ImageCover, setImageCover] = useState('');
@@ -47,34 +48,32 @@ function CourseDetail() {
       .then((data) => {
         setCourseDetail(data);
         setPhotoFileName(data.image);
+        setCourseName(data.courseName);
+        setDescription(data.description);
+        setCreateDate(data.createDate);
       });
-      fetchData();
-  }, [cid]);
 
-  const fetchData = async () => {
-    try {
-      fetch(`https://localhost:7169/api/Course/GetClassInCourse?courseId=${cid}`)
+    fetch(`https://localhost:7169/api/Course/GetClassInCourse?courseId=${cid}`)
       .then((response) => response.json())
       .then((data) => {
         setClassInCourse(data);
-        console.log("ok")
       });
-    } catch (error) {
-      console.error('Error fetching data:', error);
-     
-    }
-  };
+  }, [cid]);
 
-  // const columns = [
-  //   { field: "classId", headerName: "ID", width: 70 },
-  //   { field: "className", headerName: "Class Name", width: 150 },
-  // ];
   const columns = [
-    {
-        Header: 'Class Name',
-        accessor: 'className',
-    }
-];
+    { field: "classId", headerName: "ID", width: 70 },
+    { field: "className", headerName: "Class Name", width: 150 },
+  ];
+  //   const columns = [
+  //     {
+  //         Header: 'Class Id',
+  //         accessor: 'classId',
+  //     },
+  //     {
+  //         Header: 'Class Name',
+  //         accessor: 'className',
+  //     }
+  // ];
 
   const getRowId = (row) => row.courseId;
 
@@ -110,7 +109,7 @@ function CourseDetail() {
       courseId: cid,
       courseName: courseName,
       description: description,
-      createDate: new Date().toISOString().slice(0, 16),
+      createDate: createDate,
       image: PhotoFileName,
       isDelete: false
     };
@@ -182,7 +181,7 @@ function CourseDetail() {
                   <h4 className="text-right">Thông Tin Khóa Học</h4>
                 </div>
                 <div className="row mt-4">
-                <div className="col-md-7">
+                  <div className="col-md-7">
                     <label className="labels">Tên Khóa Học</label>
                     <input
                       type="text"
@@ -229,15 +228,15 @@ function CourseDetail() {
             <div className="classListInCourse">
               <div className="TableLayout">
                 <h1>Danh sách lớp</h1>
-                {/* <DataGrid
-                  rows={classInCourse}
+                <Table
                   columns={columns}
-                  
-                  checkboxSelection
-                  disableRowSelectionOnClick
-                  getRowId={getRowId}
-                /> */}
-                <Table columns={columns} data={classInCourse}  />
+                  data={classInCourse}
+
+                // pageSize={classInCourse.length}
+                // checkboxSelection
+                // disableRowSelectionOnClick
+                // getRowId={getRowId}
+                />
               </div>
             </div>
           </div>

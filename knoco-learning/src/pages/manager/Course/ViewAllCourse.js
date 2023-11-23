@@ -20,7 +20,7 @@ import { BsSuitHeartFill, BsBookmarkPlusFill } from "react-icons/bs";
 
 
 import "./ViewAllCourse.css";
-import TableListCourse from "../../../components/Table/TableListCourse";
+import TableListCourse from "./TableListCourse";
 
 
 class ViewAllCourse extends Component {
@@ -139,34 +139,20 @@ class ViewAllCourse extends Component {
                                     <div>
                                         <FontAwesomeIcon id="menu-btn" icon={faBars} />
                                     </div>
-                                    <div className="search">
+                                    {/* <div className="search">
                                         <FontAwesomeIcon className="icon-search" icon={faMagnifyingGlass} />
                                         <input type="text" onChange={this.handleSearchChange} placeholder="Search" />
-                                    </div>
+                                    </div> */}
                                 </div>
 
-                                {/* <div className="profile">
-                <FontAwesomeIcon className="icon-profile" icon={faBell} />
-                <FontAwesomeIcon className="icon-img" icon={faChalkboardUser} onClick={toggleDropdown} />
-                <div className={`dropdown-menu ${isDropdownVisible ? "active" : ""}`} id="dropdown-menu">
-                    <ul>
-                        <li><Link className="link-a" to="#">Change Password</Link></li>
-                        <li><Link className="link-a" to="#">Log Out</Link></li>
-                    </ul>
-                </div>
-            </div> */}
+                               
                             </div>
                         </header>
 
 
                         <div>
-                            <input
-                                type="text"
-                                value={searchText}
-                                onChange={this.handleSearchChange}
-                                placeholder="Search Name Course"
-                            />
-                            <div className='TableLayout' style={{ height: 'auto', width: '100%' }}>
+                         <TableListCourse/>
+                            {/* <div className='TableLayout' style={{ height: 'auto', width: '100%' }}>
 
                                 <DataGrid
                                     rows={ListAllCourse} // Sử dụng dữ liệu từ state
@@ -177,7 +163,7 @@ class ViewAllCourse extends Component {
                                     getRowId={getRowId}
                                     //  onRowClick={this.handleRowClick}
                                 />
-                            </div>
+                            </div> */}
                         </div>
 
                         <footer>

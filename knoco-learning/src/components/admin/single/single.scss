@@ -18,8 +18,8 @@
         gap: 20px;
 
         img {
-          width: 100px;
-          height: 100px;
+          width: 200px;
+          height: 200px;
           border-radius: 20px;
           object-fit: cover;
         }
@@ -29,10 +29,10 @@
         }
       }
       .details {
-        font-size: 18px;
+        font-size: 20px;
 
         .item {
-          margin: 30px 0px;
+          margin: 20px 0px;
 
           .itemTitle {
             font-weight: 600;
@@ -41,6 +41,7 @@
           }
         }
       }
+      margin: 30px 0px 0px 30px;
     }
 
     hr {

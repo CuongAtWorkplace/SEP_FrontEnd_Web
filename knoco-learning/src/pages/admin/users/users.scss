@@ -1,14 +1,22 @@
 .users{
 
+
     .info{
       display: flex;
       align-items: center;
       gap: 20px;
+      font-size: 30px;
+      color: brown;
       margin-bottom: 20px;
   
-      button{
-        padding: 5px;
-        cursor: pointer;
-      }
+      // button{
+      //   padding: 5px;
+      //   cursor: pointer;
+      // }
     }
+
+    
+  }
+  .tableLayout{
+    margin-top: 100px;
   }

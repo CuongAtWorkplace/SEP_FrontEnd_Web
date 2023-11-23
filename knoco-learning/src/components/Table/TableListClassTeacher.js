@@ -38,7 +38,7 @@ const TableListClassTeacher = () => {
     console.log('Clicked row data:', row);
     navigate(`/classdetail/${row.classId}`);
   };
-
+  
   const [columns, setColumns] = useState([
     {
       Header: 'Class Name',

@@ -17,7 +17,11 @@ import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { BsSuitHeartFill, BsBookmarkPlusFill } from "react-icons/bs";
 // import { Modal, Button } from 'react-bootstrap';
-import "./ViewAllCourse.scss";
+
+
+import "./ViewAllCourse.css";
+import TableListCourse from "./TableListCourse";
+
 
 class ViewAllCourse extends Component {
     constructor(props) {
@@ -135,34 +139,20 @@ class ViewAllCourse extends Component {
                                     <div>
                                         <FontAwesomeIcon id="menu-btn" icon={faBars} />
                                     </div>
-                                    <div className="search">
+                                    {/* <div className="search">
                                         <FontAwesomeIcon className="icon-search" icon={faMagnifyingGlass} />
                                         <input type="text" onChange={this.handleSearchChange} placeholder="Search" />
-                                    </div>
+                                    </div> */}
                                 </div>
 
-                                {/* <div className="profile">
-                <FontAwesomeIcon className="icon-profile" icon={faBell} />
-                <FontAwesomeIcon className="icon-img" icon={faChalkboardUser} onClick={toggleDropdown} />
-                <div className={`dropdown-menu ${isDropdownVisible ? "active" : ""}`} id="dropdown-menu">
-                    <ul>
-                        <li><Link className="link-a" to="#">Change Password</Link></li>
-                        <li><Link className="link-a" to="#">Log Out</Link></li>
-                    </ul>
-                </div>
-            </div> */}
+                               
                             </div>
                         </header>
 
 
                         <div>
-                            <input
-                                type="text"
-                                value={searchText}
-                                onChange={this.handleSearchChange}
-                                placeholder="Search Name Course"
-                            />
-                            <div className='TableLayout' style={{ height: 'auto', width: '100%' }}>
+                         <TableListCourse/>
+                            {/* <div className='TableLayout' style={{ height: 'auto', width: '100%' }}>
 
                                 <DataGrid
                                     rows={ListAllCourse} // Sử dụng dữ liệu từ state
@@ -173,7 +163,7 @@ class ViewAllCourse extends Component {
                                     getRowId={getRowId}
                                     //  onRowClick={this.handleRowClick}
                                 />
-                            </div>
+                            </div> */}
                         </div>
 
                         <footer>
@@ -181,62 +171,7 @@ class ViewAllCourse extends Component {
 
                         </footer>
                     </section>
-                    <Modal
-                        show={showModal}
-                        onClose={this.handleClose}
-                        backdrop="static"
-                        keyboard={false}
-                    >
-                        <Modal.Header closeButton>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <div className="modal-body">
-                                <div className="login_wrapper">
-                                    <form >
-                                        <div class="formsix-pos">
-                                            <div className="form-group i-email">
-                                                <input type="text" class="form-control" required="" id="" value={this.state.courseId}
-                                                    placeholder="Course Id" />
-                                            </div>
-                                        </div>
-                                        {/* <div class="formsix-pos">
-                                        <div className="form-group i-email">
-                                            <input type="text" class="form-control" required="" id="email2" 
-                                                placeholder="" />
-                                        </div>
-                                    </div>
-                                    <div class="formsix-pos">
-                                        <div className="form-group i-email">
-                                            <input type="text" class="form-control" required="" id="email2" 
-                                                placeholder="" />
-                                        </div>
-                                    </div>
-                                    <div class="formsix-pos">
-                                        <div className="form-group i-email">
-                                            <input type="text" class="form-control" required="" id="email2" 
-                                                placeholder="" />
-                                        </div>
-                                    </div>
-                                    <div className="formsix-e">
-                                        <div className="form-group i-password">
-                                            <input type="text" className="form-control" required="" id="password2" 
-                                                 placeholder="" />
-                                        </div>
-                                    </div> */}
-
-                                        <div class="login_btn_wrapper">
-                                            <button style={{ width: "100%" }} type="button" onClick={this.handleClose} className=" btn btn-block mybtn btn-primary tx-tfm">Thêm</button>
-                                        </div>
-                                    </form>
-
-
-                                </div>
-                            </div>
-
-
-                        </Modal.Body>
-
-                    </Modal>
+                   
                 </ div>
 
 

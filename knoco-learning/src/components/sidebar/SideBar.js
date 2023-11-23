@@ -2,16 +2,15 @@ import React, { useEffect } from "react";
 import { memo } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faSchool,
-    faCalendarDays,
-    faChalkboardTeacher,
-    faUser,
-    faFlag,
-    faClipboard,
-    faComment,
-    faGear
-} from '@fortawesome/free-solid-svg-icons';
+import { faSchool,
+        faCalendarDays,
+        faChalkboardTeacher,
+        faUser,
+        faFlag,
+        faClipboard,
+        faComment,
+        faGear,
+        faDashboard } from '@fortawesome/free-solid-svg-icons';
 import $ from "jquery";
 
 const SideBar = () => {
@@ -24,6 +23,18 @@ const SideBar = () => {
     return (
         <div className="items">
             <ul>
+                <li>
+                    <FontAwesomeIcon className="menu-icon" icon={faDashboard} />
+                    <Link className="link-a" to="/dashboard">Dashboard</Link>
+                </li>
+                <li>
+                    <FontAwesomeIcon className="menu-icon" icon={faUser} />
+                    <Link className="link-a" to="/users">User Manage</Link>
+                </li>
+                <li>
+                    <FontAwesomeIcon className="menu-icon" icon={faFlag} />
+                    <Link className="link-a" to="/report">Report</Link>
+                </li>
                 <li>
                     <FontAwesomeIcon className="menu-icon" icon={faSchool} />
                     <Link className="link-a" to="/viewallclass">Class List</Link>

@@ -64,7 +64,7 @@ const VideoCallDemo = () => {
 
   return (
     <div>
-      {checkToken == true && <div class="col-md-6"><div ref={myMeeting} /> </div>}
+      {checkToken === true && <div class="col-md-6"><div ref={myMeeting} /> </div>}
 
 
     </div>

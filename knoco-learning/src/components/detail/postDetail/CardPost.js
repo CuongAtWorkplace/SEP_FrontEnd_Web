@@ -3,6 +3,7 @@ import myImage from './profile.jpg';
 import './style.css';
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
+import { toast } from 'react-toastify';
 const CardPost = () => {
 
     const [listComment, setListComment] = useState([]);
@@ -25,21 +26,21 @@ const CardPost = () => {
     const [LikeAmountComment ,setLikeAmountComment]= useState('');
 
     useEffect(() => {
-        fetch(`https://localhost:7169/api/User/GetTeacherById/GetUserById/${createBy}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setUse(data);
-            });
+        // fetch(`https://localhost:7169/api/User/GetTeacherById/GetUserById/${createBy}`)
+        //     .then((response) => response.json())
+        //     .then((data) => {
+        //         setUse(data);
+        //     });
         fetch(`https://localhost:7169/api/Post/ListCommentPost?postId=${pid}`)
             .then((response) => response.json())
             .then((data) => {
                 setListComment(data);
-                setUserCommentPostId(data.userCommentPostId);
-                setuserId(data.userId);
-                setPostId(data.postId);
-                setContent(data.content);
-                setCreateDateComment(data.createDate);
-                setlikeAmout(data.likeAmout);
+                // setUserCommentPostId(data.userCommentPostId);
+                // setuserId(data.userId);
+                // setPostId(data.postId);
+                // setContent(data.content);
+                // setCreateDateComment(data.createDate);
+                // setlikeAmout(data.likeAmout);
             });
         fetch(`https://localhost:7169/api/Post/GetPostById?Id=${pid}`)
             .then((response) => response.json())
@@ -80,7 +81,7 @@ const CardPost = () => {
         })
             .then((response) => {
                 if (response.ok) {
-                window.location.href("/viewpostlistmanager");
+                    window.location.href = "/viewpostlistmanager";
                 }
                 else if (!response.ok) {
                     throw new Error('Failed to update');
@@ -89,35 +90,94 @@ const CardPost = () => {
             })
     }
 
-    const UpdateHideComment = () => {
-    
-        const hideComment = {
-            userCommentPostId:1,
-            userId : Number(userId),
-            postId :Number(PostId),
-            content :Content,
-            createDate:CreateDateComment,
-            likeAmount:Number(LikeAmountComment),
-            isActive:true
-        }
+    // const UpdateHideComment = (commentId) => {
+   
+    //     fetch(`https://localhost:7169/api/Post/GetCommentById?commentId=${commentId}`)
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //         setUserCommentPostId(data.userCommentPostId);
+    //         setuserId(data.userId);
+    //         setPostId(data.postId);
+    //         setContent(data.content);
+    //         setCreateDateComment(data.createDate);
+    //         setlikeAmout(data.likeAmout);
+    //     });
 
-        fetch('https://localhost:7169/api/Post/UpdateHideComment', {
+    //     const hideComment = {
+    //         userCommentPostId:1,
+    //         userId : Number(userId),
+    //         postId :Number(PostId),
+    //         content :Content,
+    //         createDate:CreateDateComment,
+    //         likeAmount:Number(LikeAmountComment),
+    //         isActive:true
+    //     }
+
+    //     fetch('https://localhost:7169/api/Post/UpdateHideComment', {
+    //         method: 'PUT',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(hideComment),
+    //     })
+    //         .then((response) => {
+    //             if (response.ok) {
+                
+    //             }
+    //             else if (!response.ok) {
+    //                 throw new Error('Failed to update');
+    //             }
+              
+    //         })
+    // }
+
+    const UpdateHideComment = async (commentId) => {
+        try {
+          const commentResponse = await fetch(`https://localhost:7169/api/Post/GetCommentById?commentId=${commentId}`);
+          const commentData = await commentResponse.json();
+      
+          setUserCommentPostId(commentData.userCommentPostId);
+          setuserId(commentData.userId);
+          setPostId(commentData.postId);
+          setContent(commentData.content);
+          setCreateDateComment(commentData.createDate);
+          setlikeAmout(commentData.likeAmout);
+      
+          const hideComment = {
+            userCommentPostId: Number(UserCommentPostId),
+            userId: Number(userId),
+            postId: Number(PostId),
+            content: Content,
+            createDate: CreateDateComment,
+            likeAmount: Number(LikeAmountComment),
+            isActive: true
+          };
+      
+          const updateResponse = await fetch('https://localhost:7169/api/Post/UpdateHideComment', {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json',
+              'Content-Type': 'application/json',
             },
             body: JSON.stringify(hideComment),
-        })
-            .then((response) => {
-                if (response.ok) {
-                
-                }
-                else if (!response.ok) {
-                    throw new Error('Failed to update');
-                }
-              
-            })
-    }
+          });
+      
+          if (updateResponse.ok) {
+         
+           
+          } else {
+            throw new Error('Failed to update');
+          }
+        } catch (error) {
+          console.error('Error updating comment:', error);
+          // Xử lý khi gặp lỗi (ví dụ: hiển thị toast lỗi)
+         
+        }
+        fetch(`https://localhost:7169/api/Post/ListCommentPost?postId=${pid}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setListComment(data);
+            });
+      };
     const commentsData = [
         { userName: "User1", comment: "Comment 1" },
         { userName: "User2", comment: "Comment 2" },
@@ -158,7 +218,7 @@ const CardPost = () => {
             <div className="comments text-gry">
                 {listComment.map((comment, index) => (
                     <div key={index} className="comment">
-                        <strong>{comment.userFullName}</strong> {comment.content} <span className="edit-comment"><button onClick={UpdateHideComment} >Hide comment</button></span>
+                        <strong>{comment.userFullName}</strong> {comment.content} <span className="edit-comment"><button onClick={() => UpdateHideComment(comment.userCommentPostId)} >Hide comment</button></span>
                     </div>
                 ))}
             </div>

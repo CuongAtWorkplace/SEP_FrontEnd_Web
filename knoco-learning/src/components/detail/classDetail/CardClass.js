@@ -13,10 +13,12 @@ import {
     faCalendarWeek,
     faPhone
 } from '@fortawesome/free-solid-svg-icons';
+import CardNote from "../../edit/CardNote";
 
 const CardClass = ({ setIsEditClassPopupVisible }) => {
     const [classDt, setClassDt] = useState(null);
     const params = useParams();
+    const [isNotePopupVisible, setNotePopupVisible] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -42,6 +44,15 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
         console.log("Button quizz clicked!");
         navigate(`/listquizzinclass`);
     }
+
+    const openNotePopup = () => {
+        setNotePopupVisible(true);
+    }
+
+    const closeNotePopup = () => {
+        setNotePopupVisible(false);
+    }
+
     return (
         <div className="conval">
             {classDt ? (
@@ -122,12 +133,12 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
                             Edit class
                         </button>
 
-                        <button className="btn-item" onClick={handleQuizzClick}>
+                        <button className="btn-item" >
                             Meeting Room
                         </button>
 
-                        <button className="btn-item" >
-                            Schedule
+                        <button className="btn-item" onClick={openNotePopup}>
+                            Note box
                         </button>
                     </div>
                 </div>
@@ -209,14 +220,19 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
                             Edit class
                         </button>
 
-                        <button className="btn-item" onClick={handleQuizzClick}>
+                        <button className="btn-item" >
                             Meeting Room
                         </button>
 
-                        <button className="btn-item" >
-                            Schedule
+                        <button className="btn-item" onClick={openNotePopup}>
+                            Note box
                         </button>
                     </div>
+                </div>
+            )}
+            {isNotePopupVisible && (
+                <div className="popup">
+                    <CardNote closePopup={closeNotePopup} />
                 </div>
             )}
         </div>

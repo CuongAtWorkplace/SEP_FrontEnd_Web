@@ -17,7 +17,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { BsSuitHeartFill, BsBookmarkPlusFill } from "react-icons/bs";
 // import { Modal, Button } from 'react-bootstrap';
 
-import "./ViewAllCourse.scss";
+import "./ViewAllCourse.css";
 import TableListCourse from "../../../components/Table/TableListCourse";
 
 class ViewAllCourse extends Component {
@@ -174,62 +174,7 @@ class ViewAllCourse extends Component {
 
                         </footer>
                     </section>
-                    <Modal
-                        show={showModal}
-                        onClose={this.handleClose}
-                        backdrop="static"
-                        keyboard={false}
-                    >
-                        <Modal.Header closeButton>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <div className="modal-body">
-                                <div className="login_wrapper">
-                                    <form >
-                                        <div class="formsix-pos">
-                                            <div className="form-group i-email">
-                                                <input type="text" class="form-control" required="" id="" value={this.state.courseId}
-                                                    placeholder="Course Id" />
-                                            </div>
-                                        </div>
-                                        {/* <div class="formsix-pos">
-                                        <div className="form-group i-email">
-                                            <input type="text" class="form-control" required="" id="email2" 
-                                                placeholder="" />
-                                        </div>
-                                    </div>
-                                    <div class="formsix-pos">
-                                        <div className="form-group i-email">
-                                            <input type="text" class="form-control" required="" id="email2" 
-                                                placeholder="" />
-                                        </div>
-                                    </div>
-                                    <div class="formsix-pos">
-                                        <div className="form-group i-email">
-                                            <input type="text" class="form-control" required="" id="email2" 
-                                                placeholder="" />
-                                        </div>
-                                    </div>
-                                    <div className="formsix-e">
-                                        <div className="form-group i-password">
-                                            <input type="text" className="form-control" required="" id="password2" 
-                                                 placeholder="" />
-                                        </div>
-                                    </div> */}
-
-                                        <div class="login_btn_wrapper">
-                                            <button style={{ width: "100%" }} type="button" onClick={this.handleClose} className=" btn btn-block mybtn btn-primary tx-tfm">Thêm</button>
-                                        </div>
-                                    </form>
-
-
-                                </div>
-                            </div>
-
-
-                        </Modal.Body>
-
-                    </Modal>
+                   
                 </ div>
 
 

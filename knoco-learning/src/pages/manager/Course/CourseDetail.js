@@ -23,9 +23,10 @@ import { Routes, Route } from "react-router-dom";
 // import { Modal, Button } from 'react-bootstrap';
 
 import "./ViewAllCourse.css";
-import SideBar from "../../../components/sidebar/SideBar";
-import Header from "../../../components/header/Header";
-import Footer from "../../../components/footer/Footer";
+import { Table } from "reactstrap";
+// import SideBar from "../../../components/sidebar/SideBar";
+// import Header from "../../../components/header/Header";
+// import Footer from "../../../components/footer/Footer";
 
 function CourseDetail() {
   const [courseDetail, setCourseDetail] = useState({});
@@ -47,18 +48,33 @@ function CourseDetail() {
         setCourseDetail(data);
         setPhotoFileName(data.image);
       });
+      fetchData();
+  }, [cid]);
 
-    fetch(`https://localhost:7169/api/Course/GetClassInCourse?courseId=${cid}`)
+  const fetchData = async () => {
+    try {
+      fetch(`https://localhost:7169/api/Course/GetClassInCourse?courseId=${cid}`)
       .then((response) => response.json())
       .then((data) => {
         setClassInCourse(data);
+        console.log("ok");
       });
-  }, [cid]);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+     
+    }
+  };
 
+  // const columns = [
+  //   { field: "classId", headerName: "ID", width: 70 },
+  //   { field: "className", headerName: "Class Name", width: 150 },
+  // ];
   const columns = [
-    { field: "classId", headerName: "ID", width: 70 },
-    { field: "className", headerName: "Class Name", width: 150 },
-  ];
+    {
+        Header: 'Class Name',
+        accessor: 'className',
+    }
+];
 
   const getRowId = (row) => row.courseId;
 
@@ -149,7 +165,6 @@ function CourseDetail() {
             <FontAwesomeIcon className="logo-icon" icon={faBook} />
             <h1>Knoco</h1>
           </div>
-
           <nav>
             <SideBar />
           </nav>
@@ -166,8 +181,8 @@ function CourseDetail() {
                 <div className="d-flex justify-content-between align-items-center mb-3">
                   <h4 className="text-right">Thông Tin Khóa Học</h4>
                 </div>
-                <div className="row mt-2">
-                  <div className="col-md-12">
+                <div className="row mt-4">
+                <div className="col-md-7">
                     <label className="labels">Tên Khóa Học</label>
                     <input
                       type="text"
@@ -178,9 +193,7 @@ function CourseDetail() {
                       onChange={handleCourseNameChange}
                     />
                   </div>
-                </div>
-                <div className="row mt-3">
-                  <div className="col-md-12">
+                  <div className="col-md-7">
                     <label className="labels">Description</label>
                     <input
                       type="text"
@@ -190,7 +203,7 @@ function CourseDetail() {
                       onChange={handleDescriptionChange}
                     />
                   </div>
-                  <div className="col-md-12">
+                  <div className="col-md-6">
                     <label className="labels">Image</label>
                     {/* <input
                           type="text"
@@ -205,7 +218,6 @@ function CourseDetail() {
                     }
                   </div>
                   <div className="col-md-12">
-                    <label className="labels">Hình ảnh</label>
                     <input className="m-2" type="file" onChange={imageUpload} />
                   </div>
                 </div>
@@ -217,107 +229,18 @@ function CourseDetail() {
             <div className="classListInCourse">
               <div className="TableLayout">
                 <h1>Danh sách lớp</h1>
-                <DataGrid
+                {/* <DataGrid
                   rows={classInCourse}
                   columns={columns}
-                  pageSize={5}
+                  
                   checkboxSelection
                   disableRowSelectionOnClick
                   getRowId={getRowId}
-                />
+                /> */}
+                <Table columns={columns} data={classInCourse}  />
               </div>
             </div>
           </div>
-
-          <div className="container">
-            <div className="row">
-              <div className="col-md-8">
-                <section className="panel tasks-widget">
-                  <header className="panel-heading">
-                    <h2>Update Topic</h2>
-                  </header>
-                </section>
-                <div className="panel-body">
-                  <form>
-                    <div className="form-group">
-                      <label className="control-label">Topic Name:</label>
-                      {/* <input name="ProductPrice" className="form-control" value={TopicName} onChange={(e) => this.onChangeTopicName(e)} /> */}
-                    </div>
-
-                    <div className="form-group">
-                      <label className="control-label">Topic Description:</label>
-                      <div className="App">
-                        {/* <CKEditor
-                                            editor={ClassicEditor}
-                                            data={Description}
-                                            onReady={editor => {
-                                                console.log('Editor is ready to use!', editor);
-                                            }}
-                                            onChange={(event, editor) => {
-                                                const data = editor.getData();
-                                                this.setState({ Description: data })
-                                            }}
-                                        /> */}
-                      </div>
-                    </div>
-
-                    <div className="form-group">
-                      <label className="control-label">Topic Categories:</label> <br></br>
-                      {/* <select className="form-select"
-                                        onChange={(e) => this.setState({GenreId: e.target.value})
-                                        } 
-                                        value={GenreId}
-                                    >
-                                        {Genre.map(gen => <option value={gen.id} key={gen.id}>
-                                            {gen.genreName}
-                                        </option>)}
-                                    </select> */}
-                    </div>
-                    <div className="form-group">
-                      <label className="control-label">Assign To Writer:</label>
-                      {/* <select className="form-select"
-                                        onChange={(e) => this.setState({ WriterId: e.target.value })}
-                                        value={WriterId}
-                                    >
-                                        {User.map(u => u.roleId == 4 && 
-                                            <option value={u.id} key={u.id} selected>
-                                                {u.fullName}
-                                            </option> 
-                                        )}
-                                    </select> */}
-                      {/* {ErrorTopicName == null ? <input type="hidden" /> : <p style={{ color: 'red' }}>{ErrorTopicName}</p>} */}
-                    </div>
-                    <div className="form-group">
-                      <label className="control-label">Assign To Reporter:</label>
-                      {/* <select className="form-select"
-                                        onChange={(e) => this.setState({ReporterId: e.target.value})}
-                                        value={ReporterId}
-                                    >
-                                        {User.map(u => u.roleId == 5 &&
-                                            <option value={u.id} key={u.id} >
-                                                {u.fullName}
-                                            </option>
-                                        )}
-                                    </select> */}
-                      {/* {ErrorTopicName == null ? <input type="hidden" /> : <p style={{ color: 'red' }}>{ErrorTopicName}</p>} */}
-                    </div>
-                    <div className="form-group">
-                      <label className="control-label">Create Date:</label>
-                      {/* <input type="datetime-local" className="form-control" value={StartDate} onChange={(e) => this.setState({StartDate: e.target.value})} /> */}
-                      {/* {ErrorTopicName == null ? <input type="hidden" /> : <p style={{ color: 'red' }}>{ErrorTopicName}</p>} */}
-                    </div>
-                    <div className="form-group">
-                      <label className="control-label">EndDate:</label>
-                      {/* <input type="datetime-local" className="form-control" value={EndDate} onChange={(e) =>  this.setState({EndDate: e.target.value})}/> */}
-                      {/* {ErrorTopicName == null ? <input type="hidden" /> : <p style={{ color: 'red' }}>{ErrorTopicName}</p>} */}
-                    </div> <br />
-                    {/* <button type="button" className="btn btn-info" onClick={() => this.updateClick()}>Update AssignTask</button> */}
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <footer>
             <Footer />
           </footer>

@@ -133,24 +133,21 @@ class ViewAllCourse extends Component {
 
                     <section id="interface">
                         <header>
-
-                            <div className="navigation">
+                        <Header />
+                            {/* <div className="navigation">
                                 <div className="n1">
                                     <div>
                                         <FontAwesomeIcon id="menu-btn" icon={faBars} />
                                     </div>
-                                    {/* <div className="search">
+                                    <div className="search">
                                         <FontAwesomeIcon className="icon-search" icon={faMagnifyingGlass} />
                                         <input type="text" onChange={this.handleSearchChange} placeholder="Search" />
-                                    </div> */}
+                                    </div>
                                 </div>
-
-                               
-                            </div>
+                            </div> */}
                         </header>
 
-
-                        <div>
+                        <div className="children">
                          <TableListCourse/>
                             {/* <div className='TableLayout' style={{ height: 'auto', width: '100%' }}>
 
@@ -168,15 +165,9 @@ class ViewAllCourse extends Component {
 
                         <footer>
                             <Footer />
-
                         </footer>
-                    </section>
-                   
+                    </section>                
                 </ div>
-
-
-
-
             </div>
         )
     }

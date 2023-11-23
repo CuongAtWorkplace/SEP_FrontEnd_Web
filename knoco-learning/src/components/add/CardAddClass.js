@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import '../../style/Teacher/Edit.css'
+import '../../style/Teacher/Add.css';
 
-const CardEditClass = ({ closePopup }) => {
+const CardAddClass = ({ closePopup }) => {
     const params = useParams();
     const [classDt, setClassDt] = useState({});
     const [className, setClassName] = useState('');
@@ -23,7 +23,7 @@ const CardEditClass = ({ closePopup }) => {
             const response = await fetch(`https://localhost:7169/api/Class/GetTeacherClassDetail/${params.classId}`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setClassDt(responseData);
-            setClassName(responseData.className || '');
+            setClassName(responseData.classname || '');
             setTopic(responseData.topic || '');
             setFee(responseData.fee || '');
             setNumberOfWeek(responseData.numberOfWeek || '');
@@ -79,7 +79,7 @@ const CardEditClass = ({ closePopup }) => {
     return (
         <div className="card-edit-class">
             <form onSubmit={handleSubmit}>
-                <h2>Edit Class</h2>
+                <h2>Add new class</h2>
                 <label>Class Name:</label>
                 <input type="text" id="ClassName" name="ClassName" value={className} onChange={(e) => setClassName(e.target.value)} required />
 
@@ -111,4 +111,4 @@ const CardEditClass = ({ closePopup }) => {
     );
 };
 
-export default CardEditClass;
+export default CardAddClass;

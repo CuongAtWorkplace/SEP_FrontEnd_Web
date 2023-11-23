@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import myImage from '../../assets/profile.jpg';
 import '../../style/Teacher/Edit.css'
 
-const CardChangeImage = ({ closePopup }) => {
+const CardNote = ({ closePopup }) => {
     const UserID = 2;
     const [userDt, setUserDt] = useState({});
     const [imageSource, setImage] = useState('');
@@ -82,16 +82,9 @@ const CardChangeImage = ({ closePopup }) => {
     return (
         <div className="card-edit-class">
             <form onSubmit={handleSubmit}>
-                <h2>Change Image</h2>
+                <h2>Note</h2>
 
-                <img src={imageSource || myImage} alt={imageSource || "Profile"} />
-                <input type="file" id="image" name="image" accept="image/*" onChange={handleImageChange} />
-
-                {userDt ? (
-                    <img src={userDt.image} alt={userDt.image} />
-                ) : (
-                    <img src={myImage} alt="Profile" />
-                )}
+                <textarea></textarea>
 
                 <button type="submit" id="submit" name="submit" className="btn-btn">Change</button>
                 <button type="button" onClick={closePopup} className="btn-btn">Cancel</button>
@@ -100,4 +93,4 @@ const CardChangeImage = ({ closePopup }) => {
     );
 };
 
-export default CardChangeImage;
+export default CardNote;

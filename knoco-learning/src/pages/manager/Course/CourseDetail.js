@@ -35,7 +35,7 @@ function CourseDetail() {
   const [searchText, setSearchText] = useState("");
   const [courseName, setCourseName] = useState('');
   const [description, setDescription] = useState('');
-  const [createDate ,setCreateDate] = useState('');
+  const [createDate, setCreateDate] = useState('');
   const [image, setImage] = useState('');
   const [PhotoFileName, setPhotoFileName] = useState('');
   const [ImageCover, setImageCover] = useState('');

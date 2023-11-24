@@ -122,12 +122,12 @@ function CourseDetail() {
     })
       .then((response) => {
         if (response.ok) {
-
+          window.location.href="/course"
         }
         else if (!response.ok) {
           throw new Error('Failed to add product');
         }
-        return response.json();
+        
       })
   };
   const handleSearchChange = (e) => {

@@ -3,7 +3,7 @@ import Table from "../../../components/Table/Table";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-
+import CardAddCourse from "../../../components/add/CardAddCourse";
 const ColumnFilter = ({ column }) => {
     const { setFilter } = column;
     return (
@@ -27,9 +27,9 @@ const handleSearchChange = (e) => {
     this.setState({ searchText, data: filteredCourses });
 }
 const TableListCourse = () => {
-    const [  searchText , setSearchText]=useState("");
+    const [searchText, setSearchText] = useState("");
     const [data, setData] = useState([]);
-
+    const [AddCoursePopupVisible, setAddCoursePopupVisible] = useState(false);
     useEffect(() => {
         fetchData();
     }, []);
@@ -43,7 +43,13 @@ const TableListCourse = () => {
             console.error('Lỗi khi lấy dữ liệu:', error);
         }
     };
+    const openAddCoursePopup = () => {
+        setAddCoursePopupVisible(true);
+    }
 
+    const closeAddCoursePopup = () => {
+        setAddCoursePopupVisible(false);
+    }
     const navigate = useNavigate();
     const columns = [
         {
@@ -65,6 +71,11 @@ const TableListCourse = () => {
             Header: 'CreateDate',
             accessor: 'createDate',
             Filter: ColumnFilter, // Custom filter component for courseId column
+            Cell: ({ row }) => (
+                <div>
+                  {(row.original.createDate)}
+                </div>
+              ),
         },
         {
             Header: 'Image',
@@ -72,11 +83,11 @@ const TableListCourse = () => {
             Filter: ColumnFilter, // Custom filter component for courseId column
             Cell: ({ value }) => (
                 <img
-                  src={`https://localhost:7169/Photos/${value}`} // Assuming 'value' is the image filename or path
-                  alt="Course Image"
-                  style={{ width: '50px', height: '50px' }} // Adjust the size as needed
+                    src={`https://localhost:7169/Photos/${value}`} // Assuming 'value' is the image filename or path
+                    alt="Course Image"
+                    style={{ width: '50px', height: '50px' }} // Adjust the size as needed
                 />
-              ),
+            ),
         },
     ];
 
@@ -86,7 +97,15 @@ const TableListCourse = () => {
     };
     return (
         <div>
+            <button className="btn-add"  onClick={openAddCoursePopup}>Add new Course</button>
             <Table columns={columns} data={data} onRowClick={handleRowClick} />
+            {
+                AddCoursePopupVisible && (
+                    <div className="popup">
+                        <CardAddCourse closePopup={closeAddCoursePopup} />
+                    </div>
+                )
+            }
         </div>
     )
 }

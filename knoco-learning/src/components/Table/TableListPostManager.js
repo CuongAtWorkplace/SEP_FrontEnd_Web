@@ -40,63 +40,7 @@ const TableListPostManager = () => {
 
 
   const navigate = useNavigate();
-  // const columns = [
-  //   {
-  //     Header: 'Post Id',
-  //     accessor: 'postId',
-  //     Filter: ColumnFilter, // Custom filter component for courseName column
-  //   },
-  //   {
-  //     Header: 'Topic',
-  //     accessor: 'title',
-  //     Filter: ColumnFilter, // Custom filter component for courseId column
-  //   },
-  //   {
-  //     Header: 'Question',
-  //     accessor: 'description',
-  //     Filter: ColumnFilter, // Custom filter component for courseId column
-  //   },
-  //   {
-  //     Header: 'ContentPost',
-  //     accessor: 'contentPost',
-  //     Filter: ColumnFilter, // Custom filter component for courseId column
-  //   },
-  //   {
-  //     Header: 'isActive',
-  //     accessor: 'isActive',
-  //     Filter: ColumnFilter, // Custom filter component for courseId column
-  //   },
-
-  //   {
-  //     Header: 'Image',
-  //     accessor: 'image',
-  //     Filter: ColumnFilter, // Custom filter component for courseId column
-  //     Cell: ({ value }) => (
-  //       <img
-  //         src={`https://localhost:7169/Photos/${value}`} // Assuming 'value' is the image filename or path
-  //         alt="Course Image"
-  //         style={{ width: '50px', height: '50px' }} // Adjust the size as needed
-  //       />
-  //     ),
-  //   },
-  //   {
-  //     Header: 'Button',
-  //     accessor: '',
-  //     Filter: ColumnFilter, // Custom filter component for courseId column
-  //     Cell: ({ row }) => (
-  //       <div>
-  //       <span></span>
-
-  //       {row.isActive === "True" ? (
-  //         <button >Button 2</button>
-  //       ) : (
-  //         <button >Button 1</button>
-  //       )}
-  //     </div>
-
-  //   ),
-  //   },
-  // ];
+  
   const columns = [
     {
       Header: 'Post Id',
@@ -118,11 +62,7 @@ const TableListPostManager = () => {
       accessor: 'contentPost',
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
-    // {
-    //   Header: 'isActive',
-    //   accessor: 'isActive',
-    //   Filter: ColumnFilter, // Custom filter component for courseId column
-    // },
+   
     {
       Header: 'Image',
       accessor: 'image',
@@ -139,20 +79,22 @@ const TableListPostManager = () => {
       Header: 'Button',
       accessor: '',
       Filter: ColumnFilter, // Custom filter component for courseId column
+      disableFilters: true, // Vô hiệu hóa bộ lọc cho cột Button
+      // disableSortBy: true,
       Cell: ({ row }) => (
-        <CustomButton isActive={row.original.isActive} postId={row.original.postId} onClickHandler={UpdateHidePost} />
+        <CustomButton isActive={row.original.isActive} postId={row.original.postId} />
       ),
     },
   ];
 
   // Custom Button Component
-  const CustomButton = ({ isActive, postId, onClickHandler }) => (
+  const CustomButton = ({ isActive, postId }) => (
     <div>
       <span></span>
       {isActive === "True" ? (
         <button>Button 2</button>
       ) : (
-        <button onClick={() => onClickHandler(postId)}>Duyệt</button>
+        <button onClick={() => UpdateHidePost(postId)}>Duyệt</button>
       )}
     </div>
   );
@@ -201,7 +143,7 @@ const TableListPostManager = () => {
       })
         .then((response) => {
           if (response.ok) {
-
+              fetchData();
           }
           else if (!response.ok) {
             throw new Error('Failed to update');
@@ -215,9 +157,7 @@ const TableListPostManager = () => {
     }
 
   }
-  const handleButtonClick = (value) => {
-    navigate(`/viewpostdetailmanager`);
-  };
+  
 
   const handleRowClick = (row) => {
     console.log('Clicked row data:', row);
@@ -226,7 +166,8 @@ const TableListPostManager = () => {
   };
   return (
     <div>
-      <Table columns={columns} data={data} />
+            <button className="btn-add" onClick={() => UpdateHidePost(10)} >Add new class</button>
+      <Table columns={columns} data={data} onRowClick={handleRowClick} />
     </div>
   )
 }

@@ -148,6 +148,7 @@ class ViewAllCourse extends Component {
                         </header>
 
                         <div className="children">
+                            
                          <TableListCourse/>
                             {/* <div className='TableLayout' style={{ height: 'auto', width: '100%' }}>
 

@@ -31,17 +31,7 @@ const CardPost = () => {
         //     .then((data) => {
         //         setUse(data);
         //     });
-        fetch(`https://localhost:7169/api/Post/ListCommentPost?postId=${pid}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setListComment(data);
-                // setUserCommentPostId(data.userCommentPostId);
-                // setuserId(data.userId);
-                // setPostId(data.postId);
-                // setContent(data.content);
-                // setCreateDateComment(data.createDate);
-                // setlikeAmout(data.likeAmout);
-            });
+        fetchData();
         fetch(`https://localhost:7169/api/Post/GetPostById?Id=${pid}`)
             .then((response) => response.json())
             .then((data) => {
@@ -56,7 +46,13 @@ const CardPost = () => {
             });
     }, [pid]);
 
-
+    const fetchData = async () => {
+        fetch(`https://localhost:7169/api/Post/ListCommentPost?postId=${pid}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setListComment(data);
+            });
+      };
 
     const UpdateHidePost = () => {
         const hidePost = {

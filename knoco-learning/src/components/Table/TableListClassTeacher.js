@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Table from "./Table";
 import '../../style/Teacher/Tag.css';
 import CardAddClass from "../add/CardAddClass";
+import { async } from "q";
 
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
@@ -22,9 +23,12 @@ const TableListClassTeacher = () => {
   //const [allClass, setallClass] = useState([]);
   const navigate = useNavigate();
   const [isAddClassPopupVisible, setAddClassPopupVisible] = useState(false);
-
+  const [files, setFiles] = useState([]);
+  const [fileUpload, setfileUpload] = useState(null);
+  const [classId, setClassId] = useState('1');
   useEffect(() => {
     fetchData();
+   
   }, []);
 
   const fetchData = async () => {
@@ -36,6 +40,8 @@ const TableListClassTeacher = () => {
       console.error('Lỗi khi lấy dữ liệu:', error);
     }
   };
+
+ 
 
   const handleRowClick = (row) => {
     console.log('Clicked row data:', row);
@@ -49,7 +55,7 @@ const TableListClassTeacher = () => {
   const closeAddClassPopup = () => {
     setAddClassPopupVisible(false);
   }
-
+  
   const [columns, setColumns] = useState([
     {
       Header: 'Class Name',

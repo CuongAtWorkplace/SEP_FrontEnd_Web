@@ -43,7 +43,7 @@ form {
 }
 
 textarea {
-    border-bottom: 2px solid #00BCD4;
+    /* border-bottom: 2px solid #00BCD4; */
     padding: 5px;
     width: 70%;
 }
@@ -59,7 +59,7 @@ form img {
 
 input {
     display: block;
-    border-bottom: 2px solid #00BCD4;
+    /* border-bottom: 2px solid #00BCD4; */
     margin-top: 2px;
     margin-bottom: 5px;
     outline-style: none;
@@ -71,6 +71,30 @@ input .image {
     margin-top: 2px;
     margin-bottom: 5px;
     outline-style: none;
+}
+
+.box-file {
+    width: 95%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: whitesmoke;
+    border: 2px solid #3377FF;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.box-upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.file {
+    width: 90%;
+    border-radius: 10px;
+    padding: 10px;
+    border: 2px solid #3377FF;
+    font-weight: bold;
 }
 
 /* input[type="text"]{

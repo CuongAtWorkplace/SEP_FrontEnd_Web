@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Table from "./Table";
 import CardLearner from "../detail/learnerDetail/CardLearner";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFile } from '@fortawesome/free-solid-svg-icons';
 
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
@@ -55,7 +57,7 @@ const TableListLearnerInClass = (props) => {
     }
   };
 
-  
+
 
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -71,7 +73,7 @@ const TableListLearnerInClass = (props) => {
 
     const formData = new FormData();
     formData.append('files', selectedFile);
-  
+
 
     try {
       const response = await fetch(`https://localhost:7169/api/File/UploadFiles?classId=${params.classId}`, {
@@ -81,7 +83,7 @@ const TableListLearnerInClass = (props) => {
 
       if (response.ok) {
         console.log('Tải lên thành công!');
-      fetchDataFile();
+        fetchDataFile();
       } else {
         throw new Error('Failed to upload file.');
       }
@@ -96,7 +98,7 @@ const TableListLearnerInClass = (props) => {
     //console.log(selectedLearner.userId);
   };
   const handleBackButtonClick = () => {
-    setSelectedLearner(null); 
+    setSelectedLearner(null);
   };
 
   const openLearnerDetailPopup = (learner) => {
@@ -137,15 +139,19 @@ const TableListLearnerInClass = (props) => {
     <div>
       <Table columns={columns} data={data} onRowClick={openLearnerDetailPopup} />
       {/* <input type="file" onChange={handleFileChange} /><button onClick={handleUploadClick}>Submit</button> */}
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleUpload}>Tải lên</button>
-      {files.map((file, index) => (
+      <div className="box-file">
+        <div className="box-upload">
+          <input className="file" type="file" onChange={handleFileChange} />
+          <button className="btn-item" onClick={handleUpload}>Upload</button>
+        </div>
+        {files.map((file, index) => (
           <li key={index}>
-            <a href={`https://localhost:7169/api/File/GetFileByName?fileName=${file.fileName}`}>
-              {file.fileName}
+            <a className="" href={`https://localhost:7169/api/File/GetFileByName?fileName=${file.fileName}`}>
+              <FontAwesomeIcon icon={faFile} /> {file.fileName}
             </a>
           </li>
         ))}
+      </div>
       {isLearnerDetailPopupVisible && (
         <div className="popup">
           <CardLearner learner={isLearnerDetailPopupVisible} onBackClick={closeLearnerDetailPopup} />

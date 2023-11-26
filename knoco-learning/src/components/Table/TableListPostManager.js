@@ -163,10 +163,10 @@ const TableListPostManager = () => {
     console.log('Clicked row data:', row);
     const postId = row.postId
     navigate(`/viewpostdetailmanager/${postId}`);
-  };
+  }; 
   return (
     <div>
-            <button className="btn-add" onClick={() => UpdateHidePost(10)} >Add new class</button>
+            <button className="btn-add" onClick={() => UpdateHidePost(9)} >Add new class</button>
       <Table columns={columns} data={data} onRowClick={handleRowClick} />
     </div>
   )

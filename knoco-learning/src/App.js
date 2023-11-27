@@ -1,8 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import './style/admin/global.scss';
-
+import { QueryClient } from '@tanstack/react-query';
 import Login from './pages/login/Login';
 import Register from './pages/login/Register';
 import ViewAllClass from './pages/teachers/ViewAllClass';

@@ -1,29 +1,87 @@
-.dataTable{
+.dataTable {
+  height: 100%;
+  width: 100%;
+  padding: 20px 20px 5px 20px;
 
-    .dataGrid{
-      background: white;
-      padding: 20px;
-  
-      .MuiDataGrid-toolbarContainer{
-        flex-direction: row-reverse;
-      }
-  
-      img{
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-  
-      .action{
-        display: flex;
-        gap: 15px;
-  
-        img{
-          width: 20px;
-          height: 20px;
-          cursor: pointer;
-        }
+  .datatableTitle {
+    width: 100%;
+    font-size: 24px;
+    color: gray;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .link {
+      text-decoration: none;
+      color: green;
+      font-size: 16px;
+      font-weight: 400;
+      border: 1px solid green;
+      padding: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+
+  .cellWithStatus {
+    padding: 6px;
+    border-radius: 8px;
+
+    &.active {
+      background-color: rgba(0, 128, 0, 0.05);
+      color: rgb(7, 203, 7);
+    }
+
+    &.pending {
+      background-color: rgba(255, 217, 0, 0.05);
+      color: goldenrod;
+    }
+
+    &.passive {
+      background-color: rgba(255, 0, 0, 0.05);
+      color: rgb(255, 15, 15);
+    }
+  }
+
+  .cellAction {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .viewButton {
+      padding: 2px 5px;
+      border-radius: 5px;
+      color: darkblue;
+      border: 1px dotted rgba(0, 0, 139, 0.596);
+      cursor: pointer;
+    }
+  }
+
+  .dataGrid {
+    background: white;
+    // padding: 5px;
+
+    .MuiDataGrid-toolbarContainer {
+      flex-direction: row-reverse;
+    }
+
+    img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .action {
+      display: flex;
+      gap: 15px;
+
+      img {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
       }
     }
   }
+}

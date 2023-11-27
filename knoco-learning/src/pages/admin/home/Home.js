@@ -4,7 +4,6 @@ import { faBook } from '@fortawesome/free-solid-svg-icons';
 import Header from "../../../components/header/Header";
 import Footer from "../../../components/footer/Footer";
 import SideBar from "../../../components/sidebar/SideBar";
-import TopBox from "../../../components/admin/topBox/TopBox";
 import "./home.scss";
 import TotalUser from "../../../components/admin/chartBox/TotalUserChart";
 import TotalCourse from "../../../components/admin/chartBox/TotalCourseChart";
@@ -33,13 +32,10 @@ class Home extends Component {
             </header>
             <div className="homeLayout">
               <div className="users">
-                <div className="infoHome">
+                <div className="infoHomes">
                   <h1>Dashboard</h1>
                 </div>
                 <div className="home">
-                  {/* <div className="box box1">
-                    <TopBox />
-                  </div> */}
                   <div className="box box2">
                     <TotalUser />
                   </div>

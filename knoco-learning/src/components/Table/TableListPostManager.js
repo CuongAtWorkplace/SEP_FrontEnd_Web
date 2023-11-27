@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { async } from "q";
-
+import { BsFillPencilFill } from "react-icons/bs";
+import { toast} from 'react-toastify';
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
 
@@ -46,6 +47,11 @@ const TableListPostManager = () => {
       Header: 'Post Id',
       accessor: 'postId',
       Filter: ColumnFilter, // Custom filter component for courseName column
+      // Cell: ({ row }) => ( 
+      //   <div >
+      //     <a href={`/viewpostdetailmanager/${row.original.postId}`}><h4> {row.original.postId} </h4></a>
+      //   </div>
+      // ),
     },
     {
       Header: 'Topic',
@@ -71,18 +77,31 @@ const TableListPostManager = () => {
         <img
           src={`https://localhost:7169/Photos/${value}`} // Assuming 'value' is the image filename or path
           alt="Course Image"
-          style={{ width: '50px', height: '50px' }} // Adjust the size as needed
+          style={{ width: '100px', height: '100px' }} // Adjust the size as needed
         />
       ),
     },
     {
-      Header: 'Button',
-      accessor: '',
+      Header: 'Trạng Thái',
+      accessor: 'isActive',
       Filter: ColumnFilter, // Custom filter component for courseId column
       disableFilters: true, // Vô hiệu hóa bộ lọc cho cột Button
       // disableSortBy: true,
       Cell: ({ row }) => (
         <CustomButton isActive={row.original.isActive} postId={row.original.postId} />
+      ),
+    },
+    {
+      Header: 'Chi Tiết',
+      accessor: '',
+      Filter: ColumnFilter, // Custom filter component for courseId column
+      disableFilters: true, // Vô hiệu hóa bộ lọc cho cột Button
+      // disableSortBy: true,
+      Cell: ({ row }) => (
+        <a href={`/viewpostdetailmanager/${row.original.postId}`}>
+          <BsFillPencilFill  size={30}/>
+        </a>
+        
       ),
     },
   ];
@@ -92,9 +111,9 @@ const TableListPostManager = () => {
     <div>
       <span></span>
       {isActive === "True" ? (
-        <button>Button 2</button>
+        <button>Đã Duyệt</button>
       ) : (
-        <button onClick={() => UpdateHidePost(postId)}>Duyệt</button>
+        <button onClick={() => UpdateActivePost(postId)}>Duyệt</button>
       )}
     </div>
   );
@@ -107,30 +126,21 @@ const TableListPostManager = () => {
   const [image, setimage] = useState('');
   const [createDate, setcreateDate] = useState('');
 
-  const UpdateHidePost = async (postId) => {
-    alert(postId);
+  const UpdateActivePost = async (postId) => {
     try {
 
       const commentResponse = await fetch(`https://localhost:7169/api/Post/GetPostById?Id=${postId}`);
       const data = await commentResponse.json();
 
-      setCreateBy(data.createBy);
-      settitle(data.title);
-      setdescription(data.description);
-      setcontentPost(data.contentPost);
-      setcreateDate(data.createDate);
-      setlikeAmout(data.likeAmout);
-      setimage(data.image);
-
       const hidePost = {
         postId: postId,
-        createBy: Number(createBy),
-        title: title,
-        description: description,
-        contentPost: contentPost,
-        likeAmout: Number(likeAmout),
-        image: image,
-        createDate: createDate,
+        createBy: Number(data.createBy),
+        title: data.title,
+        description: data.description,
+        contentPost: data.contentPost,
+        likeAmout: Number(data.likeAmout),
+        image: data.image,
+        createDate: data.createDate,
         isActive: true
       }
 
@@ -143,9 +153,11 @@ const TableListPostManager = () => {
       })
         .then((response) => {
           if (response.ok) {
+            toast.success("Successfull")
               fetchData();
           }
           else if (!response.ok) {
+            toast.error("Failed. Try Again!!!")
             throw new Error('Failed to update');
           }
 
@@ -162,11 +174,10 @@ const TableListPostManager = () => {
   const handleRowClick = (row) => {
     console.log('Clicked row data:', row);
     const postId = row.postId
-    navigate(`/viewpostdetailmanager/${postId}`);
+    // navigate(`/viewpostdetailmanager/${postId}`);
   }; 
   return (
     <div>
-            <button className="btn-add" onClick={() => UpdateHidePost(9)} >Add new class</button>
       <Table columns={columns} data={data} onRowClick={handleRowClick} />
     </div>
   )

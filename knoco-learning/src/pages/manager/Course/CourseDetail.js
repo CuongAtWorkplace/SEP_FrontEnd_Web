@@ -27,7 +27,7 @@ import { Table } from "reactstrap";
 // import SideBar from "../../../components/sidebar/SideBar";
 // import Header from "../../../components/header/Header";
 // import Footer from "../../../components/footer/Footer";
-
+import { toast} from 'react-toastify';
 function CourseDetail() {
   const [courseDetail, setCourseDetail] = useState({});
   const [classInCourse, setClassInCourse] = useState([]);
@@ -42,7 +42,13 @@ function CourseDetail() {
   const [PhotoPath, setPhotoPath] = useState('https://localhost:7169/Photos/');
   const { cid } = useParams();
 
-  useEffect(() => {
+  useEffect(() => { 
+    fetch(`https://localhost:7169/api/Course/GetClassInCourse?courseId=${cid}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("1");
+        setClassInCourse(data);
+      });
     fetch(`https://localhost:7169/api/Course/GetCourseById?courseId=${cid}`)
       .then((response) => response.json())
       .then((data) => {
@@ -53,27 +59,23 @@ function CourseDetail() {
         setCreateDate(data.createDate);
       });
 
-    fetch(`https://localhost:7169/api/Course/GetClassInCourse?courseId=${cid}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setClassInCourse(data);
-      });
+   
   }, [cid]);
 
-  const columns = [
-    { field: "classId", headerName: "ID", width: 70 },
-    { field: "className", headerName: "Class Name", width: 150 },
-  ];
-  //   const columns = [
-  //     {
-  //         Header: 'Class Id',
-  //         accessor: 'classId',
-  //     },
-  //     {
-  //         Header: 'Class Name',
-  //         accessor: 'className',
-  //     }
+  // const columns = [
+  //   { field: "classId", headerName: "ID", width: 70 },
+  //   { field: "className", headerName: "Class Name", width: 150 },
   // ];
+    const columns = [
+      {
+          Header: 'Class Id',
+          accessor: 'classId',
+      },
+      {
+          Header: 'Class Name',
+          accessor: 'className',
+      }
+  ];
 
   const getRowId = (row) => row.courseId;
 
@@ -122,12 +124,14 @@ function CourseDetail() {
     })
       .then((response) => {
         if (response.ok) {
-          window.location.href="/course"
+          toast.success("Update successfull. Congratulation!!!")
+       
         }
         else if (!response.ok) {
+          toast.error("Update failed. Try Again!!!")
           throw new Error('Failed to add product');
         }
-        
+
       })
   };
   const handleSearchChange = (e) => {
@@ -225,17 +229,19 @@ function CourseDetail() {
                 </div>
               </form>
             </div>
-            <div className="classListInCourse">
-              <div className="TableLayout">
+            <div className="">
+              <div className="">
                 <h1>Danh sách lớp</h1>
+                {classInCourse.map((comment, index) => (
+                    <div key={index} className="comment">
+                        <strong>{comment.className}</strong>  <span className="edit-comment">
+                           
+                        </span>
+                    </div>
+                ))}
                 <Table
                   columns={columns}
                   data={classInCourse}
-
-                // pageSize={classInCourse.length}
-                // checkboxSelection
-                // disableRowSelectionOnClick
-                // getRowId={getRowId}
                 />
               </div>
             </div>

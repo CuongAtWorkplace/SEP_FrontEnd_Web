@@ -93,7 +93,7 @@ const TableListCourse = () => {
 
     const handleRowClick = (row) => {
         console.log('Clicked row data:', row);
-        navigate(`/coursedetail/${row.courseId}`);
+        navigate(`/coursedetail/${row.courseId}`);  
     };
     return (
         <div>

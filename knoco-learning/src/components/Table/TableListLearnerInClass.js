@@ -4,7 +4,7 @@ import Table from "./Table";
 import CardLearner from "../detail/learnerDetail/CardLearner";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFile } from '@fortawesome/free-solid-svg-icons';
-
+import { toast} from 'react-toastify';
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
 
@@ -26,8 +26,6 @@ const TableListLearnerInClass = (props) => {
   const [isLearnerDetailPopupVisible, setLearnerDetailPopupVisible] = useState(null);
   const params = useParams();
   const [files, setFiles] = useState([]);
-  const [fileUpload, setfileUpload] = useState(null);
-  const [classId, setClassId] = useState(1);
   useEffect(() => {
     fetchData();
     fetchDataFile();
@@ -83,11 +81,13 @@ const TableListLearnerInClass = (props) => {
 
       if (response.ok) {
         console.log('Tải lên thành công!');
+        toast.success("Successfull !!!")
         fetchDataFile();
       } else {
         throw new Error('Failed to upload file.');
       }
     } catch (error) {
+      toast.error("Failed. Try Again!!!")
       console.error('Lỗi khi tải lên:', error);
     }
   };

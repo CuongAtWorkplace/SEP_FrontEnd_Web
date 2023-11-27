@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import './style/admin/global.scss';
 
@@ -29,7 +30,7 @@ import ListAllCourse from './pages/teachers/ListAllCourse';
 import GroupChat from './pages/teachers/GroupChat';
 import ViewLeanerList from './pages/manager/Leaner/ViewLeanerList';
 //import TestModal from './pages/manager/Course/TestModal';
-
+import ListCourse from './components/manager/ListCourse';
 const queryClient = new QueryClient();
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
         <Route path="/class-empty/:courseId" element={<ClassEmpty/>} />
         <Route path="/list-all-course" element={<ListAllCourse/>} />
         <Route path="/chat" element={<GroupChat />} />
+        <Route path='/testfile'element={<ListCourse/>}/>
       </Routes>
       <ToastContainer
         position="top-right"

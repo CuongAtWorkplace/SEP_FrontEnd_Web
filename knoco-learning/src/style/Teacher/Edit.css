@@ -1,7 +1,10 @@
 .card-edit-class {
-    display: grid;
+    /* display: grid;
     grid-template-columns: minmax(auto, auto);
-    grid-template-rows: minmax(auto, auto);
+    grid-template-rows: minmax(auto, auto); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 form {
@@ -35,7 +38,7 @@ form {
 .btn-btn {
     padding: 5px;
     width: 50%;
-    margin-top: 10px;
+    margin: 10px;
     border-radius: 10px;
     border: none;
     cursor: pointer;
@@ -95,6 +98,14 @@ input .image {
     padding: 10px;
     border: 2px solid #3377FF;
     font-weight: bold;
+}
+
+.textarea-note {
+    width: 1000px;
+    height: 500px;
+    margin: 10px;
+    border: 2px solid #3377FF;
+    border-radius: 10px;
 }
 
 /* input[type="text"]{

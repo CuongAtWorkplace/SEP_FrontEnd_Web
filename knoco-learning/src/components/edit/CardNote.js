@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import myImage from '../../assets/profile.jpg';
 import '../../style/Teacher/Edit.css'
 import jwtDecode from "jwt-decode";
-
+import { toast} from 'react-toastify';
 const CardNote = ({ closePopup }) => {
     const UserID = 2;
     const [userDt, setUserDt] = useState({});
@@ -20,6 +20,10 @@ const CardNote = ({ closePopup }) => {
   };
     useEffect(() => {
         fetchDataNote();
+        // setTimeout(() => {
+        //     localStorage.removeItem('token');
+        //     console.log('da xoa token.');
+        //   }, 30 * 1000);
        
     }, []);
 
@@ -63,13 +67,14 @@ const CardNote = ({ closePopup }) => {
                     body: JSON.stringify(NoteNew)
                 });
                 if (response.ok) {
-                    console.log('Dữ liệu lớp học đã được cập nhật thành công');
+                    toast.success("Successfull !!!")
                    fetchDataNote();
                   setTextAreaValue('');
                 } else {
                     console.error('Lỗi khi cập nhật dữ liệu lớp học:', response.status, response.statusText);
                 }
             } catch (error) {
+                toast.error("Failed. Try Again!!!")
                 console.error('Lỗi khi cập nhật dữ liệu lớp học:', error);
             }
         }

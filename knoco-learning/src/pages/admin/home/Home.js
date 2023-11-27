@@ -31,15 +31,15 @@ class Home extends Component {
             <header>
               <Header />
             </header>
-            <div className="tableLayout">
+            <div className="homeLayout">
               <div className="users">
-                <div className="info">
+                <div className="infoHome">
                   <h1>Dashboard</h1>
                 </div>
                 <div className="home">
-                  <div className="box box1">
+                  {/* <div className="box box1">
                     <TopBox />
-                  </div>
+                  </div> */}
                   <div className="box box2">
                     <TotalUser />
                   </div>

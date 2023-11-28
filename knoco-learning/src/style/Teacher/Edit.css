@@ -10,7 +10,6 @@ form {
     grid-row: 3;
     height: 100%;
     width: 150%;
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -23,13 +22,16 @@ form {
 }
 
 .card-edit-class h2 {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 20px;
+    margin-bottom: 20px;
+    
 }
 
 .card-edit-class label {
     display: block;
+    margin: 10px;
     font-weight: lighter;
+    font-size: 15px;
 }
 
 .btn-btn {
@@ -53,14 +55,14 @@ form img {
     height: 200px;
     object-fit: cover;
     border-radius: 20px;
-    margin-bottom: 20px;
+    margin: 20px;
     border: 2px solid #0055FF;
 }
 
 input {
     display: block;
     /* border-bottom: 2px solid #00BCD4; */
-    margin-top: 2px;
+    margin: 5px;
     margin-bottom: 5px;
     outline-style: none;
 }
@@ -135,7 +137,9 @@ input#submit {
     cursor: pointer;
     background: linear-gradient(to right, #fc00ff, #00dbde);
 }
-
+.btn{
+    margin: 10px;
+}
 input #submit {
     background: linear-gradient(to right, #fc466b, #3f5efb);
 }

@@ -31,6 +31,7 @@ import GroupChat from './pages/teachers/GroupChat';
 import ViewLeanerList from './pages/manager/Leaner/ViewLeanerList';
 //import TestModal from './pages/manager/Course/TestModal';
 import ListCourse from './components/manager/ListCourse';
+import SideBar from './components/sidebar/SideBar';
 const queryClient = new QueryClient();
 
 function App() {
@@ -38,21 +39,21 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
+
+
         <Route path="/viewallclass" element={<ViewAllClass/>} />
         <Route path="/classdetail/:classId" element={<ClassDetail/>} />
+        
         <Route path="/learnerdetail" element={<LearnerDetail/>} />
         <Route path="/listlearner" element={<ListLearner/>} />
-        <Route path="/" element={<Login />}  />
         <Route path="/dashboard" element={<Home />} />
         <Route path="/users" element={<Users />} />
         <Route path="/users/:userId" element={<UserDetail />} />
         <Route path="/report" element={<Report />} />
-        <Route path="/course" element={<ViewAllCourse />} />
+        <Route path="/manager/course" element={<ViewAllCourse />} />
         <Route path="/viewleanerlist" element={<ViewLeanerList />} />
-
         <Route path="/coursedetail/:cid" element={<CourseDetail />} />
         <Route path="/editclass" element={<EditClass />} />
-        {/* <Route path="/videocall" element={<VideoCall />} /> */}
         <Route path='/listquizzinclass' element={<ViewListQuizzInClass/>}/>
         <Route path='/notificationteacher' element={<ViewNotificationTeacher/>}/>
         <Route path='/quizzdetail' element={<QuizzDetail/>}/>
@@ -64,6 +65,7 @@ function App() {
         <Route path="/list-all-course" element={<ListAllCourse/>} />
         <Route path="/chat" element={<GroupChat />} />
         <Route path='/testfile'element={<ListCourse/>}/>
+        <Route path='/manager' element={<SideBar/>} />
       </Routes>
       <ToastContainer
         position="top-right"

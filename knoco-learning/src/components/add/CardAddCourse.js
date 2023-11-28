@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import '../../style/Teacher/Add.css';
+
 
 const CardAddCourse = ({ closePopup }) => {
     const params = useParams();
@@ -93,25 +93,31 @@ const CardAddCourse = ({ closePopup }) => {
     return (
         <div className="card-edit-class">
             <form onSubmit={handleSubmit}>
-                <h2>Add new class</h2>
+                <h2>New Course</h2>
+                <div className="form-group">
+                <label className="control-label">Course Name:</label>
+                <input class="form-control" type="text" id="CourseName" name="CourseName" value={CourseName} onChange={(e) => setCourseName(e.target.value)} required />
+                </div>
+        
+                <div className="form-group"></div>
+                    <label className="control-label">Description:</label>
+                    <input class="form-control" type="text" id="Description" name="Description" value={Description} onChange={(e) => setDescription(e.target.value)} required />
+                
+                <div className="form-group">
+                    <label className="control-label">Create Date:</label>
+                    <input class="form-control" type="date" id="CreateDate" name="CreateDate" value={CreateDate} onChange={(e) => setCreateDate(e.target.value)} required />
+                </div>
 
-                <label>Course Name:</label>
-                <input type="text" id="CourseName" name="CourseName" value={CourseName} onChange={(e) => setCourseName(e.target.value)} required />
-
-                <label>Description:</label>
-                <input type="text" id="Description" name="Description" value={Description} onChange={(e) => setDescription(e.target.value)} required />
-
-                <label>Create Date:</label>
-                <input type="date" id="CreateDate" name="CreateDate" value={CreateDate} onChange={(e) => setCreateDate(e.target.value)} required />
                 {PhotoFileName != '' &&
-                      <img width="250px" height="250px"
+                    <img width="250px" height="250px"
                         src={PhotoPath + PhotoFileName} />
-                    }
+                }
                 <label>Image:</label>
-                <input type="file" id="Image" name="Image"  onChange={imageUpload} required />
 
-                <button type="submit" id="submit" name="submit" className="btn-btn">Add</button>
-                <button type="button" onClick={closePopup} className="btn-btn">Cancel</button>
+                <input class="form-control" type="file" id="Image" name="Image" onChange={imageUpload} required />
+
+                <button type="submit" id="submit" name="submit" className="btn btn-success">Add</button>
+                <button type="button" onClick={closePopup} className="btn btn-info">Cancel</button>
             </form>
         </div>
     );

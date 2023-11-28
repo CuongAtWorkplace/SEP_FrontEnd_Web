@@ -79,7 +79,7 @@ const CardPost = () => {
             .then((response) => {
                 if (response.ok) {
                     toast.success("Successfull !!!")
-                    window.location.href = "/viewpostlistmanager";
+                    window.location.href = "/manager/viewpostlistmanager";
                 }
                 else if (!response.ok) {
                     toast.error("Failed. Try Again!!!")

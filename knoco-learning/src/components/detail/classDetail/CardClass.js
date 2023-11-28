@@ -20,6 +20,7 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
     const params = useParams();
     const [isNotePopupVisible, setNotePopupVisible] = useState(false);
     const navigate = useNavigate();
+    const [className, setClassName] = useState('');
 
     useEffect(() => {
         fetchData();
@@ -30,6 +31,7 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
             const response = await fetch(`https://localhost:7169/api/Class/GetTeacherClassDetail/${params.classId}`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setClassDt(responseData);
+            setClassName(responseData.className);
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu lớp học:', error);
         }
@@ -133,9 +135,11 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
                             Edit class
                         </button>
 
-                        <button className="btn-item" >
-                            Meeting Room
-                        </button>
+                        <a href={`/videocalldemo/${classDt.className}`}>
+                            <button className="btn-item" >
+                                Meeting Room
+                            </button>
+                        </a>
 
                         <button className="btn-item" onClick={openNotePopup}>
                             Note box
@@ -220,10 +224,11 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
                             Edit class
                         </button>
 
-                        <button className="btn-item" >
-                            Meeting Room
-                        </button>
-
+                        <a >
+                            <button className="btn-item" >
+                                Meeting Room
+                            </button>
+                        </a>
                         <button className="btn-item" onClick={openNotePopup}>
                             Note box
                         </button>

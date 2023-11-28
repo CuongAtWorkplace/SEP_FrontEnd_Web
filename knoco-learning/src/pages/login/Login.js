@@ -35,6 +35,7 @@ class Login extends Component {
         this.refreshList();
     
       }
+         
     handleLogin = async () => {
         const { email, password, redirectPath} = this.state;
         try {
@@ -47,6 +48,10 @@ class Login extends Component {
             });
 
             if (response.ok) {
+                setTimeout(() => {
+                    localStorage.removeItem('token');
+                    console.log('da xoa token.');
+                  }, 30 * 1000);
                 console.log('Đăng nhập thanh cong');
                 const data = await response.json();
                 const token = data.token;

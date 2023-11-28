@@ -7,12 +7,12 @@ import { toast} from 'react-toastify';
 const CardNote = ({ closePopup }) => {
     const params = useParams();
     const [noteTeacher, setNoteTeacher] = useState([]);
-    const [textAreaValue, setTextAreaValue] = useState('');
+    const [content, setContent] = useState('');
     const [userId, setUserId] = useState('');
 
-    const handleTextAreaChange = (event) => {
-        setTextAreaValue(event.target.value);
-    };
+    // const handleTextAreaChange = (event) => {
+    //     setTextAreaValue(event.target.value);
+    // };
 
     useEffect(() => {
         fetchDataNote();
@@ -28,7 +28,9 @@ const CardNote = ({ closePopup }) => {
             const response = await fetch(`https://localhost:7169/api/NoteTeacher/GetNoteInClass?classId=${params.classId}`);
             const responseData = await response.json();
             setNoteTeacher(responseData);
-            setTextAreaValue(responseData.content || '')
+            setContent(responseData.content || '');
+            console.log(responseData.content);
+            
 
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu lớp học:', error);
@@ -36,7 +38,7 @@ const CardNote = ({ closePopup }) => {
     };
 
     const handleSubmitNote = async (e) => {
-        if (textAreaValue.trim() === '') {
+        if (content.trim() === '') {
             alert("không được để trống");
             return;
         } else {
@@ -45,19 +47,21 @@ const CardNote = ({ closePopup }) => {
 
             const decodedToken = jwtDecode(token);
             setUserId(decodedToken.userid);
+            console.log(noteTeacher.noteId);
+            console.log(decodedToken.userid);
+            console.log(params.classId);
+            console.log(content);
 
-            const currentDate = new Date().toISOString();
             const NoteNew = {
+                noteId: noteTeacher.noteId,
                 userId: decodedToken.userid,
                 classId: params.classId,
-                content: textAreaValue,
-                createDate: currentDate,
-
+                content: content
             };
 
             e.preventDefault();
             try {
-                const response = await fetch(`https://localhost:7169/api/NoteTeacher/UpdateNoteTeacher`, {
+                const response = await fetch(`https://localhost:7169/api/NoteTeacher/UpdateNoteTeachers`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
@@ -65,6 +69,7 @@ const CardNote = ({ closePopup }) => {
                     body: JSON.stringify(NoteNew)
                 });
                 if (response.ok) {
+                    toast.error("Save successful!!!")
                     console.log('Dữ liệu lớp học đã được cập nhật thành công');
                     closePopup();
                 } else {
@@ -87,7 +92,7 @@ const CardNote = ({ closePopup }) => {
                         <h3>{note.content}</h3>
                     </div>
                 ))} */}
-                <textarea className="textarea-note" value={textAreaValue} onChange={handleTextAreaChange}></textarea>
+                <textarea className="textarea-note" id="content" name="content" value={content} onChange={(e) => setContent(e.target.value)} />
                 <button type="submit" id="submit" name="submit" className="btn-btn">Save</button>
                 <button type="button" onClick={closePopup} className="btn-btn">Cancel</button>
             </form>

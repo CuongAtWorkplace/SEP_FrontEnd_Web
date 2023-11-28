@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import '../../style/Teacher/Add.css';
+import '../../style/Teacher/Edit.css';
 
 const CardAddClass = ({ closePopup }) => {
     const params = useParams();
@@ -80,32 +80,48 @@ const CardAddClass = ({ closePopup }) => {
         <div className="card-edit-class">
             <form onSubmit={handleSubmit}>
                 <h2>Add new class</h2>
-                <label>Class Name:</label>
-                <input type="text" id="ClassName" name="ClassName" value={className} onChange={(e) => setClassName(e.target.value)} required />
+                <div className="form-group">
+                    <label className="control-label">Class Name:</label>
+                    <input class="form-control" type="text" id="ClassName" name="ClassName" value={className} onChange={(e) => setClassName(e.target.value)} required />
+                </div>
 
-                <label>Topic:</label>
-                <input type="text" id="Topic" name="Topic" value={topic} onChange={(e) => setTopic(e.target.value)} required />
+                <div className="form-group">
+                    <label className="control-label">Topic:</label>
+                    <input class="form-control" type="text" id="Topic" name="Topic" value={topic} onChange={(e) => setTopic(e.target.value)} required />
+                </div>
 
-                <label>Fee:</label>
-                <input type="text" id="Fee" name="Fee" value={fee} onChange={(e) => setFee(e.target.value)} required />
+                <div className="form-group">
+                    <label className="control-label">Fee:</label>
+                    <input class="form-control" type="text" id="Fee" name="Fee" value={fee} onChange={(e) => setFee(e.target.value)} required />
+                </div>
 
-                <label>Number of Weeks:</label>
-                <input type="number" id="NumberOfWeek" name="NumberOfWeek" value={numberOfWeek} onChange={(e) => setNumberOfWeek(e.target.value)} required />
+                <div className="form-group">
+                    <label className="control-label">Number of Weeks:</label>
+                    <input class="form-control" type="number" id="NumberOfWeek" name="NumberOfWeek" value={numberOfWeek} onChange={(e) => setNumberOfWeek(e.target.value)} required />
+                </div>
 
-                <label>Phone Number:</label>
-                <input type="tel" id="NumberPhone" name="NumberPhone" value={numberPhone} onChange={(e) => setNumberPhone(e.target.value)} required />
+                <div className="form-group">
+                    <label className="control-label">Phone Number:</label>
+                    <input class="form-control" type="tel" id="NumberPhone" name="NumberPhone" value={numberPhone} onChange={(e) => setNumberPhone(e.target.value)} required />
+                </div>
 
-                <label>Description:</label>
-                <textarea id="Description" name="Description" value={description} onChange={(e) => setDescription(e.target.value)} required />
+                <div className="form-group">
+                    <label className="control-label">Description:</label>
+                    <textarea class="form-control" id="Description" name="Description" value={description} onChange={(e) => setDescription(e.target.value)} required />
+                </div>
 
-                <label>Start Date:</label>
-                <input type="date" name="StartDate" value={startDate} onChange={(e) => setStartDate(e.target.value)} required />
+                <div className="form-group">
+                    <label className="control-label">Start Date:</label>
+                    <input class="form-control" type="date" name="StartDate" value={startDate} onChange={(e) => setStartDate(e.target.value)} required />
+                </div>
 
-                <label>End Date:</label>
-                <input type="date" name="EndDate" value={endDate} onChange={(e) => setEndDate(e.target.value)} required />
+                <div className="form-group">
+                    <label className="control-label">End Date:</label>
+                    <input class="form-control" type="date" name="EndDate" value={endDate} onChange={(e) => setEndDate(e.target.value)} required />
+                </div>
 
                 <button type="submit" id="submit" name="submit" className="btn-btn">Edit</button>
-                <button type="button" onClick={closePopup} className="btn-btn">Cancel</button>
+                <button class="form-control" type="button" onClick={closePopup} className="btn-btn">Cancel</button>
             </form>
         </div>
     );

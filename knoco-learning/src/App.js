@@ -58,7 +58,7 @@ function App() {
         <Route path='/notificationteacher' element={<ViewNotificationTeacher/>}/>
         <Route path='/quizzdetail' element={<QuizzDetail/>}/>
         <Route path="/videocalldemo/:roomId" element={<VideoCallDemo />} />
-        <Route path="/viewpostlistmanager" element={<ViewPostListManager />} />
+        <Route path="/manager/viewpostlistmanager" element={<ViewPostListManager />} />
         <Route path="/viewpostdetailmanager/:pid" element={<ViewPostDetailManager />} />
         <Route path="/profile-teacher" element={<Profile />} />
         <Route path="/class-empty/:courseId" element={<ClassEmpty/>} />

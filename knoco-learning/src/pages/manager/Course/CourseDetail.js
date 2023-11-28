@@ -27,7 +27,7 @@ import { Table } from "reactstrap";
 // import SideBar from "../../../components/sidebar/SideBar";
 // import Header from "../../../components/header/Header";
 // import Footer from "../../../components/footer/Footer";
-import { toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 function CourseDetail() {
   const [courseDetail, setCourseDetail] = useState({});
   const [classInCourse, setClassInCourse] = useState([]);
@@ -42,7 +42,7 @@ function CourseDetail() {
   const [PhotoPath, setPhotoPath] = useState('https://localhost:7169/Photos/');
   const { cid } = useParams();
 
-  useEffect(() => { 
+  useEffect(() => {
     fetch(`https://localhost:7169/api/Course/GetClassInCourse?courseId=${cid}`)
       .then((response) => response.json())
       .then((data) => {
@@ -59,22 +59,22 @@ function CourseDetail() {
         setCreateDate(data.createDate);
       });
 
-   
+
   }, [cid]);
 
   // const columns = [
   //   { field: "classId", headerName: "ID", width: 70 },
   //   { field: "className", headerName: "Class Name", width: 150 },
   // ];
-    const columns = [
-      {
-          Header: 'Class Id',
-          accessor: 'classId',
-      },
-      {
-          Header: 'Class Name',
-          accessor: 'className',
-      }
+  const columns = [
+    {
+      Header: 'Class Id',
+      accessor: 'classId',
+    },
+    {
+      Header: 'Class Name',
+      accessor: 'className',
+    }
   ];
 
   const getRowId = (row) => row.courseId;
@@ -125,7 +125,7 @@ function CourseDetail() {
       .then((response) => {
         if (response.ok) {
           toast.success("Update successfull. Congratulation!!!")
-       
+
         }
         else if (!response.ok) {
           toast.error("Update failed. Try Again!!!")
@@ -208,24 +208,18 @@ function CourseDetail() {
                   </div>
                   <div className="col-md-6">
                     <label className="labels">Image</label>
-                    {/* <input
-                          type="text"
-                          className="form-control"
-                          placeholder={courseDetail.image}
-                          value={image}
-                          onChange={(e) => setImage(e.target.value)}
-                        /> */}
+                    
                     {PhotoFileName != '' &&
                       <img width="250px" height="250px"
                         src={PhotoPath + PhotoFileName} />
                     }
                   </div>
-                  <div className="col-md-12">
-                    <input className="m-2" type="file" onChange={imageUpload} />
+                  <div className="col-md-7">
+                    <input class="form-control" className="m-2" type="file" onChange={imageUpload} />
                   </div>
                 </div>
                 <div className="mt-5 text-center">
-                  <button style={{ width: "100%" }} type="button" onClick={NewCourse} className=" btn btn-block mybtn btn-primary tx-tfm">Thay Đổi</button>
+                  <button type="button" onClick={NewCourse} className=" btn btn-block mybtn btn-primary tx-tfm">Thay Đổi</button>
                 </div>
               </form>
             </div>
@@ -233,11 +227,11 @@ function CourseDetail() {
               <div className="">
                 <h1>Danh sách lớp</h1>
                 {classInCourse.map((comment, index) => (
-                    <div key={index} className="comment">
-                        <strong>{comment.className}</strong>  <span className="edit-comment">
-                           
-                        </span>
-                    </div>
+                  <div key={index} className="comment">
+                    <strong>{comment.className}</strong>  <span className="edit-comment">
+
+                    </span>
+                  </div>
                 ))}
                 <Table
                   columns={columns}

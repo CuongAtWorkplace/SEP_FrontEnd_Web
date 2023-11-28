@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-// import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import "./css/main.css";
 import jwtDecode from "jwt-decode";
+
+
 
 class Login extends Component {
     constructor(props) {
@@ -11,9 +13,10 @@ class Login extends Component {
             email: '',
             password: '',   
             NewsHome:[],
+            redirectPath: null,
         }
     }
-
+    
     handleEmailChange = (e) => {
         this.setState({ email: e.target.value });
     };
@@ -28,12 +31,12 @@ class Login extends Component {
           });
       }
       componentDidMount() {
-       
+        
         this.refreshList();
     
       }
     handleLogin = async () => {
-        const { email, password, } = this.state;
+        const { email, password, redirectPath} = this.state;
         try {
             const response = await fetch('https://localhost:7169/api/Login', {
                 method: 'POST',
@@ -53,17 +56,14 @@ class Login extends Component {
                 
                 localStorage.setItem('id', decodedToken.id);
                 localStorage.setItem('roleid', decodedToken.roleid);
-                window.location.href = "/videocalldemo/room123";
-                // this.setState({ nameUser: decodedToken.fullname });
-                // this.setState({ showModal: false, IsLogin: true })
-                // this.setState({ checkLogin: true });
+                
 
-                // if (decodedToken.roleid == 2) {
-                //     window.location.href = "/";
-                // }
-                // if (decodedToken.roleid == 1 || decodedToken.roleid == 3 || decodedToken.roleid == 4 || decodedToken.roleid == 5) {
-                //     window.location.href = "/manager";
-                // }
+                if (decodedToken.roleid == 2) {
+                    window.location.href = "/video";
+                }
+                if (decodedToken.roleid == 1 || decodedToken.roleid == 3 || decodedToken.roleid == 4 ) {
+                    window.location.href = "/manager/course";
+                }
             } else {
                 console.log('Đăng nhập thất bại');
                 this.setState({ checkLogin: false });

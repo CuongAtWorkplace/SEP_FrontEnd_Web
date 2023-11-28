@@ -97,7 +97,7 @@ const TableListCourse = () => {
     };
     return (
         <div>
-            <button className="btn-add"  onClick={openAddCoursePopup}>Add new Course</button>
+            <button className="btn-add"  onClick={openAddCoursePopup}>New Course</button>
             <Table columns={columns} data={data} onRowClick={handleRowClick} />
             {
                 AddCoursePopupVisible && (

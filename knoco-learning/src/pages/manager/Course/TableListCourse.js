@@ -51,6 +51,9 @@ const TableListCourse = () => {
         setAddCoursePopupVisible(false);
     }
     const navigate = useNavigate();
+    function formatAPIDate(apiDate) {
+        return new Date(apiDate).toLocaleDateString('en-US');
+      }
     const columns = [
         {
             Header: 'ID',
@@ -73,7 +76,7 @@ const TableListCourse = () => {
             Filter: ColumnFilter, // Custom filter component for courseId column
             Cell: ({ row }) => (
                 <div>
-                  {(row.original.createDate)}
+                 {formatAPIDate(row.original.createDate)}
                 </div>
               ),
         },

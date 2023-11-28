@@ -32,7 +32,7 @@ const SideBar = () => {
         setRoleid(localStorage.getItem('roleid'));
 
     }, []);
-    if(roleid == 2){
+    if(roleid == 2 || roleid == null){
         return  navigate(`/`);
     }return (
         

@@ -1,30 +1,21 @@
-import { DataGrid, GridToolbar } from "@mui/x-data-grid"
+import { DataGrid } from "@mui/x-data-grid"
 import "./dataTable.scss"
-import { GrTrash, GrView } from 'react-icons/gr'
 import { Link } from "react-router-dom"
-import { useEffect } from "react"
+
 
 const DataTable = props => {
-  const handleDelete = userId => {
-    // delete the item
-    // mutation.mutate(userId)
-  }
 
   const actionColumn = {
     field: "action",
     headerName: "Action",
-    width: 200,
+    width: 80,
     renderCell: params => {
       return (
-        <div className="action">
-          <Link to={`/${props.slug}/${params.row.userId}`}>
-            {/* <img src="/view.svg" alt="" /> */}
-            <GrView alt="" />
+        <div className="cellAction">
+          <Link to={`/${props.slug}/${params.row.userId}`} style={{ textDecoration: "none" }}>
+            <div className="viewButton">View</div>
+            {/* <GrView alt="" /> */}
           </Link>
-          {/* <div className="delete" onClick={() => handleDelete(params.row.userId)}>
-            <img src="/delete.svg" alt="" />
-            <GrTrash alt="" />
-          </div> */}
         </div>
       )
     }
@@ -37,25 +28,13 @@ const DataTable = props => {
         rows={props.rows}
         columns={[...props.columns, actionColumn]}
         initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 10
-            }
-          }
+          // ...data.initialState,
+          pagination: { paginationModel: { pageSize: 8 } },
         }}
-        slots={{ toolbar: GridToolbar }}
-        slotProps={{
-          toolbar: {
-            showQuickFilter: true,
-            quickFilterProps: { debounceMs: 500 }
-          }
-        }}
-        pageSizeOptions={[5]}
-        checkboxSelection
-        disableRowSelectionOnClick
-        disableColumnFilter
-        disableDensitySelector
-        disableColumnSelector
+        pageSizeOptions={[10]}
+        // pageSize={8}
+        // rowsPerPageOptions={[8]}
+      // checkboxSelection
       />
     </div>
   )

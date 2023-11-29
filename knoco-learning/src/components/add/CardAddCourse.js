@@ -92,17 +92,17 @@ const CardAddCourse = ({ closePopup }) => {
     }
     return (
         <div className="card-edit-class">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} style={{width : '500px'}}>
                 <h2>New Course</h2>
                 <div className="form-group">
-                <label className="control-label">Course Name:</label>
-                <input class="form-control" type="text" id="CourseName" name="CourseName" value={CourseName} onChange={(e) => setCourseName(e.target.value)} required />
+                    <label className="control-label">Course Name:</label>
+                    <input class="form-control" type="text" id="CourseName" name="CourseName" value={CourseName} onChange={(e) => setCourseName(e.target.value)} required />
                 </div>
-        
+
                 <div className="form-group"></div>
-                    <label className="control-label">Description:</label>
-                    <input class="form-control" type="text" id="Description" name="Description" value={Description} onChange={(e) => setDescription(e.target.value)} required />
-                
+                <label className="control-label">Description:</label>
+                <input class="form-control" type="text" id="Description" name="Description" value={Description} onChange={(e) => setDescription(e.target.value)} required />
+
                 <div className="form-group">
                     <label className="control-label">Create Date:</label>
                     <input class="form-control" type="date" id="CreateDate" name="CreateDate" value={CreateDate} onChange={(e) => setCreateDate(e.target.value)} required />

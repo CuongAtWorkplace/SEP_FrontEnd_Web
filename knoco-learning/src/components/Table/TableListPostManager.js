@@ -6,7 +6,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { async } from "q";
 import { BsFillPencilFill } from "react-icons/bs";
-import { toast} from 'react-toastify';
+import { toast } from 'react-toastify';
+import { BsCheck2Circle } from "react-icons/bs";
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
 
@@ -41,7 +42,7 @@ const TableListPostManager = () => {
 
 
   const navigate = useNavigate();
-  
+
   const columns = [
     {
       Header: 'Post Id',
@@ -68,7 +69,7 @@ const TableListPostManager = () => {
       accessor: 'contentPost',
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
-   
+
     {
       Header: 'Image',
       accessor: 'image',
@@ -99,9 +100,9 @@ const TableListPostManager = () => {
       // disableSortBy: true,
       Cell: ({ row }) => (
         <a href={`/viewpostdetailmanager/${row.original.postId}`}>
-          <BsFillPencilFill  size={30}/>
+          <BsFillPencilFill size={30} />
         </a>
-        
+
       ),
     },
   ];
@@ -154,7 +155,7 @@ const TableListPostManager = () => {
         .then((response) => {
           if (response.ok) {
             toast.success("Successfull")
-              fetchData();
+            fetchData();
           }
           else if (!response.ok) {
             toast.error("Failed. Try Again!!!")
@@ -169,13 +170,13 @@ const TableListPostManager = () => {
     }
 
   }
-  
+
 
   const handleRowClick = (row) => {
     console.log('Clicked row data:', row);
     const postId = row.postId
     // navigate(`/viewpostdetailmanager/${postId}`);
-  }; 
+  };
   return (
     <div>
       <Table columns={columns} data={data} onRowClick={handleRowClick} />

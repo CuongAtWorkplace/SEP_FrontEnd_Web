@@ -55,11 +55,11 @@
     background: #253047;
     cursor: pointer;
   }
-  
+  /* check */
   #menu .items li:nth-child(1){
     border-left: 4px solid #fff;
   }
-  
+    
   .items li .menu-icon{
     color: rgb(134, 141, 151);
     width: 30px;

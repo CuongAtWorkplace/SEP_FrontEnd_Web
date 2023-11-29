@@ -7,6 +7,7 @@ import Footer from "../../../components/footer/Footer";
 import SideBar from "../../../components/sidebar/SideBar";
 import Add from "../../../components/admin/add/Add";
 import '../users/users.scss';
+import { toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.css';
 
 class Users extends Component {
@@ -53,21 +54,35 @@ class Users extends Component {
         },
         body: JSON.stringify(data),
       });
-      console.log(data);
-
+      // console.log(data);
+      // .then((response) => {
       if (response.ok) {
-        // alert('User added successfully');
+        toast.success("Add Successfull!!!")
         await this.getListUser();
         this.setState({
           isOpenModal: false
         });
-      } else {
-        const errorData = await response.json();
-        console.error('Failed to add user:', errorData);
+        // window.location.href = "/users";
       }
+      else if (!response.ok) {
+        toast.error("Failed. Try Again!!!")
+        throw new Error('Failed to update');
+      }
+
+      // })
+      // if (response.ok) {
+      //   // alert('User added successfully');
+      //   await this.getListUser();
+      //   this.setState({
+      //     isOpenModal: false
+      //   });
+      // } else {
+      //   const errorData = await response.json();
+      //   console.error('Failed to add user:', errorData);
+      // }
     } catch (error) {
       console.error('Error occurred:', error);
-      alert('Error occurred. Check console for details.');
+      // alert('Error occurred. Check console for details.');
     }
   };
 
@@ -136,7 +151,7 @@ class Users extends Component {
                 <div className="infoUsers">
                   <div className="col-10">
                     <h1>Users</h1>
-                  </div>                 
+                  </div>
                   <div className=" mx-1">
                     <button className="btn btn-primary" onClick={() => { this.handleAddNewUser() }}>
                       Add New User</button>

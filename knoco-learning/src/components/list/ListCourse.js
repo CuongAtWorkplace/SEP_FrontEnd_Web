@@ -18,10 +18,9 @@ const ListCourse = () => {
         }
     };
 
-    const formatDate = (date) => {
-        const formattedDate = new Date(date).toISOString().split('T')[0];
-        return formattedDate;
-    };
+    function formatAPIDate(apiDate) {
+        return new Date(apiDate).toLocaleDateString('en-US');
+    }
 
     return (
         <div className="list-course">
@@ -29,12 +28,12 @@ const ListCourse = () => {
                 data.map((course, index) => (
                     <div key={index} className="items-course">
                         <div className="img-course">
-                            <img src={"https://reactjs.org/logo-og.png" || "https://reactjs.org/logo-og.png"} alt={course.courseName} />
+                            <img src={`https://localhost:7169/Photos/${course.image}` || "https://reactjs.org/logo-og.png"} alt={course.courseName} />
                         </div>
                         <div className="course">
                             <div className="first-info">
                                 <small className="m-0"><i className="text-primary"></i></small>
-                                <small className="m-0"><i className="text-primary"></i>{formatDate(course.createDate)}</small>
+                                <small className="m-0"><i className="text-primary"></i>{formatAPIDate(course.createDate)}</small>
                             </div>
                             <Link className="a-link h5" to={`/class-empty/${course.courseId}`}>{course.courseName}</Link>
                             <p>{course.description}</p>

@@ -36,7 +36,6 @@ const ListAllCourse = ({ children, ...props }) => {
 
                 <div className="children">
                     <ListCourse />
-                    
                 </div>
 
                 <footer>

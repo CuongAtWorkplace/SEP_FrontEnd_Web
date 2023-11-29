@@ -80,21 +80,17 @@ const CardChangeImage = ({ closePopup }) => {
     };
 
     return (
-        <div className="card-edit-class">
+        <div className="card-img-class">
             <form onSubmit={handleSubmit}>
                 <h2>Change Image</h2>
 
                 <img src={imageSource || myImage} alt={imageSource || "Profile"} />
-                <input type="file" id="image" name="image" accept="image/*" onChange={handleImageChange} />
+                <input className="form-control" type="file" id="image" name="image" accept="image/*" onChange={handleImageChange} />
 
-                {userDt ? (
-                    <img src={userDt.image} alt={userDt.image} />
-                ) : (
-                    <img src={myImage} alt="Profile" />
-                )}
-
-                <button type="submit" id="submit" name="submit" className="btn-btn">Change</button>
-                <button type="button" onClick={closePopup} className="btn-btn">Cancel</button>
+                <div className="form-group">
+                    <button type="submit" id="submit" name="submit" className="btn-btn">Change</button>
+                    <button type="button" onClick={closePopup} className="btn-btn">Cancel</button>
+                </div>
             </form>
         </div>
     );

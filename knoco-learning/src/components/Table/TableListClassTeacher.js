@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Table from "./Table";
 import '../../style/Teacher/Tag.css';
 import CardAddClass from "../add/CardAddClass";
-import { async } from "q";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
@@ -19,29 +20,24 @@ const ColumnFilter = ({ column }) => {
 };
 
 const TableListClassTeacher = () => {
+  const UserID = 2;
   const [data, setData] = useState([]);
-  //const [allClass, setallClass] = useState([]);
   const navigate = useNavigate();
   const [isAddClassPopupVisible, setAddClassPopupVisible] = useState(false);
-  const [files, setFiles] = useState([]);
-  const [fileUpload, setfileUpload] = useState(null);
-  const [classId, setClassId] = useState('1');
+
   useEffect(() => {
     fetchData();
-   
   }, []);
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`https://localhost:7169/api/Class/GetClassListForRole/${2}`);
+      const response = await fetch(`https://localhost:7169/api/Class/GetClassListForRole/${UserID}`);
       const responseData = await response.json();
       setData(responseData);
     } catch (error) {
       console.error('Lỗi khi lấy dữ liệu:', error);
     }
   };
-
- 
 
   const handleRowClick = (row) => {
     console.log('Clicked row data:', row);
@@ -55,36 +51,35 @@ const TableListClassTeacher = () => {
   const closeAddClassPopup = () => {
     setAddClassPopupVisible(false);
   }
-  
+
+  function formatAPIDate(apiDate) {
+    return new Date(apiDate).toLocaleDateString('en-US');
+  }
+
   const [columns, setColumns] = useState([
     {
-      Header: 'Class Name',
+      Header: 'Class name',
       accessor: 'className',
       Filter: ColumnFilter, // Custom filter component for courseName column
     },
     {
-      Header: 'Teacher Name',
+      Header: 'Teacher name',
       accessor: 'teacherName',
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
     {
-      Header: 'CourseName',
+      Header: 'Course name',
       accessor: 'courseName',
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
     {
-      Header: 'NumberStudent',
+      Header: 'Number student',
       accessor: 'numberStudent',
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
     {
       Header: 'Topic',
       accessor: 'topic',
-      Filter: ColumnFilter, // Custom filter component for courseId column
-    },
-    {
-      Header: 'QuizzeName',
-      accessor: 'quizzeName',
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
     {
@@ -98,24 +93,39 @@ const TableListClassTeacher = () => {
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
     {
-      Header: 'NumberOfWeek',
+      Header: 'Number of week',
       accessor: 'numberOfWeek',
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
     {
-      Header: 'CreateDate',
+      Header: 'Create date',
       accessor: 'createDate',
       Filter: ColumnFilter, // Custom filter component for courseId column
+      Cell: ({ row }) => (
+        <div>
+         {formatAPIDate(row.original.createDate)}
+        </div>
+      ),
     },
     {
-      Header: 'StartDate',
+      Header: 'Start date',
       accessor: 'startDate',
       Filter: ColumnFilter, // Custom filter component for courseId column
+      Cell: ({ row }) => (
+        <div>
+         {formatAPIDate(row.original.startDate)}
+        </div>
+      ),
     },
     {
-      Header: 'EndDate',
+      Header: 'End date',
       accessor: 'endDate',
       Filter: ColumnFilter, // Custom filter component for courseId column
+      Cell: ({ row }) => (
+        <div>
+         {formatAPIDate(row.original.endDate)}
+        </div>
+      ),
     },
     {
       Header: 'Status',
@@ -125,25 +135,10 @@ const TableListClassTeacher = () => {
 
   ]);
 
-  // const [apiData, setApiData] = useState([]);
-  // useEffect(() => {
-  //   // Call your API to get data
-  //   fetch(`https://localhost:7169/api/Class/GetTeacherClassList/${2}`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       setData(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching data:', error);
-  //     });
-  // }, []);
-
   return (
     <div>
-      <button className="btn-add" onClick={openAddClassPopup}>Add new class</button>
+      <button className="btn-add" onClick={openAddClassPopup}><FontAwesomeIcon icon={faSquarePlus} /> New class</button>
       <Table columns={columns} data={data} onRowClick={handleRowClick} />
-
       {
         isAddClassPopupVisible && (
           <div className="popup">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-
+import '../../style/Teacher/Edit.css';
 
 const CardAddCourse = ({ closePopup }) => {
     const params = useParams();
@@ -99,9 +99,10 @@ const CardAddCourse = ({ closePopup }) => {
                     <input class="form-control" type="text" id="CourseName" name="CourseName" value={CourseName} onChange={(e) => setCourseName(e.target.value)} required />
                 </div>
 
-                <div className="form-group"></div>
-                <label className="control-label">Description:</label>
-                <input class="form-control" type="text" id="Description" name="Description" value={Description} onChange={(e) => setDescription(e.target.value)} required />
+                <div className="form-group">
+                    <label className="control-label">Description:</label>
+                    <input class="form-control" type="text" id="Description" name="Description" value={Description} onChange={(e) => setDescription(e.target.value)} required />
+                </div>
 
                 <div className="form-group">
                     <label className="control-label">Create Date:</label>
@@ -116,8 +117,8 @@ const CardAddCourse = ({ closePopup }) => {
 
                 <input class="form-control" type="file" id="Image" name="Image" onChange={imageUpload} required />
 
-                <button type="submit" id="submit" name="submit" className="btn btn-success">Add</button>
-                <button type="button" onClick={closePopup} className="btn btn-info">Cancel</button>
+                <button type="submit" id="submit" name="submit" className="btn-btn">Add</button>
+                <button type="button" onClick={closePopup} className="btn-  btn">Cancel</button>
             </form>
         </div>
     );

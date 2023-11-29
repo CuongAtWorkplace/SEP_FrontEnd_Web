@@ -12,7 +12,13 @@
     border-top-left-radius: 50px 50px;
 }
 
-.img-course img{
+.img-course {
+    width: 400px;
+    height: 200px;
+    border-top-left-radius: 50px 50px;
+}
+
+img {
     width: 400px;
     height: 200px;
     border-top-left-radius: 50px 50px;
@@ -30,17 +36,16 @@
     margin-bottom: 10px;
     font-size: 20px;
     font-weight: bold;
-    
 }
 
 .a-link {
-    color: #FF6600;
+    color: #0055FF;
     text-decoration: none;
     background-color: transparent;
     font-size: 20px;
 }
 
 .a-link:hover {
-    color: #00b336;
+    color: #00F6FF;
     text-decoration: underline;
 }

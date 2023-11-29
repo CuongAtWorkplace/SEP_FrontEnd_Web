@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import '../../style/Teacher/Teacher.css';
 import myImage from '../../assets/profile.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faRightFromBracket, faUserGraduate, faEnvelope, faSquarePhone, faPen, faMapLocationDot, faCalendarDays, faMoneyCheckDollar } from "@fortawesome/free-solid-svg-icons";
 import { memo } from "react";
 import Header from "../../components/header/Header"
 import Footer from "../../components/footer/Footer";
@@ -52,10 +52,9 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
         }
     };
 
-    const formatDate = (date) => {
-        const formattedDate = new Date(date).toISOString().split('T')[0];
-        return formattedDate;
-    };
+    function formatAPIDate(apiDate) {
+        return new Date(apiDate).toLocaleDateString('en-US');
+    }
 
     const openEditProfilePopup = () => {
         setEditProfilePopupVisible(true);
@@ -110,29 +109,29 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                                         </li>
                                         <li>
                                             <button onClick={openChangeImagePopup}>Change image</button>
-                                            <button onClick={openChangePasswordPopup}>Change password</button>
+                                            <button onClick={openEditProfilePopup}>Edit profile</button>
                                         </li>
                                         <li>
-                                            <button onClick={onBackClick}><FontAwesomeIcon icon={faArrowLeft} /> Back</button>
-                                            <button onClick={openEditProfilePopup}>Edit profile</button>
+                                        <button onClick={openChangePasswordPopup}> Change password</button>
+                                            <button onClick={onBackClick}><FontAwesomeIcon icon={faRightFromBracket} /> Log out</button>
+                                            
                                         </li>
                                     </ul>
                                 </div>
                                 <div className="colums-2">
-                                    <h2>{userDt.fullName} </h2>
-                                    <p className="title email">Email: </p>
+                                    <h2><FontAwesomeIcon icon={faUserGraduate} /> {userDt.fullName} </h2>
+                                    <h4 className="title email"><FontAwesomeIcon icon={faEnvelope} /> Email: </h4>
                                     <p>{userDt.email}</p>
-                                    <p className="title phone">Phone number: </p>
+                                    <h4 className="title phone"><FontAwesomeIcon icon={faSquarePhone} /> Phone number: </h4>
                                     <p>{userDt.phone}</p>
-                                    <p className="title description">Description: </p>
+                                    <h4 className="title description"><FontAwesomeIcon icon={faPen} /> Description: </h4>
                                     <p>{userDt.description}</p>
-                                    <p className="title address">Address: </p>
+                                    <h4 className="title address"><FontAwesomeIcon icon={faMapLocationDot} /> Address: </h4>
                                     <p>{userDt.address}</p>
-                                    <p className="title createdate">Create date: </p>
-                                    <p>{formatDate(userDt.createDate)}</p>
-                                    <p className="title balance">Balance: </p>
+                                    <h4 className="title createdate"><FontAwesomeIcon icon={faCalendarDays} /> Create date: </h4>
+                                    <p>{formatAPIDate(userDt.createDate)}</p>
+                                    <h4 className="title balance"><FontAwesomeIcon icon={faMoneyCheckDollar} /> Balance: </h4>
                                     <p>{userDt.balance}</p>
-
                                 </div>
                             </div>
                         </div>
@@ -147,25 +146,29 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                                         </li>
                                         <li>
                                             <button onClick={openChangeImagePopup}>Change image</button>
-                                            <button onClick={openChangePasswordPopup}>Change password</button>
+                                            <button onClick={openEditProfilePopup}>Edit profile</button>
                                         </li>
                                         <li>
-                                            <button onClick={onBackClick}><FontAwesomeIcon icon={faArrowLeft} /> Back</button>
-                                            <button onClick={openEditProfilePopup}>Edit profile</button>
+                                        <button onClick={openChangePasswordPopup}>Change password</button>
+                                            <button onClick={onBackClick}><FontAwesomeIcon icon={faRightFromBracket} /> Log out</button>
+                                            
                                         </li>
                                     </ul>
                                 </div>
                                 <div className="colums-2">
                                     <h2>null</h2>
-                                    <p className="title">Email: </p>
-                                    <p>null</p>
-                                    <p className="title">Phone number: </p>
-                                    <p>null</p>
-                                    <p className="title">Description: </p>
-                                    <p>null</p>
-                                    <p className="title">Address: </p>
-                                    <p>null</p>
-
+                                    <h4 className="title email"><FontAwesomeIcon icon={faEnvelope} /> Email: </h4>
+                                    <p>Empty!</p>
+                                    <h4 className="title phone"><FontAwesomeIcon icon={faSquarePhone} /> Phone number: </h4>
+                                    <p>Empty!</p>
+                                    <h4 className="title description"><FontAwesomeIcon icon={faPen} /> Description: </h4>
+                                    <p>Empty!</p>
+                                    <h4 className="title address"><FontAwesomeIcon icon={faMapLocationDot} /> Address: </h4>
+                                    <p>Empty!</p>
+                                    <h4 className="title createdate"><FontAwesomeIcon icon={faCalendarDays} /> Create date: </h4>
+                                    <p>Empty!</p>
+                                    <h4 className="title balance"><FontAwesomeIcon icon={faMoneyCheckDollar} /> Balance: </h4>
+                                    <p>Empty!</p>
                                 </div>
                             </div>
                         </div>

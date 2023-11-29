@@ -1,12 +1,11 @@
 .btn-add {
     background-color: white;
-    color: black;
-    border: 2px solid #0055FF;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px;
+    width: 200px;
+    margin: 0 0 -10px 50px;
     border-radius: 10px;
-    padding: 10px 20px;
-    text-align: center;
-    display: inline-block;
-    font-size: 16px;
-    margin: 5px;
-    width: 15%;
+    cursor: pointer;
+    border: 2px solid #0055FF;
 }

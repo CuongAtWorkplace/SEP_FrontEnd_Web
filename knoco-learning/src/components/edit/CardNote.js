@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import myImage from '../../assets/profile.jpg';
 import '../../style/Teacher/Edit.css'
 import jwtDecode from "jwt-decode";
-import { toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 const CardNote = ({ closePopup }) => {
     const params = useParams();
     const [noteTeacher, setNoteTeacher] = useState([]);
@@ -30,8 +30,6 @@ const CardNote = ({ closePopup }) => {
             setNoteTeacher(responseData);
             setContent(responseData.content || '');
             console.log(responseData.content);
-            
-
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu lớp học:', error);
         }

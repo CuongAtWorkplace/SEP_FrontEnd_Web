@@ -45,13 +45,15 @@ function App() {
 
         {/* teacher */}
         <Route path="/" element={<Login />} />
-
-
-        <Route path="/viewallclass" element={<ViewAllClass />} />
-        <Route path="/classdetail/:classId" element={<ClassDetail />} />
-
-        <Route path="/learnerdetail" element={<LearnerDetail />} />
-        <Route path="/listlearner" element={<ListLearner />} />
+        <Route path="/viewclass" element={<ViewAllClass/>} />
+        <Route path="/classdetail/:classId" element={<ClassDetail/>} />
+        <Route path="/learnerdetail" element={<LearnerDetail/>} />
+        <Route path="/list-all-course" element={<ListAllCourse />} />
+        <Route path="/class-empty/:courseId" element={<ClassEmpty />} />
+        
+        <Route path="/profile-teacher" element={<Profile />} />
+        
+        <Route path="/listlearner" element={<ListLearner/>} />
         <Route path="/dashboard" element={<Home />} />
         <Route path="/users" element={<Users />} />
         <Route path="/users/:userId" element={<UserDetail />} />
@@ -66,9 +68,6 @@ function App() {
         <Route path="/videocalldemo/:roomId" element={<VideoCallDemo />} />
         <Route path="/manager/viewpostlistmanager" element={<ViewPostListManager />} />
         <Route path="/viewpostdetailmanager/:pid" element={<ViewPostDetailManager />} />
-        <Route path="/profile-teacher" element={<Profile />} />
-        <Route path="/class-empty/:courseId" element={<ClassEmpty />} />
-        <Route path="/list-all-course" element={<ListAllCourse />} />
         <Route path="/chat/:gid" element={<GroupChat />} />
         <Route path='/testfile' element={<ListCourse />} />
         <Route path='/manager' element={<SideBar />} />

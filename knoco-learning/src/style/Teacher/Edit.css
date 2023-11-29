@@ -1,33 +1,31 @@
 .card-edit-class {
-    /* display: grid;
-    grid-template-columns: minmax(auto, auto);
-    grid-template-rows: minmax(auto, auto); */
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10;
+    width: 50%;
+}
+
+.card-img-class {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
 }
 
 form {
-    border: 1px solid #80808000;
-    grid-column: 6/9;
-    grid-row: 3;
+    border: 2px solid #0055FF;
     height: 100%;
-    width: 150%;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+    padding: 10px;
     position: relative;
     border-radius: 15px;
     box-shadow: 0 0 14px 0 grey;
     background-color: white;
-    margin-bottom: 60px;
-
 }
 
 .card-edit-class h2 {
-    margin: 20px;
-    margin-bottom: 20px;
-    
+    margin: 10px;
 }
 
 .card-edit-class label {
@@ -39,16 +37,14 @@ form {
 
 .btn-btn {
     padding: 5px;
-    width: 50%;
+    width: 80px;
     margin: 10px;
     border-radius: 10px;
-    border: none;
     cursor: pointer;
     border: 2px solid #0055FF;
 }
 
 textarea {
-    /* border-bottom: 2px solid #00BCD4; */
     padding: 5px;
     width: 70%;
 }
@@ -103,9 +99,8 @@ input .image {
 }
 
 .textarea-note {
-    width: 1000px;
     height: 500px;
-    margin: 10px;
+    width: 100%;
     border: 2px solid #3377FF;
     border-radius: 10px;
 }
@@ -148,9 +143,11 @@ input#submit {
     cursor: pointer;
     background: linear-gradient(to right, #fc00ff, #00dbde);
 }
-.btn{
+
+.btn {
     margin: 10px;
 }
+
 input #submit {
     background: linear-gradient(to right, #fc466b, #3f5efb);
 }

@@ -6,12 +6,12 @@ import Header from "../../../components/header/Header";
 import Footer from "../../../components/footer/Footer";
 import SideBar from "../../../components/sidebar/SideBar";
 import "./user.scss";
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const UserDetail = () => {
   const [userDetails, setUserDetails] = useState({});
   const [loading, setLoading] = useState(true);
-  const {userId} = useParams();
+  const { userId } = useParams();
   // console.log(I);
   useEffect(() => {
     fetch(`https://localhost:7169/api/Admin/GetUserById/${userId}`)
@@ -61,7 +61,53 @@ const UserDetail = () => {
           </header>
           <div className="TableLayout">
             <div className="user">
-              <Single {...singleUser} />
+              <div className="single">
+                <div className="top">
+                  <div className="left">
+                    {/* <div className="editButton">Edit</div> */}
+                    <h1 className="title">User Information</h1>
+                    <div className="item">
+                      <div className="">
+                        <img
+                          src={userDetails.image}
+                          alt=""
+                          className="itemImg"
+                        />
+                      </div>
+
+                      <div className="">
+                        <div className="details">
+                          <h1 className="itemTitle">{userDetails.fullName}</h1>
+                          <div className="detailItem">
+                            <span className="itemKey">Email:</span>
+                            <span className="itemValue">{userDetails.email}</span>
+                          </div>
+                          <div className="detailItem">
+                            <span className="itemKey">Phone:</span>
+                            <span className="itemValue">{userDetails.phone}</span>
+                          </div>
+                          <div className="detailItem">
+                            <span className="itemKey">Address:</span>
+                            <span className="itemValue">{userDetails.address}</span>
+                          </div>
+                          <div className="detailItem">
+                            <span className="itemKey">Balance:</span>
+                            <span className="itemValue">{userDetails.balance}</span>
+                          </div>
+                          <div className="detailItem">
+                            <span className="itemKey">Status:</span>
+                            <span className="itemValue">{userDetails.status}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* <div className="right">
+                  <Chart aspect={3 / 1} title="User Spending ( Last 6 Months)" />
+                </div> */}
+                </div>
+              </div>
+              {/* <Single {...singleUser} /> */}
             </div>
           </div>
 

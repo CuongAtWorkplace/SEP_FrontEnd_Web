@@ -22,3 +22,48 @@
     margin-top: 100px;
     width: 100%;
   }
+
+  .cellWithImg {
+    display: flex;
+    align-items: center;
+
+    .cellImg {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 20px;
+    }
+}
+
+.cellWithStatus {
+    padding: 5px;
+    border-radius: 5px;
+
+    &.Active {
+        background-color: rgba(0, 128, 0, 0.05);
+        color: green;
+    }
+
+    &.Ban {
+        background-color: rgba(255, 0, 0, 0.05);
+        color: rgb(255, 31, 31);
+    }
+
+    .userLayout {
+        margin: 100px 0px;
+    }
+}
+.infoUsers {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 30px;
+  color: brown;
+  margin-bottom: 20px;
+  background-color: #cfcfcf;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+

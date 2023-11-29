@@ -133,7 +133,7 @@ class Users extends Component {
             </header>
             <div className="homeLayout">
               <div className="users">
-                <div className="infoHomes">
+                <div className="infoUsers">
                   <div className="col-10">
                     <h1>Users</h1>
                   </div>                 

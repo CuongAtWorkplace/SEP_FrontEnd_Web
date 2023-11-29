@@ -39,12 +39,10 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-
-
         <Route path="/viewallclass" element={<ViewAllClass/>} />
         <Route path="/classdetail/:classId" element={<ClassDetail/>} />
-        
         <Route path="/learnerdetail" element={<LearnerDetail/>} />
+        
         <Route path="/listlearner" element={<ListLearner/>} />
         <Route path="/dashboard" element={<Home />} />
         <Route path="/users" element={<Users />} />

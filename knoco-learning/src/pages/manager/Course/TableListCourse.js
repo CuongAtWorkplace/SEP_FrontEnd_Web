@@ -51,9 +51,11 @@ const TableListCourse = () => {
         setAddCoursePopupVisible(false);
     }
     const navigate = useNavigate();
+
     function formatAPIDate(apiDate) {
         return new Date(apiDate).toLocaleDateString('en-US');
-      }
+    }
+
     const columns = [
         {
             Header: 'ID',
@@ -76,9 +78,9 @@ const TableListCourse = () => {
             Filter: ColumnFilter, // Custom filter component for courseId column
             Cell: ({ row }) => (
                 <div>
-                 {formatAPIDate(row.original.createDate)}
+                    {formatAPIDate(row.original.createDate)}
                 </div>
-              ),
+            ),
         },
         {
             Header: 'Image',
@@ -96,11 +98,11 @@ const TableListCourse = () => {
 
     const handleRowClick = (row) => {
         console.log('Clicked row data:', row);
-        navigate(`/coursedetail/${row.courseId}`);  
+        navigate(`/coursedetail/${row.courseId}`);
     };
     return (
         <div>
-            <button className="btn-add"  onClick={openAddCoursePopup}>New Course</button>
+            <button className="btn-add" onClick={openAddCoursePopup}>New Course</button>
             <Table columns={columns} data={data} onRowClick={handleRowClick} />
             {
                 AddCoursePopupVisible && (

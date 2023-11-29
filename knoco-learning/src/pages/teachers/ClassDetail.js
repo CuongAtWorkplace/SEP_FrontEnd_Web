@@ -7,7 +7,7 @@ import "./style.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import $ from "jquery";
-import CardClass from "../../components/detail/classDetail/CardClass";
+import CardClass from "../../components/detail/CardClass";
 import TableListLearnerInClass from "../../components/Table/TableListLearnerInClass";
 import CardEditClass from "../../components/edit/CardEditClass"
 
@@ -18,10 +18,13 @@ const ClassDetail = ({ children, ...props }) => {
             $('#menu').toggleClass('active'); // Toggle active class on #menu
         });
     }, []);
+
     const [isEditClassPopupVisible, setIsEditClassPopupVisible] = useState(false);
+    
     const closeEditClassPopup = () => {
         setIsEditClassPopupVisible(false);
     };
+
     return (
         <div className="body_page" {...props}>
             <section id="menu">

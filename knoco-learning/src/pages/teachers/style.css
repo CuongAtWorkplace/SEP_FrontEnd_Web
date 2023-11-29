@@ -296,10 +296,35 @@ footer {
     display: inline-block;
     transition: 0.3s ease;
   }
-
-  #menu.active~#interface {
-    width: calc(100% - 270px);
-    margin-left: 270px;
+  
+  #menu .items li:hover{
+    background: #253047;
+    cursor: pointer;
+  }
+  /* check */
+  #menu .items li:nth-child(1){
+    border-left: 4px solid #fff;
+  }
+    
+  .items li .menu-icon{
+    color: rgb(134, 141, 151);
+    width: 30px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 10px;
+    margin: 0 10px 0 25px;
+  }
+  
+  .items li:hover .menu-icon,
+  .items li:hover .link-a {
+    color: #f3f3f6;
+  }
+  
+  .items li .link-a{
+    text-decoration: none;
+    color: rgb(134, 141, 151);
+    font-weight: 300px;
     transition: 0.3s ease;
   }
 

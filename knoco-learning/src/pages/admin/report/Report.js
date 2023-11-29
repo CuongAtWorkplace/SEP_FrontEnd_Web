@@ -4,22 +4,13 @@ import { faBook } from '@fortawesome/free-solid-svg-icons';
 import Header from "../../../components/header/Header";
 import Footer from "../../../components/footer/Footer";
 import SideBar from "../../../components/sidebar/SideBar";
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
+import { DataGrid } from '@mui/x-data-grid';
 
 class Report extends Component {
   constructor(props) {
     super(props);
     this.state = {
       ListReport: [],
-      page: 0,
-      rowsPerPage: 10,
     };
   }
 
@@ -41,55 +32,25 @@ class Report extends Component {
     }
   };
 
-  handleChangePage = (event, newPage) => {
-    this.setState({ page: newPage });
-  };
-
-  handleChangeRowsPerPage = (event) => {
-    this.setState({
-      rowsPerPage: +event.target.value,
-      page: 0,
-    });
-  };
-
-
   render() {
-    const { ListReport, page, rowsPerPage } = this.state;
-
+    const { ListReport } = this.state;
+    const getRowId = (row) => row.reportUserId;
     const columns = [
-      { id: 'reportUserId', label: 'ID', minWidth: 50 },
-      { id: 'fromAccountName', label: 'Form User', minWidth: 150 },
+      { field: "reportUserId", headerName: "ID", width: 60 },
+      { field: "fromAccountName", headerName: "Form User", width: 200 },
+      { field: "toAccountName", headerName: "To User", width: 200 },
+      { field: "description", headerName: "Description", width: 280 },
+      { field: "createDate", headerName: "Create Date", width: 150 },
+      { field: "reason", headerName: "Reason", width: 200 },
       {
-        id: 'toAccountName',
-        label: 'To User',
-        minWidth: 170,
-      },
-      {
-        id: 'description',
-        label: 'Description',
-        minWidth: 200,
-      },
-      {
-        id: 'createDate',
-        label: 'Create Date',
-        minWidth: 250,
-        format: (value) => {
-          const date = new Date(value); // Chuyển giá trị thành đối tượng Date
-          const day = date.getDate().toString().padStart(2, '0'); // Lấy ngày
-          const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Lấy tháng (lưu ý rằng tháng trong JavaScript bắt đầu từ 0)
-          const year = date.getFullYear();
-          return `${day}-${month}-${year}`;
+        field: "isChecked", headerName: "Status", width: 100,
+        renderCell: (params) => {
+          return (
+            <div className={`cellWithStatus ${params.row.isChecked}`}>
+              {params.row.isChecked}
+            </div>
+          );
         },
-      },
-      {
-        id: 'reason',
-        label: 'Reason',
-        minWidth: 200,
-      },
-      {
-        id: 'isChecked',
-        label: 'Status',
-        minWidth: 170,
       },
     ];
 
@@ -111,61 +72,25 @@ class Report extends Component {
             <header>
               <Header />
             </header>
-            <div className="tableLayout">
+            <div className="homeLayout">
               <div className="users">
-                <div className="info">
+                <div className="infoHomes">
                   <h1>Report</h1>
                 </div>
-
-                <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-                  <TableContainer sx={{ maxHeight: 440 }}>
-                    <Table stickyHeader aria-label="sticky table">
-                      <TableHead>
-                        <TableRow>
-                          {columns.map((column) => (
-                            <TableCell
-                              key={column.id}
-                              align={column.align}
-                              style={{ minWidth: column.minWidth }}
-                            >
-                              {column.label}
-                            </TableCell>
-                          ))}
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {ListReport
-                          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                          .map((row) => {
-                            return (
-                              <TableRow hover role="checkbox" tabIndex={-1} key={row.reportUserId}>
-                                {columns.map((column) => {
-                                  const value = row[column.id];
-                                  return (
-                                    <TableCell key={column.id} align={column.align}>
-                                      {column.format && typeof value === 'number'
-                                        ? column.format(value)
-                                        : value}
-                                    </TableCell>
-                                  );
-                                })}
-                              </TableRow>
-                            );
-                          })}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                  <TablePagination
-                    rowsPerPageOptions={[5, 10]}
-                    component="div"
-                    count={ListReport.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={this.handleChangePage}
-                    onRowsPerPageChange={this.handleChangeRowsPerPage}
+                <div className="dataTable">
+                  <DataGrid
+                    className="dataGrid"
+                    rows={ListReport}
+                    columns={columns}
+                    initialState={{
+                      // ...data.initialState,
+                      pagination: { paginationModel: { pageSize: 8 } },
+                    }}
+                    pageSizeOptions={[8]}
+                    getRowId={getRowId}
+                  // checkboxSelection
                   />
-                </Paper>
-
+                </div>
               </div>
             </div>
 

@@ -1,6 +1,10 @@
 import "./add.scss";
 import React, { Component } from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 class Add extends Component {
   constructor(props) {
@@ -10,7 +14,7 @@ class Add extends Component {
       email: '',
       password: '',
       phone: '',
-      roleName: 'Teacher',
+      roleName: 'None',
       address: ''
     };
   }
@@ -41,7 +45,7 @@ class Add extends Component {
       this.props.createNewUser(this.state);
     } else {
       // You might want to handle validation messages in a more user-friendly way
-      alert('Please fill in all required fields.');
+      // alert('Please fill in all required fields.');
     }
   }
 
@@ -53,36 +57,41 @@ class Add extends Component {
           <div className="container">
             <div className="row">
               <div className="col-6 form-group">
-                <label>Full Name <span className="errmsg">*</span></label>
-                <input type="text" className="form-control" required
+                <label className="textInput">Full Name: <span className="errmsg">*</span></label>
+                <TextField type="text" className="form-control" required
                   onChange={(event) => { this.handleOnChangeInput(event, "fullName") }} value={this.state.fullName} />
               </div>
               <div className="col-6 form-group">
-                <label>Email <span className="errmsg">*</span></label>
-                <input type="email" className="form-control" required
+                <label className="textInput">Email: <span className="errmsg">*</span></label>
+                <TextField type="email" className="form-control" required
                   onChange={(event) => { this.handleOnChangeInput(event, "email") }} value={this.state.email} />
               </div>
               <div className="col-6 form-group">
-                <label>Password <span className="errmsg">*</span></label>
-                <input type="password" className="form-control" required
+                <label className="textInput">Password: <span className="errmsg">*</span></label>
+                <TextField type="password" className="form-control" required
                   onChange={(event) => { this.handleOnChangeInput(event, "password") }} value={this.state.password} />
               </div>
               <div className="col-6 form-group">
-                <label>Phone <span className="errmsg">*</span></label>
-                <input type="text" className="form-control" required maxLength={10}
+                <label className="textInput">Phone: <span className="errmsg">*</span></label>
+                <TextField type="text" className="form-control" required maxLength={10}
                   onChange={(event) => { this.handleOnChangeInput(event, "phone") }} value={this.state.phone} />
               </div>
               <div className="col-6 form-group">
-                <label>Role <span className="errmsg">*</span></label>
-                <select className="form-control" required onChange={(event) => { this.handleOnChangeInput(event, "roleName") }} value={this.state.roleName}>
+                <label className="textInput">Role: <span className="errmsg">*</span></label>
+                <Select className="form-control" required onChange={(event) => { this.handleOnChangeInput(event, "roleName") }} value={this.state.roleName}>
+                  {/* <option></option>
                   <option value="Teacher">Teacher</option>
-                  <option value="Manager">Manager</option>
-                </select>
-                {/* <input type="text" className="form-control" placeholder="Enter Role" required
-                  onChange={(event) => { this.handleOnChangeInput(event, "status") }} value={this.state.status} /> */}
+                  <option value="Manager">Manager</option> */}
+                  <MenuItem value="None">
+                    <em>None</em>
+                  </MenuItem>
+                  {/* <MenuItem value="None">None</MenuItem> */}
+                  <MenuItem value="Teacher">Teacher</MenuItem>
+                  <MenuItem value="Manager">Manager</MenuItem>
+                </Select>
               </div>
               <div className="col-12 form-group">
-                <label>Address <span className="errmsg">*</span></label>
+                <label className="textInput">Address: <span className="errmsg">*</span></label>
                 <textarea type="text" className="form-control"
                   onChange={(event) => { this.handleOnChangeInput(event, "address") }} value={this.state.address} />
               </div>
@@ -90,8 +99,8 @@ class Add extends Component {
           </div>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={() => { this.handleAddNewUser() }}>Add</Button>{' '}
-          <Button className="btn btn-danger" onClick={() => { this.toggle() }}>Cancel</Button>
+          <Button variant="contained" color="success" onClick={() => { this.handleAddNewUser() }}>Add</Button>{' '}
+          <Button variant="contained" color="error" onClick={() => { this.toggle() }}>Cancel</Button>
         </ModalFooter>
       </Modal>
     );

@@ -32,7 +32,7 @@ const SideBar = () => {
         setRoleid(localStorage.getItem('roleid'));
 
     }, []);
-    if(roleid == 2){
+    if(roleid == 2 || roleid == null){
         return  navigate(`/`);
     }return (
         
@@ -45,10 +45,10 @@ const SideBar = () => {
                             <FontAwesomeIcon className="menu-icon" icon={faDashboard} />
                             <Link className="link-a" to="/dashboard">Dashboard</Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
                             <Link className="link-a" to="/manager/list-all-course">Manage Class</Link>
-                        </li>
+                        </li> */}
                         <li>
                             <FontAwesomeIcon className="menu-icon" icon={faUser} />
                             <Link className="link-a" to="/users">User Manage</Link>
@@ -57,10 +57,10 @@ const SideBar = () => {
                             <FontAwesomeIcon className="menu-icon" icon={faFlag} />
                             <Link className="link-a" to="/report">Report</Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <FontAwesomeIcon className="menu-icon" icon={faSchool} />
                             <Link className="link-a" to="/viewallclass">Class List</Link>
-                        </li>
+                        </li> */}
                     </>}
 
                     {/*Manage */}

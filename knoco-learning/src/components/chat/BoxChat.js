@@ -5,6 +5,7 @@ import { FormControl } from "react-bootstrap";
 import { faArrowLeft, faLocationArrow, faPaperclip, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useDropzone } from 'react-dropzone';
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { useParams } from "react-router";
 
 const User = 2;
 
@@ -15,7 +16,7 @@ const BoxChat = () => {
 	const [imagePicker, setImagePicker] = useState('');
 	const [image, setImage] = useState(null);
 	const [connection, setConnection] = useState(null);
-
+	const {pramas}= useParams();
 
 
 

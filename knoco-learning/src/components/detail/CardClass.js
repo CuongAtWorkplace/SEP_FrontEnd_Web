@@ -26,6 +26,7 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
     const params = useParams();
     const [isNotePopupVisible, setNotePopupVisible] = useState(false);
     const navigate = useNavigate();
+    const [className, setClassName] = useState('');
 
     useEffect(() => {
         fetchData();
@@ -36,6 +37,7 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
             const response = await fetch(`https://localhost:7169/api/Class/GetTeacherClassDetail/${params.classId}`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setClassDt(responseData);
+            setClassName(responseData.className);
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu lớp học:', error);
         }

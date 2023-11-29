@@ -92,7 +92,7 @@ const CardAddCourse = ({ closePopup }) => {
     }
     return (
         <div className="card-edit-class">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} style={{width : '500px'}}>
                 <h2>New Course</h2>
                 <div className="form-group">
                     <label className="control-label">Course Name:</label>

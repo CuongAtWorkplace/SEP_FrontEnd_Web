@@ -38,18 +38,18 @@ const TableRequestmanager = () => {
 
   const CheckedRequestManager = async (ChatRoomId) => {
 
-    const response = await fetch(`https://localhost:7169/api/RequestManager/GetChatRoomById/${ChatRoomId}`);
-    const data = await response.json();
+    // const response = await fetch(`https://localhost:7169/api/RequestManager/GetChatRoomById/${ChatRoomId}`);
+    // const data = await response.json();
     
-    const checked = {
-      chatRoomId: data.chatRoomId,
-      chatRoomName: data.chatRoomName,
-      description: data.description,
-      isManagerChat: true,
-      classId: data.classId
-    }
+    // const checked = {
+    //   chatRoomId: data.chatRoomId,
+    //   chatRoomName: data.chatRoomName,
+    //   description: data.description,
+    //   isManagerChat: true,
+    //   classId: data.classId
+    // }
 
-    fetch(`https://localhost:7169/api/RequestManager/UpdateChatRoomIsManagerChat/${ChatRoomId}`, {
+    fetch(`https://localhost:7169/api/RequestManager/ChangeStatus/ChangeStatus/${ChatRoomId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ const TableRequestmanager = () => {
       .then((response) => {
         if (response.ok) {
           toast.success("Successfull !!!")
-            
+          fetchData();
         }
         else if (!response.ok) {
           toast.error("Failed. Try Again!!!")

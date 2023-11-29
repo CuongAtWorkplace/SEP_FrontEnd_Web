@@ -17,7 +17,9 @@ import {
     faCalendarXmark,
     faPenToSquare,
     faVideo,
-    faNoteSticky
+    faNoteSticky,
+    faMessage,
+    faClock
 } from '@fortawesome/free-solid-svg-icons';
 import CardNote from "../edit/CardNote";
 
@@ -86,6 +88,11 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
                     </div>
                     <div className="val-box">
                         <div>
+                            <h3><FontAwesomeIcon className="menu-icon" icon={faClock} /> Schedule: <span>{classDt.schedule || "Empty!"}</span></h3>
+                        </div>
+                    </div>
+                    <div className="val-box">
+                        <div>
                             <h3><FontAwesomeIcon className="menu-icon" icon={faCoins} /> Fee: <span>{classDt.fee || "Empty!"}</span></h3>
                         </div>
                     </div>
@@ -126,6 +133,10 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
 
                         <button className="btn-item" >
                             <FontAwesomeIcon icon={faVideo} /> Meeting
+                        </button>
+
+                        <button className="btn-item" >
+                            <FontAwesomeIcon icon={faMessage} /> Chat
                         </button>
 
                         <button className="btn-item" onClick={openNotePopup}>
@@ -204,9 +215,15 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
                             <FontAwesomeIcon icon={faVideo} /> Meeting
                         </button>
 
+                        <button className="btn-item" >
+                            <FontAwesomeIcon icon={faMessage} /> Chat
+                        </button>
+
                         <button className="btn-item" onClick={openNotePopup}>
                             <FontAwesomeIcon icon={faNoteSticky} /> Note
                         </button>
+
+
                     </div>
                 </div>
             )}

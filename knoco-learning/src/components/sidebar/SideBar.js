@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
 import { memo } from "react";
-import { Link, Router } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from "react-router-dom";
 import {
     faSchool,
-    faCalendarDays,
     faChalkboardTeacher,
     faUser,
     faFlag,
     faClipboard,
-    faComment,
-    faGear,
-    faDashboard
+    faDashboard,
+    faChalkboardUser,
+    faCheckToSlot,
+    faUserGraduate
 } from '@fortawesome/free-solid-svg-icons';
 import $ from "jquery";
 import { useState } from "react";
@@ -32,10 +32,10 @@ const SideBar = () => {
         setRoleid(localStorage.getItem('roleid'));
 
     }, []);
-    if(roleid == 2 || roleid == null){
-        return  navigate(`/`);
-    }return (
-        
+    if (roleid == 2 || roleid == null) {
+        return navigate(`/`);
+    } return (
+
         <div className="items">
             <div>
                 <ul>
@@ -91,24 +91,25 @@ const SideBar = () => {
                         </li>
                     </>}
 
+                    {/*Teacher */}
                     {roleid == '1' && <>
                         <li>
-                            <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
-                            <Link className="link-a" to="/manager/list-all-course">Manage Class</Link>
+                        <FontAwesomeIcon className="menu-icon" icon={faChalkboardUser} />
+                            <Link className="link-a" to="/viewclass">View Class</Link>
                         </li>
                         <li>
-                            <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
-                            <Link className="link-a" to="#">View Schedule</Link>
+                        <FontAwesomeIcon className="menu-icon" icon={faCheckToSlot} />
+                            <Link className="link-a" to="/list-all-course">Choose class</Link>
                         </li>
                         <li>
-                            <FontAwesomeIcon className="menu-icon" icon={faGear} />
-                            <Link className="link-a" to="#">Settings</Link>
+                        <FontAwesomeIcon className="menu-icon" icon={faUserGraduate} />
+                            <Link className="link-a" to="/profile-teacher">Profile</Link>
                         </li>
                     </>}
                 </ul>
             </div>
 
-           
+
         </div>
 
     )

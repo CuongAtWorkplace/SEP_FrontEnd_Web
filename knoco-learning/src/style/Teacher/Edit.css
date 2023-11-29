@@ -1,4 +1,12 @@
-.card-add-class {
+.card-edit-class {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    width: 50%;
+}
+
+.card-img-class {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,7 +22,7 @@ form {
     border-radius: 15px;
     box-shadow: 0 0 14px 0 grey;
     background-color: white;
-}   
+}
 
 .card-edit-class h2 {
     margin: 10px;
@@ -91,9 +99,8 @@ input .image {
 }
 
 .textarea-note {
-    width: 1000px;
     height: 500px;
-    margin: 10px;
+    width: 100%;
     border: 2px solid #3377FF;
     border-radius: 10px;
 }
@@ -136,9 +143,11 @@ input#submit {
     cursor: pointer;
     background: linear-gradient(to right, #fc00ff, #00dbde);
 }
-.btn{
+
+.btn {
     margin: 10px;
 }
+
 input #submit {
     background: linear-gradient(to right, #fc466b, #3f5efb);
 }

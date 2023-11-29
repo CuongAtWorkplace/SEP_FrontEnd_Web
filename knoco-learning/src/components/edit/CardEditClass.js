@@ -7,6 +7,7 @@ const CardEditClass = ({ closePopup }) => {
     const [classDt, setClassDt] = useState({});
     const [className, setClassName] = useState('');
     const [topic, setTopic] = useState('');
+    const [schedule, setSchedule] = useState('');
     const [fee, setFee] = useState('');
     const [numberOfWeek, setNumberOfWeek] = useState('');
     const [numberPhone, setNumberPhone] = useState('');
@@ -25,6 +26,7 @@ const CardEditClass = ({ closePopup }) => {
             setClassDt(responseData);
             setClassName(responseData.className || '');
             setTopic(responseData.topic || '');
+            setSchedule(responseData.schedule || '');
             setFee(responseData.fee || '');
             setNumberOfWeek(responseData.numberOfWeek || '');
             setNumberPhone(responseData.numberPhone || '');
@@ -49,12 +51,13 @@ const CardEditClass = ({ closePopup }) => {
                 classId: classDt.classId,
                 className: className,
                 topic: topic,
+                schedule: schedule,
                 fee: fee,
                 numberOfWeek: numberOfWeek,
                 numberPhone: numberPhone,
-                description: description
-                //startDate: startDate,
-                //endDate: endDate
+                description: description,
+                startDate: startDate,
+                endDate: endDate
             };
 
             e.preventDefault();
@@ -84,7 +87,7 @@ const CardEditClass = ({ closePopup }) => {
 
     return (
         <div className="card-edit-class">
-            <form onSubmit={handleSubmit} style={{width : '1000px'}}>
+            <form onSubmit={handleSubmit}>
                 <h2>Edit Class</h2>
                 <div className="form-group" >
                     <label className="control-label">Class Name:</label>
@@ -93,6 +96,10 @@ const CardEditClass = ({ closePopup }) => {
                 <div className="form-group">
                     <label className="control-label">Topic:</label>
                     <input className="form-control" type="text" id="Topic" name="Topic" value={topic} onChange={(e) => setTopic(e.target.value)} required />
+                </div>
+                <div className="form-group">
+                    <label className="control-label">Schedule:</label>
+                    <input className="form-control" type="text" id="Schedule" name="Schedule" value={schedule} onChange={(e) => setSchedule(e.target.value)} required />
                 </div>
                 <div className="form-group">
                     <label className="control-label">Fee:</label>
@@ -118,8 +125,8 @@ const CardEditClass = ({ closePopup }) => {
                     <label className="control-label">End Date:</label>
                     <input className="form-control" type="date" name="EndDate" value={endDate} onChange={(e) => setEndDate(e.target.value)} required />
                 </div>
-                <button type="submit" id="submit" name="submit" className="btn btn-success">Edit</button>
-                <button type="button" onClick={closePopup} className="btn btn-info">Cancel</button>
+                <button type="submit" id="submit" name="submit" className="btn-btn">Edit</button>
+                <button type="button" onClick={closePopup} className="btn-btn">Cancel</button>
             </form>
         </div>
     );

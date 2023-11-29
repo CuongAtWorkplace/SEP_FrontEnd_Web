@@ -56,7 +56,7 @@ class Users extends Component {
       console.log(data);
 
       if (response.ok) {
-        alert('User added successfully');
+        // alert('User added successfully');
         await this.getListUser();
         this.setState({
           isOpenModal: false
@@ -137,7 +137,6 @@ class Users extends Component {
                   <div className="col-10">
                     <h1>Users</h1>
                   </div>                 
-                  {/* <h1>Users</h1> */}
                   <div className=" mx-1">
                     <button className="btn btn-primary" onClick={() => { this.handleAddNewUser() }}>
                       <i className="fas fa-plus"></i>Add New User</button>
@@ -151,7 +150,6 @@ class Users extends Component {
                 <div>
                   <DataTable slug="users" columns={columns} rows={ListUser} />
                 </div>
-                {/* {open && <Add slug="user" setOpen={setOpen} />} */}
               </div>
             </div>
 

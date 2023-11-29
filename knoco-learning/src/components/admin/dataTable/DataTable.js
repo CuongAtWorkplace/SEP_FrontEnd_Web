@@ -27,9 +27,14 @@ const DataTable = props => {
         className="dataGrid"
         rows={props.rows}
         columns={[...props.columns, actionColumn]}
-        pageSize={9}
-        rowsPerPageOptions={[9]}
-        // checkboxSelection
+        initialState={{
+          // ...data.initialState,
+          pagination: { paginationModel: { pageSize: 8 } },
+        }}
+        pageSizeOptions={[10]}
+        // pageSize={8}
+        // rowsPerPageOptions={[8]}
+      // checkboxSelection
       />
     </div>
   )

@@ -95,6 +95,14 @@ const UserDetail = () => {
                             <span className="itemValue">{userDetails.balance}</span>
                           </div>
                           <div className="detailItem">
+                            <span className="itemKey">Role       :</span>
+                            <span className="itemValue">{userDetails.roleName}</span>
+                          </div>
+                          <div className="detailItem">
+                            <span className="itemKey">Create Date:</span>
+                            <span className="itemValue">{userDetails.createDate}</span>
+                          </div>
+                          <div className="detailItem">
                             <span className="itemKey">Status:</span>
                             <span className="itemValue">{userDetails.status}</span>
                           </div>

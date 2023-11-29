@@ -131,7 +131,7 @@ class Users extends Component {
             <header>
               <Header />
             </header>
-            <div className="homeLayout">
+            <div className="userLayout">
               <div className="users">
                 <div className="infoUsers">
                   <div className="col-10">
@@ -139,7 +139,7 @@ class Users extends Component {
                   </div>                 
                   <div className=" mx-1">
                     <button className="btn btn-primary" onClick={() => { this.handleAddNewUser() }}>
-                      <i className="fas fa-plus"></i>Add New User</button>
+                      Add New User</button>
                   </div>
                   <Add
                     isOpen={this.state.isOpenModal}

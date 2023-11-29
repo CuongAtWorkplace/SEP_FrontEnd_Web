@@ -17,11 +17,6 @@
 
     
   }
-  .userLayout{
-    display: flex;
-    margin-top: 100px;
-    width: 100%;
-  }
 
   .cellWithImg {
     display: flex;
@@ -50,9 +45,6 @@
         color: rgb(255, 31, 31);
     }
 
-    .userLayout {
-        margin: 100px 0px;
-    }
 }
 .infoUsers {
   display: flex;
@@ -64,6 +56,10 @@
   background-color: #cfcfcf;
   padding: 10px;
   box-sizing: border-box;
+}
+
+.userLayout {
+  margin: 100px 0px;
 }
 
 

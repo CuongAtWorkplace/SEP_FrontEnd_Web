@@ -82,8 +82,11 @@ class Report extends Component {
                     className="dataGrid"
                     rows={ListReport}
                     columns={columns}
-                    pageSize={9}
-                    rowsPerPageOptions={[9]}
+                    initialState={{
+                      // ...data.initialState,
+                      pagination: { paginationModel: { pageSize: 8 } },
+                    }}
+                    pageSizeOptions={[8]}
                     getRowId={getRowId}
                   // checkboxSelection
                   />

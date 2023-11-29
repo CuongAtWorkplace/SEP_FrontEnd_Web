@@ -31,7 +31,7 @@ const DataTable = props => {
           // ...data.initialState,
           pagination: { paginationModel: { pageSize: 8 } },
         }}
-        pageSizeOptions={[10]}
+        pageSizeOptions={[8]}
         // pageSize={8}
         // rowsPerPageOptions={[8]}
       // checkboxSelection

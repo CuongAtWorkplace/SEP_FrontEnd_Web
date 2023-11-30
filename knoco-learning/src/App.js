@@ -39,10 +39,6 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* admin */}
-
-        {/* manager */}
-
         {/* teacher */}
         <Route path="/" element={<Login />} />
         <Route path="/viewclass" element={<ViewAllClass/>} />
@@ -50,9 +46,10 @@ function App() {
         <Route path="/learnerdetail" element={<LearnerDetail/>} />
         <Route path="/list-all-course" element={<ListAllCourse />} />
         <Route path="/class-empty/:courseId" element={<ClassEmpty />} />
-        
         <Route path="/profile-teacher" element={<Profile />} />
-        
+        {/* admin */}
+
+        {/* manager */}
         <Route path="/listlearner" element={<ListLearner/>} />
         <Route path="/dashboard" element={<Home />} />
         <Route path="/users" element={<Users />} />

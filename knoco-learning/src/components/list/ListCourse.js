@@ -28,7 +28,7 @@ const ListCourse = () => {
                 data.map((course, index) => (
                     <div key={index} className="items-course">
                         <div className="img-course">
-                            <img src={`https://localhost:7169/Photos/${course.image}` || "https://reactjs.org/logo-og.png"} alt={course.courseName} />
+                            <img className="img-cour" src={`https://localhost:7169/Photos/${course.image}` || "https://reactjs.org/logo-og.png"} alt={course.courseName} />
                         </div>
                         <div className="course">
                             <div className="first-info">

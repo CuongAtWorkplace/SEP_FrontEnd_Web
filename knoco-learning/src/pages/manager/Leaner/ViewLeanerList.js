@@ -15,7 +15,7 @@ class ViewLeanerList extends Component {
     }
     getListUser = async () => {
         try {
-            const response = await fetch(`https://testdoan.ngrok.dev/api/User/GetListLeaner/GetListLeaner`);
+            const response = await fetch(`https://localhost:7169/api/User/GetListLeaner/GetListLeaner`);
             const data = await response.json();
             this.setState({ ListLeaner: data.map((user, index) => ({ ...user, id: index })) });
         } catch (error) {

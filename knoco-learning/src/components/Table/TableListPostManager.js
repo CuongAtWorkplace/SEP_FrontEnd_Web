@@ -26,6 +26,7 @@ const TableListPostManager = () => {
   const [data, setData] = useState([]);
   const [checkActive, setCheckActive] = useState();
   useEffect(() => {
+    
     fetchData();
   }, []);
 

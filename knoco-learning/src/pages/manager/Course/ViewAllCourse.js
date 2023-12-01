@@ -10,15 +10,14 @@ import Modal from 'react-bootstrap/Modal';
 import { useState } from "react";
 import { memo } from "react";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import { faChalkboardUser } from '@fortawesome/free-solid-svg-icons';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { BsSuitHeartFill, BsBookmarkPlusFill } from "react-icons/bs";
 // import { Modal, Button } from 'react-bootstrap';
-
-
+import jwtDecode from "jwt-decode";
 import "./ViewAllCourse.css";
 import TableListCourse from "./TableListCourse";
 
@@ -57,26 +56,21 @@ class ViewAllCourse extends Component {
         this.setState({ showModal: false });
     }
     componentDidMount() {
+       
+        const token = localStorage.getItem("token");
+        if (token !== null) {
+            const decodedToken = jwtDecode(token);
+           
+            if (Number(decodedToken.roleid) !== 3 || localStorage.getItem("token") === '') {
+               
+            }
+        }
         this.refreshListByGenre();
+       
     };
 
     handleRowClick = (courseId) => {
         window.location.href = `/coursedetail/${courseId}`;
-        // Lấy ID của hàng được click và xử lý nó
-     
-        // const clickedRowId = params.row.courseId;
-        // fetch(`https://localhost:7169/api/Course/GetCourseById?courseId=${clickedRowId}`)
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         this.setState({
-        //             courseId: data.courseId,
-        //             courseName: data.courseName,
-        //             Description: data.Description,
-        //             CreateDate: data.CreateDate,
-        //             Image: data.Image,
-        //         });
-        //     });
-
         console.log('Đã click vào hàng có ID:', courseId);
     };
     handleSearchChange = (e) => {
@@ -134,34 +128,11 @@ class ViewAllCourse extends Component {
                     <section id="interface">
                         <header>
                         <Header />
-                            {/* <div className="navigation">
-                                <div className="n1">
-                                    <div>
-                                        <FontAwesomeIcon id="menu-btn" icon={faBars} />
-                                    </div>
-                                    <div className="search">
-                                        <FontAwesomeIcon className="icon-search" icon={faMagnifyingGlass} />
-                                        <input type="text" onChange={this.handleSearchChange} placeholder="Search" />
-                                    </div>
-                                </div>
-                            </div> */}
                         </header>
 
                         <div className="children">
                             
                          <TableListCourse/>
-                            {/* <div className='TableLayout' style={{ height: 'auto', width: '100%' }}>
-
-                                <DataGrid
-                                    rows={ListAllCourse} // Sử dụng dữ liệu từ state
-                                    columns={columns}
-                                    pageSize={5}
-                                    checkboxSelection
-                                    disableRowSelectionOnClick
-                                    getRowId={getRowId}
-                                    //  onRowClick={this.handleRowClick}
-                                />
-                            </div> */}
                         </div>
 
                         <footer>

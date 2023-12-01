@@ -20,21 +20,38 @@ import { Route, Redirect } from 'react-router-dom';
 import ViewAllCourse from "../../pages/manager/Course/ViewAllCourse";
 import ViewPostListManager from "../../pages/manager/ViewPostListManager";
 import TableListClassTeacher from "../Table/TableListClassTeacher";
-
+import jwtDecode from "jwt-decode";
 const SideBar = () => {
     const navigate = useNavigate();
     const [roleid, setRoleid] = useState('');
+    const [tokenCheck, setToken] = useState('');
+    
     useEffect(() => {
         // Add click event listener to menu-btn
-        $('.menu-btn').on('click', function () {
-            $('#menu').toggleClass('active'); // Toggle active class on #menu
-        });
-        setRoleid(localStorage.getItem('roleid'));
-
+        // $('.menu-btn').on('click', function () {
+        //     $('#menu').toggleClass('active'); // Toggle active class on #menu
+        // });
+        const token = localStorage.getItem("token");
+        if (token !== null) {
+            const decodedToken = jwtDecode(token);
+            console.log(token)
+            console.log(Number(decodedToken.roleid));
+            setRoleid(decodedToken.roleid);
+            console.log(roleid);
+            setTimeout(() => {
+                localStorage.removeItem('token');
+                console.log('da xoa token.');
+                console.log(token)
+            }, 30 * 1000);
+            if (Number(decodedToken.roleid) === 2 || localStorage.getItem("token") === '') {
+                navigate(`/`);
+            }
+        }else{
+            navigate(`/`);
+        }
     }, []);
-    if (roleid == 2 || roleid == null) {
-        return navigate(`/`);
-    } return (
+
+    return (
 
         <div className="items">
             <div>
@@ -94,15 +111,15 @@ const SideBar = () => {
                     {/*Teacher */}
                     {roleid == '1' && <>
                         <li>
-                        <FontAwesomeIcon className="menu-icon" icon={faChalkboardUser} />
+                            <FontAwesomeIcon className="menu-icon" icon={faChalkboardUser} />
                             <Link className="link-a" to="/viewclass">View Class</Link>
                         </li>
                         <li>
-                        <FontAwesomeIcon className="menu-icon" icon={faCheckToSlot} />
+                            <FontAwesomeIcon className="menu-icon" icon={faCheckToSlot} />
                             <Link className="link-a" to="/list-all-course">Choose class</Link>
                         </li>
                         <li>
-                        <FontAwesomeIcon className="menu-icon" icon={faUserGraduate} />
+                            <FontAwesomeIcon className="menu-icon" icon={faUserGraduate} />
                             <Link className="link-a" to="/profile-teacher">Profile</Link>
                         </li>
                     </>}

@@ -48,17 +48,14 @@ class Login extends Component {
             });
 
             if (response.ok) {
-                setTimeout(() => {
-                    localStorage.removeItem('token');
-                    console.log('da xoa token.');
-                  }, 30 * 1000);
+               
                 console.log('Đăng nhập thanh cong');
                 const data = await response.json();
                 const token = data.token;
                 localStorage.setItem('token', token);
 
                 const decodedToken = jwtDecode(token);
-                
+
                 localStorage.setItem('id', decodedToken.id);
                 localStorage.setItem('roleid', decodedToken.roleid);
                 
@@ -110,8 +107,8 @@ class Login extends Component {
     //     }
     // };
     render() {
-        const { email, password ,NewsHome } = this.state;
-        console.log(NewsHome);
+        const { email, password  } = this.state;
+       
         return (
             <div>
                 <div class="limiter">

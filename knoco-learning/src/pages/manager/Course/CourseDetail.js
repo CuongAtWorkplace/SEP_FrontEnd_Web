@@ -103,10 +103,7 @@ function CourseDetail() {
   };
 
   const NewCourse = () => {
-    // const token = localStorage.getItem("token");
-    // const decodedToken = jwtDecode(token);
-    // const cBy = decodedToken.id;
-
+    
     const coursenew = {
       courseId: cid,
       courseName: courseName,
@@ -143,8 +140,7 @@ function CourseDetail() {
   };
   const imageUpload = (e) => {
     e.preventDefault();
-    const jwt = localStorage.getItem('token');
-
+    
     setPhotoFileName(e.target.files[0].name);
     setImageCover(e.target.files[0].name);
 

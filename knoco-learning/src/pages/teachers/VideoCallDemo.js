@@ -11,7 +11,7 @@ const VideoCallDemo = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     console.log(token);
-    if (token != null) {
+    if (token !== null) {
       const decodedToken = jwtDecode(token);
       setUserName(decodedToken.fullname);
 

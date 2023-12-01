@@ -4,6 +4,7 @@ import './style.css';
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { toast } from 'react-toastify';
+import { API_BASE_URL } from "../../../paths";
 const CardPost = () => {
 
     const [listComment, setListComment] = useState([]);

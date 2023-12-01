@@ -9,13 +9,23 @@ import { faBook } from '@fortawesome/free-solid-svg-icons';
 import TableListClassTeacher from "../../components/Table/TableListClassTeacher";
 import TableRequestmanager from "./TableRequestmanager";
 import $ from "jquery";
-
+import jwtDecode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 const RequestManager = ({ children, ...props }) => {
+    const navigate = useNavigate();
     useEffect(() => {
         // Add click event listener to menu-btn
         $('.menu-btn').on('click', function() {
             $('#menu').toggleClass('active'); // Toggle active class on #menu
         });
+        const token = localStorage.getItem("token");
+        if (token !== null) {
+            const decodedToken = jwtDecode(token);
+           
+            if (Number(decodedToken.roleid) !== 2 || localStorage.getItem("token") === '') {
+                navigate(`/`);
+            }
+        }
     }, []);
     return (
         <div className="body_page" {...props}>

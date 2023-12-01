@@ -8,13 +8,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import TableListPostManager from "../../components/Table/TableListPostManager";
 import $ from "jquery";
-
+import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 const ViewPostListManager = ({ children, ...props }) => {
+    const navigate = useNavigate();
     useEffect(() => {
         // Add click event listener to menu-btn
-        $('.menu-btn').on('click', function() {
+        $('.menu-btn').on('click', function () {
             $('#menu').toggleClass('active'); // Toggle active class on #menu
         });
+        const token = localStorage.getItem("token");
+        if (token !== null) {
+            const decodedToken = jwtDecode(token);
+           
+            if (Number(decodedToken.roleid) !== 3 || localStorage.getItem("token") === '') {
+                navigate(`/`);
+            }
+        }
     }, []);
     return (
         <div className="body_page" {...props}>
@@ -25,17 +35,17 @@ const ViewPostListManager = ({ children, ...props }) => {
                 </div>
 
                 <nav>
-                    <SideBar/>
+                    <SideBar />
                 </nav>
             </section>
 
             <section id="interface">
                 <header>
-                    <Header/>
+                    <Header />
                 </header>
 
                 <div className="children">
-                    <TableListPostManager/>
+                    <TableListPostManager />
                 </div>
 
                 <footer>

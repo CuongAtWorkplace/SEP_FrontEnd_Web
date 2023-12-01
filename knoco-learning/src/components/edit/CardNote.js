@@ -20,7 +20,7 @@ const CardNote = ({ closePopup }) => {
         //     localStorage.removeItem('token');
         //     console.log('da xoa token.');
         //   }, 30 * 1000);
-       
+
     }, []);
 
     const fetchDataNote = async () => {
@@ -40,42 +40,47 @@ const CardNote = ({ closePopup }) => {
             alert("không được để trống");
             return;
         } else {
+
             const token = localStorage.getItem("token");
-            console.log(token);
+            if (token != null) {
+                console.log(token);
 
-            const decodedToken = jwtDecode(token);
-            setUserId(decodedToken.userid);
-            console.log(noteTeacher.noteId);
-            console.log(decodedToken.userid);
-            console.log(params.classId);
-            console.log(content);
+                const decodedToken = jwtDecode(token);
+                setUserId(decodedToken.userid);
+                console.log(noteTeacher.noteId);
+                console.log(decodedToken.userid);
+                console.log(params.classId);
+                console.log(content);
 
-            const NoteNew = {
-                noteId: noteTeacher.noteId,
-                userId: decodedToken.userid,
-                classId: params.classId,
-                content: content
-            };
 
-            e.preventDefault();
-            try {
-                const response = await fetch(`https://localhost:7169/api/NoteTeacher/UpdateNoteTeachers`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(NoteNew)
-                });
-                if (response.ok) {
-                    toast.error("Save successful!!!")
-                    console.log('Dữ liệu lớp học đã được cập nhật thành công');
-                    closePopup();
-                } else {
-                    console.error('Lỗi khi cập nhật dữ liệu lớp học:', response.status, response.statusText);
+                const NoteNew = {
+                    noteId: noteTeacher.noteId,
+                    userId: decodedToken.userid,
+                    classId: params.classId,
+                    content: content
+                };
+
+
+                e.preventDefault();
+                try {
+                    const response = await fetch(`https://localhost:7169/api/NoteTeacher/UpdateNoteTeachers`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(NoteNew)
+                    });
+                    if (response.ok) {
+                        toast.error("Save successful!!!")
+                        console.log('Dữ liệu lớp học đã được cập nhật thành công');
+                        closePopup();
+                    } else {
+                        console.error('Lỗi khi cập nhật dữ liệu lớp học:', response.status, response.statusText);
+                    }
+                } catch (error) {
+                    toast.error("Failed. Try Again!!!")
+                    console.error('Lỗi khi cập nhật dữ liệu lớp học:', error);
                 }
-            } catch (error) {
-                toast.error("Failed. Try Again!!!")
-                console.error('Lỗi khi cập nhật dữ liệu lớp học:', error);
             }
         }
     };

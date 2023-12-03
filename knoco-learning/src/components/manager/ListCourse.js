@@ -6,7 +6,7 @@ const ListCourse = () => {
     const [pdfURL, setPdfURL] = useState('');
 
     const fetchPDF = () => {
-      fetch('https://localhost:7169/api/File/GetFileByNameInWeb?fileName=undefined%20%285%29.txt')
+      fetch('https://localhost:7169/api/File/GetFileByNameInWeb?fileName=Quiz-4_PRU221m_SE1611%20%281%29.pdf')
         .then(response => response.blob())
         .then(blob => {
           const pdfURL = URL.createObjectURL(blob);

@@ -63,8 +63,12 @@ class Login extends Component {
                 if (decodedToken.roleid == 2) {
                     window.location.href = "/video";
                 }
-                if (decodedToken.roleid == 1 || decodedToken.roleid == 3 || decodedToken.roleid == 4 ) {
+                else if ( decodedToken.roleid == 3  ) {
                     window.location.href = "/manager/course";
+                }else if(decodedToken.roleid == 4 ){
+                    window.location.href = "/dashboard";
+                }else if( decodedToken.roleid == 1){
+                    window.location.href ="/viewclass"
                 }
             } else {
                 console.log('Đăng nhập thất bại');

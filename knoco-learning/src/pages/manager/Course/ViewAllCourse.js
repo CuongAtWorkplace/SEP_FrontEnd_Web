@@ -62,7 +62,7 @@ class ViewAllCourse extends Component {
             const decodedToken = jwtDecode(token);
            
             if (Number(decodedToken.roleid) !== 3 || localStorage.getItem("token") === '') {
-               
+               window.location.href="/";
             }
         }
         this.refreshListByGenre();

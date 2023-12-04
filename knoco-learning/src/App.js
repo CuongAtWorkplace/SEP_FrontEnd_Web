@@ -42,7 +42,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* teacher */}
-        <Route path="/" element={<GroupChat/>} />
+        <Route path="/" element={<Login/>} />
         <Route path="/viewclass" element={<ViewAllClass/>} />
         <Route path="/classdetail/:classId" element={<ClassDetail/>} />
         <Route path="/learnerdetail" element={<LearnerDetail/>} />

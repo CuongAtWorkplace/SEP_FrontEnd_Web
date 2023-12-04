@@ -8,6 +8,8 @@
 
 table {
     border-collapse: collapse;
+    border: 2px solid gray;
+    width: 100%;
 }
 
 tr {
@@ -15,17 +17,24 @@ tr {
 }
 
 thead tr th {
-    font-size: 14px;
+    font-size: 16px;
     text-transform: uppercase;
-    font-weight: 400;
-    background: #f9fafb;
+    font-weight: bold;
+    background: whitesmoke;
     text-align: start;
     padding: 15px;
+    border-left: 2px solid gray;
     border-right: 2px solid gray;
 }
 
 tbody tr td {
     padding: 10px 15px;
+    text-align: center;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-left: 2px solid gray;
     border-right: 2px solid gray;
 }
 

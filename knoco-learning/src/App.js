@@ -32,6 +32,7 @@ import ViewLeanerList from './pages/manager/Leaner/ViewLeanerList';
 import ListCourse from './components/manager/ListCourse';
 import SideBar from './components/sidebar/SideBar';
 import RequestManager from './components/request/RequestManager';
+import HomePage from './pages/teachers/HomePage';
 const queryClient = new QueryClient();
 
 
@@ -47,6 +48,7 @@ function App() {
         <Route path="/list-all-course" element={<ListAllCourse />} />
         <Route path="/class-empty/:courseId" element={<ClassEmpty />} />
         <Route path="/profile-teacher" element={<Profile />} />
+        <Route path="/homepage" element={<HomePage />} />
         {/* admin */}
 
         {/* manager */}

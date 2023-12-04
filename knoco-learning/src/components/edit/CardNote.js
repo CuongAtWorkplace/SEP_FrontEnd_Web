@@ -71,7 +71,7 @@ const CardNote = ({ closePopup }) => {
                         body: JSON.stringify(NoteNew)
                     });
                     if (response.ok) {
-                        toast.error("Save successful!!!")
+                        toast.success("Save successful!!!")
                         console.log('Dữ liệu lớp học đã được cập nhật thành công');
                         closePopup();
                     } else {

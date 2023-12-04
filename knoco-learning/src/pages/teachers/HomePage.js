@@ -16,25 +16,40 @@ import { Pagination } from 'swiper/modules';
 
 
 const HomePage = ({ children, ...props }) => {
-    const [data, setData] = useState([]);
-
+    const [dataClass, setDataClass] = useState([]);
+    const [dataCourse, setDataCourse] = useState([]);
     useEffect(() => {
         // Add click event listener to menu-btn
         $('.menu-btn').on('click', function () {
             $('#menu').toggleClass('active'); // Toggle active class on #menu
         });
-        fetchData();
+        fetchDataClass();
+        fetchDataCourse();
     }, []);
 
-    const fetchData = async () => {
+    const fetchDataClass = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/Course/GetAllCourses`); // Thay thế URL bằng API thực tế
+            const response = await fetch(`https://localhost:7169/api/Class/GetTopClassByDate`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
-            setData(responseData);
+            setDataClass(responseData);
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu:', error);
         }
     };
+
+    const fetchDataCourse = async () => {
+        try {
+            const response = await fetch(`https://localhost:7169/api/Course/GetTopCourseByDate`); // Thay thế URL bằng API thực tế
+            const responseData = await response.json();
+            setDataCourse(responseData);
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu:', error);
+        }
+    };
+
+    function formatAPIDate(apiDate) {
+        return new Date(apiDate).toLocaleDateString('en-US');
+    }
 
     return (
         <div className="body_page" {...props}>
@@ -56,7 +71,7 @@ const HomePage = ({ children, ...props }) => {
 
                 <div className="children">
                     <h3 className="i-name">
-                        New Course
+                        New course
                     </h3>
                     <div className="home-course" id="courseContainer">
                         <Swiper
@@ -68,23 +83,19 @@ const HomePage = ({ children, ...props }) => {
                             modules={[Pagination]}
                             className="mySwiper"
                         >
-                            {data.length > 0 ? (
-                                data.map((course, index) => (
+                            {dataCourse.length > 0 ? (
+                                dataCourse.map((courseC, indexCourse) => (
                                     <SwiperSlide>
                                         <div className="item-course">
-                                            <img src="https://reactjs.org/logo-og.png" alt="react logo" />
+                                            <div className="div-img">
+                                                <img src={`https://localhost:7169/Photos/${courseC.image}` || "https://reactjs.org/logo-og.png"} alt={courseC.courseName} />
+                                            </div>
                                             <div class="item-infomation">
                                                 <div class="d-flex">
-                                                    <small><i class="text-primary"></i>25 Students</small>
+                                                    <small><i class="text-primary"></i>{formatAPIDate(courseC.createDate)}</small>
                                                     <small><i class="text-primary"></i>01h 30m</small>
                                                 </div>
-                                                <Link class="a-link" href="">Web design & development courses for beginner 1</Link>
-                                                <div class="border-top">
-                                                    <div class="d-flex m-0">
-                                                        <h5><i class="text-primary"></i>4.5 <small>(250)</small></h5>
-                                                        <h5><i class="text-primary"></i>$99</h5>
-                                                    </div>
-                                                </div>
+                                                <Link class="a-link" href="">{courseC.courseName}</Link>
                                             </div>
                                         </div>
                                     </SwiperSlide>
@@ -96,15 +107,50 @@ const HomePage = ({ children, ...props }) => {
                     </div>
 
                     <h3 className="i-name-2">
-                        Hot Course
+                        New class
                     </h3>
 
                     <div className="home-course">
-                        
+                        <Swiper
+                            slidesPerView={3}
+                            spaceBetween={30}
+                            pagination={{
+                                clickable: true,
+                            }}
+                            modules={[Pagination]}
+                            className="mySwiper"
+                        >
+                            {dataClass.length > 0 ? (
+                                dataClass.map((classC, indexClass) => (
+                                    <SwiperSlide>
+                                        <div className="item-course">
+                                        <div className="div-img">
+                                                <img src={`https://localhost:7169/Photos/${classC.image}` || "https://reactjs.org/logo-og.png"} alt={classC.className} />
+                                            </div>
+                                            <div class="item-infomation">
+                                                <div class="d-flex">
+                                                    <small><i class="text-primary"></i>{classC.numberStudent} Students</small>
+                                                    <small><i class="text-primary"></i>{classC.schedule}</small>
+                                                </div>
+                                                <Link class="a-link" href="">{classC.className}</Link>
+                                                <div class="border-top">
+                                                    <div class="d-flex m-0">
+                                                        <h5><i class="text-primary"></i>{classC.numberOfWeek}/Week</h5>
+                                                        <h5><i class="text-primary"></i>{classC.fee} Coin</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </SwiperSlide>
+                                ))
+                            ) : (
+                                <p>Loading class information...</p>
+                            )}
+                        </Swiper>
                     </div>
                 </div>
 
-                <footer>
+                <footer className="footer">
                     <Footer />
                 </footer>
             </section >

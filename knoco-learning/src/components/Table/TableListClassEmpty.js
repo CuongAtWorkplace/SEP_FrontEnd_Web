@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import Table from "./Table";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-
+import jwtDecode from "jwt-decode";
+import { toast } from 'react-toastify';
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
   return (
@@ -50,6 +51,37 @@ const TableListClassEmpty = (props) => {
 
   const handleRowClickn = (row) => {
   };
+
+  const UpdateRequestClass = (classId) => {
+    const token = localStorage.getItem("token");
+    if (token !== null) {
+      const decodedToken = jwtDecode(token);
+
+      const updateRequest = {
+        classId: classId,
+        teacherId: parseInt(decodedToken.userid, 10)
+      }
+      fetch('https://localhost:7169/api/Class/RequestClass', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updateRequest),
+      })
+        .then((response) => {
+          if (response.ok) {
+            window.confirm("Are you sure you want to teach this class?") ? navigate(`/classdetail/${classId}`) : window.close();
+            toast.success("Successfull !!!");
+          }
+          else if (!response.ok) {
+            toast.error("Failed. Try Again!!!")
+            throw new Error('Failed to update');
+          }
+
+        })
+
+    }
+  }
 
   const [columns, setColumns] = useState([
     {
@@ -104,7 +136,7 @@ const TableListClassEmpty = (props) => {
       disableFilters: true, // Vô hiệu hóa bộ lọc cho cột Button
       // disableSortBy: true,
       Cell: ({ row }) => (
-        <button className="btn-table" onClick={() => handleRowClick(row.original.classId)}>
+        <button className="btn-table" onClick={() => UpdateRequestClass(row.original.classId)}>
           <FontAwesomeIcon icon={faCheck} /> Choose class
         </button>
       ),
@@ -112,7 +144,7 @@ const TableListClassEmpty = (props) => {
   ]);
 
   return (
-    <Table columns={columns} data={data} onRowClick={handleRowClickn}/>
+    <Table columns={columns} data={data} onRowClick={handleRowClickn} />
   );
 }
 

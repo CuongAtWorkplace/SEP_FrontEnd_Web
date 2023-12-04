@@ -27,10 +27,7 @@ const SideBar = () => {
     const [tokenCheck, setToken] = useState('');
     
     useEffect(() => {
-        // Add click event listener to menu-btn
-        // $('.menu-btn').on('click', function () {
-        //     $('#menu').toggleClass('active'); // Toggle active class on #menu
-        // });
+       
         const token = localStorage.getItem("token");
         if (token !== null) {
             const decodedToken = jwtDecode(token);
@@ -38,14 +35,14 @@ const SideBar = () => {
             console.log(Number(decodedToken.roleid));
             setRoleid(decodedToken.roleid);
             console.log(roleid);
-            setTimeout(() => {
-                localStorage.removeItem('token');
-                console.log('da xoa token.');
-                console.log(token)
-            }, 30 * 1000);
-            if (Number(decodedToken.roleid) === 2 || localStorage.getItem("token") === '') {
-                navigate(`/`);
-            }
+            // setTimeout(() => {
+            //     localStorage.removeItem('token');
+            //     console.log('da xoa token.');
+            //     console.log(token)
+            // }, 30 * 1000);
+            // if (Number(decodedToken.roleid) === 2 || localStorage.getItem("token") === '') {
+            //     navigate(`/`);
+            // }
         }else{
             navigate(`/`);
         }

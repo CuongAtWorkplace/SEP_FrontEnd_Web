@@ -2,12 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import './style.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormControl } from "react-bootstrap";
-import { faArrowLeft, faLocationArrow, faPaperclip, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faLocationArrow, faPaperclip, faXmark, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useDropzone } from 'react-dropzone';
 import { HubConnectionBuilder } from "@microsoft/signalr";
-import { useParams } from "react-router";
 
 const User = 2;
+const ClassId = 9;
+const isManager = false;
+
 
 const BoxChat = () => {
 	const [messageText, setMessageText] = useState(''); // Thêm state để lưu trữ nội dung tin nhắn
@@ -16,7 +18,7 @@ const BoxChat = () => {
 	const [imagePicker, setImagePicker] = useState('');
 	const [image, setImage] = useState(null);
 	const [connection, setConnection] = useState(null);
-	const { gid } = useParams();
+
 
 
 
@@ -25,7 +27,7 @@ const BoxChat = () => {
 	useEffect(() => {
 		const fetchMessages = async () => {
 			try {
-				const response = await fetch(`http://localhost:7169/api/ChatRoom/GetAllClassMessages/${gid}`);
+				const response = await fetch('https://testdoan.ngrok.dev/api/ChatRoom/GetAllClassMessages/' + ClassId);
 				if (response.ok) {
 					const data = await response.json();
 					setMessages(data);
@@ -39,7 +41,7 @@ const BoxChat = () => {
 
 		const fetchClassData = async () => {
 			try {
-				const response = await fetch(`http://localhost:7169/api/Class/GetClassById/GetClassById/${gid}`);
+				const response = await fetch('https://testdoan.ngrok.dev/api/Class/GetClassById/GetClassById/' + ClassId);
 				if (response.ok) {
 					const data = await response.json();
 					setClassData(data);
@@ -58,7 +60,7 @@ const BoxChat = () => {
 
 	useEffect(() => {
 		const newConnection = new HubConnectionBuilder()
-			.withUrl('https://testdoan.ngrok.dev/chatHub')
+			.withUrl('https://testdoan.ngrok.dev/chatHub', { withCredentials: true })
 			.build();
 
 		setConnection(newConnection);
@@ -86,7 +88,7 @@ const BoxChat = () => {
 				newConnection.stop();
 			}
 		};
-	}, [messages]);
+	}, []);
 
 	useEffect(() => {
 		return () => {
@@ -105,7 +107,7 @@ const BoxChat = () => {
 		}
 	}, [messages]);
 
-	const classname = classData.length > 0 ? classData[0].classname : "Loading...";
+	const classname = classData.length > 0 ? classData[0].className : "Loading...";
 	const numberStudent = classData.length > 0 ? classData[0].numberStudent : "Loading...";
 
 	const onDrop = (acceptedFiles) => {
@@ -144,7 +146,7 @@ const BoxChat = () => {
 				const blob = await fetch(imagePicker).then((res) => res.blob());
 				formData.append('file', blob, 'image.jpg');
 
-				const uploadResponse = await fetch('http://localhost:7169/api/Post/UploadImage', {
+				const uploadResponse = await fetch('https://testdoan.ngrok.dev/api/Post/UploadImage', {
 					method: 'POST',
 					body: formData,
 				});
@@ -176,7 +178,7 @@ const BoxChat = () => {
 				photo: photo // Gán link ảnh vào phần photo của tin nhắn
 			};
 
-			const response = await fetch(`http://localhost:7169/api/ChatRoom/AddMessage/${gid}/` + User, {
+			const response = await fetch(`https://testdoan.ngrok.dev/api/ChatRoom/AddMessage/` + ClassId + `/` + User, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -211,7 +213,7 @@ const BoxChat = () => {
 							<span className="online_icon"></span>
 						</div>
 						<div className="user_info">
-							<span>{classname}</span>
+							<span>{isManager ? 'Manager Chat' : classname}</span>
 							<p>student in class: {numberStudent}</p>
 						</div>
 					</div>
@@ -226,7 +228,7 @@ const BoxChat = () => {
 					</div>
 				</div>
 
-				<div ref={scrollViewRef} className="card-body msg_card_body">
+				<div ref={scrollViewRef} className={`card-body ${isManager ? 'msg_card_body_manager' : 'msg_card_body'}`}>
 					{transformedMessages.map(message => (
 						<Message
 							key={message.id}
@@ -290,23 +292,81 @@ const BoxChat = () => {
 const Message = ({ text, time, isSent, messageId, image }) => {
 	const messageContainerClass = isSent ? 'msg_cotainer_send' : 'msg_cotainer';
 
-	return (
-		<div className={`d-flex flex-column ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
-			{image !== '' ? (
-				<div className={messageContainerClass}>
-					{text}
-					<img src={`http://localhost:7169/api/ChatRoom/GetImage/${messageId}`} />
-					<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
-				</div>
-			) : (
-				<div className={messageContainerClass}>
-					{text}
-					<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
-				</div>
-			)}
-		</div>
+	console.log('Rendering Message:', messageId, image);
 
-	);
+	if (image !== '') {
+		if(isSent) {
+			return(
+				<>
+				<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
+					<div className="btn_del_msg">
+						<button><FontAwesomeIcon icon={faTrash}/></button>
+					</div>
+					<div className={messageContainerClass}>
+						{text}
+					</div>
+				</div>
+				<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
+					<div className={messageContainerClass}>
+						<img src={`https://testdoan.ngrok.dev/api/ChatRoom/GetImage/${messageId}`} />
+						<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
+				</div>
+				</div>
+				</>
+			);
+		}else{
+		return (
+			<>
+			<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'}`}>
+				<div className="msg_username">
+					<span>Username</span>
+				</div>
+			</div>
+			<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
+				<div className={messageContainerClass}>
+					{text}
+				</div>
+			</div>
+			<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
+				<div className={messageContainerClass}>
+					<img src={`https://testdoan.ngrok.dev/api/ChatRoom/GetImage/${messageId}`} />
+					<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
+				</div>
+			</div>
+			</>
+			);
+		}
+	} else {
+		if(isSent){
+			return(
+				<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
+					<div className="btn_del_msg">
+						<button><FontAwesomeIcon icon={faTrash}/></button>
+					</div>
+					<div className={messageContainerClass}>
+						{text}
+						<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
+					</div>
+				</div>
+			);
+		}else{
+		return (
+			<>
+			<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'}`}>
+				<div className="msg_username">
+					<span>Username</span>
+				</div>
+			</div>
+			<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
+				<div className={messageContainerClass}>
+					{text}
+					<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
+				</div>
+			</div>
+			</>
+		);
+		}
+	}
 };
 
 const formattedDateTime = (dateTimeString) => {

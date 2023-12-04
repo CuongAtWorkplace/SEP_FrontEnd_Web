@@ -1,8 +1,8 @@
 import { memo } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";    
 //import logo from './featured.png';
 import "./style.css";
-const HomePage = () => {
+const HomePagesss = () => {
     const courseContainer = () => {
         document.getElementById('courseContainer');
     }
@@ -175,4 +175,4 @@ const HomePage = () => {
     )
 };
 
-export default memo(HomePage);
+export default memo(HomePagesss);

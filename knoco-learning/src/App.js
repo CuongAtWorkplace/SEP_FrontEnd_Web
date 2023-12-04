@@ -33,6 +33,7 @@ import ListCourse from './components/manager/ListCourse';
 import SideBar from './components/sidebar/SideBar';
 import RequestManager from './components/request/RequestManager';
 import HomePage from './pages/teachers/HomePage';
+import BoxChat from './components/chat/BoxChat';
 const queryClient = new QueryClient();
 
 
@@ -41,7 +42,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* teacher */}
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<GroupChat/>} />
         <Route path="/viewclass" element={<ViewAllClass/>} />
         <Route path="/classdetail/:classId" element={<ClassDetail/>} />
         <Route path="/learnerdetail" element={<LearnerDetail/>} />

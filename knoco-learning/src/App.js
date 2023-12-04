@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import './style/admin/global.scss';
 
 import Login from './pages/login/Login';
 import Register from './pages/login/Register';
@@ -29,39 +29,48 @@ import ListAllCourse from './pages/teachers/ListAllCourse';
 import GroupChat from './pages/teachers/GroupChat';
 import ViewLeanerList from './pages/manager/Leaner/ViewLeanerList';
 //import TestModal from './pages/manager/Course/TestModal';
-
+import ListCourse from './components/manager/ListCourse';
+import SideBar from './components/sidebar/SideBar';
+import RequestManager from './components/request/RequestManager';
+import HomePage from './pages/teachers/HomePage';
 const queryClient = new QueryClient();
+
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* teacher */}
         <Route path="/" element={<Login />} />
-        <Route path="/viewallclass" element={<ViewAllClass/>} />
+        <Route path="/viewclass" element={<ViewAllClass/>} />
         <Route path="/classdetail/:classId" element={<ClassDetail/>} />
         <Route path="/learnerdetail" element={<LearnerDetail/>} />
+        <Route path="/list-all-course" element={<ListAllCourse />} />
+        <Route path="/class-empty/:courseId" element={<ClassEmpty />} />
+        <Route path="/profile-teacher" element={<Profile />} />
+        <Route path="/homepage" element={<HomePage />} />
+        {/* admin */}
+
+        {/* manager */}
         <Route path="/listlearner" element={<ListLearner/>} />
-        <Route path="/" element={<Login />}  />
         <Route path="/dashboard" element={<Home />} />
         <Route path="/users" element={<Users />} />
         <Route path="/users/:userId" element={<UserDetail />} />
         <Route path="/report" element={<Report />} />
-        <Route path="/course" element={<ViewAllCourse />} />
+        <Route path="/manager/course" element={<ViewAllCourse />} />
         <Route path="/viewleanerlist" element={<ViewLeanerList />} />
-
         <Route path="/coursedetail/:cid" element={<CourseDetail />} />
         <Route path="/editclass" element={<EditClass />} />
-        {/* <Route path="/videocall" element={<VideoCall />} /> */}
-        <Route path='/listquizzinclass' element={<ViewListQuizzInClass/>}/>
-        <Route path='/notificationteacher' element={<ViewNotificationTeacher/>}/>
-        <Route path='/quizzdetail' element={<QuizzDetail/>}/>
+        <Route path='/listquizzinclass' element={<ViewListQuizzInClass />} />
+        <Route path='/notificationteacher' element={<ViewNotificationTeacher />} />
+        <Route path='/quizzdetail' element={<QuizzDetail />} />
         <Route path="/videocalldemo/:roomId" element={<VideoCallDemo />} />
-        <Route path="/viewpostlistmanager" element={<ViewPostListManager />} />
+        <Route path="/manager/viewpostlistmanager" element={<ViewPostListManager />} />
         <Route path="/viewpostdetailmanager/:pid" element={<ViewPostDetailManager />} />
-        <Route path="/profile-teacher" element={<Profile />} />
-        <Route path="/class-empty/:courseId" element={<ClassEmpty/>} />
-        <Route path="/list-all-course" element={<ListAllCourse/>} />
-        <Route path="/chat" element={<GroupChat />} />
+        <Route path="/chat/:gid" element={<GroupChat />} />
+        <Route path='/testfile' element={<ListCourse />} />
+        <Route path='/manager' element={<SideBar />} />
+        <Route path='/tableRequestmanager' element={<RequestManager/>} />
       </Routes>
       <ToastContainer
         position="top-right"

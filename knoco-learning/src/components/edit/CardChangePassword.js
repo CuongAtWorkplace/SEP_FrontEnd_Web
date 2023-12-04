@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import './CardEditClass.css'
+import '../../style/Teacher/Edit.css'
 
 const CardChangePassword = ({ closePopup }) => {
     //const params = useParams();
@@ -61,17 +61,23 @@ const CardChangePassword = ({ closePopup }) => {
     return (
         <div className="card-edit-class">
             <form onSubmit={handleSubmit}>
-                <h2>Change Password</h2>
-                <label>{email}</label>
+                <h2>Change Password <label className="control-label">{email}</label> </h2>
+                
 
-                <label>Old password:</label>
-                <input type="password" id="Password" name="Password" onChange={(e) => setPassword(e.target.value)} required />
+                <div className="form-group">
+                    <label className="control-label">Old password:</label>
+                    <input className="form-control" type="password" id="Password" name="Password" onChange={(e) => setPassword(e.target.value)} required />
+                </div>
 
-                <label> New password:</label>
-                <input type="password" id="NewPassword" name="NewPassword" onChange={(e) => setNewPassword(e.target.value)} required />
+                <div className="form-group">
+                    <label className="control-label"> New password:</label>
+                    <input className="form-control" type="password" id="NewPassword" name="NewPassword" onChange={(e) => setNewPassword(e.target.value)} required />
+                </div>
 
-                <label>Re password:</label>
-                <input type="password" id="RePassword" name="RePassword" onChange={(e) => setRePassword(e.target.value)} required />
+                <div className="form-group">
+                    <label className="control-label">Re password:</label>
+                    <input className="form-control" type="password" id="RePassword" name="RePassword" onChange={(e) => setRePassword(e.target.value)} required />
+                </div>
 
                 <button type="submit" id="submit" name="submit" className="btn-btn">Edit</button>
                 <button type="button" onClick={closePopup} className="btn-btn">Cancel</button>

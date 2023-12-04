@@ -1,30 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { memo } from "react";
 import Header from "../../components/header/Header"
 import Footer from "../../components/footer/Footer";
 import SideBar from "../../components/sidebar/SideBar"
-import "./style.css";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
+import TableListClassTeacher from "../../components/Table/TableListClassTeacher";
+import TableRequestmanager from "./TableRequestmanager";
 import $ from "jquery";
-import CardClass from "../../components/detail/CardClass";
-import TableListLearnerInClass from "../../components/Table/TableListLearnerInClass";
-import CardEditClass from "../../components/edit/CardEditClass"
-
-const ClassDetail = ({ children, ...props }) => {
+import jwtDecode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
+const RequestManager = ({ children, ...props }) => {
+    const navigate = useNavigate();
     useEffect(() => {
         // Add click event listener to menu-btn
-        $('.menu-btn').on('click', function () {
+        $('.menu-btn').on('click', function() {
             $('#menu').toggleClass('active'); // Toggle active class on #menu
         });
+        const token = localStorage.getItem("token");
+        if (token !== null) {
+            const decodedToken = jwtDecode(token);
+           
+            if (Number(decodedToken.roleid) !== 2 || localStorage.getItem("token") === '') {
+                navigate(`/`);
+            }
+        }
     }, []);
-
-    const [isEditClassPopupVisible, setIsEditClassPopupVisible] = useState(false);
-    
-    const closeEditClassPopup = () => {
-        setIsEditClassPopupVisible(false);
-    };
-
     return (
         <div className="body_page" {...props}>
             <section id="menu">
@@ -34,23 +36,17 @@ const ClassDetail = ({ children, ...props }) => {
                 </div>
 
                 <nav>
-                    <SideBar />
+                    <SideBar/>
                 </nav>
             </section>
 
             <section id="interface">
                 <header>
-                    <Header />
+                    <Header/>
                 </header>
 
                 <div className="children">
-                    <CardClass setIsEditClassPopupVisible={setIsEditClassPopupVisible} />
-                    <TableListLearnerInClass />
-                    {isEditClassPopupVisible && (
-                        <div className="popup">
-                            <CardEditClass closePopup={closeEditClassPopup} />
-                        </div>
-                    )}
+                    <TableRequestmanager/>
                 </div>
 
                 <footer>
@@ -61,4 +57,4 @@ const ClassDetail = ({ children, ...props }) => {
     );
 };
 
-export default memo(ClassDetail);
+export default memo(RequestManager);

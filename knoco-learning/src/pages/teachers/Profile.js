@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import '../../style/Teacher/Teacher.css';
-import "./style.css";
 import myImage from '../../assets/profile.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faRightFromBracket, faUserGraduate, faEnvelope, faSquarePhone, faPen, faMapLocationDot, faCalendarDays, faMoneyCheckDollar } from "@fortawesome/free-solid-svg-icons";
 import { memo } from "react";
 import Header from "../../components/header/Header"
 import Footer from "../../components/footer/Footer";
@@ -15,11 +14,12 @@ import CardChangePassword from "../../components/edit/CardChangePassword";
 import CardChangeImage from "../../components/edit/CardChangeImage";
 
 const ProfileTeacher = ({ onBackClick, children, ...props }) => {
-    //const { userId } = props;
-    const [teacherId, setClassDt] = useState(null);
-    const [isEditClassPopupVisible, setEditClassPopupVisible] = useState(false);
+    const UserID = 2;
+    const [userDt, setUserDt] = useState(null);
+    const [isEditProfilePopupVisible, setEditProfilePopupVisible] = useState(false);
     const [isChangePasswordPopupVisible, setChangePasswordPopupVisible] = useState(false);
     const [isChangeImagePopupVisible, setChangeImagePopupVisible] = useState(false);
+    const [imageSource, setImageSource] = useState("");
 
     useEffect(() => {
         fetchData();
@@ -27,24 +27,41 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
         $('.menu-btn').on('click', function () {
             $('#menu').toggleClass('active'); // Toggle active class on #menu
         });
+        fetchImage();
     }, []);
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/User/GetUserProfile/${2}`); // Thay thế URL bằng API thực tế
+            const response = await fetch(`https://localhost:7169/api/User/GetUserProfile/${UserID}`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
-            setClassDt(responseData);
+            setUserDt(responseData);
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu lớp học:', error);
         }
     };
 
-    const openEditClassPopup = () => {
-        setEditClassPopupVisible(true);
+    const fetchImage = async () => {
+        try {
+            const response = await fetch(`https://localhost:7169/api/User/GetUserImage/GetImage/${UserID}`);
+            if (response.ok) {
+                const imageData = await response.blob();
+                setImageSource(URL.createObjectURL(imageData));
+            }
+        } catch (error) {
+            console.error('Lỗi khi lấy ảnh:', error);
+        }
+    };
+
+    function formatAPIDate(apiDate) {
+        return new Date(apiDate).toLocaleDateString('en-US');
     }
 
-    const closeEditClassPopup = () => {
-        setEditClassPopupVisible(false);
+    const openEditProfilePopup = () => {
+        setEditProfilePopupVisible(true);
+    }
+
+    const closeEditProfilePopup = () => {
+        setEditProfilePopupVisible(false);
     }
 
     const openChangePasswordPopup = () => {
@@ -82,39 +99,39 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                 </header>
 
                 <div className="children">
-                    {teacherId ? (
+                    {userDt ? (
                         <div className="containers">
                             <div className="profile-box">
-                                <div className="col-1">
-                                    <ul>
+                                <div className="colums-1">
+                                    <ul className="imgbtn-profile">
                                         <li>
-                                            <img src={myImage} alt="Profile" />
+                                            <img src={imageSource || myImage} alt={userDt.image || "Profile"} />
                                         </li>
                                         <li>
                                             <button onClick={openChangeImagePopup}>Change image</button>
-                                            <button onClick={openChangePasswordPopup}>Change password</button>
+                                            <button onClick={openEditProfilePopup}>Edit profile</button>
                                         </li>
                                         <li>
-                                            <button onClick={onBackClick}><FontAwesomeIcon icon={faArrowLeft} /> Back</button>
-                                            <button onClick={openEditClassPopup}>Edit profile</button>
+                                        <button onClick={openChangePasswordPopup}> Change password</button>
+                                            <button onClick={onBackClick}><FontAwesomeIcon icon={faRightFromBracket} /> Log out</button>
+                                            
                                         </li>
                                     </ul>
                                 </div>
-                                <div className="col-2">
-                                    <h2>{teacherId.fullName} </h2>
-                                    <p className="email">Email: </p>
-                                    <p>{teacherId.email}</p>
-                                    <p className="phone">Phone number: </p>
-                                    <p>{teacherId.phone}</p>
-                                    <p className="description">Description: </p>
-                                    <p>{teacherId.description}</p>
-                                    <p className="address">Address: </p>
-                                    <p>{teacherId.address}</p>
-                                    <p className="createdate">Create date: </p>
-                                    <p>{teacherId.createDate}</p>
-                                    <p className="balance">Balance: </p>
-                                    <p>{teacherId.balance}</p>
-
+                                <div className="colums-2">
+                                    <h2><FontAwesomeIcon icon={faUserGraduate} /> {userDt.fullName} </h2>
+                                    <h4 className="title email"><FontAwesomeIcon icon={faEnvelope} /> Email: </h4>
+                                    <p>{userDt.email}</p>
+                                    <h4 className="title phone"><FontAwesomeIcon icon={faSquarePhone} /> Phone number: </h4>
+                                    <p>{userDt.phone}</p>
+                                    <h4 className="title description"><FontAwesomeIcon icon={faPen} /> Description: </h4>
+                                    <p>{userDt.description}</p>
+                                    <h4 className="title address"><FontAwesomeIcon icon={faMapLocationDot} /> Address: </h4>
+                                    <p>{userDt.address}</p>
+                                    <h4 className="title createdate"><FontAwesomeIcon icon={faCalendarDays} /> Create date: </h4>
+                                    <p>{formatAPIDate(userDt.createDate)}</p>
+                                    <h4 className="title balance"><FontAwesomeIcon icon={faMoneyCheckDollar} /> Balance: </h4>
+                                    <p>{userDt.balance}</p>
                                 </div>
                             </div>
                         </div>
@@ -122,40 +139,44 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                         // <p>Loading class information...</p>
                         <div className="containers">
                             <div className="profile-box">
-                                <div className="col-1">
-                                    <ul>
+                                <div className="colums-1">
+                                    <ul className="imgbtn-profile">
                                         <li>
                                             <img src={myImage} alt="Profile" />
                                         </li>
                                         <li>
                                             <button onClick={openChangeImagePopup}>Change image</button>
-                                            <button onClick={openChangePasswordPopup}>Change password</button>
+                                            <button onClick={openEditProfilePopup}>Edit profile</button>
                                         </li>
                                         <li>
-                                            <button onClick={onBackClick}><FontAwesomeIcon icon={faArrowLeft} /> Back</button>
-                                            <button onClick={openEditClassPopup}>Edit profile</button>
+                                        <button onClick={openChangePasswordPopup}>Change password</button>
+                                            <button onClick={onBackClick}><FontAwesomeIcon icon={faRightFromBracket} /> Log out</button>
+                                            
                                         </li>
                                     </ul>
                                 </div>
-                                <div className="col-2">
+                                <div className="colums-2">
                                     <h2>null</h2>
-                                    <p className="title">Email: </p>
-                                    <p>null</p>
-                                    <p className="title">Phone number: </p>
-                                    <p>null</p>
-                                    <p className="title">Description: </p>
-                                    <p>null</p>
-                                    <p className="title">Address: </p>
-                                    <p>null</p>
-
+                                    <h4 className="title email"><FontAwesomeIcon icon={faEnvelope} /> Email: </h4>
+                                    <p>Empty!</p>
+                                    <h4 className="title phone"><FontAwesomeIcon icon={faSquarePhone} /> Phone number: </h4>
+                                    <p>Empty!</p>
+                                    <h4 className="title description"><FontAwesomeIcon icon={faPen} /> Description: </h4>
+                                    <p>Empty!</p>
+                                    <h4 className="title address"><FontAwesomeIcon icon={faMapLocationDot} /> Address: </h4>
+                                    <p>Empty!</p>
+                                    <h4 className="title createdate"><FontAwesomeIcon icon={faCalendarDays} /> Create date: </h4>
+                                    <p>Empty!</p>
+                                    <h4 className="title balance"><FontAwesomeIcon icon={faMoneyCheckDollar} /> Balance: </h4>
+                                    <p>Empty!</p>
                                 </div>
                             </div>
                         </div>
                     )}
 
-                    {isEditClassPopupVisible && (
+                    {isEditProfilePopupVisible && (
                         <div className="popup">
-                            <CardEditProfile closePopup={closeEditClassPopup} />
+                            <CardEditProfile closePopup={closeEditProfilePopup} />
                         </div>
                     )}
 

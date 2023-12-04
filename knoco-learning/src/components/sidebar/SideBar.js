@@ -2,84 +2,131 @@ import React, { useEffect } from "react";
 import { memo } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSchool,
-        faCalendarDays,
-        faChalkboardTeacher,
-        faUser,
-        faFlag,
-        faClipboard,
-        faComment,
-        faGear,
-        faDashboard } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from "react-router-dom";
+import {
+    faSchool,
+    faChalkboardTeacher,
+    faUser,
+    faFlag,
+    faClipboard,
+    faDashboard,
+    faChalkboardUser,
+    faCheckToSlot,
+    faUserGraduate
+} from '@fortawesome/free-solid-svg-icons';
 import $ from "jquery";
-
+import { useState } from "react";
+import { Route, Redirect } from 'react-router-dom';
+import ViewAllCourse from "../../pages/manager/Course/ViewAllCourse";
+import ViewPostListManager from "../../pages/manager/ViewPostListManager";
+import TableListClassTeacher from "../Table/TableListClassTeacher";
+import jwtDecode from "jwt-decode";
 const SideBar = () => {
+    const navigate = useNavigate();
+    const [roleid, setRoleid] = useState('');
+    const [tokenCheck, setToken] = useState('');
+    
     useEffect(() => {
         // Add click event listener to menu-btn
-        $('.menu-btn').on('click', function () {
-            $('#menu').toggleClass('active'); // Toggle active class on #menu
-        });
+        // $('.menu-btn').on('click', function () {
+        //     $('#menu').toggleClass('active'); // Toggle active class on #menu
+        // });
+        const token = localStorage.getItem("token");
+        if (token !== null) {
+            const decodedToken = jwtDecode(token);
+            console.log(token)
+            console.log(Number(decodedToken.roleid));
+            setRoleid(decodedToken.roleid);
+            console.log(roleid);
+            setTimeout(() => {
+                localStorage.removeItem('token');
+                console.log('da xoa token.');
+                console.log(token)
+            }, 30 * 1000);
+            if (Number(decodedToken.roleid) === 2 || localStorage.getItem("token") === '') {
+                navigate(`/`);
+            }
+        }else{
+            navigate(`/`);
+        }
     }, []);
+
     return (
+
         <div className="items">
-            <ul>
-                <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faDashboard} />
-                    <Link className="link-a" to="/dashboard">Dashboard</Link>
-                </li>
-                <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faUser} />
-                    <Link className="link-a" to="/users">User Manage</Link>
-                </li>
-                <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faFlag} />
-                    <Link className="link-a" to="/report">Report</Link>
-                </li>
-                <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faSchool} />
-                    <Link className="link-a" to="/viewallclass">Class List</Link>
-                </li>
-                <li>
+            <div>
+                <ul>
+                    {/*Admin */}
+                    {roleid == '4' && <>
+                        <li>
+                            <FontAwesomeIcon className="menu-icon" icon={faDashboard} />
+                            <Link className="link-a" to="/dashboard">Dashboard</Link>
+                        </li>
+                        {/* <li>
+                            <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
+                            <Link className="link-a" to="/manager/list-all-course">Manage Class</Link>
+                        </li> */}
+                        <li>
+                            <FontAwesomeIcon className="menu-icon" icon={faUser} />
+                            <Link className="link-a" to="/users">User Manage</Link>
+                        </li>
+                        <li>
+                            <FontAwesomeIcon className="menu-icon" icon={faFlag} />
+                            <Link className="link-a" to="/report">Report</Link>
+                        </li>
+                        {/* <li>
+                            <FontAwesomeIcon className="menu-icon" icon={faSchool} />
+                            <Link className="link-a" to="/viewallclass">Class List</Link>
+                        </li> */}
+                    </>}
+
+                    {/*Manage */}
+                    {roleid == '3' && <>
+                        {/* <li>
                     <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
                     <Link className="link-a" to="/profile-teacher">Profile</Link>
-                </li>
-                <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
-                    <Link className="link-a" to="/list-all-course">Profile</Link>
-                </li>
-                <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faSchool} />
-                    <Link className="link-a" to="#">Manage Courses</Link>
-                </li>
-                <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
-                    <Link className="link-a" to="#">View Schedule</Link>
-                </li>
-                <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faChalkboardTeacher} />
-                    <Link className="link-a" to="#">Manage Teachers</Link>
-                </li>
-                <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faUser} />
-                    <Link className="link-a" to="#">Manage Learners</Link>
-                </li>
-                <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faFlag} />
-                    <Link className="link-a" to="#">View Reports</Link>
-                </li>
-                <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faClipboard} />
-                    <Link className="link-a" to="#">Manage Posts</Link>
-                </li>
-                <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faComment} />
-                    <Link className="link-a" to="#">Manage Comments</Link>
-                </li>
-                <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faGear} />
-                    <Link className="link-a" to="#">Settings</Link>
-                </li>
-            </ul>
+                </li> */}
+                        <li>
+                            <FontAwesomeIcon className="menu-icon" icon={faSchool} />
+                            <Link className="link-a" to="/manager/course">Manage Courses</Link>
+                        </li>
+                        <li>
+                            <FontAwesomeIcon className="menu-icon" icon={faClipboard} />
+                            <Link className="link-a" to="/manager/viewpostlistmanager">Manage Posts</Link>
+                        </li>
+                        <li>
+                            <FontAwesomeIcon className="menu-icon" icon={faChalkboardTeacher} />
+                            <Link className="link-a" to="#">Manage Teachers</Link>
+                        </li>
+                        <li>
+                            <FontAwesomeIcon className="menu-icon" icon={faUser} />
+                            <Link className="link-a" to="#">Manage Learners</Link>
+                        </li>
+                        <li>
+                            <FontAwesomeIcon className="menu-icon" icon={faFlag} />
+                            <Link className="link-a" to="#">View Reports</Link>
+                        </li>
+                    </>}
+
+                    {/*Teacher */}
+                    {roleid == '1' && <>
+                        <li>
+                            <FontAwesomeIcon className="menu-icon" icon={faChalkboardUser} />
+                            <Link className="link-a" to="/viewclass">View Class</Link>
+                        </li>
+                        <li>
+                            <FontAwesomeIcon className="menu-icon" icon={faCheckToSlot} />
+                            <Link className="link-a" to="/list-all-course">Choose class</Link>
+                        </li>
+                        <li>
+                            <FontAwesomeIcon className="menu-icon" icon={faUserGraduate} />
+                            <Link className="link-a" to="/profile-teacher">Profile</Link>
+                        </li>
+                    </>}
+                </ul>
+            </div>
+
+
         </div>
 
     )

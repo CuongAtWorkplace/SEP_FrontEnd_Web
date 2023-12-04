@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import './CardEditClass.css'
-
+import '../../style/Teacher/Edit.css'
+import { toast } from 'react-toastify';
 const CardEditProfile = ({ closePopup }) => {
     //const params = useParams();
     const [userDt, setUserDt] = useState({});
@@ -52,12 +52,14 @@ const CardEditProfile = ({ closePopup }) => {
             });
             if (response.ok) {
                 console.log('Dữ liệu người dùng đã được cập nhật thành công');
+                toast.success("Successfull !!!")
                 closePopup();
                 window.location.reload();
             } else {
                 console.error('Lỗi khi cập nhật dữ liệu người dùng:', response.status, response.statusText);
             }
         } catch (error) {
+            toast.error("Failed. Try Again!!!")
             console.error('Lỗi khi cập nhật dữ liệu người dùng:', error);
         }
     };
@@ -66,20 +68,31 @@ const CardEditProfile = ({ closePopup }) => {
         <div className="card-edit-class">
             <form onSubmit={handleSubmit}>
                 <h2>Edit Profile</h2>
-                <label>Full Name:</label>
-                <input type="text" id="FullName" name="FullName" value={fullName} onChange={(e) => setFullName(e.target.value)} required />
 
-                <label>Email:</label>
-                <input type="text" id="Email" name="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                <div className="form-group">
+                    <label className="control-label">Full Name:</label>
+                    <input className="form-control" type="text" id="FullName" name="FullName" value={fullName} onChange={(e) => setFullName(e.target.value)} required />
+                </div>
 
-                <label>Phone:</label>
-                <input type="text" id="Phone" name="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+                <div className="form-group">
+                    <label className="control-label">Email:</label>
+                    <input className="form-control" type="text" id="Email" name="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                </div>
 
-                <label>Description:</label>
-                <textarea id="Description" name="Description" value={description} onChange={(e) => setDescription(e.target.value)} required />
+                <div className="form-group">
+                    <label className="control-label">Phone:</label>
+                    <input className="form-control" type="text" id="Phone" name="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+                </div>
 
-                <label>Address:</label>
-                <textarea id="Address" name="Address" value={address} onChange={(e) => setAddress(e.target.value)} required />
+                <div className="form-group">
+                    <label className="control-label">Description:</label>
+                    <textarea className="form-control" id="Description" name="Description" value={description} onChange={(e) => setDescription(e.target.value)} required />
+                </div>
+
+                <div className="form-group">
+                    <label className="control-label">Address:</label>
+                    <textarea className="form-control" id="Address" name="Address" value={address} onChange={(e) => setAddress(e.target.value)} required />
+                </div>
 
                 <button type="submit" id="submit" name="submit" className="btn-btn">Edit</button>
                 <button type="button" onClick={closePopup} className="btn-btn">Cancel</button>

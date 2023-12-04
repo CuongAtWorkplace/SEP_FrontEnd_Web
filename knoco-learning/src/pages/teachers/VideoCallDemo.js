@@ -11,7 +11,7 @@ const VideoCallDemo = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     console.log(token);
-    if (token != null) {
+    if (token !== null) {
       const decodedToken = jwtDecode(token);
       setUserName(decodedToken.fullname);
 
@@ -64,7 +64,7 @@ const VideoCallDemo = () => {
 
   return (
     <div>
-      {checkToken === true && <div class="col-md-6"><div ref={myMeeting} /> </div>}
+      {checkToken === true && <div ref={myMeeting} /> }
 
 
     </div>

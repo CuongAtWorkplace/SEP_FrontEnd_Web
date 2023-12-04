@@ -7,6 +7,7 @@ import Footer from "../../../components/footer/Footer";
 import SideBar from "../../../components/sidebar/SideBar";
 import Add from "../../../components/admin/add/Add";
 import '../users/users.scss';
+import { toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.css';
 
 class Users extends Component {
@@ -53,34 +54,45 @@ class Users extends Component {
         },
         body: JSON.stringify(data),
       });
-      console.log(data);
-  
+      // console.log(data);
+      // .then((response) => {
       if (response.ok) {
-        alert('User added successfully');
+        toast.success("Add Successfull!!!")
         await this.getListUser();
         this.setState({
           isOpenModal: false
         });
-      } else {
-        const errorData = await response.json();
-        console.error('Failed to add user:', errorData);     
+        // window.location.href = "/users";
       }
+      else if (!response.ok) {
+        toast.error("Failed. Try Again!!!")
+        throw new Error('Failed to update');
+      }
+
+      // })
+      // if (response.ok) {
+      //   // alert('User added successfully');
+      //   await this.getListUser();
+      //   this.setState({
+      //     isOpenModal: false
+      //   });
+      // } else {
+      //   const errorData = await response.json();
+      //   console.error('Failed to add user:', errorData);
+      // }
     } catch (error) {
       console.error('Error occurred:', error);
-      alert('Error occurred. Check console for details.');
+      // alert('Error occurred. Check console for details.');
     }
   };
-  
-  
 
   render() {
-
     const { ListUser } = this.state;
     const columns = [
-      { field: "userId", headerName: "ID", width: 90 },
+      { field: "userId", headerName: "ID", width: 80 },
       {
         field: "image",
-        headerName: "Avatar",
+        headerName: "Image",
         width: 100,
         renderCell: (params) => {
           return <img src={params.row.image || "/noavatar.png"} alt="" />;
@@ -89,27 +101,30 @@ class Users extends Component {
       {
         field: "fullName",
         headerName: "Full Name",
-        width: 150,
+        width: 250,
       },
       {
         field: "email",
         headerName: "Email",
-        width: 200,
+        width: 280,
       },
+
       {
         field: "phone",
         headerName: "Phone",
         width: 180,
       },
       {
-        field: "address",
-        headerName: "Address",
-        width: 180,
-      },
-      {
         field: "status",
         headerName: "Status",
-        width: 100,
+        width: 150,
+        renderCell: (params) => {
+          return (
+            <div className={`cellWithStatus ${params.row.status}`}>
+              {params.row.status}
+            </div>
+          );
+        },
       },
     ];
 
@@ -131,13 +146,15 @@ class Users extends Component {
             <header>
               <Header />
             </header>
-            <div className="tableLayout">
+            <div className="userLayout">
               <div className="users">
-                <div className="info">
-                  <h1>Users</h1>
-                  <div className="mx-1">
+                <div className="infoUsers">
+                  <div className="col-10">
+                    <h1>Users</h1>
+                  </div>
+                  <div className=" mx-1">
                     <button className="btn btn-primary" onClick={() => { this.handleAddNewUser() }}>
-                      <i className="fas fa-plus"></i>Add New User</button>
+                      Add New User</button>
                   </div>
                   <Add
                     isOpen={this.state.isOpenModal}
@@ -145,8 +162,9 @@ class Users extends Component {
                     createNewUser={this.createNewUser}
                   />
                 </div>
-                <DataTable slug="users" columns={columns} rows={ListUser} />
-                {/* {open && <Add slug="user" setOpen={setOpen} />} */}
+                <div>
+                  <DataTable slug="users" columns={columns} rows={ListUser} />
+                </div>
               </div>
             </div>
 

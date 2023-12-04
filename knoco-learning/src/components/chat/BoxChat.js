@@ -5,6 +5,7 @@ import { FormControl } from "react-bootstrap";
 import { faArrowLeft, faLocationArrow, faPaperclip, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useDropzone } from 'react-dropzone';
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { useParams } from "react-router";
 
 const User = 2;
 
@@ -15,7 +16,7 @@ const BoxChat = () => {
 	const [imagePicker, setImagePicker] = useState('');
 	const [image, setImage] = useState(null);
 	const [connection, setConnection] = useState(null);
-
+	const { gid } = useParams();
 
 
 
@@ -24,7 +25,7 @@ const BoxChat = () => {
 	useEffect(() => {
 		const fetchMessages = async () => {
 			try {
-				const response = await fetch('http://localhost:7169/api/ChatRoom/GetAllClassMessages/9');
+				const response = await fetch(`http://localhost:7169/api/ChatRoom/GetAllClassMessages/${gid}`);
 				if (response.ok) {
 					const data = await response.json();
 					setMessages(data);
@@ -38,7 +39,7 @@ const BoxChat = () => {
 
 		const fetchClassData = async () => {
 			try {
-				const response = await fetch('http://localhost:7169/api/Class/GetClassById/GetClassById/9');
+				const response = await fetch(`http://localhost:7169/api/Class/GetClassById/GetClassById/${gid}`);
 				if (response.ok) {
 					const data = await response.json();
 					setClassData(data);
@@ -57,35 +58,35 @@ const BoxChat = () => {
 
 	useEffect(() => {
 		const newConnection = new HubConnectionBuilder()
-		  .withUrl('https://testdoan.ngrok.dev/chatHub')
-		  .build();
-	
+			.withUrl('https://testdoan.ngrok.dev/chatHub')
+			.build();
+
 		setConnection(newConnection);
-	
+
 		newConnection
-		  .start()
-		  .then(() => {
-			console.log('Connected to SignalR Hub');
-			newConnection.on('ReceiveMessage', (message) => {
-			  console.log('Received message:', message);
-			  setMessages((prevMessages) => [...prevMessages, message]);
-			});
-		  })
-		  .catch((error) =>
-			console.log('Error connecting to SignalR Hub: ' + error)
-		  );
-	
+			.start()
+			.then(() => {
+				console.log('Connected to SignalR Hub');
+				newConnection.on('ReceiveMessage', (message) => {
+					console.log('Received message:', message);
+					setMessages((prevMessages) => [...prevMessages, message]);
+				});
+			})
+			.catch((error) =>
+				console.log('Error connecting to SignalR Hub: ' + error)
+			);
+
 		newConnection.onclose((error) => {
-		  console.log('SignalR connection closed:', error);
+			console.log('SignalR connection closed:', error);
 		});
-	
+
 		return () => {
-		  if (newConnection) {
-			newConnection.off('ReceiveMessage');
-			newConnection.stop();
-		  }
+			if (newConnection) {
+				newConnection.off('ReceiveMessage');
+				newConnection.stop();
+			}
 		};
-	  }, [messages]);
+	}, [messages]);
 
 	useEffect(() => {
 		return () => {
@@ -175,7 +176,7 @@ const BoxChat = () => {
 				photo: photo // Gán link ảnh vào phần photo của tin nhắn
 			};
 
-			const response = await fetch(`http://localhost:7169/api/ChatRoom/AddMessage/9/` + User, {
+			const response = await fetch(`http://localhost:7169/api/ChatRoom/AddMessage/${gid}/` + User, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

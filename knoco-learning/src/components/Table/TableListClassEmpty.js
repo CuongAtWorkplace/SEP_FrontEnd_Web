@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Table from "./Table";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
@@ -37,9 +39,16 @@ const TableListClassEmpty = (props) => {
     }
   };
 
-  const handleRowClick = (row) => {
+  function formatAPIDate(apiDate) {
+    return new Date(apiDate).toLocaleDateString('en-US');
+  }
+
+  const handleRowClick = async (row) => {
     console.log('Clicked row data:', row);
-    navigate(`/classdetail/${row.classId}`);
+    window.confirm("Are you sure you want to teach this class?") ? navigate(`/classdetail/${row}`) : window.close();
+  };
+
+  const handleRowClickn = (row) => {
   };
 
   const [columns, setColumns] = useState([
@@ -49,28 +58,13 @@ const TableListClassEmpty = (props) => {
       Filter: ColumnFilter, // Custom filter component for courseName column
     },
     {
-      Header: 'Teacher Name',
-      accessor: 'teacherName',
-      Filter: ColumnFilter, // Custom filter component for courseId column
-    },
-    {
       Header: 'CourseName',
       accessor: 'courseName',
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
     {
-      Header: 'NumberStudent',
-      accessor: 'numberStudent',
-      Filter: ColumnFilter, // Custom filter component for courseId column
-    },
-    {
       Header: 'Topic',
       accessor: 'topic',
-      Filter: ColumnFilter, // Custom filter component for courseId column
-    },
-    {
-      Header: 'QuizzeName',
-      accessor: 'quizzeName',
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
     {
@@ -92,27 +86,33 @@ const TableListClassEmpty = (props) => {
       Header: 'CreateDate',
       accessor: 'createDate',
       Filter: ColumnFilter, // Custom filter component for courseId column
-    },
-    {
-      Header: 'StartDate',
-      accessor: 'startDate',
-      Filter: ColumnFilter, // Custom filter component for courseId column
-    },
-    {
-      Header: 'EndDate',
-      accessor: 'endDate',
-      Filter: ColumnFilter, // Custom filter component for courseId column
+      Cell: ({ row }) => (
+        <div>
+          {formatAPIDate(row.original.createDate)}
+        </div>
+      ),
     },
     {
       Header: 'Status',
       accessor: 'status',
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
-
+    {
+      Header: 'Action',
+      accessor: '',
+      Filter: ColumnFilter, // Custom filter component for courseId column
+      disableFilters: true, // Vô hiệu hóa bộ lọc cho cột Button
+      // disableSortBy: true,
+      Cell: ({ row }) => (
+        <button className="btn-table" onClick={() => handleRowClick(row.original.classId)}>
+          <FontAwesomeIcon icon={faCheck} /> Choose class
+        </button>
+      ),
+    },
   ]);
 
   return (
-    <Table columns={columns} data={data} onRowClick={handleRowClick} />
+    <Table columns={columns} data={data} onRowClick={handleRowClickn}/>
   );
 }
 

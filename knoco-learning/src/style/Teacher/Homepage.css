@@ -16,8 +16,14 @@
     flex: 0 0 auto;
 }
 
+.div-img {
+    width: 450px;
+    height: 250px;
+}
+
 img {
     width: 450px;
+    height: 250px;
     vertical-align: middle;
     border-style: none;
     border-radius: 10px;

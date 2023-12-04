@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import jwtDecode from "jwt-decode";
 import { toast } from 'react-toastify';
+
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
   return (
@@ -46,31 +47,32 @@ const TableListClassEmpty = (props) => {
 
   const handleRowClick = async (row) => {
     console.log('Clicked row data:', row);
-    window.confirm("Are you sure you want to teach this class?") ? navigate(`/classdetail/${row}`) : window.close();
+    window.confirm("Are you sure you want to teach this class?") ? navigate(`/list-all-course`) : window.close();
   };
 
   const handleRowClickn = (row) => {
   };
 
-  const UpdateRequestClass = (classId) => {
+  const AddRequestClass = (classId) => {
     const token = localStorage.getItem("token");
     if (token !== null) {
       const decodedToken = jwtDecode(token);
 
-      const updateRequest = {
+      const addRequest = {
         classId: classId,
-        teacherId: parseInt(decodedToken.userid, 10)
+        userId: parseInt(decodedToken.userid, 10),
+        type:null
       }
-      fetch('https://localhost:7169/api/Class/RequestClass', {
-        method: 'PUT',
+      fetch('https://localhost:7169/api/Class/CreateRequestClassManager', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updateRequest),
+        body: JSON.stringify(addRequest),
       })
         .then((response) => {
           if (response.ok) {
-            window.confirm("Are you sure you want to teach this class?") ? navigate(`/classdetail/${classId}`) : window.close();
+            window.confirm("Are you sure you want to teach this class?") ? navigate(`/list-all-course`) : window.close();
             toast.success("Successfull !!!");
           }
           else if (!response.ok) {
@@ -136,7 +138,7 @@ const TableListClassEmpty = (props) => {
       disableFilters: true, // Vô hiệu hóa bộ lọc cho cột Button
       // disableSortBy: true,
       Cell: ({ row }) => (
-        <button className="btn-table" onClick={() => UpdateRequestClass(row.original.classId)}>
+        <button className="btn-table" onClick={() => AddRequestClass(row.original.classId)}>
           <FontAwesomeIcon icon={faCheck} /> Choose class
         </button>
       ),

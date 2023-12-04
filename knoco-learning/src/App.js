@@ -33,7 +33,12 @@ import ListCourse from './components/manager/ListCourse';
 import SideBar from './components/sidebar/SideBar';
 import RequestManager from './components/request/RequestManager';
 import HomePage from './pages/teachers/HomePage';
+
+import RequestClassManager from './components/request/RequestClassManager';
+
+
 import BoxChat from './components/chat/BoxChat';
+
 const queryClient = new QueryClient();
 
 
@@ -72,6 +77,7 @@ function App() {
         <Route path='/testfile' element={<ListCourse />} />
         <Route path='/manager' element={<SideBar />} />
         <Route path='/tableRequestmanager' element={<RequestManager/>} />
+        <Route path='/tableRequesClassmanager' element={<RequestClassManager/>}/>
       </Routes>
       <ToastContainer
         position="top-right"

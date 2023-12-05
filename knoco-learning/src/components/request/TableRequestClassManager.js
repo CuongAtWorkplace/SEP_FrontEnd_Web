@@ -152,9 +152,9 @@ const TableRequestClassManager = () => {
                     <a>
                         <CustomButtonAccess requestClassId={row.original.requestClassId} />
                     </a>
-                    {/* <a>
+                    <a>
                         <CustomButtonReject requestClassId={row.original.requestClassId} />
-                    </a> */}
+                    </a>
 
                 </div>
 

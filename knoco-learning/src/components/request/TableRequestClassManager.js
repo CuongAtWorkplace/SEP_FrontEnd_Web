@@ -26,6 +26,8 @@ const ColumnFilter = ({ column }) => {
 const TableRequestClassManager = () => {
     const [listClassRequest, setListClassRequest] = useState([]);
     const navigate = useNavigate();
+    const [UserID, setUserID] = useState('');
+    const [ClassID, setClassID] = useState('');
     useEffect(() => {
         fetchData();
     }, []);
@@ -37,57 +39,23 @@ const TableRequestClassManager = () => {
         setListClassRequest(data);
 
     }
-    const UpdateRequestClass = (classID, userID) => {
-        const token = localStorage.getItem("token");
-        if (token !== null) {
-            const decodedToken = jwtDecode(token);
+    const UpdateRequestClass = async (ClassId,UserId) => {
 
-            const updateRequest = {
-                classId: classID,
-                teacherId: userID
-            }
-            fetch('https://localhost:7169/api/Class/RequestClass', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(updateRequest),
-            })
-                .then((response) => {
-                    if (response.ok) {
-                        // window.confirm("Are you sure you want to teach this class?") ? navigate(`/classdetail/${classId}`) : window.close();
-                        toast.success("Successfull !!!");
-                    }
-                    else if (!response.ok) {
-                        toast.error("Failed. Try Again!!!")
-                        throw new Error('Failed to update');
-                    }
-
-                })
-
+        const updateRequest = {
+            classId: ClassId,
+            teacherId: UserId,
         }
-    }
-
-    const CheckedRequestManager = async (classRequestId,classId, userId) => {
-
-    
-        const classR = {
-            requestClassId: classRequestId,
-            type: true
-        }
-
-        fetch(`https://localhost:7169/api/Class/UpdateTypeClassRequest`, {
+        fetch('https://localhost:7169/api/Class/RequestClass', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(classR)
+            body: JSON.stringify(updateRequest),
         })
             .then((response) => {
                 if (response.ok) {
-                    toast.success("Successfull !!!")
-                     UpdateRequestClass(classId, userId);
-                     fetchData();
+                    // window.confirm("Are you sure you want to teach this class?") ? navigate(`/classdetail/${classId}`) : window.close();
+                    toast.success("Successfull !!!");
                 }
                 else if (!response.ok) {
                     toast.error("Failed. Try Again!!!")
@@ -95,11 +63,44 @@ const TableRequestClassManager = () => {
                 }
 
             })
+
+
     }
 
-    const RejectRequestManager = async (classRequestId,classId, userId) => {
+    const CheckedRequestManager = async (classRequestId) => {
+        const commentResponse = await fetch(`https://localhost:7169/api/Class/GetRequestClassManager?requestId=${classRequestId}`);
+        const data = await commentResponse.json();
+        setUserID(data.userId);
+        setClassID(data.classId);
+        const classR = {
+            requestClassId: classRequestId,
+            type: true
+        }
 
-    
+        const response = await fetch(`https://localhost:7169/api/Class/UpdateTypeClassRequest`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(classR)
+        });
+
+        if (response.ok) {
+            toast.success("Successfull !!!")
+            await UpdateRequestClass(Number(data.classId) ,Number(data.userId));
+            fetchData();
+        }
+        else if (!response.ok) {
+            toast.error("Failed. Try Again!!!")
+            throw new Error('Failed to update');
+        }
+
+
+    }
+
+    const RejectRequestManager = async (classRequestId) => {
+
+
         const classR = {
             requestClassId: classRequestId,
             type: false
@@ -115,7 +116,7 @@ const TableRequestClassManager = () => {
             .then((response) => {
                 if (response.ok) {
                     toast.success("Successfull !!!")
-                     fetchData();
+                    fetchData();
                 }
                 else if (!response.ok) {
                     toast.error("Failed. Try Again!!!")
@@ -132,12 +133,12 @@ const TableRequestClassManager = () => {
         },
         {
             Header: 'User Name',
-            accessor: 'userId',
+            accessor: 'teacherName',
             Filter: ColumnFilter, // Custom filter component for courseName column
         },
         {
             Header: 'Class Name',
-            accessor: 'classId',
+            accessor: 'className',
             Filter: ColumnFilter, // Custom filter component for courseId column
         },
         {
@@ -149,30 +150,30 @@ const TableRequestClassManager = () => {
             Cell: ({ row }) => (
                 <div >
                     <a>
-                          <CustomButtonAccess classId ={row.original.classId} userId={row.original.userId} requestClassId={row.original.requestClassId} />
+                        <CustomButtonAccess requestClassId={row.original.requestClassId} />
                     </a>
-                    <a>
-                          <CustomButtonReject classId ={row.original.classId} userId={row.original.userId} requestClassId={row.original.requestClassId} />
-                    </a>          
+                    {/* <a>
+                        <CustomButtonReject requestClassId={row.original.requestClassId} />
+                    </a> */}
 
                 </div>
-               
+
 
             ),
         },
     ];
 
-    const CustomButtonAccess = ({ classId, userId, requestClassId }) => (
+    const CustomButtonAccess = ({ requestClassId }) => (
         <div>
-            <button onClick={() => CheckedRequestManager(requestClassId,classId,userId,)}>
+            <button onClick={() => CheckedRequestManager(requestClassId)}>
                 <BsCheck2Circle size={30} />
             </button>
 
         </div>
     );
-    const CustomButtonReject = ({ classId, userId, requestClassId }) => (
+    const CustomButtonReject = ({ requestClassId }) => (
         <div>
-            <button onClick={() => RejectRequestManager(requestClassId,classId,userId,)}>
+            <button onClick={() => RejectRequestManager(requestClassId)}>
                 <BsCheck2Circle size={30} />
             </button>
 

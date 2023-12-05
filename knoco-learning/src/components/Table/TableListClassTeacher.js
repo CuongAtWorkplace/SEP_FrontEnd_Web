@@ -127,25 +127,25 @@ const TableListClassTeacher = () => {
         </div>
       ),
     },
-    {
-      Header: 'Status',
-      accessor: 'status',
-      Filter: ColumnFilter, // Custom filter component for courseId column
-    },
+    // {
+    //   Header: 'Status',
+    //   accessor: 'status',
+    //   Filter: ColumnFilter, // Custom filter component for courseId column
+    // },
 
   ]);
 
   return (
     <div>
-      <button className="btn-add" onClick={openAddClassPopup}><FontAwesomeIcon icon={faSquarePlus} /> New class</button>
+      {/* <button className="btn-add" onClick={openAddClassPopup}><FontAwesomeIcon icon={faSquarePlus} /> New class</button> */}
       <Table columns={columns} data={data} onRowClick={handleRowClick} />
-      {
+      {/* {
         isAddClassPopupVisible && (
           <div className="popup">
             <CardAddClass closePopup={closeAddClassPopup} />
           </div>
         )
-      }
+      } */}
     </div>
   );
 }

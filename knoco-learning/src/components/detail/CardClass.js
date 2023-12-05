@@ -57,6 +57,14 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
         setNotePopupVisible(false);
     }
 
+    const handleMeetingClick = () => {
+        navigate(`/videocall/${classDt.classId}`); // Chuyển hướng đến trang /videocall khi nhấp vào nút "Meeting"
+    };
+
+    const handleChatClick = () => {
+        navigate(`/chat/${classDt.classId}`); // Chuyển hướng đến trang /videocall khi nhấp vào nút "Meeting"
+    };
+
     return (
         <div className="conval">
             {classDt ? (
@@ -131,11 +139,11 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
                             <FontAwesomeIcon icon={faPenToSquare} /> Edit
                         </button>
 
-                        <button className="btn-item" >
+                        <button className="btn-item" onClick={handleMeetingClick}>
                             <FontAwesomeIcon icon={faVideo} /> Meeting
                         </button>
 
-                        <button className="btn-item" >
+                        <button className="btn-item" onClick={handleChatClick}>
                             <FontAwesomeIcon icon={faMessage} /> Chat
                         </button>
 
@@ -211,19 +219,17 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
                             <FontAwesomeIcon icon={faPenToSquare} /> Edit
                         </button>
 
-                        <button className="btn-item" >
+                        <button className="btn-item" onClick={handleMeetingClick}>
                             <FontAwesomeIcon icon={faVideo} /> Meeting
                         </button>
 
-                        <button className="btn-item" >
+                        <button className="btn-item" onClick={handleChatClick}>
                             <FontAwesomeIcon icon={faMessage} /> Chat
                         </button>
 
                         <button className="btn-item" onClick={openNotePopup}>
                             <FontAwesomeIcon icon={faNoteSticky} /> Note
                         </button>
-
-
                     </div>
                 </div>
             )}

@@ -95,7 +95,7 @@ const HomePage = ({ children, ...props }) => {
                                                     <small><i class="text-primary"></i>{formatAPIDate(courseC.createDate)}</small>
                                                     <small><i class="text-primary"></i>01h 30m</small>
                                                 </div>
-                                                <Link class="a-link" href="">{courseC.courseName}</Link>
+                                                <Link class="a-link" to={`/coursedetail/${courseC.courseId}`}>{courseC.courseName}</Link>
                                             </div>
                                         </div>
                                     </SwiperSlide>
@@ -132,10 +132,10 @@ const HomePage = ({ children, ...props }) => {
                                                     <small><i class="text-primary"></i>{classC.numberStudent} Students</small>
                                                     <small><i class="text-primary"></i>{classC.schedule}</small>
                                                 </div>
-                                                <Link class="a-link" href="">{classC.className}</Link>
+                                                <Link class="a-link" to={`/classdetail/${classC.classId}`}>{classC.className}</Link>
                                                 <div class="border-top">
                                                     <div class="d-flex m-0">
-                                                        <h5><i class="text-primary"></i>{classC.numberOfWeek}/Week</h5>
+                                                        <h5><i class="text-primary"></i>{classC.numberOfWeek} Week</h5>
                                                         <h5><i class="text-primary"></i>{classC.fee} Coin</h5>
                                                     </div>
                                                 </div>

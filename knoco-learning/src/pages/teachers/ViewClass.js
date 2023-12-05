@@ -10,7 +10,7 @@ import TableListClassTeacher from "../../components/Table/TableListClassTeacher"
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
-const ViewAllClass = ({ children, ...props }) => {
+const ViewClass = ({ children, ...props }) => {
     const navigate = useNavigate();
     useEffect(() => {
         // Add click event listener to menu-btn
@@ -56,4 +56,4 @@ const ViewAllClass = ({ children, ...props }) => {
     );
 };
 
-export default memo(ViewAllClass);
+export default memo(ViewClass);

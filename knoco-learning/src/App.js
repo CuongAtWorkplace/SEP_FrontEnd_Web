@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import Login from './pages/login/Login';
 import Register from './pages/login/Register';
-import ViewAllClass from './pages/teachers/ViewAllClass';
 import ClassDetail from './pages/teachers/ClassDetail';
 import ListLearner from './pages/teachers/ListLearner';
 import LearnerDetail from './pages/teachers/LearnerDetail';
@@ -33,12 +32,11 @@ import ListCourse from './components/manager/ListCourse';
 import SideBar from './components/sidebar/SideBar';
 import RequestManager from './components/request/RequestManager';
 import HomePage from './pages/teachers/HomePage';
-
 import RequestClassManager from './components/request/RequestClassManager';
-
-
 import BoxChat from './components/chat/BoxChat';
-
+import ViewClass from './pages/teachers/ViewClass';
+import ViewAllClass from './components/admin/ViewAllClass';
+import ViewAllPost from './components/admin/ViewAllPost';
 const queryClient = new QueryClient();
 
 
@@ -48,15 +46,18 @@ function App() {
       <Routes>
         {/* teacher */}
         <Route path="/" element={<Login/>} />
-        <Route path="/viewclass" element={<ViewAllClass/>} />
+        <Route path="/viewclass" element={<ViewClass/>} />
         <Route path="/classdetail/:classId" element={<ClassDetail/>} />
         <Route path="/learnerdetail" element={<LearnerDetail/>} />
         <Route path="/list-all-course" element={<ListAllCourse />} />
         <Route path="/class-empty/:courseId" element={<ClassEmpty />} />
         <Route path="/profile-teacher" element={<Profile />} />
         <Route path="/homepage" element={<HomePage />} />
+        <Route path="/videocall/:roomId" element={<VideoCallDemo />} />
+        <Route path="/chat/:gid" element={<GroupChat />} />
         {/* admin */}
-
+        <Route path="/viewallclass" element={<ViewAllClass />} />
+        <Route path="/viewallpost" element={<ViewAllPost />} />
         {/* manager */}
         <Route path="/listlearner" element={<ListLearner/>} />
         <Route path="/dashboard" element={<Home />} />
@@ -70,10 +71,8 @@ function App() {
         <Route path='/listquizzinclass' element={<ViewListQuizzInClass />} />
         <Route path='/notificationteacher' element={<ViewNotificationTeacher />} />
         <Route path='/quizzdetail' element={<QuizzDetail />} />
-        <Route path="/videocalldemo/:roomId" element={<VideoCallDemo />} />
         <Route path="/manager/viewpostlistmanager" element={<ViewPostListManager />} />
         <Route path="/viewpostdetailmanager/:pid" element={<ViewPostDetailManager />} />
-        <Route path="/chat/:gid" element={<GroupChat />} />
         <Route path='/testfile' element={<ListCourse />} />
         <Route path='/manager' element={<SideBar />} />
         <Route path='/tableRequestmanager' element={<RequestManager/>} />

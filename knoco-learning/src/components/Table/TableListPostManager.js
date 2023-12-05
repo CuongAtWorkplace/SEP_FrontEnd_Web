@@ -49,11 +49,7 @@ const TableListPostManager = () => {
       Header: 'Post Id',
       accessor: 'postId',
       Filter: ColumnFilter, // Custom filter component for courseName column
-      // Cell: ({ row }) => ( 
-      //   <div >
-      //     <a href={`/viewpostdetailmanager/${row.original.postId}`}><h4> {row.original.postId} </h4></a>
-      //   </div>
-      // ),
+      
     },
     {
       Header: 'Topic',

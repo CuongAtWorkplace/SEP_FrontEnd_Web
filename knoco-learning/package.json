@@ -47,6 +47,7 @@
     "stringee-chat-js-sdk": "^0.2.0",
     "stringee-react-native": "^1.5.8",
     "swiper": "^6.8.4",
+    "swiper-react": "^1.0.0",
     "toastify-js": "^1.12.0",
     "vue": "^3.3.7",
     "web-vitals": "^2.1.4"

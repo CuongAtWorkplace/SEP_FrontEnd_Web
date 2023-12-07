@@ -8,7 +8,7 @@ import { HubConnectionBuilder } from "@microsoft/signalr";
 
 const User = 2;
 const ClassId = 9;
-const isManager = false;
+const isManager = true;
 
 
 const BoxChat = () => {
@@ -56,6 +56,27 @@ const BoxChat = () => {
 		fetchMessages();
 		fetchClassData();
 	}, []);
+
+
+	const handleDelete = (messageId) => {
+		fetch('https://testdoan.ngrok.dev/api/ChatRoom/DeleteMessage/' + messageId, {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+			}
+		})
+			.then(response => {
+				if (response.ok) {
+					setMessages(prevMessages => prevMessages.filter(message => message.messageId !== messageId));
+				} else {
+				}
+			})
+			.catch(error => {
+				console.error('Lỗi khi xóa tin nhắn:', error);
+			});
+
+	};
+
 
 
 	useEffect(() => {
@@ -132,7 +153,7 @@ const BoxChat = () => {
 		id: message.messageId,
 		text: message.content,
 		time: message.createDate,
-		sender: message.createBy === User ? message.fullName : "Other User",
+		sender: message.fullName,
 		image: message.photo,
 		isSent: message.createBy === User,
 	}));
@@ -238,6 +259,7 @@ const BoxChat = () => {
 							image={message.image}
 							isSent={message.isSent}
 							messageId={message.id}
+							handleDelete={handleDelete} // Truyền hàm handleDelete vào component Message
 						/>
 					))}
 				</div>
@@ -289,59 +311,59 @@ const BoxChat = () => {
 	)
 }
 
-const Message = ({ text, time, isSent, messageId, image }) => {
+const Message = ({ sender, text, time, isSent, messageId, image , handleDelete}) => {
 	const messageContainerClass = isSent ? 'msg_cotainer_send' : 'msg_cotainer';
 
 	console.log('Rendering Message:', messageId, image);
 
 	if (image !== '') {
-		if(isSent) {
-			return(
+		if (isSent) {
+			return (
 				<>
-				<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
-					<div className="btn_del_msg">
-						<button><FontAwesomeIcon icon={faTrash}/></button>
+					<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
+						<div className="btn_del_msg">
+							<button><FontAwesomeIcon icon={faTrash} /></button>
+						</div>
+						<div className={messageContainerClass}>
+							{text}
+						</div>
 					</div>
-					<div className={messageContainerClass}>
-						{text}
+					<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
+						<div className={messageContainerClass}>
+							<img src={`https://testdoan.ngrok.dev/api/ChatRoom/GetImage/${messageId}`} />
+							<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
+						</div>
 					</div>
-				</div>
-				<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
-					<div className={messageContainerClass}>
-						<img src={`https://testdoan.ngrok.dev/api/ChatRoom/GetImage/${messageId}`} />
-						<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
-				</div>
-				</div>
 				</>
 			);
-		}else{
-		return (
-			<>
-			<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'}`}>
-				<div className="msg_username">
-					<span>Username</span>
-				</div>
-			</div>
-			<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
-				<div className={messageContainerClass}>
-					{text}
-				</div>
-			</div>
-			<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
-				<div className={messageContainerClass}>
-					<img src={`https://testdoan.ngrok.dev/api/ChatRoom/GetImage/${messageId}`} />
-					<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
-				</div>
-			</div>
-			</>
+		} else {
+			return (
+				<>
+					<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'}`}>
+						<div className="msg_username">
+							<span>{sender}</span>
+						</div>
+					</div>
+					<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
+						<div className={messageContainerClass}>
+							{text}
+						</div>
+					</div>
+					<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
+						<div className={messageContainerClass}>
+							<img src={`https://testdoan.ngrok.dev/api/ChatRoom/GetImage/${messageId}`} />
+							<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
+						</div>
+					</div>
+				</>
 			);
 		}
 	} else {
-		if(isSent){
-			return(
+		if (isSent) {
+			return (
 				<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
-					<div className="btn_del_msg">
-						<button><FontAwesomeIcon icon={faTrash}/></button>
+					<div className="btn_del_msg" onClick={() => handleDelete(messageId)}>
+						<FontAwesomeIcon icon={faTrash} />
 					</div>
 					<div className={messageContainerClass}>
 						{text}
@@ -349,22 +371,22 @@ const Message = ({ text, time, isSent, messageId, image }) => {
 					</div>
 				</div>
 			);
-		}else{
-		return (
-			<>
-			<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'}`}>
-				<div className="msg_username">
-					<span>Username</span>
-				</div>
-			</div>
-			<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
-				<div className={messageContainerClass}>
-					{text}
-					<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
-				</div>
-			</div>
-			</>
-		);
+		} else {
+			return (
+				<>
+					<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'}`}>
+						<div className="msg_username">
+							<span>{sender}</span>
+						</div>
+					</div>
+					<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
+						<div className={messageContainerClass}>
+							{text}
+							<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
+						</div>
+					</div>
+				</>
+			);
 		}
 	}
 };

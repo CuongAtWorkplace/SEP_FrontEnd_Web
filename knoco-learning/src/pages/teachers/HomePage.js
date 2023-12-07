@@ -10,9 +10,9 @@ import { faBook } from '@fortawesome/free-solid-svg-icons';
 import $ from "jquery";
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
+// import 'swiper/css';
+// import 'swiper/css/pagination';
+// import { Pagination } from 'swiper/modules';
 
 
 const HomePage = ({ children, ...props }) => {
@@ -80,7 +80,7 @@ const HomePage = ({ children, ...props }) => {
                             pagination={{
                                 clickable: true,
                             }}
-                            modules={[Pagination]}
+                            // modules={[Pagination]}
                             className="mySwiper"
                         >
                             {dataCourse.length > 0 ? (
@@ -117,7 +117,7 @@ const HomePage = ({ children, ...props }) => {
                             pagination={{
                                 clickable: true,
                             }}
-                            modules={[Pagination]}
+                            // modules={[Pagination]}
                             className="mySwiper"
                         >
                             {dataClass.length > 0 ? (

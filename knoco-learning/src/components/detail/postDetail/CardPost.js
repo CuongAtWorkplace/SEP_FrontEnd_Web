@@ -230,9 +230,9 @@ const CardPost = () => {
                         <img src={myImage} alt="Profile" />
                     </div>
                     <div className="info">
-                        <h3>{use.fullName}</h3>
+                        <h5>{use.fullName}</h5>
                         <div className="time text-gry">
-                            <small>HANOI, <span>2 DAYS AGO</span></small>
+                            {/* <small>HANOI, <span>2 DAYS AGO</span></small> */}
                         </div>
                     </div>
                 </div>
@@ -249,7 +249,7 @@ const CardPost = () => {
                     <img
                         src={`https://localhost:7169/Photos/${postDetail.image}`}
                         alt="Course Image"
-                        style={{ width: '200px', height: '200px' }}
+                        style={{ width: '400px', height: '400px' }}
                     />
                 </div>
             </div>

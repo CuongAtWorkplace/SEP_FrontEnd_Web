@@ -21,9 +21,9 @@ const ViewClass = ({ children, ...props }) => {
         if (token !== null) {
             const decodedToken = jwtDecode(token);
            
-            if (Number(decodedToken.roleid) !== 1 || localStorage.getItem("token") === '') {
-                navigate(`/`);
-            }
+            // if (Number(decodedToken.roleid) !== 1 || localStorage.getItem("token") === '') {
+            //     navigate(`/`);
+            // }
         }
     }, []);
     return (

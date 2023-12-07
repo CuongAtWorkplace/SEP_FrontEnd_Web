@@ -26,8 +26,7 @@ const ColumnFilter = ({ column }) => {
 const TableRequestClassManager = () => {
     const [listClassRequest, setListClassRequest] = useState([]);
     const navigate = useNavigate();
-    const [UserID, setUserID] = useState('');
-    const [ClassID, setClassID] = useState('');
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -70,8 +69,7 @@ const TableRequestClassManager = () => {
     const CheckedRequestManager = async (classRequestId) => {
         const commentResponse = await fetch(`https://localhost:7169/api/Class/GetRequestClassManager?requestId=${classRequestId}`);
         const data = await commentResponse.json();
-        setUserID(data.userId);
-        setClassID(data.classId);
+        
         const classR = {
             requestClassId: classRequestId,
             type: true
@@ -99,7 +97,6 @@ const TableRequestClassManager = () => {
     }
 
     const RejectRequestManager = async (classRequestId) => {
-
 
         const classR = {
             requestClassId: classRequestId,

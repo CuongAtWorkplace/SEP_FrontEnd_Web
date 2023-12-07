@@ -58,6 +58,8 @@ function App() {
         {/* admin */}
         <Route path="/viewallclass" element={<ViewAllClass />} />
         <Route path="/viewallpost" element={<ViewAllPost />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/users/:userId" element={<UserDetail />} />
         {/* manager */}
         <Route path="/listlearner" element={<ListLearner/>} />
         <Route path="/dashboard" element={<Home />} />

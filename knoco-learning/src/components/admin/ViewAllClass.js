@@ -31,6 +31,8 @@ const ViewAllClass = ({ children, ...props }) => {
     const [data, setData] = useState([]);
     const navigate = useNavigate();
     const [isAddClassPopupVisible, setAddClassPopupVisible] = useState(false);
+    const [isManager ,setIsManager] = useState(false);
+
     useEffect(() => {
         // Add click event listener to menu-btn
         $('.menu-btn').on('click', function () {
@@ -39,10 +41,12 @@ const ViewAllClass = ({ children, ...props }) => {
         const token = localStorage.getItem("token");
         if (token !== null) {
             const decodedToken = jwtDecode(token);
-
-            if (Number(decodedToken.roleid) !== 1 || localStorage.getItem("token") === '') {
-                navigate(`/`);
-            }
+                if(Number(decodedToken.roleid) == 3){
+                    setIsManager(true);
+                }
+            // if (Number(decodedToken.roleid) !== 1 || localStorage.getItem("token") === '') {
+            //     navigate(`/`);
+            // }
         }
         fetchData();
     }, []);
@@ -168,7 +172,11 @@ const ViewAllClass = ({ children, ...props }) => {
 
                 <div className="children">
                     <div>
-                        <button className="btn-add" onClick={openAddClassPopup}><FontAwesomeIcon icon={faSquarePlus} /> New class</button>
+                        {
+                            isManager == true &&  
+                            <button className="btn-add" onClick={openAddClassPopup}><FontAwesomeIcon icon={faSquarePlus} /> New class</button>
+                        }
+                       
                         <Table columns={columns} data={data} />
                         {
                             isAddClassPopupVisible && (

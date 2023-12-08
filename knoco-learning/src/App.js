@@ -46,6 +46,7 @@ function App() {
       <Routes>
         {/* teacher */}
         <Route path="/" element={<GroupChat/>} />
+        <Route path="/login" element={<Login/>} />
         <Route path="/viewclass" element={<ViewClass/>} />
         <Route path="/classdetail/:classId" element={<ClassDetail/>} />
         <Route path="/learnerdetail" element={<LearnerDetail/>} />

@@ -46,8 +46,8 @@ const VideoCallDemo = () => {
  
 
   const myMeeting = async (element) => {
-    const appID = 699383273;
-    const serverSecret = "630bf62f2c2285d34c5a982bc39440f8";
+    const appID = 1943776416;
+    const serverSecret = "363a50c96671c62536a002adc2aaa826";
     const kitToke = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomId, Date.now().toString(), userName1);
     const zc = ZegoUIKitPrebuilt.create(kitToke);
     zc.joinRoom({

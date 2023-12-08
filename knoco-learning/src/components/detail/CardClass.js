@@ -58,7 +58,7 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
     }
 
     const handleMeetingClick = () => {
-        navigate(`/videocall/${classDt.classId}`); // Chuyển hướng đến trang /videocall khi nhấp vào nút "Meeting"
+        navigate(`/videocall/${classDt.className}`); // Chuyển hướng đến trang /videocall khi nhấp vào nút "Meeting"
     };
 
     const handleChatClick = () => {

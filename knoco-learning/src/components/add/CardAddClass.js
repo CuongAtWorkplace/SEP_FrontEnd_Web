@@ -6,6 +6,8 @@ const CardAddClass = ({ closePopup }) => {
     const params = useParams();
     const [classDt, setClassDt] = useState({});
     const [className, setClassName] = useState('');
+    const [course, setCourse] = useState([]);
+    const [courseId, setcourseId] = useState(0);
     const [topic, setTopic] = useState('');
     const [fee, setFee] = useState('');
     const [numberOfWeek, setNumberOfWeek] = useState('');
@@ -20,17 +22,9 @@ const CardAddClass = ({ closePopup }) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/Class/GetTeacherClassDetail/${params.classId}`); // Thay thế URL bằng API thực tế
+            const response = await fetch(`https://localhost:7169/api/Course/GetAllCourse`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
-            setClassDt(responseData);
-            setClassName(responseData.classname || '');
-            setTopic(responseData.topic || '');
-            setFee(responseData.fee || '');
-            setNumberOfWeek(responseData.numberOfWeek || '');
-            setNumberPhone(responseData.numberPhone || '');
-            setDescription(responseData.description || '');
-            setStartDate(formatDate(responseData.startDate) || '');
-            setEndDate(formatDate(responseData.endDate) || '');
+            setCourse(responseData);
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu lớp học:', error);
         }
@@ -42,27 +36,51 @@ const CardAddClass = ({ closePopup }) => {
     };
 
     const handleSubmit = async (e) => {
-
-        const classUpdate = {
-            classId: classDt.classId,
+        // {
+        //     "className": "str2ing",
+        //     "teacherId": 2,
+        //     "courseId": 2,
+        //     "numberStudent": 3,
+        //     "topic": "stri2ng",
+        //     "schedule": "str2ing",
+        //     "fee": "100",
+        //     "numberOfWeek": "12",
+        //     "numberPhone": "12",
+        //     "description": "striang",
+        //     "createDate": "2023-12-09T18:37:32.826Z",
+        //     "startDate": "2023-12-09T18:37:32.826Z",
+        //     "endDate": "2023-12-09T18:37:32.826Z",
+        //     "status": 1,
+        //     "isDelete": true,
+        //     "tokenClass": "strinag"
+        //   }
+        const classCreate = {
             className: className,
+            teacherId: null,
+            courseId: courseId,
+            numberStudent: 5,
             topic: topic,
+            schedule: null,
             fee: fee,
             numberOfWeek: numberOfWeek,
             numberPhone: numberPhone,
-            description: description
-            //startDate: startDate,
-            //endDate: endDate
+            description: description,
+            createDate: null,
+            startDate: startDate,
+            endDate: endDate,
+            status: 1,
+            isDelete: false,
+            tokenClass: null
         };
 
         e.preventDefault();
         try {
-            const response = await fetch(`https://localhost:7169/api/Class/EditClass`, {
-                method: 'PUT',
+            const response = await fetch(`https://localhost:7169/api/Class/CreateClassManager`, {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(classUpdate)
+                body: JSON.stringify(classCreate)
             });
             if (response.ok) {
                 console.log('Dữ liệu lớp học đã được cập nhật thành công');
@@ -84,7 +102,18 @@ const CardAddClass = ({ closePopup }) => {
                     <label className="control-label">Class Name:</label>
                     <input class="form-control" type="text" id="ClassName" name="ClassName" value={className} onChange={(e) => setClassName(e.target.value)} required />
                 </div>
-
+                <div className="form-group">
+                    <label className="control-label">Course :</label>
+                    <select className="form-select"
+                        onChange={(e) => setcourseId(e.target.value)
+                        }
+                        value={courseId}
+                    >
+                        {course.map(cou => <option value={cou.courseId} key={cou.courseId}>
+                            {cou.courseName}
+                        </option>)}
+                    </select>
+                </div>
                 <div className="form-group">
                     <label className="control-label">Topic:</label>
                     <input class="form-control" type="text" id="Topic" name="Topic" value={topic} onChange={(e) => setTopic(e.target.value)} required />

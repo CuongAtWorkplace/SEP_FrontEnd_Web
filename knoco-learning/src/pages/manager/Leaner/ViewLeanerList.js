@@ -5,7 +5,7 @@ import DataTable from "../../../components/admin/dataTable/DataTable";
 import Header from "../../../components/header/Header";
 import Footer from "../../../components/footer/Footer";
 import SideBar from "../../../components/sidebar/SideBar";
-
+import jwtDecode from "jwt-decode";
 class ViewLeanerList extends Component {
     constructor(props) {
         super(props);
@@ -23,6 +23,16 @@ class ViewLeanerList extends Component {
         }
     }
     async componentDidMount() {
+        const token = localStorage.getItem("token");
+        if (token !== null) {
+            const decodedToken = jwtDecode(token);
+           
+            // if (Number(decodedToken.roleid) !== 3 || localStorage.getItem("token") === '') {
+            //    window.location.href="/";
+            // }
+        }else{
+            window.location.href="/";
+        }
         await this.getListUser();
     };
     render() {

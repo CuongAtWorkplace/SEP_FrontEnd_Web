@@ -28,6 +28,8 @@ import { Table } from "reactstrap";
 // import Header from "../../../components/header/Header";
 // import Footer from "../../../components/footer/Footer";
 import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 function CourseDetail() {
   const [courseDetail, setCourseDetail] = useState({});
   const [classInCourse, setClassInCourse] = useState([]);
@@ -42,8 +44,20 @@ function CourseDetail() {
   const [PhotoPath, setPhotoPath] = useState('https://localhost:7169/Photos/');
   const { cid } = useParams();
   const [checkValidation, setcheckValidation] = useState(false);
-
+  const [roleid, setRoleid] = useState('');
+  const navigate = useNavigate();
   useEffect(() => {
+
+    const token = localStorage.getItem("token");
+    if (token !== null) {
+        const decodedToken = jwtDecode(token);
+        setRoleid(decodedToken.roleid);
+        // if (Number(decodedToken.roleid) === 2 || localStorage.getItem("token") === '') {
+        //     navigate(`/`);
+        // }
+    } else {
+        navigate(`/`);
+    }
     fetch(`https://localhost:7169/api/Course/GetClassInCourse?courseId=${cid}`)
       .then((response) => response.json())
       .then((data) => {

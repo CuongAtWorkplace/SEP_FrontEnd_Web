@@ -45,8 +45,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* teacher */}
-        <Route path="/" element={<GroupChat/>} />
-        <Route path="/login" element={<Login/>} />
+        <Route path="/groupchat" element={<GroupChat/>} />
+        <Route path="/" element={<Login/>} />
         <Route path="/viewclass" element={<ViewClass/>} />
         <Route path="/classdetail/:classId" element={<ClassDetail/>} />
         <Route path="/learnerdetail" element={<LearnerDetail/>} />
@@ -73,9 +73,6 @@ function App() {
         <Route path="/viewleanerlist" element={<ViewLeanerList />} />
         <Route path="/coursedetail/:cid" element={<CourseDetail />} />
         <Route path="/editclass" element={<EditClass />} />
-        <Route path='/listquizzinclass' element={<ViewListQuizzInClass />} />
-        <Route path='/notificationteacher' element={<ViewNotificationTeacher />} />
-        <Route path='/quizzdetail' element={<QuizzDetail />} />
         <Route path="/manager/viewpostlistmanager" element={<ViewPostListManager />} />
         <Route path="/viewpostdetailmanager/:pid" element={<ViewPostDetailManager />} />
         <Route path='/testfile' element={<ListCourse />} />

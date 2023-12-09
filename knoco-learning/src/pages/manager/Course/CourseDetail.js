@@ -107,7 +107,7 @@ function CourseDetail() {
     const coursenew = {
       courseId: cid,
       courseName: courseName,
-      description: description,
+      description: description, 
       createDate: createDate,
       image: PhotoFileName,
       isDelete: false

@@ -63,6 +63,7 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/users/:userId" element={<UserDetail />} />
         {/* manager */}
+        <Route path="/boxchat/:boxchatid" element={<BoxChat/>} />
         <Route path="/listlearner" element={<ListLearner/>} />
         <Route path="/dashboard" element={<Home />} />
         <Route path="/users" element={<Users />} />

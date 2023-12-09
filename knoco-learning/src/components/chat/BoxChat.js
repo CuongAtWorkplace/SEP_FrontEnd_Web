@@ -5,10 +5,11 @@ import { FormControl } from "react-bootstrap";
 import { faArrowLeft, faLocationArrow, faPaperclip, faXmark, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useDropzone } from 'react-dropzone';
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import jwtDecode from "jwt-decode";
+import { useParams } from "react-router-dom";
 
-const User = 2;
-const ClassId = 9;
-const isManager = true;
+
+
 
 
 const BoxChat = () => {
@@ -19,12 +20,29 @@ const BoxChat = () => {
 	const [image, setImage] = useState(null);
 	const [connection, setConnection] = useState(null);
 
-
-
+	const [User, setUser] = useState('');
+	const ClassId = 9;
+	const [isManager,setIsManager] = useState(false);
+	const {boxchatid}	= useParams();
 
 	const scrollViewRef = useRef(null);
 
 	useEffect(() => {
+		const token = localStorage.getItem("token");
+		console.log(token);
+		if (token !== null) {
+			const decodedToken = jwtDecode(token);
+			const check = decodedToken.roleid;
+			if(check == true){
+				setIsManager(true);
+			}else{
+				setIsManager(false);
+			}
+			setUser(parseInt(decodedToken.userid, 10));
+
+		} else {
+			window.location.href = "/";
+		}
 		const fetchMessages = async () => {
 			try {
 				const response = await fetch('https://testdoan.ngrok.dev/api/ChatRoom/GetAllClassMessages/' + ClassId);
@@ -311,7 +329,7 @@ const BoxChat = () => {
 	)
 }
 
-const Message = ({ sender, text, time, isSent, messageId, image , handleDelete}) => {
+const Message = ({ sender, text, time, isSent, messageId, image, handleDelete }) => {
 	const messageContainerClass = isSent ? 'msg_cotainer_send' : 'msg_cotainer';
 
 	console.log('Rendering Message:', messageId, image);

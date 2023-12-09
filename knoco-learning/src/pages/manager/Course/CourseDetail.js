@@ -41,12 +41,12 @@ function CourseDetail() {
   const [ImageCover, setImageCover] = useState('');
   const [PhotoPath, setPhotoPath] = useState('https://localhost:7169/Photos/');
   const { cid } = useParams();
+  const [checkValidation, setcheckValidation] = useState(false);
 
   useEffect(() => {
     fetch(`https://localhost:7169/api/Course/GetClassInCourse?courseId=${cid}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("1");
         setClassInCourse(data);
       });
     fetch(`https://localhost:7169/api/Course/GetCourseById?courseId=${cid}`)
@@ -62,10 +62,7 @@ function CourseDetail() {
 
   }, [cid]);
 
-  // const columns = [
-  //   { field: "classId", headerName: "ID", width: 70 },
-  //   { field: "className", headerName: "Class Name", width: 150 },
-  // ];
+
   const columns = [
     {
       Header: 'Class Id',
@@ -88,12 +85,34 @@ function CourseDetail() {
   };
 
   const handleCourseNameChange = (e) => {
-    setCourseName(e.target.value)
+    const value = e.target.value;
+    if (value.length < 0) {
+      toast.error("Update failed. Try Again!!!");
+      setcheckValidation(false);
+    } else {
+      setcheckValidation(true);
+      setCourseName(value)
+      // Gọi API ở đây nếu validation thành công
+    }
+
   };
 
   const handleDescriptionChange = (e) => {
-    setDescription(e.target.value)
+
+    const value = e.target.value;
+    const regex = /^[a-zA-Z0-9\s]+$/;
+      if (value.trim() === '') {
+    toast.error("Update failed. Try Again!!!");
+    setcheckValidation(false);
+  } else if (regex.test(value)) {
+    setcheckValidation(true);
+    setDescription(value);
+  
+  
+  }
   };
+
+
   const handleImageChange = () => {
     setShowModal(false);
   };
@@ -103,33 +122,36 @@ function CourseDetail() {
   };
 
   const NewCourse = () => {
-    
-    const coursenew = {
-      courseId: cid,
-      courseName: courseName,
-      description: description, 
-      createDate: createDate,
-      image: PhotoFileName,
-      isDelete: false
-    };
-    fetch('https://localhost:7169/api/Course/UpdateCourse', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(coursenew),
-    })
-      .then((response) => {
-        if (response.ok) {
-          toast.success("Update successfull. Congratulation!!!")
 
-        }
-        else if (!response.ok) {
-          toast.error("Update failed. Try Again!!!")
-          throw new Error('Failed to add product');
-        }
-
+    if (checkValidation == true) {
+      const coursenew = {
+        courseId: cid,
+        courseName: courseName,
+        description: description,
+        createDate: createDate,
+        image: PhotoFileName,
+        isDelete: false
+      };
+      fetch('https://localhost:7169/api/Course/UpdateCourse', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(coursenew),
       })
+        .then((response) => {
+          if (response.ok) {
+            toast.success("Update successfull. Congratulation!!!")
+
+          }
+          else if (!response.ok) {
+            toast.error("Update failed. Try Again!!!")
+            throw new Error('Failed to add product');
+          }
+
+        })
+    }
+
   };
   const handleSearchChange = (e) => {
     const searchText = e.target.value;
@@ -140,7 +162,7 @@ function CourseDetail() {
   };
   const imageUpload = (e) => {
     e.preventDefault();
-    
+
     setPhotoFileName(e.target.files[0].name);
     setImageCover(e.target.files[0].name);
 
@@ -199,12 +221,13 @@ function CourseDetail() {
                       className="form-control"
                       placeholder={courseDetail.description}
                       value={description}
+                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                       onChange={handleDescriptionChange}
                     />
                   </div>
                   <div className="col-md-6">
                     <label className="labels">Image</label>
-                    
+
                     {PhotoFileName != '' &&
                       <img width="250px" height="250px"
                         src={PhotoPath + PhotoFileName} />

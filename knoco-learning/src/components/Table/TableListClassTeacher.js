@@ -5,7 +5,7 @@ import '../../style/Teacher/Tag.css';
 import CardAddClass from "../add/CardAddClass";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
-
+import jwtDecode from "jwt-decode";
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
   return (
@@ -20,12 +20,21 @@ const ColumnFilter = ({ column }) => {
 };
 
 const TableListClassTeacher = () => {
-  const UserID = 2;
+  const [UserID,setUserID] = useState(1);
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   const [isAddClassPopupVisible, setAddClassPopupVisible] = useState(false);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+		console.log(token);
+		if (token !== null) {
+			const decodedToken = jwtDecode(token);
+			setUserID(parseInt(decodedToken.userid, 10));
+
+		} else {
+			window.location.href = "/";
+		}
     fetchData();
   }, []);
 

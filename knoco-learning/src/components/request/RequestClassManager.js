@@ -22,9 +22,9 @@ const RequestClassManager = ({ children, ...props }) => {
         if (token !== null) {
             const decodedToken = jwtDecode(token);
            
-            // if (Number(decodedToken.roleid) !== 2 || localStorage.getItem("token") === '') {
-            //     navigate(`/`);
-            // }
+            if (Number(decodedToken.roleid) !== 3|| localStorage.getItem("token") === '') {
+                navigate(`/`);
+            }
         }
     }, []);
     return (

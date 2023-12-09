@@ -7,13 +7,27 @@ import Footer from "../../../components/footer/Footer";
 import SideBar from "../../../components/sidebar/SideBar";
 import "./user.scss";
 import { useParams } from 'react-router-dom';
-
+import jwtDecode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 const UserDetail = () => {
   const [userDetails, setUserDetails] = useState({});
   const [loading, setLoading] = useState(true);
   const { userId } = useParams();
+  const [roleid, setRoleid] = useState('');
   // console.log(I);
+  const navigate = useNavigate();
   useEffect(() => {
+    const token = localStorage.getItem("token");
+        
+    if (token !== null) {
+      const decodedToken = jwtDecode(token);
+      setRoleid(decodedToken.roleid);
+      if (Number(decodedToken.roleid) === 2 || localStorage.getItem("token") === '') {
+          navigate(`/`);
+      }
+  } else {
+      navigate(`/`);
+  }
     fetch(`https://localhost:7169/api/Admin/GetUserById/${userId}`)
       .then((response) => response.json())
       .then((data) => {

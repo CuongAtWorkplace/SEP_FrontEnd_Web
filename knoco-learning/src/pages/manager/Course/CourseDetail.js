@@ -122,6 +122,7 @@ function CourseDetail() {
   };
 
   const NewCourse = () => {
+
     if (checkValidation == true) {
       const coursenew = {
         courseId: cid,

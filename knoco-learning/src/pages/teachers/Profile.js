@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import '../../style/Teacher/Teacher.css';
 import myImage from '../../assets/profile.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,8 +14,9 @@ import CardEditProfile from "../../components/edit/CardEditProfile";
 import CardChangePassword from "../../components/edit/CardChangePassword";
 import CardChangeImage from "../../components/edit/CardChangeImage";
 
-const ProfileTeacher = ({ onBackClick, children, ...props }) => {
+const ProfileTeacher = ({ children, ...props }) => {
     const UserID = 2;
+    const navigate = useNavigate();
     const [userDt, setUserDt] = useState(null);
     const [isEditProfilePopupVisible, setEditProfilePopupVisible] = useState(false);
     const [isChangePasswordPopupVisible, setChangePasswordPopupVisible] = useState(false);
@@ -80,6 +82,10 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
         setChangeImagePopupVisible(false);
     }
 
+    const handleLogoutClick = () => {
+        navigate(`/login`); // Chuyển hướng đến trang /videocall khi nhấp vào nút "Meeting"
+    };
+
     return (
         <div className="body_page" {...props}>
             <section id="menu">
@@ -112,9 +118,9 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                                             <button onClick={openEditProfilePopup}>Edit profile</button>
                                         </li>
                                         <li>
-                                        <button onClick={openChangePasswordPopup}> Change password</button>
-                                            <button onClick={onBackClick}><FontAwesomeIcon icon={faRightFromBracket} /> Log out</button>
-                                            
+                                            <button onClick={openChangePasswordPopup}> Change password</button>
+                                            <button onClick={handleLogoutClick}><FontAwesomeIcon icon={faRightFromBracket} /> Log out</button>
+
                                         </li>
                                     </ul>
                                 </div>
@@ -149,9 +155,9 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                                             <button onClick={openEditProfilePopup}>Edit profile</button>
                                         </li>
                                         <li>
-                                        <button onClick={openChangePasswordPopup}>Change password</button>
-                                            <button onClick={onBackClick}><FontAwesomeIcon icon={faRightFromBracket} /> Log out</button>
-                                            
+                                            <button onClick={openChangePasswordPopup}>Change password</button>
+                                            <button onClick={handleLogoutClick}><FontAwesomeIcon icon={faRightFromBracket} /> Log out</button>
+
                                         </li>
                                     </ul>
                                 </div>

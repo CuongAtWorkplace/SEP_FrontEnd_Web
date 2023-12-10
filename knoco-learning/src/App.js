@@ -53,8 +53,7 @@ function App() {
         <Route path="/list-all-course" element={<ListAllCourse />} />
         <Route path="/class-empty/:courseId" element={<ClassEmpty />} />
         <Route path="/profile-teacher" element={<Profile />} />
-      
-          {/*<Route path="/homepage" element={<HomePage />} />*/}
+        <Route path="/homepage" element={<HomePage />} />
         <Route path="/videocall/:roomId" element={<VideoCallDemo />} />
         <Route path="/chat/:gid" element={<GroupChat />} />
         {/* admin */}

@@ -152,7 +152,7 @@ class Users extends Component {
                   <div className="col-10">
                     <h1>Users</h1>
                   </div>
-                  <div className=" mx-1">
+                  <div className="mx-1">
                     <button className="btn btn-primary" onClick={() => { this.handleAddNewUser() }}>
                       Add New User</button>
                   </div>

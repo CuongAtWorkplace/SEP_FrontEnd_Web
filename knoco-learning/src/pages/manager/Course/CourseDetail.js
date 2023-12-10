@@ -50,13 +50,13 @@ function CourseDetail() {
 
     const token = localStorage.getItem("token");
     if (token !== null) {
-        const decodedToken = jwtDecode(token);
-        setRoleid(decodedToken.roleid);
-        // if (Number(decodedToken.roleid) === 2 || localStorage.getItem("token") === '') {
-        //     navigate(`/`);
-        // }
+      const decodedToken = jwtDecode(token);
+      setRoleid(decodedToken.roleid);
+      // if (Number(decodedToken.roleid) === 2 || localStorage.getItem("token") === '') {
+      //     navigate(`/`);
+      // }
     } else {
-        navigate(`/`);
+      navigate(`/`);
     }
     fetch(`https://localhost:7169/api/Course/GetClassInCourse?courseId=${cid}`)
       .then((response) => response.json())
@@ -100,30 +100,13 @@ function CourseDetail() {
 
   const handleCourseNameChange = (e) => {
     const value = e.target.value;
-    if (value.length < 0) {
-      toast.error("Update failed. Try Again!!!");
-      setcheckValidation(false);
-    } else {
-      setcheckValidation(true);
-      setCourseName(value)
-      // Gọi API ở đây nếu validation thành công
-    }
-
+    setCourseName(value)
+    // Gọi API ở đây nếu validation thành công
   };
 
   const handleDescriptionChange = (e) => {
-
     const value = e.target.value;
-    const regex = /^[a-zA-Z0-9\s]+$/;
-      if (value.trim() === '') {
-    toast.error("Update failed. Try Again!!!");
-    setcheckValidation(false);
-  } else if (regex.test(value)) {
-    setcheckValidation(true);
     setDescription(value);
-  
-  
-  }
   };
 
 
@@ -135,36 +118,35 @@ function CourseDetail() {
     console.log("Clicked on row with ID:", courseId);
   };
 
-  const NewCourse = () => {
+  const NewCourse = async (e) => {
 
-    if (checkValidation == true) {
-      const coursenew = {
-        courseId: cid,
-        courseName: courseName,
-        description: description,
-        createDate: createDate,
-        image: PhotoFileName,
-        isDelete: false
-      };
-      fetch('https://localhost:7169/api/Course/UpdateCourse', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(coursenew),
+
+    const coursenew = {
+      courseId: cid,
+      courseName: courseName,
+      description: description,
+      createDate: createDate,
+      image: PhotoFileName,
+      isDelete: false
+    };
+    fetch('https://localhost:7169/api/Course/UpdateCourse', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(coursenew),
+    })
+      .then((response) => {
+        if (response.ok) {
+          toast.success("Update successfull. Congratulation!!!")
+        }
+        else if (!response.ok) {
+          toast.error("Update failed. Try Again!!!")
+          throw new Error('Failed to add product');
+        }
+
       })
-        .then((response) => {
-          if (response.ok) {
-            toast.success("Update successfull. Congratulation!!!")
 
-          }
-          else if (!response.ok) {
-            toast.error("Update failed. Try Again!!!")
-            throw new Error('Failed to add product');
-          }
-
-        })
-    }
 
   };
   const handleSearchChange = (e) => {
@@ -209,51 +191,28 @@ function CourseDetail() {
           <header>
             <Header />
           </header>
-
           <div className="children">
             <div className="coursedetail">
-              <form className="">
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                  <h4 className="text-right">Thông Tin Khóa Học</h4>
+              <form onSubmit={NewCourse} style={{ width: "60%" }}>
+                <div className="form-group">
+                  <label className="control-label">Course Name:</label>
+                  <input class="form-control" type="text" name="ClassName" placeholder={courseDetail.courseName} value={courseName} onChange={(e) => setCourseName(e.target.value)} required />
                 </div>
-                <div className="row mt-4">
-                  <div className="col-md-7">
-                    <label className="labels">Tên Khóa Học</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      required=""
-                      placeholder={courseDetail.courseName}
-                      value={courseName}
-                      onChange={handleCourseNameChange}
-                    />
-                  </div>
-                  <div className="col-md-7">
-                    <label className="labels">Description</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder={courseDetail.description}
-                      value={description}
-                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                      onChange={handleDescriptionChange}
-                    />
-                  </div>
-                  <div className="col-md-6">
-                    <label className="labels">Image</label>
+                <div className="form-group">
+                  <label className="control-label">Description:</label>
+                  <input class="form-control" type="text" name="description" placeholder={courseDetail.description} value={description} onChange={(e) => setDescription(e.target.value)} required />
+                </div>
+                <div className="form-group">
+                  <label className="control-label">Image :</label>
 
-                    {PhotoFileName != '' &&
-                      <img width="250px" height="250px"
-                        src={PhotoPath + PhotoFileName} />
-                    }
-                  </div>
-                  <div className="col-md-7">
-                    <input class="form-control" className="m-2" type="file" onChange={imageUpload} />
-                  </div>
+                  {PhotoFileName != '' &&
+                    <img width="250px" height="250px"
+                      src={PhotoPath + PhotoFileName} />
+                  }
                 </div>
-                <div className="mt-5 text-center">
-                  <button type="button" onClick={NewCourse} className=" btn btn-block mybtn btn-primary tx-tfm">Thay Đổi</button>
-                </div>
+                <div className="form-group">
+                  <input class="form-control" className="m-2" type="file" onChange={imageUpload} /> </div>
+                <button type="submit" id="submit" name="submit" className="btn-btn">Thay Đổi</button>
               </form>
             </div>
             <div className="">
@@ -273,6 +232,8 @@ function CourseDetail() {
               </div>
             </div>
           </div>
+
+
           <footer>
             <Footer />
           </footer>

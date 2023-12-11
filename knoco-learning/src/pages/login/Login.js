@@ -89,7 +89,7 @@ class Login extends Component {
                         window.location.href = "/viewclass"
                     }
                 } else {
-                    console.log('Đăng nhập thất bại');
+                    toast.error("Check Password !!!")
                     this.setState({ checkLogin: false });
                 }
             } catch (error) {

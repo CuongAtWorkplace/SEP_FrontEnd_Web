@@ -9,6 +9,7 @@ import Add from "../../../components/admin/add/Add";
 import '../users/users.scss';
 import { toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.css';
+import { API_BASE_URL } from "../../../paths";
 
 class Users extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class Users extends Component {
 
   getListUser = async () => {
     try {
-      const response = await fetch(`https://localhost:7169/api/Admin/GetListUser`);
+      const response = await fetch(`${API_BASE_URL}/api/Admin/GetListUser`);
       const data = await response.json();
       this.setState({ ListUser: data.map((user, index) => ({ ...user, id: index })) });
     } catch (error) {
@@ -47,7 +48,7 @@ class Users extends Component {
 
   createNewUser = async (data) => {
     try {
-      const response = await fetch(`https://localhost:7169/api/Admin/AddNewUser`, {
+      const response = await fetch(`${API_BASE_URL}/api/Admin/AddNewUser`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -94,9 +95,15 @@ class Users extends Component {
         field: "image",
         headerName: "Image",
         width: 100,
-        renderCell: (params) => {
-          return <img src={params.row.image || "/noavatar.png"} alt="" />;
-        },
+        renderCell: ({ value }) => (
+          <img
+            src={`${API_BASE_URL}/Photos/${value}`} // Assuming 'value' is the image filename or path
+            alt=""
+          />
+          // renderCell: (params) => {
+          //   return <img src={params.row.image || "/noavatar.png"} alt="" />;
+          // },
+        ),
       },
       {
         field: "fullName",
@@ -148,11 +155,11 @@ class Users extends Component {
             </header>
             <div className="userLayout">
               <div className="users">
-                <div className="infoUsers">
+                <div className="infoHomes">
                   <div className="col-10">
                     <h1>Users</h1>
                   </div>
-                  <div className="mx-1">
+                  <div className=" mx-1">
                     <button className="btn btn-primary" onClick={() => { this.handleAddNewUser() }}>
                       Add New User</button>
                   </div>

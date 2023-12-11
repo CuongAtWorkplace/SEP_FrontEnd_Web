@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../../../paths";
 import "./topBox.scss"
 import React, { useState, useEffect } from 'react';
 
@@ -7,7 +8,7 @@ const TopBox = () => {
 
   useEffect(() => {
     // Gọi API ở đây
-    fetch(`https://localhost:7169/api/Admin/GetListUser`)
+    fetch(API_BASE_URL + `/api/Admin/GetListUser`)
       .then((response) => response.json())
       .then((data) => {
         setTopDealUsers(data); // Cập nhật danh sách người dùng

@@ -55,7 +55,7 @@ const CardChangeImage = ({ closePopup }) => {
         formData.append("file", e.target.files[0], e.target.files[0].name);
 
         try {
-            const response = await fetch(`https://localhost:7169/api/User/UploadImage/UploadImage/${UserID}`, {
+            const response = await fetch(`${API_BASE_URL}/api/User/UploadImage/UploadImage/${UserID}`, {
                 method: 'POST',
                 body: formData
             });

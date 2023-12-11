@@ -129,7 +129,7 @@ const TableListLearnerInClass = (props) => {
       Filter: ColumnFilter, // Custom filter component for courseId column
       Cell: ({ value }) => (
         <img
-            src={`https://localhost:7169/Photos/${value}`} // Assuming 'value' is the image filename or path
+            src={`${API_BASE_URL}/Photos/${value}`} // Assuming 'value' is the image filename or path
             alt="Course Image"
             style={{ width: '50px', height: '50px' }} // Adjust the size as needed
         />

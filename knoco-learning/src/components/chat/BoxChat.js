@@ -7,7 +7,7 @@ import { useDropzone } from 'react-dropzone';
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import jwtDecode from "jwt-decode";
 import { useParams } from "react-router-dom";
-
+import { API_BASE_URL } from "../../paths";
 
 
 
@@ -45,7 +45,7 @@ const BoxChat = () => {
 		}
 		const fetchMessages = async () => {
 			try {
-				const response = await fetch('https://testdoan.ngrok.dev/api/ChatRoom/GetAllClassMessages/' + ClassId);
+				const response = await fetch(`${API_BASE_URL}/api/ChatRoom/GetAllClassMessages/` + ClassId);
 				if (response.ok) {
 					const data = await response.json();
 					setMessages(data);
@@ -59,7 +59,7 @@ const BoxChat = () => {
 
 		const fetchClassData = async () => {
 			try {
-				const response = await fetch('https://testdoan.ngrok.dev/api/Class/GetClassById/GetClassById/' + ClassId);
+				const response = await fetch(`${API_BASE_URL}/api/Class/GetClassById/GetClassById/` + ClassId);
 				if (response.ok) {
 					const data = await response.json();
 					setClassData(data);
@@ -77,7 +77,7 @@ const BoxChat = () => {
 
 
 	const handleDelete = (messageId) => {
-		fetch('https://testdoan.ngrok.dev/api/ChatRoom/DeleteMessage/' + messageId, {
+		fetch(`${API_BASE_URL}/api/ChatRoom/DeleteMessage/` + messageId, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ const BoxChat = () => {
 
 	useEffect(() => {
 		const newConnection = new HubConnectionBuilder()
-			.withUrl('https://testdoan.ngrok.dev/chatHub', { withCredentials: true })
+			.withUrl(`${API_BASE_URL}/chatHub`, { withCredentials: true })
 			.build();
 
 		setConnection(newConnection);
@@ -185,7 +185,7 @@ const BoxChat = () => {
 				const blob = await fetch(imagePicker).then((res) => res.blob());
 				formData.append('file', blob, 'image.jpg');
 
-				const uploadResponse = await fetch('https://testdoan.ngrok.dev/api/Post/UploadImage', {
+				const uploadResponse = await fetch(`${API_BASE_URL}/api/Post/UploadImage`, {
 					method: 'POST',
 					body: formData,
 				});
@@ -217,7 +217,7 @@ const BoxChat = () => {
 				photo: photo // Gán link ảnh vào phần photo của tin nhắn
 			};
 
-			const response = await fetch(`https://testdoan.ngrok.dev/api/ChatRoom/AddMessage/` + ClassId + `/` + User, {
+			const response = await fetch(`${API_BASE_URL}/api/ChatRoom/AddMessage/` + ClassId + `/` + User, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -348,7 +348,7 @@ const Message = ({ sender, text, time, isSent, messageId, image, handleDelete })
 					</div>
 					<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
 						<div className={messageContainerClass}>
-							<img src={`https://testdoan.ngrok.dev/api/ChatRoom/GetImage/${messageId}`} />
+							<img src={`${API_BASE_URL}/api/ChatRoom/GetImage/${messageId}`} />
 							<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
 						</div>
 					</div>
@@ -369,7 +369,7 @@ const Message = ({ sender, text, time, isSent, messageId, image, handleDelete })
 					</div>
 					<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
 						<div className={messageContainerClass}>
-							<img src={`https://testdoan.ngrok.dev/api/ChatRoom/GetImage/${messageId}`} />
+							<img src={`${API_BASE_URL}/api/ChatRoom/GetImage/${messageId}`} />
 							<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>
 						</div>
 					</div>

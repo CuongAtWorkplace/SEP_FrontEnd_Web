@@ -19,7 +19,6 @@ const UserDetail = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem("token");
-        
     if (token !== null) {
       const decodedToken = jwtDecode(token);
       setRoleid(decodedToken.roleid);

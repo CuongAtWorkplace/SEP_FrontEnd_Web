@@ -30,6 +30,7 @@ import { Table } from "reactstrap";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
+import { API_BASE_URL } from "../../../paths";
 function CourseDetail() {
   const [courseDetail, setCourseDetail] = useState({});
   const [classInCourse, setClassInCourse] = useState([]);
@@ -41,7 +42,7 @@ function CourseDetail() {
   const [image, setImage] = useState('');
   const [PhotoFileName, setPhotoFileName] = useState('');
   const [ImageCover, setImageCover] = useState('');
-  const [PhotoPath, setPhotoPath] = useState('https://localhost:7169/Photos/');
+  const [PhotoPath, setPhotoPath] = useState(`${API_BASE_URL}/Photos/`);
   const { cid } = useParams();
   const [checkValidation, setcheckValidation] = useState(false);
   const [roleid, setRoleid] = useState('');
@@ -58,12 +59,12 @@ function CourseDetail() {
     } else {
       navigate(`/`);
     }
-    fetch(`https://localhost:7169/api/Course/GetClassInCourse?courseId=${cid}`)
+    fetch(`${API_BASE_URL}/api/Course/GetClassInCourse?courseId=${cid}`)
       .then((response) => response.json())
       .then((data) => {
         setClassInCourse(data);
       });
-    fetch(`https://localhost:7169/api/Course/GetCourseById?courseId=${cid}`)
+    fetch(`${API_BASE_URL}/api/Course/GetCourseById?courseId=${cid}`)
       .then((response) => response.json())
       .then((data) => {
         setCourseDetail(data);
@@ -129,7 +130,7 @@ function CourseDetail() {
       image: PhotoFileName,
       isDelete: false
     };
-    fetch('https://localhost:7169/api/Course/UpdateCourse', {
+    fetch(`${API_BASE_URL}/api/Course/UpdateCourse`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -165,7 +166,7 @@ function CourseDetail() {
     const formData = new FormData();
     formData.append("file", e.target.files[0], e.target.files[0].name);
 
-    fetch('https://localhost:7169/api/Post/SaveFile', {
+    fetch('${API_BASE_URL}/api/Post/SaveFile', {
       method: 'POST',
       body: formData
     })

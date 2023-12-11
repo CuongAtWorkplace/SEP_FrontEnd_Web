@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import '../../style/Teacher/Edit.css'
 import { toast } from 'react-toastify';
+import { API_BASE_URL } from "../../paths";
 const CardEditClass = ({ closePopup }) => {
     const params = useParams();
     const [classDt, setClassDt] = useState({});
@@ -21,7 +22,7 @@ const CardEditClass = ({ closePopup }) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/Class/GetTeacherClassDetail/${params.classId}`); // Thay thế URL bằng API thực tế
+            const response = await fetch(`${API_BASE_URL}/api/Class/GetTeacherClassDetail/${params.classId}`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setClassDt(responseData);
             setClassName(responseData.className || '');
@@ -62,7 +63,7 @@ const CardEditClass = ({ closePopup }) => {
 
             e.preventDefault();
             try {
-                const response = await fetch(`https://localhost:7169/api/Class/EditClass`, {
+                const response = await fetch(`${API_BASE_URL}/api/Class/EditClass`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'

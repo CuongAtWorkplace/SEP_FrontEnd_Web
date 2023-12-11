@@ -22,7 +22,7 @@ import {
     faClock
 } from '@fortawesome/free-solid-svg-icons';
 import CardNote from "../edit/CardNote";
-
+import { API_BASE_URL } from "../../paths";
 const CardClass = ({ setIsEditClassPopupVisible }) => {
     const [classDt, setClassDt] = useState(null);
     const params = useParams();
@@ -36,7 +36,7 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/Class/GetTeacherClassDetail/${params.classId}`); // Thay thế URL bằng API thực tế
+            const response = await fetch(`${API_BASE_URL}/api/Class/GetTeacherClassDetail/${params.classId}`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setClassDt(responseData);
             setClassName(responseData.className);

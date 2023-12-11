@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import jwtDecode from "jwt-decode";
 import { BsCheck2Circle } from "react-icons/bs";
 import { display } from "@mui/system";
+import { API_BASE_URL } from "../../paths";
 const ColumnFilter = ({ column }) => {
     const { setFilter } = column;
 
@@ -33,7 +34,7 @@ const TableRequestClassManager = () => {
 
 
     const fetchData = async () => {
-        const response = await fetch(`https://localhost:7169/api/Class/ListRequestClassManager`);
+        const response = await fetch(`${API_BASE_URL}/api/Class/ListRequestClassManager`);
         const data = await response.json();
         setListClassRequest(data);
 
@@ -44,7 +45,7 @@ const TableRequestClassManager = () => {
             classId: ClassId,
             teacherId: UserId,
         }
-        fetch('https://localhost:7169/api/Class/RequestClass', {
+        fetch(`${API_BASE_URL}/api/Class/RequestClass`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -67,7 +68,7 @@ const TableRequestClassManager = () => {
     }
 
     const CheckedRequestManager = async (classRequestId) => {
-        const commentResponse = await fetch(`https://localhost:7169/api/Class/GetRequestClassManager?requestId=${classRequestId}`);
+        const commentResponse = await fetch(`${API_BASE_URL}/api/Class/GetRequestClassManager?requestId=${classRequestId}`);
         const data = await commentResponse.json();
         
         const classR = {
@@ -75,7 +76,7 @@ const TableRequestClassManager = () => {
             type: true
         }
 
-        const response = await fetch(`https://localhost:7169/api/Class/UpdateTypeClassRequest`, {
+        const response = await fetch(`${API_BASE_URL}ttps://localhost:7169/api/Class/UpdateTypeClassRequest`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -103,7 +104,7 @@ const TableRequestClassManager = () => {
             type: false
         }
 
-        fetch(`https://localhost:7169/api/Class/UpdateTypeClassRequest`, {
+        fetch(`${API_BASE_URL}/api/Class/UpdateTypeClassRequest`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

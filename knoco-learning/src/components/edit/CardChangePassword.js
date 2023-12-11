@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import '../../style/Teacher/Edit.css'
-
+import { API_BASE_URL } from "../../paths";
 const CardChangePassword = ({ closePopup }) => {
     //const params = useParams();
     const [userDt, setUserDt] = useState({});
@@ -16,7 +16,7 @@ const CardChangePassword = ({ closePopup }) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/User/GetUserProfile/${2}`); // Thay thế URL bằng API thực tế
+            const response = await fetch(`${API_BASE_URL}/api/User/GetUserProfile/${2}`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setUserDt(responseData);
             setEmail(responseData.email || '');
@@ -39,7 +39,7 @@ const CardChangePassword = ({ closePopup }) => {
 
         e.preventDefault();
         try {
-            const response = await fetch(`https://localhost:7169/api/User/ChangePassword`, {
+            const response = await fetch(`${API_BASE_URL}/api/User/ChangePassword`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

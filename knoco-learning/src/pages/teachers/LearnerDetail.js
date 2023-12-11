@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import CardLearner from "../../components/detail/learnerDetail/CardLearner";
 import $ from "jquery";
-
+import { API_BASE_URL } from "../../paths";
 const LearnerDetail = ({ children, ...props }) => {
     useEffect(() => {
         // Add click event listener to menu-btn

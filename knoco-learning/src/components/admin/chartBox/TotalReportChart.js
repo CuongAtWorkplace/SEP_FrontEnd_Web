@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { GoReport } from 'react-icons/go'
 import { Link } from "react-router-dom";
 import { API_BASE_URL } from "../../../paths";
-
 const TotalReport = () => {
     const [totalReports, setTotalReports] = useState([]);
 
     useEffect(() => {
-        fetch(API_BASE_URL + `/api/Admin/GetTotal`)
+        fetch(`${API_BASE_URL}/api/Admin/GetTotal`)
             .then((response) => response.json())
             .then((data) => {
                 console.log("Data from API:", data);

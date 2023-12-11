@@ -6,6 +6,7 @@ import Header from "../../../components/header/Header";
 import Footer from "../../../components/footer/Footer";
 import SideBar from "../../../components/sidebar/SideBar";
 import jwtDecode from "jwt-decode";
+import { API_BASE_URL } from '../../../paths';
 class ViewLeanerList extends Component {
     constructor(props) {
         super(props);
@@ -15,7 +16,7 @@ class ViewLeanerList extends Component {
     }
     getListUser = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/User/GetListLeaner/GetListLeaner`);
+            const response = await fetch(`${API_BASE_URL}/api/User/GetListLeaner/GetListLeaner`);
             const data = await response.json();
             this.setState({ ListLeaner: data.map((user, index) => ({ ...user, id: index })) });
         } catch (error) {

@@ -16,7 +16,7 @@ import { BsFillPencilFill } from "react-icons/bs";
 import { toast } from 'react-toastify';
 import { BsCheck2Circle } from "react-icons/bs";
 import Table from "../manager/Table";
-
+import { API_BASE_URL } from "../../paths";
 const ColumnFilter = ({ column }) => {
     const { setFilter } = column;
 
@@ -52,7 +52,7 @@ const ViewAllPost = ({ children, ...props }) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/Post/GetAllPostALL`);
+            const response = await fetch(`${API_BASE_URL}/api/Post/GetAllPostALL`);
             const responseData = await response.json();
             setData(responseData);
 
@@ -90,7 +90,7 @@ const ViewAllPost = ({ children, ...props }) => {
             Filter: ColumnFilter, // Custom filter component for courseId column
             Cell: ({ value }) => (
                 <img
-                    src={`https://localhost:7169/Photos/${value}`} // Assuming 'value' is the image filename or path
+                    src={`${API_BASE_URL}/Photos/${value}`} // Assuming 'value' is the image filename or path
                     alt="Course Image"
                     style={{ width: '100px', height: '100px' }} // Adjust the size as needed
                 />

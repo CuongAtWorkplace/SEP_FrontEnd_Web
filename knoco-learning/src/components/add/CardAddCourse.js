@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import '../../style/Teacher/Edit.css';
-
+import { API_BASE_URL } from "../../paths";
 const CardAddCourse = ({ closePopup }) => {
     const params = useParams();
     const [CourseId, setCourseId] = useState('');
@@ -11,14 +11,14 @@ const CardAddCourse = ({ closePopup }) => {
     const [ImageCover, setImageCover] = useState('');
     const [IsDelete, setIsDelete] = useState(false);
     const [PhotoFileName, setPhotoFileName] = useState('');
-    const [PhotoPath, setPhotoPath] = useState('https://localhost:7169/Photos/');
+    const [PhotoPath, setPhotoPath] = useState('${API_BASE_URL}/Photos/');
     // useEffect(() => {
     //     fetchData();
     // }, []);
 
     // const fetchData = async () => {
     //     try {
-    //         const response = await fetch(`https://localhost:7169/api/Class/GetTeacherClassDetail/${params.classId}`); // Thay thế URL bằng API thực tế
+    //         const response = await fetch(`${API_BASE_URL}/api/Class/GetTeacherClassDetail/${params.classId}`); // Thay thế URL bằng API thực tế
     //         const responseData = await response.json();
     //         setClassDt(responseData);
     //         setClassName(responseData.classname || '');
@@ -53,7 +53,7 @@ const CardAddCourse = ({ closePopup }) => {
 
         e.preventDefault();
         try {
-            const response = await fetch(`https://localhost:7169/api/Course/AddNewCouse`, {
+            const response = await fetch(`${API_BASE_URL}/api/Course/AddNewCouse`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -81,7 +81,7 @@ const CardAddCourse = ({ closePopup }) => {
         const formData = new FormData();
         formData.append("file", e.target.files[0], e.target.files[0].name);
 
-        fetch('https://localhost:7169/api/Post/SaveFile', {
+        fetch(`${API_BASE_URL}/api/Post/SaveFile`, {
             method: 'POST',
             body: formData
         })

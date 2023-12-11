@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import {BsBook } from 'react-icons/bs'
 import { Link } from "react-router-dom";
 import { API_BASE_URL } from "../../../paths";
-
 const TotalCourse = () => {
     const [totalCourses, setTotalCourses] = useState([]);
 
     useEffect(() => {
-        fetch(API_BASE_URL + `/api/Admin/GetTotal`)
+        fetch(`${API_BASE_URL}/api/Admin/GetTotal`)
             .then((response) => response.json())
             .then((data) => {
                 console.log("Data from API:", data);

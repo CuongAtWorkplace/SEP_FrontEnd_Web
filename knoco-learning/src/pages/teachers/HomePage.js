@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import $ from "jquery";
 import { Swiper, SwiperSlide } from 'swiper/react';
-
+import { API_BASE_URL } from "../../paths";
 // import 'swiper/css';
 // import 'swiper/css/pagination';
 // import { Pagination } from 'swiper/modules';
@@ -29,7 +29,7 @@ const HomePage = ({ children, ...props }) => {
 
     const fetchDataClass = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/Class/GetTopClassByDate`); // Thay thế URL bằng API thực tế
+            const response = await fetch(`${API_BASE_URL}/api/Class/GetTopClassByDate`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setDataClass(responseData);
         } catch (error) {
@@ -39,7 +39,7 @@ const HomePage = ({ children, ...props }) => {
 
     const fetchDataCourse = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/Course/GetTopCourseByDate`); // Thay thế URL bằng API thực tế
+            const response = await fetch(`${API_BASE_URL}/api/Course/GetTopCourseByDate`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setDataCourse(responseData);
         } catch (error) {
@@ -88,14 +88,14 @@ const HomePage = ({ children, ...props }) => {
                                     <SwiperSlide>
                                         <div className="item-course">
                                             <div className="div-img">
-                                                <img src={`https://localhost:7169/Photos/${courseC.image}` || "https://reactjs.org/logo-og.png"} alt={courseC.courseName} />
+                                                <img src={`${API_BASE_URL}/Photos/${courseC.image}` || "https://reactjs.org/logo-og.png"} alt={courseC.courseName} />
                                             </div>
                                             <div class="item-infomation">
                                                 <div class="d-flex">
                                                     <small><i class="text-primary"></i>{formatAPIDate(courseC.createDate)}</small>
                                                     <small><i class="text-primary"></i>01h 30m</small>
                                                 </div>
-                                                <Link class="a-link" to={`/coursedetail/${courseC.courseId}`}>{courseC.courseName}</Link>
+                                                <Link class="a-link" to={`${API_BASE_URL}/coursedetail/${courseC.courseId}`}>{courseC.courseName}</Link>
                                             </div>
                                         </div>
                                     </SwiperSlide>
@@ -125,7 +125,7 @@ const HomePage = ({ children, ...props }) => {
                                     <SwiperSlide>
                                         <div className="item-course">
                                         <div className="div-img">
-                                                <img src={`https://localhost:7169/Photos/${classC.image}` || "https://reactjs.org/logo-og.png"} alt={classC.className} />
+                                                <img src={`${API_BASE_URL}/Photos/${classC.image}` || "https://reactjs.org/logo-og.png"} alt={classC.className} />
                                             </div>
                                             <div class="item-infomation">
                                                 <div class="d-flex">

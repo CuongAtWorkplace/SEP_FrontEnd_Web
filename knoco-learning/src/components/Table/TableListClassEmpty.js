@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import jwtDecode from "jwt-decode";
 import { toast } from 'react-toastify';
-
+import { API_BASE_URL } from "../../paths";
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
   return (
@@ -33,7 +33,7 @@ const TableListClassEmpty = (props) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`https://localhost:7169/api/Class/GetListEmptyClass/${params.courseId}`);
+      const response = await fetch(`${API_BASE_URL}/api/Class/GetListEmptyClass/${params.courseId}`);
       const responseData = await response.json();
       setData(responseData);
     } catch (error) {
@@ -63,7 +63,7 @@ const TableListClassEmpty = (props) => {
         userId: parseInt(decodedToken.userid, 10),
         type:null
       }
-      fetch('https://localhost:7169/api/Class/CreateRequestClassManager', {
+      fetch(`${API_BASE_URL}/api/Class/CreateRequestClassManager`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import myImage from '../../assets/profile.jpg';
 import '../../style/Teacher/Edit.css'
-
+import { API_BASE_URL } from "../../paths";
 const CardChangeImage = ({ closePopup }) => {
     const UserID = 2;
     const [userDt, setUserDt] = useState({});
@@ -17,7 +17,7 @@ const CardChangeImage = ({ closePopup }) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/User/GetUserProfile/${UserID}`); // Thay thế URL bằng API thực tế
+            const response = await fetch(`${API_BASE_URL}/api/User/GetUserProfile/${UserID}`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setUserDt(responseData);
             setImage(responseData.image || '');
@@ -28,7 +28,7 @@ const CardChangeImage = ({ closePopup }) => {
 
     const fetchImage = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/User/GetUserImage/GetImage/${UserID}`);
+            const response = await fetch(`${API_BASE_URL}/api/User/GetUserImage/GetImage/${UserID}`);
             if (response.ok) {
                 const imageData = await response.blob();
                 setImage(URL.createObjectURL(imageData));
@@ -63,7 +63,7 @@ const CardChangeImage = ({ closePopup }) => {
         formData.append('image', selectedImage);
 
         try {
-            const response = await fetch(`https://localhost:7169/api/User/UploadImage/UploadImage/${UserID}`, {
+            const response = await fetch(`${API_BASE_URL}/api/User/UploadImage/UploadImage/${UserID}`, {
                 method: 'POST',
                 body: formData
             });

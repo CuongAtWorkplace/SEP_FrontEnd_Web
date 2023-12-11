@@ -1,7 +1,7 @@
 import "./chartBox.scss"
 import { Link } from "react-router-dom"
 import { Line, LineChart, ResponsiveContainer, Tooltip } from "recharts"
-
+import { API_BASE_URL } from "../../../paths"
 const ChartBox = props => {
   return (
     <div className="chartBox">

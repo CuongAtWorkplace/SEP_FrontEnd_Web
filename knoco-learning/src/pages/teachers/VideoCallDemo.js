@@ -4,22 +4,24 @@ import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt"
 import { useState, useEffect } from "react";
 import jwtDecode from "jwt-decode";
 import { API_BASE_URL } from "../../paths";
+import { useNavigate } from "react-router-dom";
 const VideoCallDemo = () => {
   const { roomId } = useParams();
   const [userName1, setUserName] = useState("");
   const [userId, setUserId] = useState(null);
   const [checkToken, setcheckToken] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
+  
     const token = localStorage.getItem("token");
     console.log(token);
     if (token !== null) {
       const decodedToken = jwtDecode(token);
       setUserName(decodedToken.fullname);
-
       setUserId(parseInt(decodedToken.userid, 10));
     
   } else {
-    window.location.href = "/";
+    navigate(`/`);
   }
     const fetchCheckUser = async () => {
       try {
@@ -66,8 +68,6 @@ const VideoCallDemo = () => {
   return (
     <div>
       {checkToken === true && <div ref={myMeeting} /> }
-
-
     </div>
   )
 }

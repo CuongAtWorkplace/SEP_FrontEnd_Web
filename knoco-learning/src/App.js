@@ -45,16 +45,15 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* teacher */}
-        <Route path="/groupchat" element={<GroupChat/>} />
-        <Route path="/" element={<Login/>} />
-        <Route path="/viewclass" element={<ViewClass/>} />
-        <Route path="/classdetail/:classId" element={<ClassDetail/>} />
-        <Route path="/learnerdetail" element={<LearnerDetail/>} />
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/viewclass" element={<ViewClass />} />
+        <Route path="/classdetail/:classId" element={<ClassDetail />} />
+        <Route path="/learnerdetail" element={<LearnerDetail />} />
         <Route path="/list-all-course" element={<ListAllCourse />} />
         <Route path="/class-empty/:courseId" element={<ClassEmpty />} />
         <Route path="/profile-teacher" element={<Profile />} />
-      
-          {/*<Route path="/homepage" element={<HomePage />} />*/}
+        <Route path="/homepage" element={<HomePage />} />
         <Route path="/videocall/:roomId" element={<VideoCallDemo />} />
         <Route path="/chat/:gid" element={<GroupChat />} />
         {/* admin */}
@@ -63,8 +62,8 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/users/:userId" element={<UserDetail />} />
         {/* manager */}
-        <Route path="/boxchat/:boxchatid" element={<BoxChat/>} />
-        <Route path="/listlearner" element={<ListLearner/>} />
+        <Route path="/boxchat/:boxchatid" element={<BoxChat />} />
+        <Route path="/listlearner" element={<ListLearner />} />
         <Route path="/dashboard" element={<Home />} />
         <Route path="/users" element={<Users />} />
         <Route path="/users/:userId" element={<UserDetail />} />
@@ -77,8 +76,8 @@ function App() {
         <Route path="/manager/viewpostdetailmanager/:pid" element={<ViewPostDetailManager />} />
         <Route path='/testfile' element={<ListCourse />} />
         <Route path='/manager' element={<SideBar />} />
-        <Route path='/tableRequestmanager' element={<RequestManager/>} />
-        <Route path='/tableRequesClassmanager' element={<RequestClassManager/>}/>
+        <Route path='/tableRequestmanager' element={<RequestManager />} />
+        <Route path='/tableRequesClassmanager' element={<RequestClassManager />} />
       </Routes>
       <ToastContainer
         position="top-right"

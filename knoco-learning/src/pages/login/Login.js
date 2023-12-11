@@ -79,7 +79,7 @@ class Login extends Component {
 
 
                     if (decodedToken.roleid == 2) {
-                        window.location.href = "/video";
+                        window.location.href = "https://2f96-2405-4802-ff-b5f0-e4e8-53a1-46ea-b29a.ngrok-free.app/videocall/Math_101";
                     }
                     else if (decodedToken.roleid == 3) {
                         window.location.href = "/manager/course";
@@ -140,8 +140,8 @@ class Login extends Component {
                                 <img src="~/images/img-01.png" alt="IMG" />
                             </div>
 
-                            <form class="login100-form validate-form" >
-                                <span class="login100-form-title">
+                            <form className="login100-form validate-form" >
+                                <span className="login100-form-title">
                                     Member Login
                                 </span>
 
@@ -161,34 +161,32 @@ class Login extends Component {
                                     </span>
                                 </div>
 
-                                <div class="container-login100-form-btn">
-                                    <button class="login100-form-btn" type="button" onClick={this.handleLogin}>
+                                <div className="container-login100-form-btn">
+                                    <button className="login100-form-btn" type="button" onClick={this.handleLogin}>
                                         Login
                                     </button>
                                 </div>
 
-                                <div class="text-center p-t-12">
-                                    <span class="txt1">
+                                <div className="text-center p-t-12">
+                                    <span className="txt1">
                                         Forgot
                                     </span>
-                                    <a class="txt2" href="#">
+                                    <a className="txt2" href="#">
                                         Username / Password?
                                     </a>
                                 </div>
 
-                                <div class="text-center p-t-136">
-                                    <a class="txt2" href="#">
+                                <div className="text-center p-t-136">
+                                    <a className="txt2" href="#">
                                         Create your Account
-                                        <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                                        <i className="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                                     </a>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-
             </div>
-
         )
     }
 

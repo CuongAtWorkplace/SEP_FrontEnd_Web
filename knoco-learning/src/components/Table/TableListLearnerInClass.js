@@ -56,8 +56,6 @@ const TableListLearnerInClass = (props) => {
     }
   };
 
-
-
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (event) => {
@@ -98,6 +96,7 @@ const TableListLearnerInClass = (props) => {
     setSelectedLearner(learner);
     //console.log(selectedLearner.userId);
   };
+
   const handleBackButtonClick = () => {
     setSelectedLearner(null);
   };
@@ -128,6 +127,13 @@ const TableListLearnerInClass = (props) => {
       Header: 'Image',
       accessor: 'image',
       Filter: ColumnFilter, // Custom filter component for courseId column
+      Cell: ({ value }) => (
+        <img
+            src={`https://localhost:7169/Photos/${value}`} // Assuming 'value' is the image filename or path
+            alt="Course Image"
+            style={{ width: '50px', height: '50px' }} // Adjust the size as needed
+        />
+    ),
     },
     {
       Header: 'Address',

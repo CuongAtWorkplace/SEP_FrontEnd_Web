@@ -28,7 +28,7 @@ const UserDetail = () => {
   } else {
       navigate(`/`);
   }
-    fetch(API_BASE_URL + `/api/Admin/GetUserById/${userId}`)
+    fetch(`${API_BASE_URL}/api/Admin/GetUserById/${userId}`)
       .then((response) => response.json())
       .then((data) => {
         setUserDetails(data);

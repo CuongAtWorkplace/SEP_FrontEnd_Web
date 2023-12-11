@@ -22,7 +22,7 @@ class Users extends Component {
 
   getListUser = async () => {
     try {
-      const response = await fetch(API_BASE_URL + `/api/Admin/GetListUser`);
+      const response = await fetch(`${API_BASE_URL}/api/Admin/GetListUser`);
       const data = await response.json();
       this.setState({ ListUser: data.map((user, index) => ({ ...user, id: index })) });
     } catch (error) {
@@ -48,7 +48,7 @@ class Users extends Component {
 
   createNewUser = async (data) => {
     try {
-      const response = await fetch(API_BASE_URL + `/api/Admin/AddNewUser`, {
+      const response = await fetch(`${API_BASE_URL}/api/Admin/AddNewUser`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

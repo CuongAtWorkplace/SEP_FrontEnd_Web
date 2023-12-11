@@ -22,7 +22,7 @@ class Report extends Component {
 
   getListReport = async () => {
     try {
-      const response = await fetch(API_BASE_URL + '/api/Admin/GetListReport');
+      const response = await fetch(`${API_BASE_URL}/api/Admin/GetListReport`);
       if (response.ok) {
         const data = await response.json();
         this.setState({ ListReport: data });

@@ -25,16 +25,13 @@ const SideBar = () => {
     const navigate = useNavigate();
     const [roleid, setRoleid] = useState('');
     const [tokenCheck, setToken] = useState('');
-    
+
     useEffect(() => {
-       
+
         const token = localStorage.getItem("token");
         if (token !== null) {
             const decodedToken = jwtDecode(token);
-            console.log(token)
-            console.log(Number(decodedToken.roleid));
             setRoleid(decodedToken.roleid);
-            console.log(roleid);
             // setTimeout(() => {
             //     localStorage.removeItem('token');
             //     console.log('da xoa token.');
@@ -43,7 +40,7 @@ const SideBar = () => {
             // if (Number(decodedToken.roleid) === 2 || localStorage.getItem("token") === '') {
             //     navigate(`/`);
             // }
-        }else{
+        } else {
             navigate(`/`);
         }
     }, []);
@@ -59,10 +56,6 @@ const SideBar = () => {
                             <FontAwesomeIcon className="menu-icon" icon={faDashboard} />
                             <Link className="link-a" to="/dashboard">Dashboard</Link>
                         </li>
-                        {/* <li>
-                            <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
-                            <Link className="link-a" to="/manager/list-all-course">Manage Class</Link>
-                        </li> */}
                         <li>
                             <FontAwesomeIcon className="menu-icon" icon={faUser} />
                             <Link className="link-a" to="/users">User Manage</Link>
@@ -71,18 +64,23 @@ const SideBar = () => {
                             <FontAwesomeIcon className="menu-icon" icon={faFlag} />
                             <Link className="link-a" to="/report">Report</Link>
                         </li>
-                        {/* <li>
+                        <li>
                             <FontAwesomeIcon className="menu-icon" icon={faSchool} />
                             <Link className="link-a" to="/viewallclass">Class List</Link>
-                        </li> */}
+                        </li>
+                        <li>
+                            <FontAwesomeIcon className="menu-icon" icon={faSchool} />
+                            <Link className="link-a" to="/viewallpost">Post List</Link>
+                        </li>
                     </>}
 
                     {/*Manage */}
                     {roleid == '3' && <>
-                        {/* <li>
-                    <FontAwesomeIcon className="menu-icon" icon={faCalendarDays} />
-                    <Link className="link-a" to="/profile-teacher">Profile</Link>
-                </li> */}
+                       
+                        <li>
+                            <FontAwesomeIcon className="menu-icon" icon={faDashboard} />
+                            <Link className="link-a" to="/dashboard">Dashboard</Link>
+                        </li>
                         <li>
                             <FontAwesomeIcon className="menu-icon" icon={faSchool} />
                             <Link className="link-a" to="/manager/course">Manage Courses</Link>
@@ -93,15 +91,19 @@ const SideBar = () => {
                         </li>
                         <li>
                             <FontAwesomeIcon className="menu-icon" icon={faChalkboardTeacher} />
-                            <Link className="link-a" to="#">Manage Teachers</Link>
+                            <Link className="link-a" to="/viewclass">Manage Class</Link>
                         </li>
                         <li>
                             <FontAwesomeIcon className="menu-icon" icon={faUser} />
-                            <Link className="link-a" to="#">Manage Learners</Link>
+                            <Link className="link-a" to="">Manage Learners</Link>
                         </li>
                         <li>
                             <FontAwesomeIcon className="menu-icon" icon={faFlag} />
-                            <Link className="link-a" to="#">View Reports</Link>
+                            <Link className="link-a" to="/tableRequesClassmanager">View Request Class</Link>
+                        </li>
+                        <li>
+                            <FontAwesomeIcon className="menu-icon" icon={faFlag} />
+                            <Link className="link-a" to="/tableRequestmanager">View Request User</Link>
                         </li>
                     </>}
 

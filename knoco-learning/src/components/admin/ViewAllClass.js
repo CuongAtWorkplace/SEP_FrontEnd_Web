@@ -44,9 +44,9 @@ const ViewAllClass = ({ children, ...props }) => {
                 if(Number(decodedToken.roleid) == 3){
                     setIsManager(true);
                 }
-            // if (Number(decodedToken.roleid) !== 1 || localStorage.getItem("token") === '') {
-            //     navigate(`/`);
-            // }
+            if ( localStorage.getItem("token") === '') {
+                navigate(`/`);
+            }
         }
         fetchData();
     }, []);

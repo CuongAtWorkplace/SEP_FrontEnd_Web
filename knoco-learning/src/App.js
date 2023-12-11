@@ -72,9 +72,6 @@ function App() {
         <Route path="/viewleanerlist" element={<ViewLeanerList />} />
         <Route path="/coursedetail/:cid" element={<CourseDetail />} />
         <Route path="/editclass" element={<EditClass />} />
-        <Route path='/listquizzinclass' element={<ViewListQuizzInClass />} />
-        <Route path='/notificationteacher' element={<ViewNotificationTeacher />} />
-        <Route path='/quizzdetail' element={<QuizzDetail />} />
         <Route path="/manager/viewpostlistmanager" element={<ViewPostListManager />} />
         <Route path="/viewpostdetailmanager/:pid" element={<ViewPostDetailManager />} />
         <Route path='/testfile' element={<ListCourse />} />

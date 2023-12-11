@@ -15,6 +15,7 @@ class Report extends Component {
   }
 
   async componentDidMount() {
+    
     await this.getListReport();
   };
 

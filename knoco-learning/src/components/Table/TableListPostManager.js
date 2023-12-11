@@ -8,6 +8,7 @@ import { async } from "q";
 import { BsFillPencilFill } from "react-icons/bs";
 import { toast } from 'react-toastify';
 import { BsCheck2Circle } from "react-icons/bs";
+import { API_BASE_URL } from "../../paths";
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
 
@@ -32,7 +33,7 @@ const TableListPostManager = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`https://localhost:7169/api/Post/GetAllPostALL`);
+      const response = await fetch(`${API_BASE_URL}/api/Post/GetAllPostALL`);
       const responseData = await response.json();
       setData(responseData);
 
@@ -73,7 +74,7 @@ const TableListPostManager = () => {
       Filter: ColumnFilter, // Custom filter component for courseId column
       Cell: ({ value }) => (
         <img
-          src={`https://localhost:7169/Photos/${value}`} // Assuming 'value' is the image filename or path
+          src={`${API_BASE_URL}/Photos/${value}`} // Assuming 'value' is the image filename or path
           alt="Course Image"
           style={{ width: '100px', height: '100px' }} // Adjust the size as needed
         />
@@ -96,7 +97,7 @@ const TableListPostManager = () => {
       disableFilters: true, // Vô hiệu hóa bộ lọc cho cột Button
       // disableSortBy: true,
       Cell: ({ row }) => (
-        <a href={`/viewpostdetailmanager/${row.original.postId}`}>
+        <a href={`/manager/viewpostdetailmanager/${row.original.postId}`}>
           <BsFillPencilFill size={30} />
         </a>
 
@@ -127,7 +128,7 @@ const TableListPostManager = () => {
   const UpdateActivePost = async (postId) => {
     try {
 
-      const commentResponse = await fetch(`https://localhost:7169/api/Post/GetPostById?Id=${postId}`);
+      const commentResponse = await fetch(`${API_BASE_URL}/api/Post/GetPostById?Id=${postId}`);
       const data = await commentResponse.json();
 
       const hidePost = {
@@ -142,7 +143,7 @@ const TableListPostManager = () => {
         isActive: true
       }
 
-      fetch('https://localhost:7169/api/Post/UpdatePostActive', {
+      fetch(`${API_BASE_URL}/api/Post/UpdatePostActive`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

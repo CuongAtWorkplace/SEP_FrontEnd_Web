@@ -73,7 +73,7 @@ function App() {
         <Route path="/coursedetail/:cid" element={<CourseDetail />} />
         <Route path="/editclass" element={<EditClass />} />
         <Route path="/manager/viewpostlistmanager" element={<ViewPostListManager />} />
-        <Route path="/viewpostdetailmanager/:pid" element={<ViewPostDetailManager />} />
+        <Route path="/manager/viewpostdetailmanager/:pid" element={<ViewPostDetailManager />} />
         <Route path='/testfile' element={<ListCourse />} />
         <Route path='/manager' element={<SideBar />} />
         <Route path='/tableRequestmanager' element={<RequestManager />} />

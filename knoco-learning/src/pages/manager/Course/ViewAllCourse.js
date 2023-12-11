@@ -20,7 +20,7 @@ import { BsSuitHeartFill, BsBookmarkPlusFill } from "react-icons/bs";
 import jwtDecode from "jwt-decode";
 import "./ViewAllCourse.css";
 import TableListCourse from "./TableListCourse";
-
+import { API_BASE_URL } from "../../../paths";
 
 class ViewAllCourse extends Component {
     constructor(props) {
@@ -40,7 +40,7 @@ class ViewAllCourse extends Component {
     }
 
     refreshListByGenre() {
-        fetch(`https://localhost:7169/api/Course/GetAllCourse`)
+        fetch(`${API_BASE_URL}/api/Course/GetAllCourse`)
             .then(response => response.json())
             .then(data => {
                 this.setState({
@@ -70,7 +70,7 @@ class ViewAllCourse extends Component {
     };
 
     handleRowClick = (courseId) => {
-        window.location.href = `/coursedetail/${courseId}`;
+        window.location.href = `${API_BASE_URL}/coursedetail/${courseId}`;
         console.log('Đã click vào hàng có ID:', courseId);
     };
     handleSearchChange = (e) => {

@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import "./css/main.css";
 import jwtDecode from "jwt-decode";
 import { toast } from 'react-toastify';
-
+import { API_BASE_URL } from "../../paths";
 
 class Login extends Component {
     constructor(props) {
@@ -41,7 +41,7 @@ class Login extends Component {
         this.setState({ password: e.target.value });
     };
     refreshList() {
-        fetch('https://localhost:7169/api/User/GetAllUser')
+        fetch('${API_BASE_URL}/api/User/GetAllUser')
             .then(response => response.json())
             .then(data => {
                 this.setState({ NewsHome: data });
@@ -57,7 +57,7 @@ class Login extends Component {
         if (this.validateForm()) {
             const { email, password, redirectPath } = this.state;
             try {
-                const response = await fetch('https://localhost:7169/api/Login', {
+                const response = await fetch(`${API_BASE_URL}/api/Login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

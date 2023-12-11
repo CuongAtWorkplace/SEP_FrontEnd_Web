@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import CardChangePassword from "../../components/edit/CardChangePassword";
 import myImage from '../../assets/profile.jpg';
 import $ from "jquery";
-
+import { API_BASE_URL } from "../../paths";
 const Header = () => {
     const UserID = 2;
     const [isDropdownVisible, setDropdownVisible] = useState(false);
@@ -25,7 +25,7 @@ const Header = () => {
     }, []);
     const fetchImage = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/User/GetUserImage/GetImage/${UserID}`);
+            const response = await fetch(`${API_BASE_URL}/api/User/GetUserImage/GetImage/${UserID}`);
             if (response.ok) {
                 const imageData = await response.blob();
                 setImageSource(URL.createObjectURL(imageData));

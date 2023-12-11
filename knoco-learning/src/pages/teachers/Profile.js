@@ -13,8 +13,8 @@ import $ from "jquery";
 import CardEditProfile from "../../components/edit/CardEditProfile";
 import CardChangePassword from "../../components/edit/CardChangePassword";
 import CardChangeImage from "../../components/edit/CardChangeImage";
-
-const ProfileTeacher = ({ children, ...props }) => {
+import { API_BASE_URL } from "../../paths";
+const ProfileTeacher = ({ onBackClick, children, ...props }) => {
     const UserID = 2;
     const navigate = useNavigate();
     const [userDt, setUserDt] = useState(null);
@@ -34,7 +34,7 @@ const ProfileTeacher = ({ children, ...props }) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/User/GetUserProfile/${UserID}`); // Thay thế URL bằng API thực tế
+            const response = await fetch(`${API_BASE_URL}/api/User/GetUserProfile/${UserID}`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setUserDt(responseData);
         } catch (error) {
@@ -44,7 +44,7 @@ const ProfileTeacher = ({ children, ...props }) => {
 
     const fetchImage = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/User/GetUserImage/GetImage/${UserID}`);
+            const response = await fetch(`${API_BASE_URL}/api/User/GetUserImage/GetImage/${UserID}`);
             if (response.ok) {
                 const imageData = await response.blob();
                 setImageSource(URL.createObjectURL(imageData));

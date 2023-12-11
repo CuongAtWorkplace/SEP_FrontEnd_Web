@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt"
 import { useState, useEffect } from "react";
 import jwtDecode from "jwt-decode";
+import { API_BASE_URL } from "../../paths";
 const VideoCallDemo = () => {
   const { roomId } = useParams();
   const [userName1, setUserName] = useState("");
@@ -22,7 +23,7 @@ const VideoCallDemo = () => {
   }
     const fetchCheckUser = async () => {
       try {
-        const response = await fetch(`https://localhost:7169/api/Class/CheckUserFromClass?userId=${userId}&className=${roomId}`, {
+        const response = await fetch(`${API_BASE_URL}/api/Class/CheckUserFromClass?userId=${userId}&className=${roomId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

@@ -23,11 +23,11 @@ const UserDetail = () => {
       const decodedToken = jwtDecode(token);
       setRoleid(decodedToken.roleid);
       if (Number(decodedToken.roleid) === 2 || localStorage.getItem("token") === '') {
-          navigate(`/`);
+        navigate(`/`);
       }
-  } else {
+    } else {
       navigate(`/`);
-  }
+    }
     fetch(`${API_BASE_URL}/api/Admin/GetUserById/${userId}`)
       .then((response) => response.json())
       .then((data) => {
@@ -83,8 +83,10 @@ const UserDetail = () => {
                     <div className="item">
                       <div className="">
                         <img
-                          src={userDetails.image}
-                          alt=""
+                          src={`${API_BASE_URL}/Photos/${userId}`} // Assuming 'value' is the image filename or path
+                          alt={`Profile picture of ${userDetails.fullName}`}
+                          // src={userDetails.image}
+                          // alt=""
                           className="itemImg"
                         />
                       </div>

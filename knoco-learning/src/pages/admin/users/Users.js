@@ -98,8 +98,7 @@ class Users extends Component {
         renderCell: ({ value }) => (
           <img
             src={`${API_BASE_URL}/Photos/${value}`} // Assuming 'value' is the image filename or path
-            alt="Course Image"
-            style={{ width: '50px', height: '50px' }} // Adjust the size as needed
+            alt=""
           />
           // renderCell: (params) => {
           //   return <img src={params.row.image || "/noavatar.png"} alt="" />;
@@ -156,7 +155,7 @@ class Users extends Component {
             </header>
             <div className="userLayout">
               <div className="users">
-                <div className="infoUsers">
+                <div className="infoHomes">
                   <div className="col-10">
                     <h1>Users</h1>
                   </div>

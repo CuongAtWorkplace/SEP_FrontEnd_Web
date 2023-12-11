@@ -149,8 +149,11 @@ const ViewAllClass = ({ children, ...props }) => {
             accessor: 'status',
             Filter: ColumnFilter, // Custom filter component for courseId column
         },
-
     ]);
+
+    const handleRowClick = (row) => {
+        console.log('Clicked row data:', row);
+      };
 
     return (
         <div className="body_page" {...props}>
@@ -177,7 +180,7 @@ const ViewAllClass = ({ children, ...props }) => {
                             <button className="btn-add" onClick={openAddClassPopup}><FontAwesomeIcon icon={faSquarePlus} /> New class</button>
                         }
                        
-                        <Table columns={columns} data={data} />
+                        <Table columns={columns} data={data} onRowClick={handleRowClick}/>
                         {
                             isAddClassPopupVisible && (
                                 <div className="popup">

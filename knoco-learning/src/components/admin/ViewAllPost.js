@@ -98,6 +98,10 @@ const ViewAllPost = ({ children, ...props }) => {
         },
     ];
 
+    const handleRowClick = (row) => {
+        console.log('Clicked row data:', row);
+      };
+
     return (
         <div className="body_page" {...props}>
             <section id="menu">
@@ -118,7 +122,7 @@ const ViewAllPost = ({ children, ...props }) => {
 
                 <div className="children">
                     <div>
-                        <Table columns={columns} data={data} />
+                        <Table columns={columns} data={data} onRowClick={handleRowClick}/>
                     </div>
                 </div>
 

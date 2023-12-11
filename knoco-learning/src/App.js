@@ -56,7 +56,7 @@ function App() {
       
           {/*<Route path="/homepage" element={<HomePage />} />*/}
         <Route path="/videocall/:roomId" element={<VideoCallDemo />} />
-        <Route path="/chat/:gid" element={<GroupChat />} />
+        <Route path="/chat/:ClassId" element={<GroupChat />} />
         {/* admin */}
         <Route path="/viewallclass" element={<ViewAllClass />} />
         <Route path="/viewallpost" element={<ViewAllPost />} />

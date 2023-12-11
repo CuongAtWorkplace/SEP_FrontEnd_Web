@@ -22,7 +22,7 @@ const Header = () => {
             $('#menu').toggleClass('active'); // Toggle active class on #menu
         });
         fetchImage();
-    }, []);
+    }, []); 
     const fetchImage = async () => {
         try {
             const response = await fetch(`${API_BASE_URL}/api/User/GetUserImage/GetImage/${UserID}`);

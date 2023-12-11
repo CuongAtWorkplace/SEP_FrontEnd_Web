@@ -21,9 +21,9 @@ const BoxChat = () => {
 	const [connection, setConnection] = useState(null);
 
 	const [User, setUser] = useState('');
-	const ClassId = 9;
+	// const ClassId = 9;
 	const [isManager,setIsManager] = useState(false);
-	const {boxchatid}	= useParams();
+	const {ClassId}	= useParams();
 
 	const scrollViewRef = useRef(null);
 

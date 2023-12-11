@@ -9,6 +9,7 @@ import "./user.scss";
 import { useParams } from 'react-router-dom';
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../../paths";
 const UserDetail = () => {
   const [userDetails, setUserDetails] = useState({});
   const [loading, setLoading] = useState(true);
@@ -28,7 +29,7 @@ const UserDetail = () => {
   } else {
       navigate(`/`);
   }
-    fetch(`https://localhost:7169/api/Admin/GetUserById/${userId}`)
+    fetch(API_BASE_URL + `/api/Admin/GetUserById/${userId}`)
       .then((response) => response.json())
       .then((data) => {
         setUserDetails(data);

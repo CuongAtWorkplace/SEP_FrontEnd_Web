@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { BiUser } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { API_BASE_URL } from "../../../paths";
 
 const TotalUser = () => {
     const [totalUsers, setTotalUsers] = useState([]);
 
     useEffect(() => {
-        fetch(`https://localhost:7169/api/Admin/GetTotal`)
+        fetch(API_BASE_URL + `/api/Admin/GetTotal`)
             .then((response) => response.json())
             .then((data) => {
                 console.log("Data from API:", data);

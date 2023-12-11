@@ -5,6 +5,7 @@ import Header from "../../../components/header/Header";
 import Footer from "../../../components/footer/Footer";
 import SideBar from "../../../components/sidebar/SideBar";
 import { DataGrid } from '@mui/x-data-grid';
+import { API_BASE_URL } from '../../../paths';
 
 class Report extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class Report extends Component {
 
   getListReport = async () => {
     try {
-      const response = await fetch('https://localhost:7169/api/Admin/GetListReport');
+      const response = await fetch(API_BASE_URL + '/api/Admin/GetListReport');
       if (response.ok) {
         const data = await response.json();
         this.setState({ ListReport: data });

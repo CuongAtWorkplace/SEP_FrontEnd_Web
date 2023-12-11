@@ -9,6 +9,7 @@ import Add from "../../../components/admin/add/Add";
 import '../users/users.scss';
 import { toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.css';
+import { API_BASE_URL } from "../../../paths";
 
 class Users extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class Users extends Component {
 
   getListUser = async () => {
     try {
-      const response = await fetch(`https://localhost:7169/api/Admin/GetListUser`);
+      const response = await fetch(API_BASE_URL + `/api/Admin/GetListUser`);
       const data = await response.json();
       this.setState({ ListUser: data.map((user, index) => ({ ...user, id: index })) });
     } catch (error) {
@@ -47,7 +48,7 @@ class Users extends Component {
 
   createNewUser = async (data) => {
     try {
-      const response = await fetch(`https://localhost:7169/api/Admin/AddNewUser`, {
+      const response = await fetch(API_BASE_URL + `/api/Admin/AddNewUser`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

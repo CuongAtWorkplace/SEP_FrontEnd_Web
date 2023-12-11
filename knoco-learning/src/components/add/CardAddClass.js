@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import '../../style/Teacher/Edit.css';
-
+import { API_BASE_URL } from "../../paths";
 const CardAddClass = ({ closePopup }) => {
     const params = useParams();
     const [classDt, setClassDt] = useState({});
@@ -22,7 +22,7 @@ const CardAddClass = ({ closePopup }) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/Course/GetAllCourse`); // Thay thế URL bằng API thực tế
+            const response = await fetch(`${API_BASE_URL}/api/Course/GetAllCourse`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setCourse(responseData);
         } catch (error) {
@@ -75,7 +75,7 @@ const CardAddClass = ({ closePopup }) => {
 
         e.preventDefault();
         try {
-            const response = await fetch(`https://localhost:7169/api/Class/CreateClassManager`, {
+            const response = await fetch(`${API_BASE_URL}/api/Class/CreateClassManager`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

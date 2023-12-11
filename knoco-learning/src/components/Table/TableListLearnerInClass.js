@@ -5,6 +5,7 @@ import CardLearner from "../detail/learnerDetail/CardLearner";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFile } from '@fortawesome/free-solid-svg-icons';
 import { toast} from 'react-toastify';
+import { API_BASE_URL } from "../../paths";
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
 
@@ -33,7 +34,7 @@ const TableListLearnerInClass = (props) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`https://localhost:7169/api/User/GetListStudentInClass/${params.classId}`); // Thay thế URL bằng API thực tế
+      const response = await fetch(`${API_BASE_URL}/api/User/GetListStudentInClass/${params.classId}`); // Thay thế URL bằng API thực tế
       const responseData = await response.json();
       setData(responseData);
     } catch (error) {
@@ -43,7 +44,7 @@ const TableListLearnerInClass = (props) => {
 
   const fetchDataFile = async () => {
     try {
-      const response = await fetch(`https://localhost:7169/api/File/GetAllFiles?classId=${params.classId}`);
+      const response = await fetch(`${API_BASE_URL}/api/File/GetAllFiles?classId=${params.classId}`);
       if (response.ok) {
         const data = await response.json();
         setFiles(data); // Thiết lập danh sách file từ API
@@ -74,7 +75,7 @@ const TableListLearnerInClass = (props) => {
 
 
     try {
-      const response = await fetch(`https://localhost:7169/api/File/UploadFiles?classId=${params.classId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/File/UploadFiles?classId=${params.classId}`, {
         method: 'POST',
         body: formData,
       });
@@ -146,7 +147,7 @@ const TableListLearnerInClass = (props) => {
         </div>
         {files.map((file, index) => (
           <li key={index}>
-            <a className="" href={`https://localhost:7169/api/File/GetFileByName?fileName=${file.fileName}`}>
+            <a className="" href={`${API_BASE_URL}/api/File/GetFileByName?fileName=${file.fileName}`}>
               <FontAwesomeIcon icon={faFile} /> {file.fileName}
             </a>
           </li>

@@ -1,7 +1,7 @@
 import React from "react";
 import Table from "./Table";
 import { useNavigate } from "react-router-dom";
-
+import { API_BASE_URL } from "../../paths";
 const ColumnFilter = ({ column }) => {
     const { setFilter } = column;
     
@@ -44,7 +44,7 @@ const TableListQuizzTeacher = (props) => {
     ]
     const handleRowClick = (row) => {
         console.log('Clicked row data:', row);
-        navigate(`/quizzdetail`);
+        navigate(`${API_BASE_URL}/quizzdetail`);
       };
     return(
         <div>

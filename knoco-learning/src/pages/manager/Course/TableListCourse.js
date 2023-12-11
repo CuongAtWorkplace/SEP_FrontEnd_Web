@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import CardAddCourse from "../../../components/add/CardAddCourse";
+import { API_BASE_URL } from "../../../paths";
 const ColumnFilter = ({ column }) => {
     const { setFilter } = column;
     return (
@@ -36,7 +37,7 @@ const TableListCourse = () => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/Course/GetAllCourse`);
+            const response = await fetch(`${API_BASE_URL}/api/Course/GetAllCourse`);
             const responseData = await response.json();
             setData(responseData);
         } catch (error) {
@@ -88,7 +89,7 @@ const TableListCourse = () => {
             Filter: ColumnFilter, // Custom filter component for courseId column
             Cell: ({ value }) => (
                 <img
-                    src={`https://localhost:7169/Photos/${value}`} // Assuming 'value' is the image filename or path
+                    src={`${API_BASE_URL}/Photos/${value}`} // Assuming 'value' is the image filename or path
                     alt="Course Image"
                     style={{ width: '50px', height: '50px' }} // Adjust the size as needed
                 />

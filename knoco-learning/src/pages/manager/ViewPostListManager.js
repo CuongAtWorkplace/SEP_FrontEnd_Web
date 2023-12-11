@@ -10,6 +10,8 @@ import TableListPostManager from "../../components/Table/TableListPostManager";
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
+import { API_BASE_URL } from "../../paths";
+
 const ViewPostListManager = ({ children, ...props }) => {
     const navigate = useNavigate();
     useEffect(() => {

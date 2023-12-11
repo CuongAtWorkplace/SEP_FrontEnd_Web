@@ -3,7 +3,7 @@ import './style.css';
 import myImage from '../../../assets/profile.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-
+import { API_BASE_URL } from "../../../paths";
 const CardLearner = ({ learner, onBackClick }) => {
     const [learnerId, setClassDt] = useState(null);
     const [imageSource, setImageSource] = useState("");
@@ -15,7 +15,7 @@ const CardLearner = ({ learner, onBackClick }) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/User/GetStudentDetailInClass/${learner.userId}`); // Thay thế URL bằng API thực tế
+            const response = await fetch(`${API_BASE_URL}/api/User/GetStudentDetailInClass/${learner.userId}`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setClassDt(responseData);
         } catch (error) {
@@ -25,7 +25,7 @@ const CardLearner = ({ learner, onBackClick }) => {
 
     const fetchImage = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/User/GetUserImage/GetImage/${learner.userId}`);
+            const response = await fetch(`${API_BASE_URL}/api/User/GetUserImage/GetImage/${learner.userId}`);
             if (response.ok) {
                 const imageData = await response.blob();
                 setImageSource(URL.createObjectURL(imageData));

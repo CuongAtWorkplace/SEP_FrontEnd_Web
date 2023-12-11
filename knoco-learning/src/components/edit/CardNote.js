@@ -4,6 +4,7 @@ import myImage from '../../assets/profile.jpg';
 import '../../style/Teacher/Edit.css'
 import jwtDecode from "jwt-decode";
 import { toast } from 'react-toastify';
+import { API_BASE_URL } from "../../paths";
 const CardNote = ({ closePopup }) => {
     const params = useParams();
     const [noteTeacher, setNoteTeacher] = useState([]);
@@ -25,7 +26,7 @@ const CardNote = ({ closePopup }) => {
 
     const fetchDataNote = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/NoteTeacher/GetNoteInClass?classId=${params.classId}`);
+            const response = await fetch(`${API_BASE_URL}/api/NoteTeacher/GetNoteInClass?classId=${params.classId}`);
             const responseData = await response.json();
             setNoteTeacher(responseData);
             setContent(responseData.content || '');
@@ -63,7 +64,7 @@ const CardNote = ({ closePopup }) => {
 
                 e.preventDefault();
                 try {
-                    const response = await fetch(`https://localhost:7169/api/NoteTeacher/UpdateNoteTeachers`, {
+                    const response = await fetch(`${API_BASE_URL}/api/NoteTeacher/UpdateNoteTeachers`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'

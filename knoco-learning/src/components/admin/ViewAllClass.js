@@ -12,7 +12,7 @@ import jwtDecode from "jwt-decode";
 import '../../style/Teacher/Tag.css';
 import CardAddClass from "../add/CardAddClass";
 import Table from "../Table/Table";
-
+import { API_BASE_URL } from "../../paths";
 const ColumnFilter = ({ column }) => {
     const { setFilter } = column;
     return (
@@ -53,7 +53,7 @@ const ViewAllClass = ({ children, ...props }) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/Class/GetClassListForRole/${UserID}`);
+            const response = await fetch(`${API_BASE_URL}/api/Class/GetClassListForRole/${UserID}`);
             const responseData = await response.json();
             setData(responseData);
         } catch (error) {

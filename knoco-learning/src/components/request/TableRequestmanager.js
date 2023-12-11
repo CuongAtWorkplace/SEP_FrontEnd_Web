@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { toast} from 'react-toastify';
 import { BsCheck2Circle } from "react-icons/bs";
+import { API_BASE_URL } from "../../paths";
 const ColumnFilter = ({ column }) => {
   const { setFilter } = column;
 
@@ -30,7 +31,7 @@ const TableRequestmanager = () => {
 
 
   const fetchData = async () => {
-    const response = await fetch(`https://localhost:7169/api/RequestManager/GetChatRoomByisManagerChat?check=false`);
+    const response = await fetch(`${API_BASE_URL}/api/RequestManager/GetChatRoomByisManagerChat?check=false`);
     const data = await response.json();
     setListChatRoom(data);
 
@@ -49,7 +50,7 @@ const TableRequestmanager = () => {
     //   classId: data.classId
     // }
 
-    fetch(`https://localhost:7169/api/RequestManager/ChangeStatus/ChangeStatus/${ChatRoomId}`, {
+    fetch(`${API_BASE_URL}/api/RequestManager/ChangeStatus/ChangeStatus/${ChatRoomId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

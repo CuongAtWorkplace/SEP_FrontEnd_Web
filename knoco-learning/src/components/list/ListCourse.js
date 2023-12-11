@@ -2,6 +2,8 @@ import React, { memo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 //import logo from './featured.png';
 import "../../style/Teacher/List.css";
+import { API_BASE_URL } from "../../paths";
+
 const ListCourse = () => {
     const [data, setData] = useState([]);
     useEffect(() => {
@@ -10,7 +12,7 @@ const ListCourse = () => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`https://localhost:7169/api/Course/GetAllCourses`); // Thay thế URL bằng API thực tế
+            const response = await fetch(`${API_BASE_URL}/api/Course/GetAllCourses`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setData(responseData);
         } catch (error) {
@@ -28,7 +30,7 @@ const ListCourse = () => {
                 data.map((course, index) => (
                     <div key={index} className="items-course">
                         <div className="img-course">
-                            <img className="img-cour" src={`https://localhost:7169/Photos/${course.image}` || "https://reactjs.org/logo-og.png"} alt={course.courseName} />
+                            <img className="img-cour" src={`${API_BASE_URL}/Photos/${course.image}` || "https://reactjs.org/logo-og.png"} alt={course.courseName} />
                         </div>
                         <div className="course">
                             <div className="first-info">

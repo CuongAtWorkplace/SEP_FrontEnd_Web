@@ -31,9 +31,8 @@ const CardPost = () => {
     },[pid] );
 
     const fetchData = async () => {
-        const Response = await fetch(`https://localhost:7169/api/Post/GetPostById?Id=${pid}`);
+        const Response = await fetch(`${API_BASE_URL}/api/Post/GetPostById?Id=${pid}`);
         const Data = await Response.json();
-       
             setPostDetail(Data);
             setCreateBy(Data.createBy);
             settitle(Data.title);
@@ -44,12 +43,12 @@ const CardPost = () => {
             setimage(Data.image);
       
 
-         fetch(`https://localhost:7169/api/Admin/GetUserById/${Number(Data.createBy)}`)
+         fetch(`${API_BASE_URL}/api/Admin/GetUserById/${Number(Data.createBy)}`)
         .then((response) => response.json())
         .then((data) => {
             setUse(data);
         });
-        fetch(`https://localhost:7169/api/Post/ListCommentPost?postId=${pid}`)
+        fetch(`${API_BASE_URL}/api/Post/ListCommentPost?postId=${pid}`)
             .then((response) => response.json())
             .then((data) => {
                 setListComment(data);
@@ -70,7 +69,7 @@ const CardPost = () => {
 
         }
 
-        fetch('https://localhost:7169/api/Post/UpdatePostHide', {
+        fetch(`${API_BASE_URL}/api/Post/UpdatePostHide`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -92,7 +91,7 @@ const CardPost = () => {
 
     // const UpdateHideComment = (commentId) => {
 
-    //     fetch(`https://localhost:7169/api/Post/GetCommentById?commentId=${commentId}`)
+    //     fetch(`${API_BASE_URL}/api/Post/GetCommentById?commentId=${commentId}`)
     //     .then((response) => response.json())
     //     .then((data) => {
     //         setUserCommentPostId(data.userCommentPostId);
@@ -113,7 +112,7 @@ const CardPost = () => {
     //         isActive:true
     //     }
 
-    //     fetch('https://localhost:7169/api/Post/UpdateHideComment', {
+    //     fetch('${API_BASE_URL}/api/Post/UpdateHideComment', {
     //         method: 'PUT',
     //         headers: {
     //             'Content-Type': 'application/json',
@@ -133,7 +132,7 @@ const CardPost = () => {
 
     const UpdateHideComment = async (commentId) => {
         try {
-            const commentResponse = await fetch(`https://localhost:7169/api/Post/GetCommentById?commentId=${commentId}`);
+            const commentResponse = await fetch(`${API_BASE_URL}/api/Post/GetCommentById?commentId=${commentId}`);
             const commentData = await commentResponse.json();
 
             setUserCommentPostId(commentData.userCommentPostId);
@@ -153,7 +152,7 @@ const CardPost = () => {
                 isActive: true
             };
 
-            const updateResponse = await fetch('https://localhost:7169/api/Post/UpdateHideComment', {
+            const updateResponse = await fetch(`${API_BASE_URL}/api/Post/UpdateHideComment`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -177,7 +176,7 @@ const CardPost = () => {
     };
     const UpdateActiveComment = async (commentId) => {
         try {
-            const commentResponse = await fetch(`https://localhost:7169/api/Post/GetCommentById?commentId=${commentId}`);
+            const commentResponse = await fetch(`${API_BASE_URL}/api/Post/GetCommentById?commentId=${commentId}`);
             const commentData = await commentResponse.json();
 
             setUserCommentPostId(commentData.userCommentPostId);
@@ -197,7 +196,7 @@ const CardPost = () => {
                 isActive: true
             };
 
-            const updateResponse = await fetch('https://localhost:7169/api/Post/UpdateUnHideComment', {
+            const updateResponse = await fetch(`${API_BASE_URL}/api/Post/UpdateUnHideComment`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -232,7 +231,7 @@ const CardPost = () => {
                     <div className="info">
                         <h5>{use.fullName}</h5>
                         <div className="time text-gry">
-                            {/* <small>HANOI, <span>2 DAYS AGO</span></small> */}
+                            <small>HANOI, <span>{use.createDate}</span></small>
                         </div>
                     </div>
                 </div>
@@ -247,7 +246,7 @@ const CardPost = () => {
                 </h4>
                 <div>
                     <img
-                        src={`https://localhost:7169/Photos/${postDetail.image}`}
+                        src={`${API_BASE_URL}/Photos/${postDetail.image}`}
                         alt="Course Image"
                         style={{ width: '400px', height: '400px' }}
                     />

@@ -3,6 +3,7 @@ import React, { Component } from "react";
 // import { withRouter } from 'react-router-dom/cjs/react-router-dom';
 import "./css/main.css";
 import jwtDecode from "jwt-decode";
+import { API_BASE_URL } from "../../paths";
 class Register extends Component {
     constructor(props) {
         super(props);
@@ -23,7 +24,7 @@ class Register extends Component {
     handleLogin = async () => {
         const { email, password, } = this.state;
         try {
-            const response = await fetch('https://localhost:7169/api/Login', {
+            const response = await fetch(`'${API_BASE_URL}/api/Login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

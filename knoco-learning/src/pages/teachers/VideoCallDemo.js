@@ -25,7 +25,10 @@ const VideoCallDemo = () => {
   }
     const fetchCheckUser = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/Class/CheckUserFromClass?userId=${userId}&className=${roomId}`, {
+        const token = localStorage.getItem("token");
+     
+          const decodedToken = jwtDecode(token);
+        const response = await fetch(`${API_BASE_URL}/api/Class/CheckUserFromClass?userId=${decodedToken.userid}&className=${roomId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

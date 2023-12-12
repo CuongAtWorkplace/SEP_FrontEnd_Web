@@ -53,7 +53,7 @@ const ViewAllClass = ({ children, ...props }) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/Class/GetClassListForRole/${UserID}`);
+            const response = await fetch(`${API_BASE_URL}/api/Class/GetAllClass`);
             const responseData = await response.json();
             setData(responseData);
         } catch (error) {

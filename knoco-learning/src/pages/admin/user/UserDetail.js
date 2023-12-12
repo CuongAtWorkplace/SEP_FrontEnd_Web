@@ -15,9 +15,25 @@ const UserDetail = () => {
   const [loading, setLoading] = useState(true);
   const { userId } = useParams();
   const [roleid, setRoleid] = useState('');
+  const [imageSource, setImageSource] = useState("");
   // console.log(I);
   const navigate = useNavigate();
+  const fetchImage = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/User/GetUserImage/GetImage/${userId}`);
+      if (response.ok) {
+        const imageData = await response.blob();
+        setImageSource(URL.createObjectURL(imageData));
+      }
+    } catch (error) {
+      console.error('Lỗi khi lấy ảnh:', error);
+    }
+  };
+
   useEffect(() => {
+
+    fetchImage();
+
     const token = localStorage.getItem("token");
     if (token !== null) {
       const decodedToken = jwtDecode(token);
@@ -42,6 +58,7 @@ const UserDetail = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
+
 
   const singleUser = {
     id: userDetails.userId,
@@ -82,46 +99,43 @@ const UserDetail = () => {
                     <h1 className="title">User Information</h1>
                     <div className="item">
                       <div className="">
-                        <img
-                          src={`${API_BASE_URL}/Photos/${userId}`} // Assuming 'value' is the image filename or path
-                          alt={`Profile picture of ${userDetails.fullName}`}
+                        <img src={imageSource}
+
                           // src={userDetails.image}
                           // alt=""
                           className="itemImg"
                         />
                       </div>
 
-                      <div className="">
-                        <div className="details">
-                          <h1 className="itemTitle">{userDetails.fullName}</h1>
-                          <div className="detailItem">
-                            <span className="itemKey">Email:</span>
-                            <span className="itemValue">{userDetails.email}</span>
-                          </div>
-                          <div className="detailItem">
-                            <span className="itemKey">Phone:</span>
-                            <span className="itemValue">{userDetails.phone}</span>
-                          </div>
-                          <div className="detailItem">
-                            <span className="itemKey">Address:</span>
-                            <span className="itemValue">{userDetails.address}</span>
-                          </div>
-                          <div className="detailItem">
-                            <span className="itemKey">Balance:</span>
-                            <span className="itemValue">{userDetails.balance}</span>
-                          </div>
-                          <div className="detailItem">
-                            <span className="itemKey">Role       :</span>
-                            <span className="itemValue">{userDetails.roleName}</span>
-                          </div>
-                          <div className="detailItem">
-                            <span className="itemKey">Create Date:</span>
-                            <span className="itemValue">{userDetails.createDate}</span>
-                          </div>
-                          <div className="detailItem">
-                            <span className="itemKey">Status:</span>
-                            <span className="itemValue">{userDetails.status}</span>
-                          </div>
+                      <div className="details">
+                        <h2 className="itemTitle">{userDetails.fullName}</h2>
+                        <div className="detailItem">
+                          <span className="itemKey">Email:</span>
+                          <span className="itemValue">{userDetails.email}</span>
+                        </div>
+                        <div className="detailItem">
+                          <span className="itemKey">Phone:</span>
+                          <span className="itemValue">{userDetails.phone}</span>
+                        </div>
+                        <div className="detailItem">
+                          <span className="itemKey">Address:</span>
+                          <span className="itemValue">{userDetails.address}</span>
+                        </div>
+                        <div className="detailItem">
+                          <span className="itemKey">Balance:</span>
+                          <span className="itemValue">{userDetails.balance}</span>
+                        </div>
+                        <div className="detailItem">
+                          <span className="itemKey">Role       :</span>
+                          <span className="itemValue">{userDetails.roleName}</span>
+                        </div>
+                        <div className="detailItem">
+                          <span className="itemKey">Create Date:</span>
+                          <span className="itemValue">{userDetails.createDate}</span>
+                        </div>
+                        <div className="detailItem">
+                          <span className="itemKey">Status:</span>
+                          <span className="itemValue">{userDetails.status}</span>
                         </div>
                       </div>
                     </div>

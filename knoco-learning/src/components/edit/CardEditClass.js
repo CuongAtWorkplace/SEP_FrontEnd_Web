@@ -44,24 +44,54 @@ const CardEditClass = ({ closePopup }) => {
         return formattedDate;
     };
 
+    const validateNotEmpty = (inputValue) => {
+        return inputValue.trim() !== '';
+    };
+
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const validatePhoneNumber = (phoneNumber) => {
+        const phoneRegex = /^\d{10}$/;
+        return phoneRegex.test(phoneNumber);
+    };
+
+    const validateEndDate = (beforeDate, afterDate) => {
+        const beforeDateObj = new Date(beforeDate);
+        const afterDateObj = new Date(afterDate);
+
+        if (afterDateObj < beforeDateObj) {
+            return false;
+        }
+        return true;
+    };
+
     const handleSubmit = async (e) => {
-        if (numberOfWeek < 1) {
-            toast.error("Failed. Try Again!!!");
-        } else {
+        e.preventDefault();
+
+        const isFormValid = validateForm();
+
+        if (isFormValid) {
+            // const classUpdate = {
+            //     classId: classDt.classId,
+            //     className: className,
+            //     topic: topic,
+            //     schedule: schedule,
+            //     fee: fee,
+            //     numberOfWeek: numberOfWeek,
+            //     numberPhone: numberPhone,
+            //     description: description,
+            //     startDate: startDate,
+            //     endDate: endDate
+            // };
+
             const classUpdate = {
-                classId: classDt.classId,
-                className: className,
-                topic: topic,
-                schedule: schedule,
-                fee: fee,
-                numberOfWeek: numberOfWeek,
-                numberPhone: numberPhone,
-                description: description,
-                startDate: startDate,
-                endDate: endDate
+                classId: classDt.classId, className, topic, schedule, 
+                fee, numberOfWeek, numberPhone, description, startDate, endDate
             };
 
-            e.preventDefault();
             try {
                 const response = await fetch(`${API_BASE_URL}/api/Class/EditClass`, {
                     method: 'PUT',
@@ -83,7 +113,64 @@ const CardEditClass = ({ closePopup }) => {
                 console.error('Lỗi khi cập nhật dữ liệu lớp học:', error);
             }
         }
+    };
 
+    const validateForm = () => {
+        const { className, topic, schedule, fee, numberOfWeek, numberPhone, description, startDate, endDate } = this.state;
+
+        if (!validateNotEmpty(className)) {
+            toast.error("Please enter a class name.");
+            return false;
+        }
+
+        if (!validateNotEmpty(topic)) {
+            toast.error("Please enter a topic.");
+            return false;
+        }
+
+        if (!validateNotEmpty(schedule)) {
+            toast.error("Please enter a schedule.");
+            return false;
+        }
+
+        if (!validateNotEmpty(fee) || isNaN(fee)) {
+            toast.error("Please enter a valid fee.");
+            return false;
+        }
+
+        if (!validateNotEmpty(fee) || isNaN(fee)) {
+            toast.error("Please enter a valid fee.");
+            return false;
+        }
+
+        if (!validateNotEmpty(numberOfWeek) || isNaN(numberOfWeek) || numberOfWeek < 1) {
+            toast.error("Please enter a valid number of weeks.");
+            return false;
+        }
+
+        if (!validatePhoneNumber(numberPhone)) {
+            toast.error("Please enter a valid phone number.");
+            return false;
+        }
+
+        if (!validateNotEmpty(description)) {
+            toast.error("Please enter a description.");
+            return false;
+        }
+
+        const isStartDateValid = validateEndDate(classDt.createDate, startDate);
+        if (!isStartDateValid) {
+            toast.error("Start date cannot be before create date.");
+            return false;
+        }
+
+        const isEndDateValid = validateEndDate(startDate, endDate);
+        if (!isEndDateValid) {
+            toast.error("End date cannot be before start date.");
+            return false;
+        }
+
+        return true;
     };
 
     return (

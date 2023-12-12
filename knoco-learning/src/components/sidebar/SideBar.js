@@ -91,7 +91,7 @@ const SideBar = () => {
                         </li>
                         <li>
                             <FontAwesomeIcon className="menu-icon" icon={faChalkboardTeacher} />
-                            <Link className="link-a" to="/viewclass">Manage Class</Link>
+                            <Link className="link-a" to="/viewallclass">Manage Class</Link>
                         </li>
                         <li>
                             <FontAwesomeIcon className="menu-icon" icon={faUser} />

@@ -44,46 +44,82 @@ const CardEditClass = ({ closePopup }) => {
         return formattedDate;
     };
 
-    const handleSubmit = async (e) => {
-        if (numberOfWeek < 1) {
-            toast.error("Failed. Try Again!!!");
-        } else {
-            const classUpdate = {
-                classId: classDt.classId,
-                className: className,
-                topic: topic,
-                schedule: schedule,
-                fee: fee,
-                numberOfWeek: numberOfWeek,
-                numberPhone: numberPhone,
-                description: description,
-                startDate: startDate,
-                endDate: endDate
-            };
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
 
-            e.preventDefault();
-            try {
-                const response = await fetch(`${API_BASE_URL}/api/Class/EditClass`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(classUpdate)
-                });
-                if (response.ok) {
-                    console.log('Dữ liệu lớp học đã được cập nhật thành công');
-                    toast.success("Successfull !!!")
-                    closePopup();
-                    window.location.reload();
-                } else {
-                    console.error('Lỗi khi cập nhật dữ liệu lớp học:', response.status, response.statusText);
-                }
-            } catch (error) {
-                toast.error("Failed. Try Again!!!")
-                console.error('Lỗi khi cập nhật dữ liệu lớp học:', error);
-            }
+    const validatePhoneNumber = (phoneNumber) => {
+        const phoneRegex = /^\d{10}$/;
+        return phoneRegex.test(phoneNumber);
+    };
+
+    const validateEndDate = (beforeDate, afterDate) => {
+        const beforeDateObj = new Date(beforeDate);
+        const afterDateObj = new Date(afterDate);
+
+        if (afterDateObj <= beforeDateObj) {
+            return false;
+        }
+        return true;
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (isNaN(fee)) {
+            toast.error("Please enter a valid fee.");
+            return;
         }
 
+        if (isNaN(numberOfWeek) || numberOfWeek < 1) {
+            toast.error("Please enter a valid number of weeks.");
+            return;
+        }
+
+        if (!validatePhoneNumber(numberPhone)) {
+            toast.error("Please enter a valid phone number.");
+            return;
+        }
+
+        const isStartDateValid = validateEndDate(classDt.createDate, startDate);
+        if (!isStartDateValid) {
+            toast.error("Start date cannot be before create date.");
+            return;
+        }
+
+        const isEndDateValid = validateEndDate(startDate, endDate);
+        if (!isEndDateValid) {
+            toast.error("End date cannot be before start date.");
+            return ;
+        }
+
+        const classUpdate = {
+            classId: classDt.classId, className, topic, schedule,
+            fee, numberOfWeek, numberPhone, description, startDate, endDate
+        };
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/Class/EditClass`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(classUpdate)
+            });
+            if (response.ok) {
+                console.log('Dữ liệu lớp học đã được cập nhật thành công');
+                toast.success("Successfull !");
+                closePopup();
+                //window.location.reload();
+            } else {
+                console.error('Lỗi khi cập nhật dữ liệu lớp học:', response.status, response.statusText);
+                toast.error("Failed. Try Again!!!");
+            }
+        } catch (error) {
+            toast.error("Failed. Try Again!!!");
+            console.error('Lỗi khi cập nhật dữ liệu lớp học:', error);
+        }
     };
 
     return (
@@ -104,11 +140,11 @@ const CardEditClass = ({ closePopup }) => {
                 </div>
                 <div className="form-group">
                     <label className="control-label">Fee:</label>
-                    <input className="form-control" type="text" id="Fee" name="Fee" value={fee} onChange={(e) => setFee(e.target.value)} required />
+                    <input className="form-control" type="text" id="Fee" name="Fee" min={0} value={fee} onChange={(e) => setFee(e.target.value)} required />
                 </div>
                 <div className="form-group">
                     <label className="control-label">Number of Weeks:</label>
-                    <input className="form-control" type="number" id="NumberOfWeek" name="NumberOfWeek" value={numberOfWeek} onChange={(e) => setNumberOfWeek(e.target.value)} required />
+                    <input className="form-control" type="number" id="NumberOfWeek" name="NumberOfWeek" min={0} value={numberOfWeek} onChange={(e) => setNumberOfWeek(e.target.value)} required />
                 </div>
                 <div className="form-group">
                     <label className="control-label">Phone Number:</label>
@@ -118,11 +154,10 @@ const CardEditClass = ({ closePopup }) => {
                     <label className="control-label"> Description:</label>
                     <textarea className="form-control" id="Description" name="Description" value={description} onChange={(e) => setDescription(e.target.value)} required />
                 </div>
-                <div className="form-group">
+                <div className="d-flex form-group">
                     <label className="control-label">Start Date:</label>
                     <input className="form-control" type="date" name="StartDate" value={startDate} onChange={(e) => setStartDate(e.target.value)} required />
-                </div>
-                <div className="form-group">
+                
                     <label className="control-label">End Date:</label>
                     <input className="form-control" type="date" name="EndDate" value={endDate} onChange={(e) => setEndDate(e.target.value)} required />
                 </div>

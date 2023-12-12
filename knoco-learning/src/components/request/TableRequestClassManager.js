@@ -9,6 +9,11 @@ import jwtDecode from "jwt-decode";
 import { BsCheck2Circle } from "react-icons/bs";
 import { display } from "@mui/system";
 import { API_BASE_URL } from "../../paths";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faCircleXmark,
+    faCircleCheck
+} from '@fortawesome/free-solid-svg-icons';
 const ColumnFilter = ({ column }) => {
     const { setFilter } = column;
 
@@ -39,7 +44,7 @@ const TableRequestClassManager = () => {
         setListClassRequest(data);
 
     }
-    const UpdateRequestClass = async (ClassId,UserId) => {
+    const UpdateRequestClass = async (ClassId, UserId) => {
 
         const updateRequest = {
             classId: ClassId,
@@ -70,7 +75,7 @@ const TableRequestClassManager = () => {
     const CheckedRequestManager = async (classRequestId) => {
         const commentResponse = await fetch(`${API_BASE_URL}/api/Class/GetRequestClassManager?requestId=${classRequestId}`);
         const data = await commentResponse.json();
-        
+
         const classR = {
             requestClassId: classRequestId,
             type: true
@@ -86,7 +91,7 @@ const TableRequestClassManager = () => {
 
         if (response.ok) {
             toast.success("Successfull !!!")
-            await UpdateRequestClass(Number(data.classId) ,Number(data.userId));
+            await UpdateRequestClass(Number(data.classId), Number(data.userId));
             fetchData();
         }
         else if (!response.ok) {
@@ -147,13 +152,10 @@ const TableRequestClassManager = () => {
 
             Cell: ({ row }) => (
                 <div >
-                    <a>
+                    <a style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
                         <CustomButtonAccess requestClassId={row.original.requestClassId} />
-                    </a>
-                    <a>
                         <CustomButtonReject requestClassId={row.original.requestClassId} />
                     </a>
-
                 </div>
 
 
@@ -164,17 +166,15 @@ const TableRequestClassManager = () => {
     const CustomButtonAccess = ({ requestClassId }) => (
         <div>
             <button onClick={() => CheckedRequestManager(requestClassId)}>
-                <BsCheck2Circle size={30} />
+                <FontAwesomeIcon size="2x" icon={faCircleCheck} />
             </button>
-
         </div>
     );
     const CustomButtonReject = ({ requestClassId }) => (
         <div>
             <button onClick={() => RejectRequestManager(requestClassId)}>
-                <BsCheck2Circle size={30} />
+                <FontAwesomeIcon size="2x" icon={faCircleXmark} />
             </button>
-
         </div>
     );
     const handleRowClick = (row) => {

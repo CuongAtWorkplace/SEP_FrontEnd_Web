@@ -23,16 +23,19 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import CardNote from "../edit/CardNote";
 import { API_BASE_URL } from "../../paths";
-const CardClass = ({ setIsEditClassPopupVisible }) => {
+import CardEditClass from "../edit/CardEditClass";
+const CardClass = () => {
     const [classDt, setClassDt] = useState(null);
     const params = useParams();
     const [isNotePopupVisible, setNotePopupVisible] = useState(false);
     const navigate = useNavigate();
     const [className, setClassName] = useState('');
+    const [isEditClassPopupVisible, setIsEditClassPopupVisible] = useState(false);
+    const [reloadData, setReloadData] = useState(false);
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [reloadData]);
 
     const fetchData = async () => {
         try {
@@ -63,6 +66,20 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
 
     const handleChatClick = () => {
         navigate(`/chat/${classDt.classId}`); // Chuyển hướng đến trang /videocall khi nhấp vào nút "Meeting"
+    };
+
+    const openEditClassPopup = () => {
+        setIsEditClassPopupVisible(true);
+    };
+
+    const closeEditClassPopup = async () => {
+        setIsEditClassPopupVisible(false);
+        setReloadData(!reloadData);
+        try {
+            await fetchData(); // Fetch dữ liệu mới sau khi đóng popup chỉnh sửa
+        } catch (error) {
+            console.error('Lỗi khi fetch dữ liệu sau khi chỉnh sửa:', error);
+        }
     };
 
     return (
@@ -135,7 +152,7 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
                         </div>
                     </div>
                     <div className="val-box-btn">
-                        <button className="btn-item" onClick={() => setIsEditClassPopupVisible(true)}>
+                        <button className="btn-item" onClick={openEditClassPopup}>
                             <FontAwesomeIcon icon={faPenToSquare} /> Edit
                         </button>
 
@@ -215,7 +232,7 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
                         </div>
                     </div>
                     <div className="val-box-btn">
-                        <button className="btn-item" onClick={() => setIsEditClassPopupVisible(true)}>
+                        <button className="btn-item" onClick={openEditClassPopup}>
                             <FontAwesomeIcon icon={faPenToSquare} /> Edit
                         </button>
 
@@ -233,9 +250,16 @@ const CardClass = ({ setIsEditClassPopupVisible }) => {
                     </div>
                 </div>
             )}
+
             {isNotePopupVisible && (
                 <div className="popup">
                     <CardNote closePopup={closeNotePopup} />
+                </div>
+            )}
+
+            {isEditClassPopupVisible && (
+                <div className="popup">
+                    <CardEditClass closePopup={closeEditClassPopup} />
                 </div>
             )}
         </div>

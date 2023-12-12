@@ -11,28 +11,8 @@ const CardAddCourse = ({ closePopup }) => {
     const [ImageCover, setImageCover] = useState('');
     const [IsDelete, setIsDelete] = useState(false);
     const [PhotoFileName, setPhotoFileName] = useState('');
-    const [PhotoPath, setPhotoPath] = useState('${API_BASE_URL}/Photos/');
-    // useEffect(() => {
-    //     fetchData();
-    // }, []);
-
-    // const fetchData = async () => {
-    //     try {
-    //         const response = await fetch(`${API_BASE_URL}/api/Class/GetTeacherClassDetail/${params.classId}`); // Thay thế URL bằng API thực tế
-    //         const responseData = await response.json();
-    //         setClassDt(responseData);
-    //         setClassName(responseData.classname || '');
-    //         setTopic(responseData.topic || '');
-    //         setFee(responseData.fee || '');
-    //         setNumberOfWeek(responseData.numberOfWeek || '');
-    //         setNumberPhone(responseData.numberPhone || '');
-    //         setDescription(responseData.description || '');
-    //         setStartDate(formatDate(responseData.startDate) || '');
-    //         setEndDate(formatDate(responseData.endDate) || '');
-    //     } catch (error) {
-    //         console.error('Lỗi khi lấy dữ liệu lớp học:', error);
-    //     }
-    // };
+    const [PhotoPath, setPhotoPath] = useState(`${API_BASE_URL}/Photos/`);
+    const currentDate = new Date();
 
     const formatDate = (date) => {
         const formattedDate = new Date(date).toISOString().split('T')[0];
@@ -44,11 +24,9 @@ const CardAddCourse = ({ closePopup }) => {
         const newcourse = {
             courseName: CourseName,
             description: Description,
-            createDate: CreateDate,
+            createDate: currentDate,
             image: PhotoFileName,
-            IsDelete: false,
-            //startDate: startDate,
-            //endDate: endDate
+            IsDelete: false
         };
 
         e.preventDefault();
@@ -102,11 +80,6 @@ const CardAddCourse = ({ closePopup }) => {
                 <div className="form-group">
                     <label className="control-label">Description:</label>
                     <input class="form-control" type="text" id="Description" name="Description" value={Description} onChange={(e) => setDescription(e.target.value)} required />
-                </div>
-
-                <div className="form-group">
-                    <label className="control-label">Create Date:</label>
-                    <input class="form-control" type="date" id="CreateDate" name="CreateDate" value={CreateDate} onChange={(e) => setCreateDate(e.target.value)} required />
                 </div>
 
                 {PhotoFileName != '' &&

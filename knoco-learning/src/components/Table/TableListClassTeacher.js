@@ -21,27 +21,26 @@ const ColumnFilter = ({ column }) => {
 };
 
 const TableListClassTeacher = () => {
-  const [UserID,setUserID] = useState(1);
+  const [UserID, setUserID] = useState(1);
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   const [isAddClassPopupVisible, setAddClassPopupVisible] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-		console.log(token);
-		if (token !== null) {
-			const decodedToken = jwtDecode(token);
-			setUserID(parseInt(decodedToken.userid, 10));
-
-		} else {
-			window.location.href = "/";
-		}
+    console.log(token);
+    if (token !== null) {
+      const decodedToken = jwtDecode(token);
+      setUserID(parseInt(decodedToken.userid, 10));
+    } else {
+      window.location.href = "/";
+    }
     fetchData();
   }, []);
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/Class/GetClassListForRole/${UserID}`);
+      const response = await fetch(`${API_BASE_URL}/api/Class/GetClassListForTeacher/${UserID}`);
       const responseData = await response.json();
       setData(responseData);
     } catch (error) {
@@ -53,14 +52,6 @@ const TableListClassTeacher = () => {
     console.log('Clicked row data:', row);
     navigate(`/classdetail/${row.classId}`);
   };
-
-  const openAddClassPopup = () => {
-    setAddClassPopupVisible(true);
-  }
-
-  const closeAddClassPopup = () => {
-    setAddClassPopupVisible(false);
-  }
 
   function formatAPIDate(apiDate) {
     return new Date(apiDate).toLocaleDateString('en-US');
@@ -113,7 +104,7 @@ const TableListClassTeacher = () => {
       Filter: ColumnFilter, // Custom filter component for courseId column
       Cell: ({ row }) => (
         <div>
-         {formatAPIDate(row.original.createDate)}
+          {formatAPIDate(row.original.createDate)}
         </div>
       ),
     },
@@ -123,7 +114,7 @@ const TableListClassTeacher = () => {
       Filter: ColumnFilter, // Custom filter component for courseId column
       Cell: ({ row }) => (
         <div>
-         {formatAPIDate(row.original.startDate)}
+          {formatAPIDate(row.original.startDate)}
         </div>
       ),
     },
@@ -133,7 +124,7 @@ const TableListClassTeacher = () => {
       Filter: ColumnFilter, // Custom filter component for courseId column
       Cell: ({ row }) => (
         <div>
-         {formatAPIDate(row.original.endDate)}
+          {formatAPIDate(row.original.endDate)}
         </div>
       ),
     },

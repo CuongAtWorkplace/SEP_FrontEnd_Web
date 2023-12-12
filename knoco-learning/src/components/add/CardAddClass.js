@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import '../../style/Teacher/Edit.css';
 import { API_BASE_URL } from "../../paths";
+import { toast } from 'react-toastify';
 const CardAddClass = ({ closePopup }) => {
     const params = useParams();
     const [classDt, setClassDt] = useState({});
@@ -15,6 +16,7 @@ const CardAddClass = ({ closePopup }) => {
     const [description, setDescription] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+    const currentDate = new Date();
 
     useEffect(() => {
         fetchData();
@@ -35,25 +37,54 @@ const CardAddClass = ({ closePopup }) => {
         return formattedDate;
     };
 
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const validatePhoneNumber = (phoneNumber) => {
+        const phoneRegex = /^\d{10}$/;
+        return phoneRegex.test(phoneNumber);
+    };
+
+    const validateEndDate = (beforeDate, afterDate) => {
+        const beforeDateObj = new Date(beforeDate);
+        const afterDateObj = new Date(afterDate);
+
+        if (afterDateObj <= beforeDateObj) {
+            return false;
+        }
+        return true;
+    };
+
     const handleSubmit = async (e) => {
-        // {
-        //     "className": "str2ing",
-        //     "teacherId": 2,
-        //     "courseId": 2,
-        //     "numberStudent": 3,
-        //     "topic": "stri2ng",
-        //     "schedule": "str2ing",
-        //     "fee": "100",
-        //     "numberOfWeek": "12",
-        //     "numberPhone": "12",
-        //     "description": "striang",
-        //     "createDate": "2023-12-09T18:37:32.826Z",
-        //     "startDate": "2023-12-09T18:37:32.826Z",
-        //     "endDate": "2023-12-09T18:37:32.826Z",
-        //     "status": 1,
-        //     "isDelete": true,
-        //     "tokenClass": "strinag"
-        //   }
+        if (isNaN(fee)) {
+            toast.error("Please enter a valid fee.");
+            return;
+        }
+
+        if (isNaN(numberOfWeek) || numberOfWeek < 1) {
+            toast.error("Please enter a valid number of weeks.");
+            return;
+        }
+
+        if (!validatePhoneNumber(numberPhone)) {
+            toast.error("Please enter a valid phone number.");
+            return;
+        }
+
+        const isStartDateValid = validateEndDate(currentDate, startDate);
+        if (!isStartDateValid) {
+            toast.error("Start date cannot be before create date.");
+            return;
+        }
+
+        const isEndDateValid = validateEndDate(startDate, endDate);
+        if (!isEndDateValid) {
+            toast.error("End date cannot be before start date.");
+            return ;
+        }
+
         const classCreate = {
             className: className,
             teacherId: null,
@@ -65,7 +96,7 @@ const CardAddClass = ({ closePopup }) => {
             numberOfWeek: numberOfWeek,
             numberPhone: numberPhone,
             description: description,
-            createDate: null,
+            createDate: currentDate,
             startDate: startDate,
             endDate: endDate,
             status: 1,
@@ -84,13 +115,16 @@ const CardAddClass = ({ closePopup }) => {
             });
             if (response.ok) {
                 console.log('Dữ liệu lớp học đã được cập nhật thành công');
+                toast.success("Add class successfull !");
                 closePopup();
                 window.location.reload();
             } else {
                 console.error('Lỗi khi cập nhật dữ liệu lớp học:', response.status, response.statusText);
+                toast.error("Failed. Try Again!!!");
             }
         } catch (error) {
             console.error('Lỗi khi cập nhật dữ liệu lớp học:', error);
+            toast.error("Failed. Try Again!!!");
         }
     };
 
@@ -116,38 +150,38 @@ const CardAddClass = ({ closePopup }) => {
                 </div>
                 <div className="form-group">
                     <label className="control-label">Topic:</label>
-                    <input class="form-control" type="text" id="Topic" name="Topic" value={topic} onChange={(e) => setTopic(e.target.value)} required />
+                    <input class="form-control" type="text" id="Topic" name="Topic" value={topic} onChange={(e) => setTopic(e.target.value)} />
                 </div>
 
                 <div className="form-group">
                     <label className="control-label">Fee:</label>
-                    <input class="form-control" type="text" id="Fee" name="Fee" value={fee} onChange={(e) => setFee(e.target.value)} required />
+                    <input class="form-control" type="text" id="Fee" name="Fee" min={0} value={fee} onChange={(e) => setFee(e.target.value)} />
                 </div>
 
                 <div className="form-group">
                     <label className="control-label">Number of Weeks:</label>
-                    <input class="form-control" type="number" id="NumberOfWeek" name="NumberOfWeek" value={numberOfWeek} onChange={(e) => setNumberOfWeek(e.target.value)} required />
+                    <input class="form-control" type="number" id="NumberOfWeek" name="NumberOfWeek" min={0} value={numberOfWeek} onChange={(e) => setNumberOfWeek(e.target.value)} />
                 </div>
 
                 <div className="form-group">
                     <label className="control-label">Phone Number:</label>
-                    <input class="form-control" type="tel" id="NumberPhone" name="NumberPhone" value={numberPhone} onChange={(e) => setNumberPhone(e.target.value)} required />
+                    <input class="form-control" type="tel" id="NumberPhone" name="NumberPhone" value={numberPhone} onChange={(e) => setNumberPhone(e.target.value)} />
                 </div>
 
                 <div className="form-group">
                     <label className="control-label">Description:</label>
-                    <textarea class="form-control" id="Description" name="Description" value={description} onChange={(e) => setDescription(e.target.value)} required />
+                    <textarea class="form-control" id="Description" name="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
                 </div>
 
-                <div className="form-group">
+                <div className="d-flex form-group">
                     <label className="control-label">Start Date:</label>
-                    <input class="form-control" type="date" name="StartDate" value={startDate} onChange={(e) => setStartDate(e.target.value)} required />
+                    <input class="form-control" type="date" name="StartDate" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+                    <label className="control-label">End Date:</label>
+                    <input class="form-control" type="date" name="EndDate" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
                 </div>
 
                 <div className="form-group">
-                    <label className="control-label">End Date:</label>
-                    <input class="form-control" type="date" name="EndDate" value={endDate} onChange={(e) => setEndDate(e.target.value)} required />
-                </div>
+                    </div>
 
                 <button type="submit" id="submit" name="submit" className="btn-btn">Create</button>
                 <button class="form-control" type="button" onClick={closePopup} className="btn-btn">Cancel</button>

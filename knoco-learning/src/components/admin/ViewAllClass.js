@@ -31,7 +31,7 @@ const ViewAllClass = ({ children, ...props }) => {
     const [data, setData] = useState([]);
     const navigate = useNavigate();
     const [isAddClassPopupVisible, setAddClassPopupVisible] = useState(false);
-    const [isManager ,setIsManager] = useState(false);
+    const [isManager, setIsManager] = useState(false);
 
     useEffect(() => {
         // Add click event listener to menu-btn
@@ -41,10 +41,10 @@ const ViewAllClass = ({ children, ...props }) => {
         const token = localStorage.getItem("token");
         if (token !== null) {
             const decodedToken = jwtDecode(token);
-                if(Number(decodedToken.roleid) == 3){
-                    setIsManager(true);
-                }
-            if ( localStorage.getItem("token") === '') {
+            if (Number(decodedToken.roleid) == 3) {
+                setIsManager(true);
+            }
+            if (localStorage.getItem("token") === '') {
                 navigate(`/`);
             }
         }
@@ -52,6 +52,9 @@ const ViewAllClass = ({ children, ...props }) => {
     }, []);
 
     const fetchData = async () => {
+        const token = localStorage.getItem("token");
+        const decodedToken = jwtDecode(token);
+
         try {
             const response = await fetch(`${API_BASE_URL}/api/Class/GetAllClass`);
             const responseData = await response.json();
@@ -153,7 +156,7 @@ const ViewAllClass = ({ children, ...props }) => {
 
     const handleRowClick = (row) => {
         console.log('Clicked row data:', row);
-      };
+    };
 
     return (
         <div className="body_page" {...props}>
@@ -176,11 +179,11 @@ const ViewAllClass = ({ children, ...props }) => {
                 <div className="children">
                     <div>
                         {
-                            isManager == true &&  
+                            isManager == true &&
                             <button className="btn-add" onClick={openAddClassPopup}><FontAwesomeIcon icon={faSquarePlus} /> New class</button>
                         }
-                       
-                        <Table columns={columns} data={data} onRowClick={handleRowClick}/>
+
+                        <Table columns={columns} data={data} onRowClick={handleRowClick} />
                         {
                             isAddClassPopupVisible && (
                                 <div className="popup">

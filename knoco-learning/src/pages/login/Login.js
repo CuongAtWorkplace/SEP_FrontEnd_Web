@@ -79,7 +79,7 @@ class Login extends Component {
 
 
                     if (decodedToken.roleid == 2) {
-                        window.location.href = "https://2f96-2405-4802-ff-b5f0-e4e8-53a1-46ea-b29a.ngrok-free.app/videocall/Math_101";
+                        window.location.href = "/videocall/3";
                     }
                     else if (decodedToken.roleid == 3) {
                         window.location.href = "/manager/course";

@@ -19,11 +19,7 @@ const ClassDetail = ({ children, ...props }) => {
         });
     }, []);
 
-    const [isEditClassPopupVisible, setIsEditClassPopupVisible] = useState(false);
     
-    const closeEditClassPopup = () => {
-        setIsEditClassPopupVisible(false);
-    };
 
     return (
         <div className="body_page" {...props}>
@@ -44,13 +40,9 @@ const ClassDetail = ({ children, ...props }) => {
                 </header>
 
                 <div className="children">
-                    <CardClass setIsEditClassPopupVisible={setIsEditClassPopupVisible} />
+                    <CardClass />
                     <TableListLearnerInClass />
-                    {isEditClassPopupVisible && (
-                        <div className="popup">
-                            <CardEditClass closePopup={closeEditClassPopup} />
-                        </div>
-                    )}
+                    
                 </div>
 
                 <footer>

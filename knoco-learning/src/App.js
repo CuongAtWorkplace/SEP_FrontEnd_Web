@@ -77,7 +77,7 @@ function App() {
         <Route path='/testfile' element={<ListCourse />} />
         <Route path='/manager' element={<SideBar />} />
         <Route path='/tableRequestmanager' element={<RequestManager />} />
-        <Route path='/tableRequesClassmanager' element={<RequestClassManager />} />
+        <Route path='/tableRequesClassManager' element={<RequestClassManager />} />
       </Routes>
       <ToastContainer
         position="top-right"

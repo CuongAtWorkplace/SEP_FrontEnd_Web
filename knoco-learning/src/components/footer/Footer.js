@@ -1,7 +1,7 @@
 import { memo } from "react";
 
 const Footer = () => {
-    return <p>&copy; 2023 Knoco Learning. All rights reserved.</p>;
+    return <p>&copy; Knoco website. </p>;
 };
 
 export default memo(Footer);

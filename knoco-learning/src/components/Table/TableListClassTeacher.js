@@ -21,8 +21,7 @@ const ColumnFilter = ({ column }) => {
 };
 
 const TableListClassTeacher = () => {
-  const [UserID, setUserID] = useState('');
-  const [RoleID, setRoleID] = useState('');
+  const [UserID, setUserID] = useState(1);
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   const [isAddClassPopupVisible, setAddClassPopupVisible] = useState(false);
@@ -32,11 +31,7 @@ const TableListClassTeacher = () => {
     console.log(token);
     if (token !== null) {
       const decodedToken = jwtDecode(token);
-      console.log(decodedToken.userid);
-      setUserID(Number(decodedToken.userid));
-      setRoleID(Number(decodedToken.roleid));
-      console.log("he " + UserID + RoleID);
-
+      setUserID(parseInt(decodedToken.userid, 10));
     } else {
       window.location.href = "/";
     }
@@ -44,11 +39,8 @@ const TableListClassTeacher = () => {
   }, []);
 
   const fetchData = async () => {
-    const token = localStorage.getItem("token");
-    const decodedToken = jwtDecode(token);
-
     try {
-      const response = await fetch(`${API_BASE_URL}/api/Class/GetClassListForRole?userId=${decodedToken.userid}&roleId=${decodedToken.roleid}`);
+      const response = await fetch(`${API_BASE_URL}/api/Class/GetClassListForTeacher/${UserID}`);
       const responseData = await response.json();
       setData(responseData);
     } catch (error) {
@@ -60,14 +52,6 @@ const TableListClassTeacher = () => {
     console.log('Clicked row data:', row);
     navigate(`/classdetail/${row.classId}`);
   };
-
-  const openAddClassPopup = () => {
-    setAddClassPopupVisible(true);
-  }
-
-  const closeAddClassPopup = () => {
-    setAddClassPopupVisible(false);
-  }
 
   function formatAPIDate(apiDate) {
     return new Date(apiDate).toLocaleDateString('en-US');

@@ -24,7 +24,7 @@ const BoxChat = () => {
 	// const ClassId = 9;
 	const [isManager, setIsManager] = useState(false);
 	const { ClassId } = useParams();
-	const [checkToken, setcheckToken] = useState(false);
+	const [checkToken, setcheckToken] = useState(true);
 	const scrollViewRef = useRef(null);
 
 	useEffect(() => {
@@ -50,14 +50,14 @@ const BoxChat = () => {
 
 					});
 					if (!response.ok) {
-						window.location.href = "/";
-						console.log("k co quyen");
+						setcheckToken(false);
 					} 
 				} catch (error) {
 					console.error('Lỗi khi lấy dữ liệu:', error);
 				}
 			};
 			fetchCheckUser();
+			
 		} else {
 			window.location.href = "/";
 		}

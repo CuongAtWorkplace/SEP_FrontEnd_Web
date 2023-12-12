@@ -31,8 +31,8 @@
 }
 
 .single {
-    display: flex;
     width: 100%;
+    margin: 100px auto;
 
     .top {
         padding: 20px;
@@ -92,7 +92,7 @@
                         }
 
                         .itemValue {
-                            padding-left: 50px;
+                            padding-left: 10px;
                             font-weight: 600;
                         }
                     }

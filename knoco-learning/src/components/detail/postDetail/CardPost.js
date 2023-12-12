@@ -143,12 +143,12 @@ const CardPost = () => {
             setlikeAmout(commentData.likeAmout);
 
             const hideComment = {
-                userCommentPostId: Number(UserCommentPostId),
-                userId: Number(userId),
-                postId: Number(PostId),
-                content: Content,
-                createDate: CreateDateComment,
-                likeAmount: Number(LikeAmountComment),
+                userCommentPostId: commentData.userCommentPostId,  // Use directly from commentData
+                userId: commentData.userId,  // Use directly from commentData
+                postId: commentData.postId,  // Use directly from commentData
+                content: commentData.content,  // Use directly from commentData
+                createDate: commentData.createDate,  // Use directly from commentData
+                likeAmount: commentData.likeAmout,  // Use directly from commentData
                 isActive: true
             };
 
@@ -161,8 +161,9 @@ const CardPost = () => {
             });
 
             if (updateResponse.ok) {
-                fetchData();
+                
                 toast.success("Successfull !!!");
+                fetchData();
                 setStatus(false);
             } else {
                 throw new Error('Failed to update');
@@ -257,7 +258,7 @@ const CardPost = () => {
                     <div key={index} className="comment">
                         <strong>{comment.userFullName}</strong> {comment.content} <span className="edit-comment">
                             {comment.isActive == true ? (<button onClick={() => UpdateHideComment(comment.userCommentPostId)} > Hide
-                            </button>) : (<button onClick={() => UpdateActiveComment(comment.userCommentPostId)} >active
+                            </button>) : (<button onClick={() => UpdateActiveComment(comment.userCommentPostId)} >Active
                             </button>)}
                         </span>
                     </div>

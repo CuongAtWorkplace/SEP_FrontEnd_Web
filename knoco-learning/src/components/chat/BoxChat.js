@@ -55,7 +55,7 @@ const BoxChat = () => {
 				}
 			};
 			fetchCheckUser();
-			if(decodedToken.roleid !== 3 || checkToken === false){
+			if (checkToken === false){
 				window.location.href = "/";
 			}
 			

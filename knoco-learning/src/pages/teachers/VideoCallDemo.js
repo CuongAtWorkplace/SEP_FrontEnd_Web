@@ -19,34 +19,35 @@ const VideoCallDemo = () => {
       const decodedToken = jwtDecode(token);
       setUserName(decodedToken.fullname);
       setUserId(parseInt(decodedToken.userid, 10));
-    
+      const fetchCheckUser = async () => {
+        try {
+          const token = localStorage.getItem("token");
+       
+            const decodedToken = jwtDecode(token);
+          const response = await fetch(`${API_BASE_URL}/api/Class/CheckUserFromClass?userId=${decodedToken.userid}&className=${roomId}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            // body: JSON.stringify({ userId : Number(userId), className : roomId }),
+          });
+          if (response.ok) {
+            setcheckToken(true);
+          } else {
+            navigate(`/`);
+            setcheckToken(false);
+            console.log("k co quyen");
+          }
+        } catch (error) {
+          console.error('Lỗi khi lấy dữ liệu:', error);
+        }
+      };
+      
+        fetchCheckUser();
   } else {
     navigate(`/`);
   }
-    const fetchCheckUser = async () => {
-      try {
-        const token = localStorage.getItem("token");
-     
-          const decodedToken = jwtDecode(token);
-        const response = await fetch(`${API_BASE_URL}/api/Class/CheckUserFromClass?userId=${decodedToken.userid}&className=${roomId}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          // body: JSON.stringify({ userId : Number(userId), className : roomId }),
-        });
-        if (response.ok) {
-          setcheckToken(true);
-        } else {
-          setcheckToken(false);
-          console.log("k co quyen");
-        }
-      } catch (error) {
-        console.error('Lỗi khi lấy dữ liệu:', error);
-      }
-    };
-    
-      fetchCheckUser();
+   
 
   }, [userId, roomId]);
  

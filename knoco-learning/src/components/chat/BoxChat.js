@@ -22,9 +22,9 @@ const BoxChat = () => {
 
 	const [User, setUser] = useState('');
 	// const ClassId = 9;
-	const [isManager,setIsManager] = useState(false);
-	const {ClassId}	= useParams();
-
+	const [isManager, setIsManager] = useState(false);
+	const { ClassId } = useParams();
+	const [checkToken, setcheckToken] = useState(true);
 	const scrollViewRef = useRef(null);
 
 	useEffect(() => {
@@ -33,13 +33,31 @@ const BoxChat = () => {
 		if (token !== null) {
 			const decodedToken = jwtDecode(token);
 			const check = decodedToken.roleid;
-			if(check == true){
+			if (check == 3) {
 				setIsManager(true);
-			}else{
+			} else {
 				setIsManager(false);
 			}
 			setUser(parseInt(decodedToken.userid, 10));
+			console.log(decodedToken.userid);
+			const fetchCheckUser = async () => {
+				try {
+					const response = await fetch(`${API_BASE_URL}/api/Class/CheckUserFromClassInBoxChat?userId=${decodedToken.userid}&boxchat=${ClassId}`, {
+						method: 'GET',
+						headers: {
+							'Content-Type': 'application/json',
+						},
 
+					});
+					if (!response.ok) {
+						setcheckToken(false);
+					} 
+				} catch (error) {
+					console.error('Lỗi khi lấy dữ liệu:', error);
+				}
+			};
+			fetchCheckUser();
+			
 		} else {
 			window.location.href = "/";
 		}
@@ -70,6 +88,7 @@ const BoxChat = () => {
 				console.error('Error fetching class data:', error);
 			}
 		};
+
 
 		fetchMessages();
 		fetchClassData();

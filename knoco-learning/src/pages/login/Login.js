@@ -41,14 +41,14 @@ class Login extends Component {
         this.setState({ password: e.target.value });
     };
     refreshList() {
-        fetch('${API_BASE_URL}/api/User/GetAllUser')
+        fetch(`${API_BASE_URL}/api/User/GetAllUser`)
             .then(response => response.json())
             .then(data => {
                 this.setState({ NewsHome: data });
             });
     }
     componentDidMount() {
-
+console.log(localStorage.getItem('previousPath'))
         this.refreshList();
 
     }
@@ -57,7 +57,7 @@ class Login extends Component {
         if (this.validateForm()) {
             const { email, password, redirectPath } = this.state;
             try {
-                const response = await fetch(`${API_BASE_URL}/api/Login`, {
+                const response = await fetch(`${API_BASE_URL}/api/Login/AuthenticateLogin`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -79,7 +79,8 @@ class Login extends Component {
 
 
                     if (decodedToken.roleid == 2) {
-                        window.location.href = "/videocall/Math";
+                        
+                        window.location.href = localStorage.getItem('previousPath');
                     }
                     else if (decodedToken.roleid == 3) {
                         window.location.href = "/manager/course";

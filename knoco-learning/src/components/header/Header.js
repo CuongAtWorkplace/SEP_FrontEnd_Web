@@ -51,6 +51,9 @@ const Header = () => {
         setChangePasswordPopupVisible(false);
     }
 
+    const buttonLogout = () => {
+        localStorage.removeItem("token");
+    }
     return (
         <div className="navigation">
             <div className="n1">
@@ -66,7 +69,7 @@ const Header = () => {
                 <div className={`dropdown-menu ${isDropdownVisible ? "active" : ""}`} id="dropdown-menu">
                     <ul>
                         <li><Link className="link-a" to="#" onClick={openChangePasswordPopup}>Change Password</Link></li>
-                        <li><Link className="link-a" to="/login">Log Out</Link></li>
+                        <li><Link className="link-a" to="#" >Log Out</Link></li>
                     </ul>
                 </div>
             </div>

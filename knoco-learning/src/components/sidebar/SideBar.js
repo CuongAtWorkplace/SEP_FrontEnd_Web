@@ -21,6 +21,7 @@ import ViewAllCourse from "../../pages/manager/Course/ViewAllCourse";
 import ViewPostListManager from "../../pages/manager/ViewPostListManager";
 import TableListClassTeacher from "../Table/TableListClassTeacher";
 import jwtDecode from "jwt-decode";
+import './SideBar.css'
 const SideBar = () => {
     const navigate = useNavigate();
     const [roleid, setRoleid] = useState('');
@@ -36,7 +37,7 @@ const SideBar = () => {
             //     localStorage.removeItem('token');
             //     console.log('da xoa token.');
             //     console.log(token)
-            // }, 30 * 1000);
+            // }, 60 * 1000);
             // if (Number(decodedToken.roleid) === 2 || localStorage.getItem("token") === '') {
             //     navigate(`/`);
             // }

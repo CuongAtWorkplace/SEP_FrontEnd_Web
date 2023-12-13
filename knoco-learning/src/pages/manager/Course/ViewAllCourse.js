@@ -10,7 +10,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useState } from "react";
 import { memo } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { faChalkboardUser } from '@fortawesome/free-solid-svg-icons';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
@@ -38,6 +38,8 @@ class ViewAllCourse extends Component {
             IsDelete: false
         }
     }
+
+    
 
     refreshListByGenre() {
         fetch(`${API_BASE_URL}/api/Course/GetAllCourse`)
@@ -108,7 +110,7 @@ class ViewAllCourse extends Component {
             },
         ];
         const getRowId = (row) => row.courseId;
-
+        
         return (
 
             <div>
@@ -116,7 +118,7 @@ class ViewAllCourse extends Component {
                     <section id="menu">
                         <div className="logo">
                             <FontAwesomeIcon className="logo-icon" icon={faBook} />
-                            <a onClick={this.handleShow}>Knoco</a>
+                            <h1>Knoco</h1>
 
                         </div>
                         <nav>
@@ -141,7 +143,9 @@ class ViewAllCourse extends Component {
                     </section>                
                 </ div>
             </div>
-        )
+            
+        );
     }
+    
 }
 export default ViewAllCourse;

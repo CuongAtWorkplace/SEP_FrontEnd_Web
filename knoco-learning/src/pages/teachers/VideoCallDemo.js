@@ -12,18 +12,15 @@ const VideoCallDemo = () => {
   const [checkToken, setcheckToken] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-  
+    localStorage.setItem('previousPath', window.location.pathname);
     const token = localStorage.getItem("token");
-    console.log(token);
-    if (token !== null) {
-      const decodedToken = jwtDecode(token);
-      setUserName(decodedToken.fullname);
-      setUserId(parseInt(decodedToken.userid, 10));
+
+ if (token !== null) {
       const fetchCheckUser = async () => {
         try {
           const token = localStorage.getItem("token");
-       
-            const decodedToken = jwtDecode(token);
+          const decodedToken = jwtDecode(token);
+          setUserName(decodedToken.fullname)
           const response = await fetch(`${API_BASE_URL}/api/Class/CheckUserFromClass?userId=${decodedToken.userid}&className=${roomId}`, {
             method: 'GET',
             headers: {
@@ -34,7 +31,7 @@ const VideoCallDemo = () => {
           if (response.ok) {
             setcheckToken(true);
           } else {
-            navigate(`/`);
+            navigate("/");
             setcheckToken(false);
             console.log("k co quyen");
           }
@@ -45,7 +42,7 @@ const VideoCallDemo = () => {
       
         fetchCheckUser();
   } else {
-    navigate(`/`);
+    navigate("/");
   }
    
 

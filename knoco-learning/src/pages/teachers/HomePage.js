@@ -56,7 +56,7 @@ const HomePage = ({ children, ...props }) => {
             <section id="menu">
                 <div className="logo">
                     <FontAwesomeIcon className="logo-icon" icon={faBook} />
-                    <h1>Knoco</h1>
+                    <h1 className="KnocoH1">Knoco</h1>
                 </div>
 
                 <nav>

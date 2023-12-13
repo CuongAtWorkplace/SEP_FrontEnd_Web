@@ -24,6 +24,10 @@ import {
 import CardNote from "../edit/CardNote";
 import { API_BASE_URL } from "../../paths";
 import CardEditClass from "../edit/CardEditClass";
+import jwtDecode from "jwt-decode";
+import { toast } from "react-toastify";
+
+
 const CardClass = () => {
     const [classDt, setClassDt] = useState(null);
     const params = useParams();
@@ -32,9 +36,11 @@ const CardClass = () => {
     const [className, setClassName] = useState('');
     const [isEditClassPopupVisible, setIsEditClassPopupVisible] = useState(false);
     const [reloadData, setReloadData] = useState(false);
+    const [checkToken, setcheckToken] = useState(false);
 
     useEffect(() => {
         fetchData();
+        fetchCheckUser();
     }, [reloadData]);
 
     const fetchData = async () => {
@@ -45,6 +51,29 @@ const CardClass = () => {
             setClassName(responseData.className);
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu lớp học:', error);
+        }
+    };
+
+    const fetchCheckUser = async () => {
+        try {
+            const token = localStorage.getItem("token");
+
+            const decodedToken = jwtDecode(token);
+            const response = await fetch(`${API_BASE_URL}/api/Class/CheckTeacherFromClass?userId=${decodedToken.userid}&classId=${params.classId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (response.ok) {
+                setcheckToken(true);
+            } else {
+                setcheckToken(false);
+                toast.success("The teacher is not present in class!")
+                console.log("k co quyen");
+            }
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu:', error);
         }
     };
 
@@ -84,7 +113,7 @@ const CardClass = () => {
 
     return (
         <div className="conval">
-            {classDt ? (
+            {checkToken === true && classDt ? (
                 <div className="class-detail">
                     <div className="val-box">
                         <div>

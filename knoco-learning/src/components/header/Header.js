@@ -11,8 +11,9 @@ import CardChangePassword from "../../components/edit/CardChangePassword";
 import myImage from '../../assets/profile.jpg';
 import $ from "jquery";
 import { API_BASE_URL } from "../../paths";
+import jwtDecode from "jwt-decode";
+
 const Header = () => {
-    const UserID = 2;
     const [isDropdownVisible, setDropdownVisible] = useState(false);
     const [isChangePasswordPopupVisible, setChangePasswordPopupVisible] = useState(false);
     const [imageSource, setImageSource] = useState("");
@@ -22,10 +23,12 @@ const Header = () => {
             $('#menu').toggleClass('active'); // Toggle active class on #menu
         });
         fetchImage();
-    }, []); 
+    }, []);
     const fetchImage = async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/User/GetUserImage/GetImage/${UserID}`);
+            const token = localStorage.getItem("token");
+            const decodedToken = jwtDecode(token);
+            const response = await fetch(`${API_BASE_URL}/api/User/GetUserImage/GetImage/${decodedToken.userid}`);
             if (response.ok) {
                 const imageData = await response.blob();
                 setImageSource(URL.createObjectURL(imageData));

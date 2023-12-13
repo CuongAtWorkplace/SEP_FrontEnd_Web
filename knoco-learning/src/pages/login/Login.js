@@ -79,7 +79,7 @@ class Login extends Component {
 
 
                     if (decodedToken.roleid == 2) {
-                        window.location.href = "/videocall/3";
+                        window.location.href = "/videocall/Math";
                     }
                     else if (decodedToken.roleid == 3) {
                         window.location.href = "/manager/course";

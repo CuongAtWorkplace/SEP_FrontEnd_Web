@@ -44,7 +44,13 @@ class Add extends Component {
   };
 
   validateForm = () => {
-    const { email, password, phone, roleName } = this.state;
+    const { email, password, phone, roleName, fullName } = this.state;
+
+    const fullNameRegex = /^[a-zA-Z]+$/;
+    if (!fullNameRegex.test(fullName)) {
+      this.setValidationError('fullName', 'Full name is not valid.');
+      return false;
+    }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {

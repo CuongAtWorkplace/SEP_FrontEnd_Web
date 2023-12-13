@@ -194,7 +194,7 @@ function CourseDetail() {
           </header>
           <div className="children">
             <div className="coursedetail">
-              <form onSubmit={NewCourse} style={{ width: "60%" }}>
+              <form onSubmit={NewCourse} style={{ width: "70%" }}>
                 <div className="form-group">
                   <label className="control-label">Course Name:</label>
                   <input class="form-control" type="text" name="ClassName" placeholder={courseDetail.courseName} value={courseName} onChange={(e) => setCourseName(e.target.value)} required />
@@ -216,23 +216,24 @@ function CourseDetail() {
                 <button type="submit" id="submit" name="submit" className="btn-btn">Thay Đổi</button>
               </form>
             </div>
-            <div className="">
-              <div className="">
-                <h1>Danh sách lớp</h1>
-                {classInCourse.map((comment, index) => (
-                  <div key={index} className="comment">
-                    <strong>{comment.className}</strong>  <span className="edit-comment">
 
-                    </span>
-                  </div>
-                ))}
-                <Table
-                  columns={columns}
-                  data={classInCourse}
-                />
-              </div>
+            <div className="list-class-mng">
+              <h1>Danh sách lớp</h1>
+              {classInCourse.map((comment, index) => (
+                <div key={index} className="comment">
+                  <strong>{comment.className}</strong>  <span className="edit-comment">
+
+                  </span>
+                </div>
+              ))}
+              <Table
+                columns={columns}
+                data={classInCourse}
+              />
             </div>
           </div>
+
+
 
 
           <footer>

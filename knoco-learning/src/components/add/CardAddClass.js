@@ -58,6 +58,9 @@ const CardAddClass = ({ closePopup }) => {
     };
 
     const handleSubmit = async (e) => {
+
+        e.preventDefault();
+
         if (isNaN(fee)) {
             toast.error("Please enter a valid fee.");
             return;
@@ -103,8 +106,7 @@ const CardAddClass = ({ closePopup }) => {
             isDelete: false,
             tokenClass: null
         };
-
-        e.preventDefault();
+        
         try {
             const response = await fetch(`${API_BASE_URL}/api/Class/CreateClassManager`, {
                 method: 'POST',

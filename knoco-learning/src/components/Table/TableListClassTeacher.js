@@ -40,7 +40,9 @@ const TableListClassTeacher = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/Class/GetClassListForTeacher/${UserID}`);
+      const token = localStorage.getItem("token");
+      const decodedToken = jwtDecode(token);
+      const response = await fetch(`${API_BASE_URL}/api/Class/GetClassListForTeacher/${decodedToken.userid}`);
       const responseData = await response.json();
       setData(responseData);
     } catch (error) {
@@ -138,15 +140,7 @@ const TableListClassTeacher = () => {
 
   return (
     <div>
-      {/* <button className="btn-add" onClick={openAddClassPopup}><FontAwesomeIcon icon={faSquarePlus} /> New class</button> */}
       <Table columns={columns} data={data} onRowClick={handleRowClick} />
-      {/* {
-        isAddClassPopupVisible && (
-          <div className="popup">
-            <CardAddClass closePopup={closeAddClassPopup} />
-          </div>
-        )
-      } */}
     </div>
   );
 }

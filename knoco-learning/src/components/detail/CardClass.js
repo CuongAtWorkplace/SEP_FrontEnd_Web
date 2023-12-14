@@ -152,7 +152,7 @@ const CardClass = () => {
                     </div>
                     <div className="val-box">
                         <div>
-                            <h3><FontAwesomeIcon className="menu-icon" icon={faCalendarDay} /> Number of week: <span>{classDt.numberOfWeek || "Empty!"}</span></h3>
+                            <h3><FontAwesomeIcon className="menu-icon" icon={faCalendarDay} /> Number in week: <span>{classDt.numberOfWeek || "Empty!"}</span></h3>
                         </div>
                     </div>
                     <div className="val-box">
@@ -232,7 +232,7 @@ const CardClass = () => {
                     </div>
                     <div className="val-box">
                         <div>
-                            <h3><FontAwesomeIcon className="menu-icon" icon={faCalendarDay} /> Number of week: <span>Empty!</span></h3>
+                            <h3><FontAwesomeIcon className="menu-icon" icon={faCalendarDay} /> Number in week: <span>Empty!</span></h3>
                         </div>
                     </div>
                     <div className="val-box">

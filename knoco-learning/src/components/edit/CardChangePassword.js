@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import '../../style/Teacher/Edit.css'
 import { API_BASE_URL } from "../../paths";
+import { toast } from 'react-toastify';
+
 const CardChangePassword = ({ closePopup }) => {
     //const params = useParams();
     const [userDt, setUserDt] = useState({});
@@ -48,13 +50,15 @@ const CardChangePassword = ({ closePopup }) => {
             });
             if (response.ok) {
                 console.log('Dữ liệu người dùng đã được cập nhật thành công');
+                toast.success("Change password successful!");
                 closePopup();
-                window.location.reload();
             } else {
                 console.error('Lỗi khi cập nhật dữ liệu người dùng:', response.status, response.statusText);
+                toast.error("Failed. Try Again!!!");
             }
         } catch (error) {
             console.error('Lỗi khi cập nhật dữ liệu người dùng:', error);
+            toast.error("Failed. Try Again!!!");
         }
     };
 

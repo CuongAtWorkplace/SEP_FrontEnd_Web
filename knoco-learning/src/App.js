@@ -56,28 +56,28 @@ function App() {
         <Route path="/homepage" element={<HomePage />} />
         <Route path="/videocall/:roomId" element={<VideoCallDemo />} />
         <Route path="/chat/:ClassId" element={<GroupChat />} />
+        <Route path="/editclass" element={<EditClass />} />
         {/* admin */}
         <Route path="/viewallclass" element={<ViewAllClass />} />
         <Route path="/viewallpost" element={<ViewAllPost />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/users/:userId" element={<UserDetail />} />
-        {/* manager */}
-        <Route path="/boxchat/:boxchatid" element={<BoxChat />} />
-        <Route path="/listlearner" element={<ListLearner />} />
         <Route path="/dashboard" element={<Home />} />
         <Route path="/users" element={<Users />} />
         <Route path="/users/:userId" element={<UserDetail />} />
         <Route path="/report" element={<Report />} />
-        <Route path="/manager/course" element={<ViewAllCourse />} />
-        <Route path="/viewleanerlist" element={<ViewLeanerList />} />
-        <Route path="/coursedetail/:cid" element={<CourseDetail />} />
-        <Route path="/editclass" element={<EditClass />} />
-        <Route path="/manager/viewpostlistmanager" element={<ViewPostListManager />} />
-        <Route path="/manager/viewpostdetailmanager/:pid" element={<ViewPostDetailManager />} />
-        <Route path='/testfile' element={<ListCourse />} />
-        <Route path='/manager' element={<SideBar />} />
+        {/* manager */}
+        <Route path="/boxchat/:boxchatid" element={<BoxChat />} />
         <Route path='/tableRequestmanager' element={<RequestManager />} />
         <Route path='/tableRequesClassManager' element={<RequestClassManager />} />
+        <Route path="/manager/course" element={<ViewAllCourse />} />
+        <Route path="/manager/viewpostlistmanager" element={<ViewPostListManager />} />
+        <Route path="/manager/viewpostdetailmanager/:pid" element={<ViewPostDetailManager />} />
+
+        <Route path="/listlearner" element={<ListLearner />} />
+        <Route path="/viewleanerlist" element={<ViewLeanerList />} />
+        <Route path="/coursedetail/:cid" element={<CourseDetail />} />
+        <Route path='/testfile' element={<ListCourse />} />
+        <Route path='/manager' element={<SideBar />} />
+        
       </Routes>
       <ToastContainer
         position="top-right"

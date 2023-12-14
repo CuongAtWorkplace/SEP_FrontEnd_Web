@@ -44,6 +44,18 @@ const CardEditClass = ({ closePopup }) => {
         return formattedDate;
     };
 
+    const validateClassName = (className) => {
+        if (className.trim() === '') {
+            return false;
+        }
+
+        if (className.includes(' ')) {
+            return false;
+        }
+
+        return true;
+    };
+
     const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
@@ -54,7 +66,7 @@ const CardEditClass = ({ closePopup }) => {
         return phoneRegex.test(phoneNumber);
     };
 
-    const validateEndDate = (beforeDate, afterDate) => {
+    const validateDate = (beforeDate, afterDate) => {
         const beforeDateObj = new Date(beforeDate);
         const afterDateObj = new Date(afterDate);
 
@@ -66,6 +78,11 @@ const CardEditClass = ({ closePopup }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!validateClassName(className)) {
+            toast.error("Class names cannot contain spaces. You can use characters like _ or - instead.");
+            return;
+        }
 
         if (isNaN(fee)) {
             toast.error("Please enter a valid fee.");
@@ -82,16 +99,16 @@ const CardEditClass = ({ closePopup }) => {
             return;
         }
 
-        const isStartDateValid = validateEndDate(classDt.createDate, startDate);
+        const isStartDateValid = validateDate(classDt.createDate, startDate);
         if (!isStartDateValid) {
             toast.error("Start date cannot be before create date.");
             return;
         }
 
-        const isEndDateValid = validateEndDate(startDate, endDate);
+        const isEndDateValid = validateDate(startDate, endDate);
         if (!isEndDateValid) {
             toast.error("End date cannot be before start date.");
-            return ;
+            return;
         }
 
         const classUpdate = {
@@ -143,7 +160,7 @@ const CardEditClass = ({ closePopup }) => {
                     <input className="form-control" type="text" id="Fee" name="Fee" min={0} value={fee} onChange={(e) => setFee(e.target.value)} required />
                 </div>
                 <div className="form-group">
-                    <label className="control-label">Number of Weeks:</label>
+                    <label className="control-label">Number in Weeks:</label>
                     <input className="form-control" type="number" id="NumberOfWeek" name="NumberOfWeek" min={0} value={numberOfWeek} onChange={(e) => setNumberOfWeek(e.target.value)} required />
                 </div>
                 <div className="form-group">
@@ -157,7 +174,7 @@ const CardEditClass = ({ closePopup }) => {
                 <div className="d-flex form-group">
                     <label className="control-label">Start Date:</label>
                     <input className="form-control" type="date" name="StartDate" value={startDate} onChange={(e) => setStartDate(e.target.value)} required />
-                
+
                     <label className="control-label">End Date:</label>
                     <input className="form-control" type="date" name="EndDate" value={endDate} onChange={(e) => setEndDate(e.target.value)} required />
                 </div>

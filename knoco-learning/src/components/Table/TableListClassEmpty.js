@@ -47,10 +47,6 @@ const TableListClassEmpty = (props) => {
 
   const handleRowClick = async (row) => {
     console.log('Clicked row data:', row);
-    window.confirm("Are you sure you want to teach this class?") ? navigate(`/list-all-course`) : window.close();
-  };
-
-  const handleRowClickn = (row) => {
   };
 
   const AddRequestClass = (classId) => {
@@ -73,10 +69,10 @@ const TableListClassEmpty = (props) => {
         .then((response) => {
           if (response.ok) {
             window.confirm("Are you sure you want to teach this class?") ? navigate(`/list-all-course`) : window.close();
-            toast.success("Successfull !!!");
+            toast.success("Successfull !");
           }
           else if (!response.ok) {
-            toast.error("Failed. Try Again!!!")
+            toast.error("Failed. Try Again!")
             throw new Error('Failed to update');
           }
 
@@ -146,7 +142,7 @@ const TableListClassEmpty = (props) => {
   ]);
 
   return (
-    <Table columns={columns} data={data} onRowClick={handleRowClickn} />
+    <Table columns={columns} data={data} onRowClick={handleRowClick} />
   );
 }
 

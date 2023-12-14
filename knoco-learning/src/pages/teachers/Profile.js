@@ -14,6 +14,7 @@ import CardEditProfile from "../../components/edit/CardEditProfile";
 import CardChangePassword from "../../components/edit/CardChangePassword";
 import CardChangeImage from "../../components/edit/CardChangeImage";
 import { API_BASE_URL } from "../../paths";
+import jwtDecode from "jwt-decode";
 const ProfileTeacher = ({ onBackClick, children, ...props }) => {
     const UserID = 2;
     const navigate = useNavigate();
@@ -34,7 +35,9 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/User/GetUserProfile/${UserID}`); // Thay thế URL bằng API thực tế
+            const token = localStorage.getItem("token");
+            const decodedToken = jwtDecode(token);
+            const response = await fetch(`${API_BASE_URL}/api/User/GetUserProfile/${decodedToken.userid}`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setUserDt(responseData);
         } catch (error) {
@@ -44,7 +47,9 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
 
     const fetchImage = async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/User/GetUserImage/GetImage/${UserID}`);
+            const token = localStorage.getItem("token");
+            const decodedToken = jwtDecode(token);
+            const response = await fetch(`${API_BASE_URL}/api/User/GetUserImage/GetImage/${decodedToken.userid}`);
             if (response.ok) {
                 const imageData = await response.blob();
                 setImageSource(URL.createObjectURL(imageData));

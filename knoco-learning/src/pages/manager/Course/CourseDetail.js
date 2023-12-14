@@ -213,12 +213,12 @@ function CourseDetail() {
                 </div>
                 <div className="form-group">
                   <input class="form-control" className="m-2" type="file" onChange={imageUpload} /> </div>
-                <button type="submit" id="submit" name="submit" className="btn-btn">Thay Đổi</button>
+                <button type="submit" id="submit" name="submit" className="btn-btn">Edit</button>
               </form>
             </div>
 
             <div className="list-class-mng">
-              <h1>Danh sách lớp</h1>
+              <h1>List class in course</h1>
               {classInCourse.map((comment, index) => (
                 <div key={index} className="comment">
                   <strong>{comment.className}</strong>  <span className="edit-comment">

@@ -5,17 +5,22 @@ import Single from "../../../components/admin/single/Single";
 import Header from "../../../components/header/Header";
 import Footer from "../../../components/footer/Footer";
 import SideBar from "../../../components/sidebar/SideBar";
+import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import "./user.scss";
 import { useParams } from 'react-router-dom';
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../../paths";
+import CardAddClass from "../../../components/add/CardAddClass";
+import CardAddCourse from "../../../components/add/CardAddCourse";
+import CardAddMoney from "../../../components/add/CardAddMoney";
 const UserDetail = () => {
   const [userDetails, setUserDetails] = useState({});
   const [loading, setLoading] = useState(true);
   const { userId } = useParams();
   const [roleid, setRoleid] = useState('');
   const [imageSource, setImageSource] = useState("");
+  const [isAddClassPopupVisible, setAddClassPopupVisible] = useState(false);
   // console.log(I);
   const navigate = useNavigate();
   const fetchImage = async () => {
@@ -30,6 +35,13 @@ const UserDetail = () => {
     }
   };
 
+  const openAddClassPopup = () => {
+    setAddClassPopupVisible(true);
+}
+
+const closeAddClassPopup = () => {
+    setAddClassPopupVisible(false);
+}
   useEffect(() => {
 
     fetchImage();
@@ -124,6 +136,7 @@ const UserDetail = () => {
                         <div className="detailItem">
                           <span className="itemKey">Balance:</span>
                           <span className="itemValue">{userDetails.balance}</span>
+                          <button className="btn-add" onClick={openAddClassPopup}><FontAwesomeIcon icon={faSquarePlus} /> Add Money</button>
                         </div>
                         <div className="detailItem">
                           <span className="itemKey">Role       :</span>
@@ -137,6 +150,13 @@ const UserDetail = () => {
                           <span className="itemKey">Status:</span>
                           <span className="itemValue">{userDetails.status}</span>
                         </div>
+                        {
+                            isAddClassPopupVisible && (
+                                <div className="popup">
+                                    <CardAddMoney closePopup={closeAddClassPopup} />
+                                </div>
+                            )
+                        }
                       </div>
                     </div>
                   </div>

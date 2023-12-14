@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import './style.css';
 import myImage from '../../../assets/profile.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,11 +8,12 @@ import { API_BASE_URL } from "../../../paths";
 const CardLearner = ({ learner, onBackClick }) => {
     const [learnerId, setClassDt] = useState(null);
     const [imageSource, setImageSource] = useState("");
-
+    const params = useParams();
     useEffect(() => {
         fetchData();
         fetchImage();
     }, []);
+
 
     const fetchData = async () => {
         try {
@@ -35,6 +37,23 @@ const CardLearner = ({ learner, onBackClick }) => {
         }
     };
 
+    const BtnDelete = async () => {
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/Class/DeleteStudentInClass?classId=${params.classId}&studentId=${learner.userId}`
+                , {
+                    method: 'DELETE'
+                }); // Thay thế URL bằng API thực tế
+
+            if (response.ok) {
+                window.location.reload();
+            }
+            const responseData = await response.json();
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu lớp học:', error);
+        }
+    }
+
     return (
         <div className="container-box">
             {learnerId ? (
@@ -46,6 +65,7 @@ const CardLearner = ({ learner, onBackClick }) => {
                     <p><strong>Description: </strong> {learnerId.description}</p>
                     <p><strong>Address: </strong> {learnerId.address}</p>
                     <button onClick={onBackClick}><FontAwesomeIcon icon={faArrowLeft} /> Back</button>
+                    <button onClick={BtnDelete}><FontAwesomeIcon icon={faArrowLeft} /> Delete</button>
                 </div>
             ) : (
                 <div className="user-box">

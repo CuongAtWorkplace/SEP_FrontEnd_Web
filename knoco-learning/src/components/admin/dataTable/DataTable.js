@@ -1,7 +1,10 @@
 import { DataGrid } from "@mui/x-data-grid"
 import "./dataTable.scss"
 import { Link } from "react-router-dom"
-
+import {
+  GridColDef,
+  GridToolbar,
+} from "@mui/x-data-grid";
 
 const DataTable = props => {
 
@@ -27,14 +30,35 @@ const DataTable = props => {
         className="dataGrid"
         rows={props.rows}
         columns={[...props.columns, actionColumn]}
+        //   initialState={{
+        //     // ...data.initialState,
+        //     pagination: { paginationModel: { pageSize: 8 } },
+        //   }}
+        //   pageSizeOptions={[8]}
+        //   // pageSize={8}
+        //   // rowsPerPageOptions={[8]}
+        // // checkboxSelection
+        // disableRowSelectionOnClick
         initialState={{
-          // ...data.initialState,
-          pagination: { paginationModel: { pageSize: 8 } },
+          pagination: {
+            paginationModel: {
+              pageSize: 10,
+            },
+          },
         }}
-        pageSizeOptions={[8]}
-        // pageSize={8}
-        // rowsPerPageOptions={[8]}
-      // checkboxSelection
+        slots={{ toolbar: GridToolbar }}
+        slotProps={{
+          toolbar: {
+            showQuickFilter: true,
+            quickFilterProps: { debounceMs: 500 },
+          },
+        }}
+        pageSizeOptions={[5]}
+        checkboxSelection
+        disableRowSelectionOnClick
+        disableColumnFilter
+        disableDensitySelector
+        disableColumnSelector
       />
     </div>
   )

@@ -21,13 +21,13 @@ class Login extends Component {
        
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            alert('Email không hợp lệ');
+            alert('Invalid email');
             return false;
         }
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
         
         if (!passwordRegex.test(password)) {
-            alert('Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ cái và một số');
+            alert('Password must be at least 8 characters, include at least one letter and one number');
             return false;
         }
         return true; 

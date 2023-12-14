@@ -33,11 +33,11 @@ const SideBar = () => {
         if (token !== null) {
             const decodedToken = jwtDecode(token);
             setRoleid(decodedToken.roleid);
-            // setTimeout(() => {
-            //     localStorage.removeItem('token');
-            //     console.log('da xoa token.');
-            //     console.log(token)
-            // }, 60 * 1000);
+            setTimeout(() => {
+                localStorage.removeItem('token');
+                console.log('da xoa token.');
+                console.log(token)
+            }, 5 *60 * 1000);
             // if (Number(decodedToken.roleid) === 2 || localStorage.getItem("token") === '') {
             //     navigate(`/`);
             // }

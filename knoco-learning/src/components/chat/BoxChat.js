@@ -38,8 +38,6 @@ const BoxChat = () => {
 			} else {
 				setIsManager(false);
 			}
-			setUser(parseInt(decodedToken.userid, 10));
-			console.log(decodedToken.userid);
 			const fetchCheckUser = async () => {
 				try {
 					const response = await fetch(`${API_BASE_URL}/api/Class/CheckUserFromClassInBoxChat?userId=${decodedToken.userid}&boxchat=${ClassId}`, {
@@ -57,6 +55,9 @@ const BoxChat = () => {
 				}
 			};
 			fetchCheckUser();
+			if (checkToken === false){
+				window.location.href = "/";
+			}
 			
 		} else {
 			window.location.href = "/";

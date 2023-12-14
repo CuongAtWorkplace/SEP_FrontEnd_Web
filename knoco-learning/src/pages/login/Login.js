@@ -48,7 +48,7 @@ class Login extends Component {
             });
     }
     componentDidMount() {
-console.log(localStorage.getItem('previousPath'))
+        console.log(localStorage.getItem('previousPath'))
         this.refreshList();
 
     }

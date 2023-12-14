@@ -3,7 +3,9 @@ import { memo } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from "react-router-dom";
+import {BsBook } from 'react-icons/bs'
 import {
+    faBookOpen,
     faSchool,
     faChalkboardTeacher,
     faUser,
@@ -37,7 +39,7 @@ const SideBar = () => {
                 localStorage.removeItem('token');
                 console.log('da xoa token.');
                 console.log(token)
-            }, 5 *60 * 1000);
+            }, 5 * 60 * 1000);
             // if (Number(decodedToken.roleid) === 2 || localStorage.getItem("token") === '') {
             //     navigate(`/`);
             // }
@@ -66,18 +68,18 @@ const SideBar = () => {
                             <Link className="link-a" to="/report">Report</Link>
                         </li>
                         <li>
-                            <FontAwesomeIcon className="menu-icon" icon={faSchool} />
-                            <Link className="link-a" to="/viewallclass">Class List</Link>
+                            <FontAwesomeIcon className="menu-icon" icon={faBookOpen} />
+                            <Link className="link-a" to="/viewallclass">Course</Link>
                         </li>
                         <li>
-                            <FontAwesomeIcon className="menu-icon" icon={faSchool} />
-                            <Link className="link-a" to="/viewallpost">Post List</Link>
+                            <FontAwesomeIcon className="menu-icon" icon={faClipboard} />
+                            <Link className="link-a" to="/viewallpost">Post</Link>
                         </li>
                     </>}
 
                     {/*Manage */}
                     {roleid == '3' && <>
-                       
+
                         <li>
                             <FontAwesomeIcon className="menu-icon" icon={faDashboard} />
                             <Link className="link-a" to="/dashboard">Dashboard</Link>

@@ -45,29 +45,29 @@ class Add extends Component {
     return Object.values(this.state).every(value => Boolean(value));
   };
 
-  validateForm = () => {
+  validateFormAdd = () => {
     const { email, password, phone, roleName, fullName } = this.state;
 
-    const fullNameRegex = /^[a-zA-Z]{2}$/;
-    if (!fullNameRegex.test(fullName)) {
-      this.setValidationError('fullName', 'Full name must be letters and have at least 2 characters.');
-      return false;
-    }
+    // const fullNameValidate = /^[a-zA-Z]{2,30}$/;
+    // if (!fullNameValidate.test(fullName)) {
+    //   this.setValidationError('fullName', 'Full name must be letters and have at least 2 characters.');
+    //   return false;
+    // }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    const emailValaidate = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailValaidate.test(email)) {
       this.setValidationError('email', 'Email is not valid.');
       return false;
     }
 
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    if (!passwordRegex.test(password)) {
+    const passwordValidate = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (!passwordValidate.test(password)) {
       this.setValidationError('password', 'Password must be at least 8 characters, at least one letter and one number.');
       return false;
     }
 
-    const phoneRegex = /^\d{10}$/;
-    if (!phoneRegex.test(phone)) {
+    const phoneValidate = /^\d{10}$/;
+    if (!phoneValidate.test(phone)) {
       this.setValidationError('phone', 'Phone is not valid. Phone number must have 10 digits.');
       return false;
     }
@@ -91,8 +91,7 @@ class Add extends Component {
 
   async checkEmailExistence(email) {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/check-email?email=${email}`);
-
+      const response = await fetch(`${API_BASE_URL}/api/Admin/checkemail?email=${email}`);
       if (response.ok) {
         const data = await response.json();
         return data.exists; // Giả sử API trả về một đối tượng có thuộc tính 'exists'
@@ -106,14 +105,12 @@ class Add extends Component {
     }
   }
 
-
   handleAddNewUser = async () => {
 
     this.setState({ validationErrors: {} }); // Clear all validation errors
 
-    if (this.checkValidInput() && this.validateForm()) {
+    if (this.checkValidInput() && this.validateFormAdd()) {
       const emailExists = await this.checkEmailExistence(this.state.email);
-
       if (emailExists) {
         this.setValidationError('email', 'Email already exists.');
       } else {

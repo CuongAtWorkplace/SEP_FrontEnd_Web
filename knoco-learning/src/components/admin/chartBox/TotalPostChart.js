@@ -25,7 +25,7 @@ const TotalPost = () => {
                     <span>Total Posts</span>
                 </div>
                 <h1>{totalPosts.totalPost}</h1>
-                <Link to="" style={{ color: 'gold'}}>
+                <Link to="/viewallpost" style={{ color: 'gold'}}>
                     View all
                 </Link>
             </div>

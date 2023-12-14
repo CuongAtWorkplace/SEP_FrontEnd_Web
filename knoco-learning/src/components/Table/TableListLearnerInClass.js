@@ -61,34 +61,45 @@ const TableListLearnerInClass = (props) => {
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
-
+  const validateForm = () => {
+    const pdf = ".pdf";
+    const fileName = selectedFile.name;
+    if (!fileName.endsWith('.pdf')) {
+      alert('Please upload a PDF file');
+      return false;
+    }
+    return true; 
+};
   const handleUpload = async () => {
-    if (!selectedFile) {
-      console.log('Vui lòng chọn tệp.');
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('files', selectedFile);
-
-
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/File/UploadFiles?classId=${params.classId}`, {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (response.ok) {
-        console.log('Tải lên thành công!');
-        toast.success("Successfull !!!")
-        fetchDataFile();
-      } else {
-        throw new Error('Failed to upload file.');
+    if(validateForm()){
+      if (!selectedFile) {
+        console.log('Vui lòng chọn tệp.');
+        return;
       }
-    } catch (error) {
-      toast.error("Failed. Try Again!!!")
-      console.error('Lỗi khi tải lên:', error);
+  
+      const formData = new FormData();
+      formData.append('files', selectedFile);
+  
+  
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/File/UploadFiles?classId=${params.classId}`, {
+          method: 'POST',
+          body: formData,
+        });
+  
+        if (response.ok) {
+          console.log('Tải lên thành công!');
+          toast.success("Successfull !!!")
+          fetchDataFile();
+        } else {
+          throw new Error('Failed to upload file.');
+        }
+      } catch (error) {
+        toast.error("Failed. Try Again!!!")
+        console.error('Lỗi khi tải lên:', error);
+      }
     }
+    
   };
 
   const handleRowClick = (learner) => {
@@ -107,6 +118,7 @@ const TableListLearnerInClass = (props) => {
   const closeLearnerDetailPopup = () => {
     setLearnerDetailPopupVisible(null);
   }
+  
   const columns = [
     {
       Header: 'Full Name',

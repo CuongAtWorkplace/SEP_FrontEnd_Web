@@ -33,7 +33,11 @@ const BoxChat = () => {
 		if (token !== null) {
 			const decodedToken = jwtDecode(token);
 			const check = decodedToken.roleid;
-			if (check == 3) {
+			setUser(decodedToken.userid);
+			if(decodedToken.roleid == 2){
+				window.location.href = "/";
+			}
+			if (decodedToken.roleid == 3) {
 				setIsManager(true);
 			} else {
 				setIsManager(false);
@@ -193,7 +197,7 @@ const BoxChat = () => {
 		time: message.createDate,
 		sender: message.fullName,
 		image: message.photo,
-		isSent: message.createBy === User,
+		isSent: message.createBy == User,
 	}));
 
 	const uploadImage = async () => {
@@ -359,14 +363,15 @@ const Message = ({ sender, text, time, isSent, messageId, image, handleDelete })
 			return (
 				<>
 					<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
-						<div className="btn_del_msg">
-							<button><FontAwesomeIcon icon={faTrash} /></button>
-						</div>
+					
 						<div className={messageContainerClass}>
 							{text}
 						</div>
 					</div>
 					<div className={`d-flex ${isSent ? 'justify-content-end' : 'justify-content-start'} mb-4`}>
+					<div className="btn_del_msg" onClick={() => handleDelete(messageId)}>
+							<button><FontAwesomeIcon icon={faTrash} /></button>
+						</div>
 						<div className={messageContainerClass}>
 							<img src={`${API_BASE_URL}/api/ChatRoom/GetImage/${messageId}`} />
 							<span className={isSent ? "msg_time_send" : "msg_time"}>{formattedDateTime(time)}</span>

@@ -21,6 +21,7 @@ class Add extends Component {
         email: '',
         password: '',
         phone: '',
+        roleName: '',
       }
     };
   }
@@ -47,9 +48,9 @@ class Add extends Component {
   validateForm = () => {
     const { email, password, phone, roleName, fullName } = this.state;
 
-    const fullNameRegex = /^[a-zA-Z]+$/;
+    const fullNameRegex = /^[a-zA-Z]{2}$/;
     if (!fullNameRegex.test(fullName)) {
-      this.setValidationError('fullName', 'Full name is not valid.');
+      this.setValidationError('fullName', 'Full name must be letters and have at least 2 characters.');
       return false;
     }
 

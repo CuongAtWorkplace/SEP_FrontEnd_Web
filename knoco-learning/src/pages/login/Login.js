@@ -16,6 +16,7 @@ class Login extends Component {
             redirectPath: null,
         }
     }
+
     validateForm = () => {
         const { email, password } = this.state;
        
@@ -24,8 +25,8 @@ class Login extends Component {
             alert('Invalid email');
             return false;
         }
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
         
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
         if (!passwordRegex.test(password)) {
             alert('Password must be at least 8 characters, include at least one letter and one number');
             return false;
@@ -90,7 +91,7 @@ class Login extends Component {
                         window.location.href = "/viewclass"
                     }
                 } else {
-                    toast.error("Check Password !!!")
+                    toast.error("Check Email or Password !!!")
                     this.setState({ checkLogin: false });
                 }
             } catch (error) {

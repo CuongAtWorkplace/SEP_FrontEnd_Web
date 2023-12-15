@@ -16,15 +16,24 @@ import CardChangeImage from "../../components/edit/CardChangeImage";
 import { API_BASE_URL } from "../../paths";
 import jwtDecode from "jwt-decode";
 const ProfileTeacher = ({ onBackClick, children, ...props }) => {
-    const UserID = 2;
     const navigate = useNavigate();
     const [userDt, setUserDt] = useState(null);
     const [isEditProfilePopupVisible, setEditProfilePopupVisible] = useState(false);
     const [isChangePasswordPopupVisible, setChangePasswordPopupVisible] = useState(false);
     const [isChangeImagePopupVisible, setChangeImagePopupVisible] = useState(false);
     const [imageSource, setImageSource] = useState("");
+    const [reloadData, setReloadData] = useState(false);
 
     useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token !== null) {
+            const decodedToken = jwtDecode(token);
+           
+            if (Number(decodedToken.roleid) !== 1 || localStorage.getItem("token") === '') {
+                navigate(`/`);
+            }
+        }
+
         fetchData();
         // Add click event listener to menu-btn
         $('.menu-btn').on('click', function () {
@@ -67,8 +76,14 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
         setEditProfilePopupVisible(true);
     }
 
-    const closeEditProfilePopup = () => {
+    const closeEditProfilePopup = async () => {
         setEditProfilePopupVisible(false);
+        setReloadData(!reloadData);
+        try {
+            await fetchData(); // Fetch dữ liệu mới sau khi đóng popup chỉnh sửa
+        } catch (error) {
+            console.error('Lỗi khi fetch dữ liệu sau khi chỉnh sửa:', error);
+        }
     }
 
     const openChangePasswordPopup = () => {

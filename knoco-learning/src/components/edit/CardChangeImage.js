@@ -4,9 +4,9 @@ import myImage from '../../assets/profile.jpg';
 import '../../style/Teacher/Edit.css';
 import { toast } from 'react-toastify';
 import { API_BASE_URL } from "../../paths";
+import jwtDecode from "jwt-decode";
 
 const CardChangeImage = ({ closePopup }) => {
-    const UserID = 2;
     const [userDt, setUserDt] = useState({});
     //const [imageSource, setImage] = useState('');
     const [selectedImage, setSelectedImage] = useState(null);
@@ -19,7 +19,9 @@ const CardChangeImage = ({ closePopup }) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/User/GetUserProfile/${UserID}`); // Thay thế URL bằng API thực tế
+            const token = localStorage.getItem("token");
+            const decodedToken = jwtDecode(token);
+            const response = await fetch(`${API_BASE_URL}/api/User/GetUserProfile/${decodedToken.userid}`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setUserDt(responseData);
             setSelectedImage(responseData.image || '');
@@ -30,7 +32,9 @@ const CardChangeImage = ({ closePopup }) => {
 
     const fetchImage = async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/User/GetUserImage/GetImage/${UserID}`);
+            const token = localStorage.getItem("token");
+            const decodedToken = jwtDecode(token);
+            const response = await fetch(`${API_BASE_URL}/api/User/GetUserImage/GetImage/${decodedToken.userid}`);
             if (response.ok) {
                 const imageData = await response.blob();
                 setSelectedImage(URL.createObjectURL(imageData));
@@ -42,7 +46,7 @@ const CardChangeImage = ({ closePopup }) => {
 
     const handleImageChange = async (e) => {
         e.preventDefault();
-        
+
         if (!selectedImage) {
             console.error('Vui lòng chọn ảnh');
             return;
@@ -55,57 +59,60 @@ const CardChangeImage = ({ closePopup }) => {
         formData.append("file", e.target.files[0], e.target.files[0].name);
 
         try {
-            const response = await fetch(`${API_BASE_URL}/api/User/UploadImage/UploadImage/${UserID}`, {
+            const token = localStorage.getItem("token");
+            const decodedToken = jwtDecode(token);
+            const response = await fetch(`${API_BASE_URL}/api/User/UploadImage/UploadImage/${decodedToken.userid}`, {
                 method: 'POST',
                 body: formData
             });
             if (response.ok) {
                 console.log('Hình ảnh đã được tải lên thành công');
-                toast.success("Change image successful!!!")
+                toast.success("Change image successful!")
                 closePopup();
                 window.location.reload();
             } else {
                 console.error('Lỗi khi tải lên hình ảnh:', response.status, response.statusText);
-                toast.error("Update image failed. Not change image!!!");
+                toast.error("Update image failed. Not change image!");
             }
         } catch (error) {
             console.error('Lỗi khi tải lên hình ảnh:', error);
-            toast.error("Update image failed. Not change image!!!");
+            toast.error("Update image failed. Not change image!");
         }
     };
 
     const handleSubmit = async (e) => {
+        // const userUpdate = {
+        //     userId: userDt.userId,
+        //     image: selectedImage,
+        // };
 
-        const userUpdate = {
-            userId: userDt.userId,
-            image: selectedImage,
-        };
+        // e.preventDefault();
 
-        e.preventDefault();
+        // if (!selectedImage) {
+        //     console.error('Vui lòng chọn ảnh');
+        //     return;
+        // }
 
-        if (!selectedImage) {
-            console.error('Vui lòng chọn ảnh');
-            return;
-        }
+        // const formData = new FormData();
+        // formData.append('image', selectedImage);
 
-        const formData = new FormData();
-        formData.append('image', selectedImage);
-
-        try {
-            const response = await fetch(`${API_BASE_URL}/api/User/UploadImage/UploadImage/${UserID}`, {
-                method: 'POST',
-                body: formData
-            });
-            if (response.ok) {
-                console.log('Hình ảnh đã được tải lên thành công');
-                closePopup();
-                window.location.reload();
-            } else {
-                console.error('Lỗi khi tải lên hình ảnh:', response.status, response.statusText);
-            }
-        } catch (error) {
-            console.error('Lỗi khi tải lên hình ảnh:', error);
-        }
+        // try {
+        //     const token = localStorage.getItem("token");
+        //     const decodedToken = jwtDecode(token);
+        //     const response = await fetch(`${API_BASE_URL}/api/User/UploadImage/UploadImage/${decodedToken.userid}`, {
+        //         method: 'POST',
+        //         body: formData
+        //     });
+        //     if (response.ok) {
+        //         console.log('Hình ảnh đã được tải lên thành công');
+        //         closePopup();
+        //         window.location.reload();
+        //     } else {
+        //         console.error('Lỗi khi tải lên hình ảnh:', response.status, response.statusText);
+        //     }
+        // } catch (error) {
+        //     console.error('Lỗi khi tải lên hình ảnh:', error);
+        // }
     };
 
     return (

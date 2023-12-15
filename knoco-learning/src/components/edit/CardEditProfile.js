@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import '../../style/Teacher/Edit.css'
 import { toast } from 'react-toastify';
 import { API_BASE_URL } from "../../paths";
+import jwtDecode from "jwt-decode";
+
 const CardEditProfile = ({ closePopup }) => {
     //const params = useParams();
     const [userDt, setUserDt] = useState({});
@@ -18,7 +20,9 @@ const CardEditProfile = ({ closePopup }) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/User/GetUserProfile/${2}`); // Thay thế URL bằng API thực tế
+            const token = localStorage.getItem("token");
+            const decodedToken = jwtDecode(token);
+            const response = await fetch(`${API_BASE_URL}/api/User/GetUserProfile/${decodedToken.userid}`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setUserDt(responseData);
             setFullName(responseData.fullName || '');
@@ -31,7 +35,28 @@ const CardEditProfile = ({ closePopup }) => {
         }
     };
 
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const validatePhoneNumber = (phoneNumber) => {
+        const phoneRegex = /^\d{10}$/;
+        return phoneRegex.test(phoneNumber);
+    };
+
     const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!validateEmail(email)) {
+            toast.error("Please enter a valid email.");
+            return;
+        }
+
+        if (!validatePhoneNumber(phone)) {
+            toast.error("Please enter a valid phone number.");
+            return;
+        }
 
         const userUpdate = {
             userId: userDt.userId,
@@ -41,8 +66,7 @@ const CardEditProfile = ({ closePopup }) => {
             description: description,
             address: address
         };
-
-        e.preventDefault();
+        
         try {
             const response = await fetch(`${API_BASE_URL}/api/User/EditProfile`, {
                 method: 'PUT',
@@ -55,7 +79,8 @@ const CardEditProfile = ({ closePopup }) => {
                 console.log('Dữ liệu người dùng đã được cập nhật thành công');
                 toast.success("Successfull !!!")
                 closePopup();
-                window.location.reload();
+                fetchData();
+                //window.location.reload();
             } else {
                 console.error('Lỗi khi cập nhật dữ liệu người dùng:', response.status, response.statusText);
             }
@@ -77,7 +102,7 @@ const CardEditProfile = ({ closePopup }) => {
 
                 <div className="form-group">
                     <label className="control-label">Email:</label>
-                    <input className="form-control" type="text" id="Email" name="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <input className="form-control" type="email" id="Email" name="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
 
                 <div className="form-group">

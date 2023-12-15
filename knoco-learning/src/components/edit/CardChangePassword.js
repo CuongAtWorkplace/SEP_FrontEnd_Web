@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import '../../style/Teacher/Edit.css'
 import { API_BASE_URL } from "../../paths";
 import { toast } from 'react-toastify';
+import jwtDecode from "jwt-decode";
 
 const CardChangePassword = ({ closePopup }) => {
     //const params = useParams();
@@ -18,7 +19,9 @@ const CardChangePassword = ({ closePopup }) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/User/GetUserProfile/${2}`); // Thay thế URL bằng API thực tế
+            const token = localStorage.getItem("token");
+            const decodedToken = jwtDecode(token);
+            const response = await fetch(`${API_BASE_URL}/api/User/GetUserProfile/${decodedToken.userid}`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setUserDt(responseData);
             setEmail(responseData.email || '');
@@ -31,6 +34,24 @@ const CardChangePassword = ({ closePopup }) => {
     };
 
     const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+        if (!passwordRegex.test(password) || !passwordRegex.test(newPassword) || !passwordRegex.test(rePassword)) {
+            toast.error('Password must be at least 8 characters, include at least one letter and one number');
+            return;
+        }
+    
+        if (newPassword !== rePassword) {
+            toast.error('New password and Re-password do not match');
+            return;
+        }
+    
+        if (password === newPassword) {
+            toast.error('New password must be different from old password');
+            return;
+        }
 
         const userUpdate = {
             userId: userDt.userId,
@@ -39,7 +60,6 @@ const CardChangePassword = ({ closePopup }) => {
             rePassword: rePassword
         };
 
-        e.preventDefault();
         try {
             const response = await fetch(`${API_BASE_URL}/api/User/ChangePassword`, {
                 method: 'PUT',

@@ -81,7 +81,7 @@ const TableRequestClassManager = () => {
             type: true
         }
 
-        const response = await fetch(`${API_BASE_URL}ttps://localhost:7169/api/Class/UpdateTypeClassRequest`, {
+        const response = await fetch(`${API_BASE_URL}/api/Class/UpdateTypeClassRequest`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

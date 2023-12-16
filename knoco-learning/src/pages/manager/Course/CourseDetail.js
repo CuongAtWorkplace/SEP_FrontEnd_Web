@@ -166,7 +166,7 @@ function CourseDetail() {
     const formData = new FormData();
     formData.append("file", e.target.files[0], e.target.files[0].name);
 
-    fetch('${API_BASE_URL}/api/Post/SaveFile', {
+    fetch(`${API_BASE_URL}/api/Post/SaveFile`, {
       method: 'POST',
       body: formData
     })
@@ -232,10 +232,6 @@ function CourseDetail() {
               />
             </div>
           </div>
-
-
-
-
           <footer>
             <Footer />
           </footer>

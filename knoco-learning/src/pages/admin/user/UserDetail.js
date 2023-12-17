@@ -149,6 +149,7 @@ const closeAddClassPopup = () => {
                         <div className="detailItem">
                           <span className="itemKey">Status:</span>
                           <span className="itemValue">{userDetails.status}</span>
+                          
                         </div>
                         {
                             isAddClassPopupVisible && (

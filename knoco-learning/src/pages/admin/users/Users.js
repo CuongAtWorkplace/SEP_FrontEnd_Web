@@ -45,7 +45,33 @@ class Users extends Component {
       isOpenModal: !this.state.isOpenModal,
     })
   }
+  UpdateActiveUser = async (userId, type) => {
+    const hidePost = {
+      userId: userId,
+      isBan: type
+    };
 
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/User/ChangeIsBanUser`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(hidePost),
+      });
+
+      if (response.ok) {
+        
+        window.location.reload();
+      } else {
+        toast.error("Failed. Try Again!!!");
+        throw new Error('Failed to update');
+      }
+    } catch (error) {
+      console.error(error);
+      // Xử lý lỗi nếu cần
+    }
+  }
   createNewUser = async (data) => {
     try {
       const response = await fetch(`${API_BASE_URL}/api/Admin/AddNewUser`, {
@@ -128,13 +154,32 @@ class Users extends Component {
         renderCell: (params) => {
           return (
             <div className={`cellWithStatus ${params.row.status}`}>
-              {params.row.status}
+
+              {params.row.status === "Active" &&
+                <button onClick={() => this.UpdateActiveUser(params.row.userId, true)} >        {params.row.status}
+                </button>
+              }
+              {params.row.status === "Ban" &&
+                <button onClick={() => this.UpdateActiveUser(params.row.userId, false)} >        {params.row.status}
+                </button>
+              }
+
+
             </div>
           );
         },
       },
     ];
-
+    // const CustomButton = ({ isActive, postId }) => (
+    //   <div>
+    //     <span></span>
+    //     {isActive === "True" ? (
+    //       <button>Đã Duyệt</button>
+    //     ) : (
+    //       <button onClick={() => this.UpdateActivePost(postId)}>Duyệt</button>
+    //     )}
+    //   </div>
+    // );
     return (
       <div>
         <div className="body_page">

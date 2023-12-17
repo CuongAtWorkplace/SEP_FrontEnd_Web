@@ -51,7 +51,7 @@ function App() {
         <Route path="/classdetail/:classId" element={<ClassDetail />} />
         <Route path="/learnerdetail" element={<LearnerDetail />} />
         <Route path="/list-all-course" element={<ListAllCourse />} />
-        <Route path="/class-empty/:courseId" element={<ClassEmpty />} />
+        <Route path="/choose-class/:courseId" element={<ClassEmpty />} />
         <Route path="/profile-teacher" element={<Profile />} />
         <Route path="/homepage" element={<HomePage />} />
         <Route path="/videocall/:roomId" element={<VideoCallDemo />} />
@@ -69,12 +69,12 @@ function App() {
         <Route path='/tableRequestmanager' element={<RequestManager />} />
         <Route path='/tableRequesClassManager' element={<RequestClassManager />} />
         <Route path="/manager/course" element={<ViewAllCourse />} />
+        <Route path="/coursedetail/:cid" element={<CourseDetail />} />
         <Route path="/manager/viewpostlistmanager" element={<ViewPostListManager />} />
         <Route path="/manager/viewpostdetailmanager/:pid" element={<ViewPostDetailManager />} />
 
         <Route path="/listlearner" element={<ListLearner />} />
         <Route path="/viewleanerlist" element={<ViewLeanerList />} />
-        <Route path="/coursedetail/:cid" element={<CourseDetail />} />
         <Route path='/testfile' element={<ListCourse />} />
         <Route path='/manager' element={<SideBar />} />
         

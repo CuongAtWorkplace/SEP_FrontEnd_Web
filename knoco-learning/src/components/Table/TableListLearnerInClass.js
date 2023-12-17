@@ -79,8 +79,7 @@ const TableListLearnerInClass = (props) => {
   
       const formData = new FormData();
       formData.append('files', selectedFile);
-  
-  
+
       try {
         const response = await fetch(`${API_BASE_URL}/api/File/UploadFiles?classId=${params.classId}`, {
           method: 'POST',

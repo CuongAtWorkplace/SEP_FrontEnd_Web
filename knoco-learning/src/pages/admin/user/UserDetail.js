@@ -37,11 +37,11 @@ const UserDetail = () => {
 
   const openAddClassPopup = () => {
     setAddClassPopupVisible(true);
-}
+  }
 
-const closeAddClassPopup = () => {
+  const closeAddClassPopup = () => {
     setAddClassPopupVisible(false);
-}
+  }
   useEffect(() => {
 
     fetchImage();
@@ -136,7 +136,6 @@ const closeAddClassPopup = () => {
                         <div className="detailItem">
                           <span className="itemKey">Balance:</span>
                           <span className="itemValue">{userDetails.balance}</span>
-                          <button className="btn-add" onClick={openAddClassPopup}><FontAwesomeIcon icon={faSquarePlus} /> Add Money</button>
                         </div>
                         <div className="detailItem">
                           <span className="itemKey">Role       :</span>
@@ -150,12 +149,15 @@ const closeAddClassPopup = () => {
                           <span className="itemKey">Status:</span>
                           <span className="itemValue">{userDetails.status}</span>
                         </div>
+                        <div className="detailItem">
+                          <button className="btn-add" onClick={openAddClassPopup}><FontAwesomeIcon icon={faSquarePlus} /> Add Money</button>
+                        </div>
                         {
-                            isAddClassPopupVisible && (
-                                <div className="popup">
-                                    <CardAddMoney closePopup={closeAddClassPopup} />
-                                </div>
-                            )
+                          isAddClassPopupVisible && (
+                            <div className="popup">
+                              <CardAddMoney closePopup={closeAddClassPopup} />
+                            </div>
+                          )
                         }
                       </div>
                     </div>

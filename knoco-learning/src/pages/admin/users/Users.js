@@ -61,7 +61,7 @@ class Users extends Component {
       });
 
       if (response.ok) {
-        
+
         window.location.reload();
       } else {
         toast.error("Failed. Try Again!!!");

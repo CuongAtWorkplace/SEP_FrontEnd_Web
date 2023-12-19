@@ -47,7 +47,6 @@ function App() {
       <Routes>
         {/* teacher */}
         <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/viewclass" element={<ViewClass />} />
         <Route path="/classdetail/:classId" element={<ClassDetail />} />
         <Route path="/learnerdetail" element={<LearnerDetail />} />
@@ -70,7 +69,7 @@ function App() {
         <Route path="/boxchat/:boxchatid" element={<BoxChat />} />
         <Route path='/tableRequestmanager' element={<RequestManager />} />
         <Route path='/tableRequesClassManager' element={<RequestClassManager />} />
-        <Route path="/manager/course" element={<ViewAllCourse />} />
+        <Route path="/course" element={<ViewAllCourse />} />
         <Route path="/manager/viewpostlistmanager" element={<ViewPostListManager />} />
         <Route path="/manager/viewpostdetailmanager/:pid" element={<ViewPostDetailManager />} />
 

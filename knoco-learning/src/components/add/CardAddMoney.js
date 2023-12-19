@@ -10,10 +10,7 @@ const CardAddMoney = ({ closePopup }) => {
     const [moneyAdd, setMoneyAdd] = useState('');
 
 
-    const formatDate = (date) => {
-        const formattedDate = new Date(date).toISOString().split('T')[0];
-        return formattedDate;
-    };
+    
     useEffect(() =>{
         const token = localStorage.getItem("token");
         if (token !== null) {

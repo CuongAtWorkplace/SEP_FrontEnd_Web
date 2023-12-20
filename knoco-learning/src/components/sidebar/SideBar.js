@@ -65,7 +65,7 @@ const SideBar = () => {
                         </li>
                         <li>
                             <FontAwesomeIcon className="menu-icon" icon={faBookOpen} />
-                            <Link className="link-a" to="/viewallclass">Course</Link>
+                            <Link className="link-a" to="/course">Course</Link>
                         </li>
                         <li>
                             <FontAwesomeIcon className="menu-icon" icon={faClipboard} />
@@ -90,7 +90,7 @@ const SideBar = () => {
                         </li>*/}
                         <li>
                             <FontAwesomeIcon className="menu-icon" icon={faSchool} />
-                            <Link className="link-a" to="/manager/course">Manage Courses</Link>
+                            <Link className="link-a" to="/course">Manage Courses</Link>
                         </li>
                         <li>
                             <FontAwesomeIcon className="menu-icon" icon={faClipboard} />

@@ -59,7 +59,6 @@ const TableRequestClassManager = () => {
         })
             .then((response) => {
                 if (response.ok) {
-                    // window.confirm("Are you sure you want to teach this class?") ? navigate(`/classdetail/${classId}`) : window.close();
                     toast.success("Successfull !!!");
                 }
                 else if (!response.ok) {
@@ -92,7 +91,7 @@ const TableRequestClassManager = () => {
         if (response.ok) {
             toast.success("Successfull !!!")
             await UpdateRequestClass(Number(data.classId), Number(data.userId));
-            fetchData();
+        
         }
         else if (!response.ok) {
             toast.error("Failed. Try Again!!!")
@@ -135,7 +134,7 @@ const TableRequestClassManager = () => {
             Filter: ColumnFilter, // Custom filter component for courseName column
         },
         {
-            Header: 'User Name',
+            Header: 'Teacher Name',
             accessor: 'teacherName',
             Filter: ColumnFilter, // Custom filter component for courseName column
         },

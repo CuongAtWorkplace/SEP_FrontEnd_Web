@@ -81,13 +81,13 @@ const SideBar = () => {
                         </li>
                     </>}
 
-                    {/*Manage */}
+                    {/*Manager */}
                     {roleid == '3' && <>
 
-                        <li>
+                        {/*<li>
                             <FontAwesomeIcon className="menu-icon" icon={faDashboard} />
                             <Link className="link-a" to="/dashboard">Dashboard</Link>
-                        </li>
+                        </li>*/}
                         <li>
                             <FontAwesomeIcon className="menu-icon" icon={faSchool} />
                             <Link className="link-a" to="/manager/course">Manage Courses</Link>
@@ -100,17 +100,17 @@ const SideBar = () => {
                             <FontAwesomeIcon className="menu-icon" icon={faChalkboardTeacher} />
                             <Link className="link-a" to="/viewallclass">Manage Class</Link>
                         </li>
-                        <li>
+                        {/*<li>
                             <FontAwesomeIcon className="menu-icon" icon={faUser} />
                             <Link className="link-a" to="">Manage Learners</Link>
-                        </li>
+                        </li>*/}
                         <li>
                             <FontAwesomeIcon className="menu-icon" icon={faFlag} />
                             <Link className="link-a" to="/tableRequesClassmanager">View Request Class</Link>
                         </li>
                         <li>
                             <FontAwesomeIcon className="menu-icon" icon={faFlag} />
-                            <Link className="link-a" to="/tableRequestmanager">View Request User</Link>
+                            <Link className="link-a" to="/tableRequestmanager">View Request Support</Link>
                         </li>
                     </>}
 

@@ -69,6 +69,8 @@ const TableRequestmanager = () => {
 
       })
   }
+
+  
   const columns = [
     {
       Header: 'chat Room Id',
@@ -98,8 +100,6 @@ const TableRequestmanager = () => {
       
       Cell: ({ row }) => (
        <CustomButton chatRoomId={row.original.chatRoomId} />
-          
-
       ),
     },
   ];

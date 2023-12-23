@@ -56,7 +56,33 @@ const CardAddClass = ({ closePopup }) => {
         }
         return true;
     };
+const CreateRoomChat = async (classId) => {
 
+        const classC = {
+            chatRoomName: "Room chat class",
+            description:"Room chat class",
+            isManagerChat:true,
+            classId:classId
+        }
+        fetch(`${API_BASE_URL}/api/RequestManager/CreateChatRoomManage`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(classC)
+        })
+            .then((response) => {
+                if (response.ok) {
+                    toast.success("Successfull !!!")
+                    fetchData();
+                }
+                else if (!response.ok) {
+                    toast.error("Failed. Try Again!!!")
+                    throw new Error('Failed to update');
+                }
+
+            })
+    }
     const handleSubmit = async (e) => {
 
         e.preventDefault();
@@ -118,6 +144,8 @@ const CardAddClass = ({ closePopup }) => {
             if (response.ok) {
                 console.log('Dữ liệu lớp học đã được cập nhật thành công');
                 toast.success("Add class successfull !");
+                const data = await response.json();
+                CreateRoomChat(Number(data));
                 closePopup();
                 window.location.reload();
             } else {

@@ -175,7 +175,7 @@ const UserDetail = () => {
                         <div className="detailItem">
                           <span className="itemKey">Balance:</span>
                           <span className="itemValue">{userDetails.balance}</span>
-                          <button className="btn-add" onClick={openAddClassPopup}><FontAwesomeIcon icon={faSquarePlus} /> Add Money</button>
+                          <button type="button" class="btn btn-dark" onClick={openAddClassPopup}>Add Money</button>
                         </div>
                         <div className="detailItem">
                           <span className="itemKey">Role       :</span>

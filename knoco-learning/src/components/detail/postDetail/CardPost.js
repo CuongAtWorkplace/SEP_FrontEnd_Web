@@ -161,9 +161,9 @@ const CardPost = () => {
             });
 
             if (updateResponse.ok) {
-                
-                toast.success("Successfull !!!");
                 fetchData();
+                toast.success("Successfull !!!");
+                
                 setStatus(false);
             } else {
                 throw new Error('Failed to update');
@@ -188,13 +188,13 @@ const CardPost = () => {
             setlikeAmout(commentData.likeAmout);
 
             const UnhideComment = {
-                userCommentPostId: Number(UserCommentPostId),
-                userId: Number(userId),
-                postId: Number(PostId),
-                content: Content,
-                createDate: CreateDateComment,
-                likeAmount: Number(LikeAmountComment),
-                isActive: true
+                userCommentPostId: commentData.userCommentPostId,  // Use directly from commentData
+                userId: commentData.userId,  // Use directly from commentData
+                postId: commentData.postId,  // Use directly from commentData
+                content: commentData.content,  // Use directly from commentData
+                createDate: commentData.createDate,  // Use directly from commentData
+                likeAmount: commentData.likeAmout,  // Use directly from commentData
+                isActive: false
             };
 
             const updateResponse = await fetch(`${API_BASE_URL}/api/Post/UpdateUnHideComment`, {

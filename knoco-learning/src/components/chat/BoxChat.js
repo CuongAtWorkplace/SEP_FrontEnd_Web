@@ -261,6 +261,7 @@ const BoxChat = () => {
 		}
 	};
 
+
 	const handleSubmit = () =>{
 		if (messageText && messageText.trim() !== '') {
 			uploadImage();
@@ -269,13 +270,18 @@ const BoxChat = () => {
 		}
 	}
 
+	const handleBackClick = () => {
+        window.location.href="/classdetail/" + ClassId;
+    };
+
+
 	return (
 		<div className="chat-box">
 			<div className="card">
 				<div className="card-header msg_head">
 					<div className="d-flex">
 						<button>
-							<FontAwesomeIcon className="back-btn" icon={faArrowLeft} />
+							<FontAwesomeIcon className="back-btn" onClick={handleBackClick} icon={faArrowLeft} />
 						</button>
 					</div>
 					<div className="d-flex">

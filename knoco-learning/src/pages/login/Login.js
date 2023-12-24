@@ -19,19 +19,19 @@ class Login extends Component {
 
     validateForm = () => {
         const { email, password } = this.state;
-       
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             alert('Invalid email');
             return false;
         }
-        
+
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
         if (!passwordRegex.test(password)) {
             alert('Password must be at least 8 characters, include at least one letter and one number');
             return false;
         }
-        return true; 
+        return true;
     };
 
     handleEmailChange = (e) => {
@@ -49,7 +49,7 @@ class Login extends Component {
             });
     }
     componentDidMount() {
-   
+
         this.refreshList();
 
     }
@@ -80,7 +80,7 @@ class Login extends Component {
 
 
                     if (decodedToken.roleid == 2) {
-                        
+
                         window.location.href = localStorage.getItem('previousPath');
                     }
                     else if (decodedToken.roleid == 3) {
@@ -139,9 +139,9 @@ class Login extends Component {
                     <div class="container-login100">
                         <div class="wrap-login100">
                             <div class="login100-pic js-tilt" data-tilt>
-                            <img src="e-learning-la-gi.jpg"  />
+                                <img src="e-learning-la-gi.jpg" />
                             </div>
-                           
+
                             <form className="login100-form validate-form" >
                                 <span className="login100-form-title">
                                     Member Login

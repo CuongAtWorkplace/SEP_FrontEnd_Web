@@ -103,7 +103,8 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
     }
 
     const handleLogoutClick = () => {
-        navigate(`/login`); // Chuyển hướng đến trang /videocall khi nhấp vào nút "Meeting"
+        localStorage.removeItem("token");
+        window.location.href="/";
     };
 
     return (

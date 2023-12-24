@@ -46,7 +46,7 @@ const ListCourse = () => {
                 // <p>Loading class information...</p>
                 <div className="items-course">
                     <div className="img-course">
-                        <img src={"https://reactjs.org/logo-og.png" || "https://reactjs.org/logo-og.png"} alt="courseName" />
+                        <img className="img-cour" src={"https://reactjs.org/logo-og.png" || "https://reactjs.org/logo-og.png"} alt="courseName" />
                     </div>
                     <div className="course">
                         <div className="first-info">

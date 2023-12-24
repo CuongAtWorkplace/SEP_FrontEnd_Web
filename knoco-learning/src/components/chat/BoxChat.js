@@ -260,6 +260,9 @@ const BoxChat = () => {
 		}
 	};
 
+	const handleBackClick = () => {
+        window.location.href="/classdetail/" + ClassId;
+    };
 
 	return (
 		<div className="chat-box">
@@ -267,7 +270,7 @@ const BoxChat = () => {
 				<div className="card-header msg_head">
 					<div className="d-flex">
 						<button>
-							<FontAwesomeIcon className="back-btn" icon={faArrowLeft} />
+							<FontAwesomeIcon className="back-btn" onClick={handleBackClick} icon={faArrowLeft} />
 						</button>
 					</div>
 					<div className="d-flex">

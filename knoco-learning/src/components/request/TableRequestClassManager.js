@@ -28,14 +28,14 @@ const ColumnFilter = ({ column }) => {
     );
 };
 
-
 const TableRequestClassManager = () => {
     const [listClassRequest, setListClassRequest] = useState([]);
     const navigate = useNavigate();
+    const [reloadData, setReloadData] = useState(false);
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [reloadData]);
 
 
     const fetchData = async () => {
@@ -91,7 +91,12 @@ const TableRequestClassManager = () => {
         if (response.ok) {
             toast.success("Successfull !!!")
             await UpdateRequestClass(Number(data.classId), Number(data.userId));
-        
+            setReloadData(!reloadData);
+            try {
+                await fetchData(); // Fetch dữ liệu mới sau khi đóng popup chỉnh sửa
+            } catch (error) {
+                console.error('Lỗi khi fetch dữ liệu sau khi chỉnh sửa:', error);
+            }
         }
         else if (!response.ok) {
             toast.error("Failed. Try Again!!!")

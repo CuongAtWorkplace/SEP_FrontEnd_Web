@@ -163,11 +163,6 @@ const TableListClassEmpty = (props) => {
       ),
     },
     {
-      Header: 'Status',
-      accessor: 'status',
-      Filter: ColumnFilter, // Custom filter component for courseId column
-    },
-    {
       Header: 'Action',
       accessor: '',
       Filter: ColumnFilter, // Custom filter component for courseId column

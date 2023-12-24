@@ -25,7 +25,7 @@ const TotalCourse = () => {
                     <span>Total Courses</span>
                 </div>
                 <h1>{totalCourses.totalcourse}</h1>
-                <Link to="" style={{ color: 'skyblue'}}>
+                <Link to="/course" style={{ color: 'skyblue'}}>
                     View all
                 </Link>
             </div>

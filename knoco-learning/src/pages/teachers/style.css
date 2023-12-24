@@ -57,8 +57,9 @@
   cursor: pointer;
 }
 
-#menu .items li:nth-child(1) {
+#menu .items li.selected {
   border-left: 4px solid #fff;
+  /* Các thuộc tính CSS khác */
 }
 
 .items li .menu-icon {

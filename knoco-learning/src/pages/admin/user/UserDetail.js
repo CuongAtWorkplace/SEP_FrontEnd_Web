@@ -99,7 +99,9 @@ const UserDetail = () => {
     if (token !== null) {
       const decodedToken = jwtDecode(token);
       setRoleid(decodedToken.roleid);
-      if (Number(decodedToken.roleid) === 2 || localStorage.getItem("token") === '') {
+      if (Number(decodedToken.roleid) === 4 || localStorage.getItem("token") === '') {
+       
+      } else {
         navigate(`/`);
       }
     } else {

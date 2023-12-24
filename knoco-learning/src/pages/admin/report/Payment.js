@@ -6,7 +6,7 @@ import Footer from "../../../components/footer/Footer";
 import SideBar from "../../../components/sidebar/SideBar";
 import { DataGrid } from '@mui/x-data-grid';
 import { API_BASE_URL } from '../../../paths';
-
+import jwtDecode from "jwt-decode";
 class Payment extends Component {
     constructor(props) {
         super(props);
@@ -16,7 +16,14 @@ class Payment extends Component {
     }
 
     async componentDidMount() {
-
+        const token = localStorage.getItem("token");
+        if (token !== null) {
+            const decodedToken = jwtDecode(token);
+           
+            if ((Number(decodedToken.roleid) !== 4) || localStorage.getItem("token") === '') {
+                window.location.href = "/";
+            }
+        }
         await this.getListReport();
     };
 

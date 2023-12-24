@@ -9,12 +9,27 @@ import { faBook } from '@fortawesome/free-solid-svg-icons';
 import CardLearner from "../../components/detail/learnerDetail/CardLearner";
 import $ from "jquery";
 import { API_BASE_URL } from "../../paths";
+import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 const LearnerDetail = ({ children, ...props }) => {
+    const navigate = useNavigate();
     useEffect(() => {
         // Add click event listener to menu-btn
-        $('.menu-btn').on('click', function() {
+        $('.menu-btn').on('click', function () {
             $('#menu').toggleClass('active'); // Toggle active class on #menu
         });
+        const token = localStorage.getItem("token");
+        if (token !== null) {
+            const decodedToken = jwtDecode(token);
+
+            if (Number(decodedToken.roleid) === 1 || localStorage.getItem("token") === '') {
+
+            } else {
+                navigate(`/`);
+            }
+        } else {
+            navigate(`/`);
+        }
     }, []);
 
     const learnerDetails = {
@@ -33,17 +48,17 @@ const LearnerDetail = ({ children, ...props }) => {
                 </div>
 
                 <nav>
-                    <SideBar/>
+                    <SideBar />
                 </nav>
             </section>
 
             <section id="interface">
                 <header>
-                    <Header/>
+                    <Header />
                 </header>
 
                 <div>
-                    <CardLearner learner={learnerDetails}/>
+                    <CardLearner learner={learnerDetails} />
                 </div>
 
                 <footer>

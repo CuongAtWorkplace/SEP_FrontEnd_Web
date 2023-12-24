@@ -8,13 +8,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 import $ from "jquery";
 import TableListClassEmpty from "../../components/Table/TableListClassEmpty";
-
+import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 const ClassEmpty = ({ children, ...props }) => {
+    const navigate = useNavigate();
     useEffect(() => {
         // Add click event listener to menu-btn
         $('.menu-btn').on('click', function() {
             $('#menu').toggleClass('active'); // Toggle active class on #menu
         });
+        const token = localStorage.getItem("token");
+        if (token !== null) {
+            const decodedToken = jwtDecode(token);
+            if (Number(decodedToken.roleid) === 1 || Number(decodedToken.roleid) === 3 || localStorage.getItem("token") === '') {
+            }else {
+                navigate(`/`);
+            }
+        } else {
+            navigate(`/`);
+        }
     }, []);
     return (
         <div className="body_page" {...props}>

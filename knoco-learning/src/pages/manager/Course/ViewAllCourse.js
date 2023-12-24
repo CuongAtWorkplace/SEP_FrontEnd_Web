@@ -63,7 +63,7 @@ class ViewAllCourse extends Component {
         const token = localStorage.getItem("token");
         if (token !== null) {
             const decodedToken = jwtDecode(token);
-            this.setState({roleid: Number(decodedToken.roleid)});
+            this.setState({ roleid: Number(decodedToken.roleid) });
             if ((Number(decodedToken.roleid) !== 3 && Number(decodedToken.roleid) !== 4) || localStorage.getItem("token") === '') {
                 window.location.href = "/";
             }
@@ -72,7 +72,7 @@ class ViewAllCourse extends Component {
 
     };
 
-    
+
     handleSearchChange = (e) => {
         const { originalData } = this.state;
         const searchText = e.target.value;
@@ -87,11 +87,6 @@ class ViewAllCourse extends Component {
 
     render() {
         const { ListAllCourse, showModal, searchText, courseId, courseName, Description, CreateDate, Image } = this.state;
-        console.log(courseName);
-
-
-       
-   
 
         return (
 

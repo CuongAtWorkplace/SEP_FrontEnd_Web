@@ -37,7 +37,7 @@ const TableListCourse = () => {
         const decodedToken = jwtDecode(token);
         if (Number(decodedToken.roleid == 3)) {
             setisManager(true);
-        } 
+        }
         fetchData();
     }, []);
 
@@ -105,12 +105,11 @@ const TableListCourse = () => {
     ];
 
     const handleRowClick = (row) => {
-        console.log('Clicked row data:', row);
         const token = localStorage.getItem("token");
         const decodedToken = jwtDecode(token);
-        if (Number(decodedToken.roleid === 3)) {
+        if (isManager == true) {
             navigate(`/coursedetail/${row.courseId}`);
-            console.log('Đã click vào hàng có ID:', row.courseId);
+            console.log('Đã click vào hàng có IDdddddd:', row.courseId);
         } else if (Number(decodedToken.roleid === 4)) {
             console.log('Đã click vào hàng có ID:', row.courseId);
         }
@@ -119,9 +118,9 @@ const TableListCourse = () => {
     return (
         <div>
 
-           
+
             {isManager == true &&
-                 <button className="btn-add" onClick={openAddCoursePopup}>New Course</button>
+                <button className="btn-add" onClick={openAddCoursePopup}>New Course</button>
             }
             <Table columns={columns} data={data} onRowClick={handleRowClick} />
             {

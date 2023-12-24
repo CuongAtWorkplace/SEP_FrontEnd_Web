@@ -53,9 +53,9 @@ function CourseDetail() {
     if (token !== null) {
       const decodedToken = jwtDecode(token);
       setRoleid(decodedToken.roleid);
-      // if (Number(decodedToken.roleid) === 2 || localStorage.getItem("token") === '') {
-      //     navigate(`/`);
-      // }
+      if (Number(decodedToken.roleid) === 2 || localStorage.getItem("token") === '') {
+          navigate(`/`);
+      }
     } else {
       navigate(`/`);
     }

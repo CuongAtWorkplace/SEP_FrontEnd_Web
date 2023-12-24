@@ -39,7 +39,7 @@ const SideBar = () => {
                 localStorage.removeItem('token');
                 console.log('da xoa token.');
                 console.log(token)
-            }, 5 * 60 * 1000);
+            }, 60 * 60 * 1000);
             // if (Number(decodedToken.roleid) === 2 || localStorage.getItem("token") === '') {
             //     navigate(`/`);
             // }
@@ -100,10 +100,10 @@ const SideBar = () => {
                             <FontAwesomeIcon className="menu-icon" icon={faChalkboardTeacher} />
                             <Link className="link-a" to="/viewallclass">Manage Class</Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <FontAwesomeIcon className="menu-icon" icon={faUser} />
                             <Link className="link-a" to="">Manage Learners</Link>
-                        </li>
+                        </li> */}
                         <li>
                             <FontAwesomeIcon className="menu-icon" icon={faFlag} />
                             <Link className="link-a" to="/tableRequesClassmanager">View Request Class</Link>

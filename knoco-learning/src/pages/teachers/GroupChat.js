@@ -9,13 +9,21 @@ import { faBook } from '@fortawesome/free-solid-svg-icons';
 import BoxChat from "../../components/chat/BoxChat";
 import BoxChatFake from "../../components/chat/BoxChatFake";
 import $ from "jquery";
-
+import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 const GroupChat = ({ children, ...props }) => {
+    const navigate = useNavigate();
     useEffect(() => {
         // Add click event listener to menu-btn
-        $('.menu-btn').on('click', function() {
+        $('.menu-btn').on('click', function () {
             $('#menu').toggleClass('active'); // Toggle active class on #menu
         });
+        const token = localStorage.getItem("token");
+        if (token !== null) {
+
+        } else {
+            navigate(`/`);
+        }
     }, []);
     return (
         <div className="body_page" {...props}>
@@ -26,17 +34,17 @@ const GroupChat = ({ children, ...props }) => {
                 </div>
 
                 <nav>
-                    <SideBar/>
+                    <SideBar />
                 </nav>
             </section>
 
             <section id="interface">
                 <header>
-                    <Header/>
+                    <Header />
                 </header>
 
                 <div className="children-chat">
-                    <BoxChat/>
+                    <BoxChat />
                 </div>
 
                 <footer>

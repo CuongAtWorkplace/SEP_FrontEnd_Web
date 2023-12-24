@@ -10,7 +10,7 @@ import '../users/users.scss';
 import { toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.css';
 import { API_BASE_URL } from "../../../paths";
-
+import jwtDecode from "jwt-decode";
 class Users extends Component {
   constructor(props) {
     super(props);
@@ -31,6 +31,14 @@ class Users extends Component {
   }
 
   async componentDidMount() {
+    const token = localStorage.getItem("token");
+    if (token !== null) {
+        const decodedToken = jwtDecode(token);
+       
+        if ((Number(decodedToken.roleid) !== 4) || localStorage.getItem("token") === '') {
+            window.location.href = "/";
+        }
+    }
     await this.getListUser();
   };
 

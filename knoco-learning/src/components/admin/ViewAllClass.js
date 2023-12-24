@@ -40,13 +40,16 @@ const ViewAllClass = ({ children, ...props }) => {
         });
         const token = localStorage.getItem("token");
         if (token !== null) {
-            const decodedToken = jwtDecode(token);
-            if (Number(decodedToken.roleid) == 3) {
-                setIsManager(true);
-            }
-            if (localStorage.getItem("token") === '') {
-                navigate(`/`);
-            }
+          const decodedToken = jwtDecode(token);
+          if (Number(decodedToken.roleid) === 4 || localStorage.getItem("token") === '') {
+           
+          }else if(Number(decodedToken.roleid) === 3 ){
+            setIsManager(true);
+          }  else {
+            navigate(`/`);
+          }
+        } else {
+          navigate(`/`);
         }
         fetchData();
     }, []);

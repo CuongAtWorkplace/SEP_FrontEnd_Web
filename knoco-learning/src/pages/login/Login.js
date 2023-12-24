@@ -49,7 +49,7 @@ class Login extends Component {
             });
     }
     componentDidMount() {
-        console.log(localStorage.getItem('previousPath'))
+   
         this.refreshList();
 
     }
@@ -84,7 +84,7 @@ class Login extends Component {
                         window.location.href = localStorage.getItem('previousPath');
                     }
                     else if (decodedToken.roleid == 3) {
-                        window.location.href = "/manager/course";
+                        window.location.href = "/course";
                     } else if (decodedToken.roleid == 4) {
                         window.location.href = "/dashboard";
                     } else if (decodedToken.roleid == 1) {
@@ -139,9 +139,9 @@ class Login extends Component {
                     <div class="container-login100">
                         <div class="wrap-login100">
                             <div class="login100-pic js-tilt" data-tilt>
-                                <img src="~/images/img-01.png" alt="IMG" />
+                            <img src="e-learning-la-gi.jpg"  />
                             </div>
-
+                           
                             <form className="login100-form validate-form" >
                                 <span className="login100-form-title">
                                     Member Login
@@ -169,21 +169,6 @@ class Login extends Component {
                                     </button>
                                 </div>
 
-                                <div className="text-center p-t-12">
-                                    <span className="txt1">
-                                        Forgot
-                                    </span>
-                                    <a className="txt2" href="#">
-                                        Username / Password?
-                                    </a>
-                                </div>
-
-                                <div className="text-center p-t-136">
-                                    <a className="txt2" href="#">
-                                        Create your Account
-                                        <i className="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-                                    </a>
-                                </div>
                             </form>
                         </div>
                     </div>

@@ -56,7 +56,7 @@ const ViewAllClass = ({ children, ...props }) => {
         const decodedToken = jwtDecode(token);
 
         try {
-            const response = await fetch(`${API_BASE_URL}/api/Class/GetAllClass`);
+            const response = await fetch(`${API_BASE_URL}/api/Class/GetAllClassManage`);
             const responseData = await response.json();
             setData(responseData);
         } catch (error) {

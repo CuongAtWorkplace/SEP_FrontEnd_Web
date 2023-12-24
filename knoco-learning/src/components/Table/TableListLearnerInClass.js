@@ -62,9 +62,15 @@ const TableListLearnerInClass = (props) => {
     setSelectedFile(event.target.files[0]);
   };
   const validateForm = () => {
+    const selectedFile = document.querySelector('.file').files[0];
+  if (!selectedFile) {
+    alert('Please select a file');
+    return false;
+  }
     const pdf = ".pdf";
+    const check = "";
     const fileName = selectedFile.name;
-    if (!fileName.endsWith('.pdf')) {
+    if (!fileName.endsWith('.pdf') || !fileName.endsWith("")) {
       alert('Please upload a PDF file');
       return false;
     }

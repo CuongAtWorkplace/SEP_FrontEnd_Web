@@ -81,7 +81,7 @@ const TableListPostManager = () => {
       ),
     },
     {
-      Header: 'Trạng Thái',
+      Header: 'Status',
       accessor: 'isActive',
       Filter: ColumnFilter, // Custom filter component for courseId column
       disableFilters: true, // Vô hiệu hóa bộ lọc cho cột Button
@@ -110,9 +110,9 @@ const TableListPostManager = () => {
     <div>
       <span></span>
       {isActive === "True" ? (
-        <button>Đã Duyệt</button>
+        <button>Approved</button>
       ) : (
-        <button onClick={() => UpdateActivePost(postId)}>Duyệt</button>
+        <button onClick={() => UpdateActivePost(postId)}>Approve</button>
       )}
     </div>
   );

@@ -64,16 +64,20 @@ const SideBar = () => {
                             <Link className="link-a" to="/users">User Manage</Link>
                         </li>
                         <li>
-                            <FontAwesomeIcon className="menu-icon" icon={faFlag} />
-                            <Link className="link-a" to="/report">Report</Link>
-                        </li>
-                        <li>
                             <FontAwesomeIcon className="menu-icon" icon={faBookOpen} />
-                            <Link className="link-a" to="/viewallclass">Course</Link>
+                            <Link className="link-a" to="/course">Course</Link>
                         </li>
                         <li>
                             <FontAwesomeIcon className="menu-icon" icon={faClipboard} />
                             <Link className="link-a" to="/viewallpost">Post</Link>
+                        </li>
+                        <li>
+                            <FontAwesomeIcon className="menu-icon" icon={faFlag} />
+                            <Link className="link-a" to="/report">Report</Link>
+                        </li>
+                        <li>
+                            <FontAwesomeIcon className="menu-icon" icon={faFlag} />
+                            <Link className="link-a" to="/payment">Payment</Link>
                         </li>
                     </>}
 
@@ -86,7 +90,7 @@ const SideBar = () => {
                         </li>
                         <li>
                             <FontAwesomeIcon className="menu-icon" icon={faSchool} />
-                            <Link className="link-a" to="/manager/course">Manage Courses</Link>
+                            <Link className="link-a" to="/course">Manage Courses</Link>
                         </li>
                         <li>
                             <FontAwesomeIcon className="menu-icon" icon={faClipboard} />

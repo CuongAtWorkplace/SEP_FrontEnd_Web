@@ -21,6 +21,7 @@ const UserDetail = () => {
   const [roleid, setRoleid] = useState('');
   const [imageSource, setImageSource] = useState("");
   const [isAddClassPopupVisible, setAddClassPopupVisible] = useState(false);
+  const [randomString, setRandomString] = useState('');
   // console.log(I);
   const navigate = useNavigate();
   const fetchImage = async () => {
@@ -42,6 +43,54 @@ const UserDetail = () => {
   const closeAddClassPopup = () => {
     setAddClassPopupVisible(false);
   }
+  const generateRandomString = async (userid) => {
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    const numbers = '0123456789';
+
+    let result = '';
+
+    const getRandomChar = (charSet) => {
+      return charSet.charAt(Math.floor(Math.random() * charSet.length));
+    };
+
+
+    result += getRandomChar(letters);
+
+
+    result += getRandomChar(numbers);
+
+
+    for (let i = 0; i < 6; i++) {
+      const randomSet = Math.floor(Math.random() * 2) === 0 ? letters : numbers;
+      result += getRandomChar(randomSet);
+    }
+
+
+    const shuffledResult = result.split('').sort(() => Math.random() - 0.5).join('');
+    setRandomString(shuffledResult);
+    const resetpassword = {
+      userId: userid,
+      password: shuffledResult
+    };
+
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/User/ChangePasswordAdmin`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(resetpassword)
+      });
+      if (response.ok) {
+        console.log('Dữ liệu lớp học đã được cập nhật thành công');
+      } else {
+        console.error('Lỗi khi cập nhật dữ liệu lớp học:', response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error('Lỗi khi cập nhật dữ liệu lớp học:', error);
+    }
+  };
   useEffect(() => {
 
     fetchImage();
@@ -72,17 +121,7 @@ const UserDetail = () => {
   }
 
 
-  const singleUser = {
-    id: userDetails.userId,
-    title: userDetails.fullName,
-    img: userDetails.image, // Assuming 'image' is a property in userDetails
-    info: {
-      fullname: userDetails.fullName,
-      email: userDetails.email,
-      phone: userDetails.phone,
-      status: userDetails.isBan,
-    },
-  };
+
 
   return (
     <div>
@@ -136,6 +175,7 @@ const UserDetail = () => {
                         <div className="detailItem">
                           <span className="itemKey">Balance:</span>
                           <span className="itemValue">{userDetails.balance}</span>
+                          <button type="button" class="btn btn-dark" onClick={openAddClassPopup}>Add Money</button>
                         </div>
                         <div className="detailItem">
                           <span className="itemKey">Role       :</span>
@@ -149,9 +189,9 @@ const UserDetail = () => {
                           <span className="itemKey">Status:</span>
                           <span className="itemValue">{userDetails.status}</span>
                         </div>
-                        <div className="detailItem">
-                          <button className="btn-add" onClick={openAddClassPopup}><FontAwesomeIcon icon={faSquarePlus} /> Add Money</button>
-                        </div>
+                        <button type="button" class="btn btn-dark" onClick={() => generateRandomString(userDetails.userId)}>Reset Password</button>
+
+                        <p>New Password : {randomString}</p>
                         {
                           isAddClassPopupVisible && (
                             <div className="popup">

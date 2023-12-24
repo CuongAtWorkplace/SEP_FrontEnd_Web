@@ -23,6 +23,7 @@ const ColumnFilter = ({ column }) => {
 
 
 const TableRequestmanager = () => {
+  const navigate = useNavigate();
   const [listChatRoom, setListChatRoom] = useState([]);
 
   useEffect(() => {
@@ -59,7 +60,7 @@ const TableRequestmanager = () => {
       .then((response) => {
         if (response.ok) {
           toast.success("Successfull !!!")
-          fetchData();
+          navigate(`/chat/${ChatRoomId}`)
         }
         else if (!response.ok) {
           toast.error("Failed. Try Again!!!")
@@ -68,6 +69,8 @@ const TableRequestmanager = () => {
 
       })
   }
+
+  
   const columns = [
     {
       Header: 'chat Room Id',
@@ -97,8 +100,6 @@ const TableRequestmanager = () => {
       
       Cell: ({ row }) => (
        <CustomButton chatRoomId={row.original.chatRoomId} />
-          
-
       ),
     },
   ];

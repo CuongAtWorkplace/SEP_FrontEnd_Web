@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import CardAddCourse from "../../../components/add/CardAddCourse";
 import { API_BASE_URL } from "../../../paths";
+import jwtDecode from "jwt-decode";
 const ColumnFilter = ({ column }) => {
     const { setFilter } = column;
     return (
@@ -28,10 +29,15 @@ const handleSearchChange = (e) => {
     this.setState({ searchText, data: filteredCourses });
 }
 const TableListCourse = () => {
-    const [searchText, setSearchText] = useState("");
+    const [isManager, setisManager] = useState(false);
     const [data, setData] = useState([]);
     const [AddCoursePopupVisible, setAddCoursePopupVisible] = useState(false);
     useEffect(() => {
+        const token = localStorage.getItem("token");
+        const decodedToken = jwtDecode(token);
+        if (Number(decodedToken.roleid == 3)) {
+            setisManager(true);
+        } 
         fetchData();
     }, []);
 
@@ -44,6 +50,7 @@ const TableListCourse = () => {
             console.error('Lỗi khi lấy dữ liệu:', error);
         }
     };
+
     const openAddCoursePopup = () => {
         setAddCoursePopupVisible(true);
     }
@@ -99,11 +106,23 @@ const TableListCourse = () => {
 
     const handleRowClick = (row) => {
         console.log('Clicked row data:', row);
-        navigate(`/coursedetail/${row.courseId}`);
+        const token = localStorage.getItem("token");
+        const decodedToken = jwtDecode(token);
+        if (Number(decodedToken.roleid === 3)) {
+            navigate(`/coursedetail/${row.courseId}`);
+            console.log('Đã click vào hàng có ID:', row.courseId);
+        } else if (Number(decodedToken.roleid === 4)) {
+            console.log('Đã click vào hàng có ID:', row.courseId);
+        }
+
     };
     return (
         <div>
-            <button className="btn-add" onClick={openAddCoursePopup}>New Course</button>
+
+           
+            {isManager == true &&
+                 <button className="btn-add" onClick={openAddCoursePopup}>New Course</button>
+            }
             <Table columns={columns} data={data} onRowClick={handleRowClick} />
             {
                 AddCoursePopupVisible && (

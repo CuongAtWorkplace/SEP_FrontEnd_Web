@@ -37,6 +37,7 @@ import BoxChat from './components/chat/BoxChat';
 import ViewClass from './pages/teachers/ViewClass';
 import ViewAllClass from './components/admin/ViewAllClass';
 import ViewAllPost from './components/admin/ViewAllPost';
+import Payment from './pages/admin/report/Payment';
 const queryClient = new QueryClient();
 
 
@@ -46,7 +47,6 @@ function App() {
       <Routes>
         {/* teacher */}
         <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/viewclass" element={<ViewClass />} />
         <Route path="/classdetail/:classId" element={<ClassDetail />} />
         <Route path="/learnerdetail" element={<LearnerDetail />} />
@@ -64,12 +64,14 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/users/:userId" element={<UserDetail />} />
         <Route path="/report" element={<Report />} />
+        <Route path="/payment" element={<Payment />} />
         {/* manager */}
         <Route path="/boxchat/:boxchatid" element={<BoxChat />} />
         <Route path='/tableRequestmanager' element={<RequestManager />} />
         <Route path='/tableRequesClassManager' element={<RequestClassManager />} />
         <Route path="/manager/course" element={<ViewAllCourse />} />
         <Route path="/coursedetail/:cid" element={<CourseDetail />} />
+        <Route path="/course" element={<ViewAllCourse />} />
         <Route path="/manager/viewpostlistmanager" element={<ViewPostListManager />} />
         <Route path="/manager/viewpostdetailmanager/:pid" element={<ViewPostDetailManager />} />
 

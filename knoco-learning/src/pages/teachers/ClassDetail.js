@@ -55,7 +55,6 @@ const ClassDetail = ({ children, ...props }) => {
                 <div className="children">
                     <CardClass />
                     <TableListLearnerInClass />
-
                 </div>
 
                 <footer>

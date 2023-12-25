@@ -22,13 +22,13 @@ class Login extends Component {
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            alert('Invalid email');
+            toast.error('Invalid email');
             return false;
         }
 
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
         if (!passwordRegex.test(password)) {
-            alert('Password must be at least 8 characters, include at least one letter and one number');
+            toast.error("Password must be at least 8 characters, include at least one letter and one number");
             return false;
         }
         return true;
@@ -93,10 +93,10 @@ class Login extends Component {
                     setTimeout(() => {
                         localStorage.removeItem('token');
                         console.log('Đã xóa token.');
-                        console.log(token);  
+                       
                     }, 60 * 60 * 1000);
                 } else {
-                    toast.error("Check Email or Password !!!")
+                    toast.error(" Incorrect account or password, please try again")
                     this.setState({ checkLogin: false });
                 }
             } catch (error) {

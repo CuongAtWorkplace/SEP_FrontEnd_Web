@@ -17,6 +17,7 @@ class Payment extends Component {
 
     async componentDidMount() {
         const token = localStorage.getItem("token");
+        console.log(token)
         if (token !== null) {
             const decodedToken = jwtDecode(token);
            

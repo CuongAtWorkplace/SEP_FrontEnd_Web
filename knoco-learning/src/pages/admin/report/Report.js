@@ -51,16 +51,7 @@ class Report extends Component {
       { field: "description", headerName: "Description", width: 280 },
       { field: "createDate", headerName: "Create Date", width: 150 },
       { field: "reason", headerName: "Reason", width: 200 },
-      {
-        field: "isChecked", headerName: "Status", width: 100,
-        renderCell: (params) => {
-          return (
-            <div className={`cellWithStatus ${params.row.isChecked}`}>
-              {params.row.isChecked}
-            </div>
-          );
-        },
-      },
+      
     ];
 
     return (

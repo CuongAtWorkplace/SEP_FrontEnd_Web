@@ -40,16 +40,16 @@ const ViewAllClass = ({ children, ...props }) => {
         });
         const token = localStorage.getItem("token");
         if (token !== null) {
-          const decodedToken = jwtDecode(token);
-          if (Number(decodedToken.roleid) === 4 || localStorage.getItem("token") === '') {
-           
-          }else if(Number(decodedToken.roleid) === 3 ){
-            setIsManager(true);
-          }  else {
-            navigate(`/`);
-          }
+            const decodedToken = jwtDecode(token);
+            if (Number(decodedToken.roleid) === 4 || localStorage.getItem("token") === '') {
+
+            } else if (Number(decodedToken.roleid) === 3) {
+                setIsManager(true);
+            } else {
+                navigate(`/`);
+            }
         } else {
-          navigate(`/`);
+            navigate(`/`);
         }
         fetchData();
     }, []);
@@ -154,9 +154,21 @@ const ViewAllClass = ({ children, ...props }) => {
             Header: 'Status',
             accessor: 'status',
             Filter: ColumnFilter, // Custom filter component for courseId column
+            Cell: ({ row }) => (
+                <CustomButton isActive={row.original.status} />
+            ),
         },
     ]);
-
+    const CustomButton = ({ isActive }) => (
+        <div>
+            <span></span>
+            {isActive === 1 ? (
+                <button>Active</button>
+            ) : (
+                <button>Close</button>
+            )}
+        </div>
+    );
     const handleRowClick = (row) => {
         console.log('Clicked row data:', row);
     };

@@ -89,11 +89,10 @@ const TableRequestClassManager = () => {
         });
 
         if (response.ok) {
-            //toast.success("Successfull !!!")
             await UpdateRequestClass(Number(data.classId), Number(data.userId));
             setReloadData(!reloadData);
             try {
-                await fetchData(); // Fetch dữ liệu mới sau khi đóng popup chỉnh sửa
+                await fetchData(); 
             } catch (error) {
                 console.error('Lỗi khi fetch dữ liệu sau khi chỉnh sửa:', error);
             }

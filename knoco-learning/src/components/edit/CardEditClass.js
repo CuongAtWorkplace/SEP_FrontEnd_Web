@@ -145,7 +145,7 @@ const CardEditClass = ({ closePopup }) => {
                 <h2>Edit Class</h2>
                 <div className="form-group" >
                     <label className="control-label">Class Name:</label>
-                    <input className="form-control" type="text" id="ClassName" name="ClassName" value={className} onChange={(e) => setClassName(e.target.value)} required />
+                    <input className="form-control" type="text" id="ClassName" name="ClassName" value={className} onChange={(e) => setClassName(e.target.value)} required disabled />
                 </div>
                 <div className="form-group">
                     <label className="control-label">Topic:</label>
@@ -157,7 +157,7 @@ const CardEditClass = ({ closePopup }) => {
                 </div>
                 <div className="form-group">
                     <label className="control-label">Fee:</label>
-                    <input className="form-control" type="text" id="Fee" name="Fee" min={0} value={fee} onChange={(e) => setFee(e.target.value)} required />
+                    <input className="form-control" type="number" id="Fee" name="Fee" min={0} value={fee} onChange={(e) => setFee(e.target.value)} required />
                 </div>
                 <div className="form-group">
                     <label className="control-label">Number in Weeks:</label>

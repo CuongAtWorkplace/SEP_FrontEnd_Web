@@ -41,7 +41,10 @@ const CardAddClass = ({ closePopup }) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     };
-
+    const validateClassname = (classname) => {
+        const containsWhitespace = /\s/;
+        return containsWhitespace.test(classname); // Nếu có khoảng trắng, từ chối
+    };
     const validatePhoneNumber = (phoneNumber) => {
         const phoneRegex = /^\d{10}$/;
         return phoneRegex.test(phoneNumber);
@@ -56,13 +59,26 @@ const CardAddClass = ({ closePopup }) => {
         }
         return true;
     };
-const CreateRoomChat = async (classId) => {
+    const  checkClassNameExistence = async (className) => {
+        try {
+            const response = await fetch(`${API_BASE_URL}api/Class/CheckClassName?className=${className}`);
+            if (response.ok) {
+                return false; 
+            } else {
+                return true;
+            }
+        } catch (error) {
+            return false;
+        }
+    }
+
+    const CreateRoomChat = async (classId) => {
 
         const classC = {
             chatRoomName: "Room chat class",
-            description:"Room chat class",
-            isManagerChat:true,
-            classId:classId
+            description: "Room chat class",
+            isManagerChat: true,
+            classId: classId
         }
         fetch(`${API_BASE_URL}/api/RequestManager/CreateChatRoomManage`, {
             method: 'POST',
@@ -107,13 +123,21 @@ const CreateRoomChat = async (classId) => {
             toast.error("Start date cannot be before create date.");
             return;
         }
-
+        const isclassName = validateClassname(className);
+        if (isclassName) {
+            toast.error("Class names do not contain spaces");
+            return;
+        }
         const isEndDateValid = validateEndDate(startDate, endDate);
         if (!isEndDateValid) {
             toast.error("End date cannot be before start date.");
-            return ;
+            return;
         }
-
+        const checkclassName = checkClassNameExistence(className);
+        if (checkclassName) {
+            toast.error("Class Name is duplicated");
+            return;
+        }
         const classCreate = {
             className: className,
             teacherId: null,
@@ -132,7 +156,7 @@ const CreateRoomChat = async (classId) => {
             isDelete: false,
             tokenClass: null
         };
-        
+
         try {
             const response = await fetch(`${API_BASE_URL}/api/Class/CreateClassManager`, {
                 method: 'POST',
@@ -142,7 +166,6 @@ const CreateRoomChat = async (classId) => {
                 body: JSON.stringify(classCreate)
             });
             if (response.ok) {
-                console.log('Dữ liệu lớp học đã được cập nhật thành công');
                 toast.success("Add class successfull !");
                 const data = await response.json();
                 CreateRoomChat(Number(data));
@@ -168,9 +191,8 @@ const CreateRoomChat = async (classId) => {
                 </div>
                 <div className="form-group">
                     <label className="control-label">Course :</label>
-                    <select className="form-select"
-                        onChange={(e) => setcourseId(e.target.value)
-                        }
+                    <select required className="form-select"
+                        onChange={(e) => setcourseId(e.target.value)}
                         value={courseId}
                     >
                         {course.map(cou => <option value={cou.courseId} key={cou.courseId}>
@@ -180,38 +202,38 @@ const CreateRoomChat = async (classId) => {
                 </div>
                 <div className="form-group">
                     <label className="control-label">Topic:</label>
-                    <input class="form-control" type="text" id="Topic" name="Topic" value={topic} onChange={(e) => setTopic(e.target.value)} />
+                    <input class="form-control" type="text" id="Topic" name="Topic" value={topic} onChange={(e) => setTopic(e.target.value)} required />
                 </div>
 
                 <div className="form-group">
                     <label className="control-label">Fee:</label>
-                    <input class="form-control" type="text" id="Fee" name="Fee" min={0} value={fee} onChange={(e) => setFee(e.target.value)} />
+                    <input class="form-control" type="text" id="Fee" name="Fee" min={0} value={fee} onChange={(e) => setFee(e.target.value)} required />
                 </div>
 
                 <div className="form-group">
                     <label className="control-label">Number of Weeks:</label>
-                    <input class="form-control" type="number" id="NumberOfWeek" name="NumberOfWeek" min={0} value={numberOfWeek} onChange={(e) => setNumberOfWeek(e.target.value)} />
+                    <input class="form-control" type="number" id="NumberOfWeek" name="NumberOfWeek" min={0} value={numberOfWeek} onChange={(e) => setNumberOfWeek(e.target.value)} required />
                 </div>
 
                 <div className="form-group">
                     <label className="control-label">Phone Number:</label>
-                    <input class="form-control" type="tel" id="NumberPhone" name="NumberPhone" value={numberPhone} onChange={(e) => setNumberPhone(e.target.value)} />
+                    <input class="form-control" type="tel" id="NumberPhone" name="NumberPhone" value={numberPhone} onChange={(e) => setNumberPhone(e.target.value)} required />
                 </div>
 
                 <div className="form-group">
                     <label className="control-label">Description:</label>
-                    <textarea class="form-control" id="Description" name="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
+                    <textarea class="form-control" id="Description" name="Description" value={description} onChange={(e) => setDescription(e.target.value)} required />
                 </div>
 
                 <div className="d-flex form-group">
                     <label className="control-label">Start Date:</label>
-                    <input class="form-control" type="date" name="StartDate" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+                    <input class="form-control" type="date" name="StartDate" value={startDate} onChange={(e) => setStartDate(e.target.value)} required />
                     <label className="control-label">End Date:</label>
-                    <input class="form-control" type="date" name="EndDate" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+                    <input class="form-control" type="date" name="EndDate" value={endDate} onChange={(e) => setEndDate(e.target.value)} required />
                 </div>
 
                 <div className="form-group">
-                    </div>
+                </div>
 
                 <button type="submit" id="submit" name="submit" className="btn-btn">Create</button>
                 <button class="form-control" type="button" onClick={closePopup} className="btn-btn">Cancel</button>

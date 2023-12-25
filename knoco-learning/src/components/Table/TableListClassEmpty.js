@@ -73,53 +73,21 @@ const TableListClassEmpty = (props) => {
           const confirmResult = window.confirm("Are you sure you want to teach this class?");
           if (confirmResult) {
             navigate(`/list-all-course`);
-            toast.success("Successful !");
+            toast.success("Sent request! Please wait for approval.");
           } else {
             window.close();
-            toast.error("Cancel");
+            toast.error("Do not submit request!");
           }
         } else {
-          toast.error("Failed. Try Again!");
+          toast.error("Sent request failed. Try Again!");
           throw new Error('Failed to update');
         }
       } catch (error) {
         console.error('Error:', error);
-        toast.error("Failed. Try Again!");
+        toast.error("Sent request failed. Try Again!");
       }
     }
   };
-  
-
-  const AddRequestClasss = (classId) => {
-    const token = localStorage.getItem("token");
-    if (token !== null) {
-      const decodedToken = jwtDecode(token);
-
-      const addRequest = {
-        classId: classId,
-        userId: parseInt(decodedToken.userid, 10),
-        type: null
-      }
-      fetch(`${API_BASE_URL}/api/Class/CreateRequestClassManager`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(addRequest),
-      })
-        .then((response) => {
-          if (response.ok) {
-            window.confirm("Are you sure you want to teach this class?") ? navigate(`/list-all-course`) : window.close();
-            toast.success("Successfull !");
-          }
-          else if (!response.ok) {
-            toast.error("Failed. Try Again!")
-            throw new Error('Failed to update');
-          }
-
-        })
-    }
-  }
 
   const [columns, setColumns] = useState([
     {

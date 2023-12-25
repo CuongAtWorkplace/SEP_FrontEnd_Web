@@ -59,11 +59,11 @@ const TableRequestmanager = () => {
     })
       .then((response) => {
         if (response.ok) {
-          toast.success("Successfull !!!")
+          toast.success("Change status successfull!")
           navigate(`/chat/${ChatRoomId}`)
         }
         else if (!response.ok) {
-          toast.error("Failed. Try Again!!!")
+          toast.error("Change status failed. Try Again!!!")
           throw new Error('Failed to update');
         }
 
@@ -88,7 +88,7 @@ const TableRequestmanager = () => {
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
     {
-      Header: 'Chi Tiết',
+      Header: 'Action',
       accessor: '',
       Filter: ColumnFilter, // Custom filter component for courseId column
       disableFilters: true, // Vô hiệu hóa bộ lọc cho cột Button

@@ -73,11 +73,11 @@ const CreateRoomChat = async (classId) => {
         })
             .then((response) => {
                 if (response.ok) {
-                    toast.success("Successfull !!!")
+                    toast.success("Create chat room successful!");
                     fetchData();
                 }
                 else if (!response.ok) {
-                    toast.error("Failed. Try Again!!!")
+                    toast.error("Create chat room failed. Try Again!")
                     throw new Error('Failed to update');
                 }
 
@@ -143,18 +143,18 @@ const CreateRoomChat = async (classId) => {
             });
             if (response.ok) {
                 console.log('Dữ liệu lớp học đã được cập nhật thành công');
-                toast.success("Add class successfull !");
+                toast.success("Add new class successfull!");
                 const data = await response.json();
                 CreateRoomChat(Number(data));
                 closePopup();
                 window.location.reload();
             } else {
                 console.error('Lỗi khi cập nhật dữ liệu lớp học:', response.status, response.statusText);
-                toast.error("Failed. Try Again!!!");
+                toast.error("Add new class failed. Try Again!");
             }
         } catch (error) {
             console.error('Lỗi khi cập nhật dữ liệu lớp học:', error);
-            toast.error("Failed. Try Again!!!");
+            toast.error("Add new class failed. Try Again!");
         }
     };
 

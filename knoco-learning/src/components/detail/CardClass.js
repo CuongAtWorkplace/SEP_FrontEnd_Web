@@ -38,6 +38,14 @@ const CardClass = () => {
     const [reloadData, setReloadData] = useState(false);
     const [checkToken, setcheckToken] = useState(false);
 
+    const currentDate = new Date();
+
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth() + 1;
+    const year = currentDate.getFullYear();
+
+    const formattedDate = `${month}/${day}/${year}`;
+
     useEffect(() => {
         fetchData();
         fetchCheckUser();
@@ -97,8 +105,26 @@ const CardClass = () => {
         navigate(`/chat/${classDt.classId}`); // Chuyển hướng đến trang /videocall khi nhấp vào nút "Meeting"
     };
 
+    const validateDate = (beforeDate, afterDate) => {
+        const beforeDateObj = new Date(beforeDate);
+        const afterDateObj = new Date(afterDate);
+
+        if (afterDateObj <= beforeDateObj) {
+            return false;
+        }
+        return true;
+    };
+
     const openEditClassPopup = () => {
-        setIsEditClassPopupVisible(true);
+        const isStartDateValid = validateDate(formattedDate, classDt.startDate);
+        if (!isStartDateValid) {
+            toast.error("Class had started!");
+            setIsEditClassPopupVisible(false);
+            return;
+        }
+        else {
+            setIsEditClassPopupVisible(true);
+        }
     };
 
     const closeEditClassPopup = async () => {

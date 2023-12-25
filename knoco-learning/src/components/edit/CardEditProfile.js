@@ -77,7 +77,7 @@ const CardEditProfile = ({ closePopup }) => {
             });
             if (response.ok) {
                 console.log('Dữ liệu người dùng đã được cập nhật thành công');
-                toast.success("Successfull !!!")
+                toast.success("Update profile successful!")
                 closePopup();
                 fetchData();
                 //window.location.reload();
@@ -85,7 +85,7 @@ const CardEditProfile = ({ closePopup }) => {
                 console.error('Lỗi khi cập nhật dữ liệu người dùng:', response.status, response.statusText);
             }
         } catch (error) {
-            toast.error("Failed. Try Again!!!")
+            toast.error("Update profile failed. Try Again!!!")
             console.error('Lỗi khi cập nhật dữ liệu người dùng:', error);
         }
     };

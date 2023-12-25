@@ -94,13 +94,13 @@ const TableListLearnerInClass = (props) => {
   
         if (response.ok) {
           console.log('Tải lên thành công!');
-          toast.success("Successfull !!!")
+          toast.success("Upload file successful!")
           fetchDataFile();
         } else {
-          throw new Error('Failed to upload file.');
+          throw new Error('Upload file failed!');
         }
       } catch (error) {
-        toast.error("Failed. Try Again!!!")
+        toast.error("Upload file failed. Try Again!!!")
         console.error('Lỗi khi tải lên:', error);
       }
     }

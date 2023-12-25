@@ -71,10 +71,9 @@ class Users extends Component {
       });
 
       if (response.ok) {
-
         window.location.reload();
       } else {
-        toast.error("Failed. Try Again!!!");
+        toast.error("Change status failed. Try Again!");
         throw new Error('Failed to update');
       }
     } catch (error) {
@@ -94,7 +93,7 @@ class Users extends Component {
       // console.log(data);
       // .then((response) => {
       if (response.ok) {
-        toast.success("Add Successfull!!!")
+        toast.success("Add new user successfull!")
         await this.getListUser();
         this.setState({
           isOpenModal: false
@@ -102,7 +101,7 @@ class Users extends Component {
         // window.location.href = "/users";
       }
       else if (!response.ok) {
-        toast.error("Failed. Try Again!!!")
+        toast.error("Add new user failed. Try Again!")
         throw new Error('Failed to update');
       }
 

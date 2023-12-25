@@ -72,14 +72,14 @@ const CardNote = ({ closePopup }) => {
                         body: JSON.stringify(NoteNew)
                     });
                     if (response.ok) {
-                        toast.success("Save successful!!!")
+                        toast.success("Update new note!!!")
                         console.log('Dữ liệu lớp học đã được cập nhật thành công');
                         closePopup();
                     } else {
                         console.error('Lỗi khi cập nhật dữ liệu lớp học:', response.status, response.statusText);
                     }
                 } catch (error) {
-                    toast.error("Failed. Try Again!!!")
+                    toast.error("Unable to update new note!!!")
                     console.error('Lỗi khi cập nhật dữ liệu lớp học:', error);
                 }
             }

@@ -56,7 +56,7 @@ class Login extends Component {
 
     handleLogin = async () => {
         if (this.validateForm()) {
-            const { email, password, redirectPath } = this.state;
+            const { email, password } = this.state;
             try {
                 const response = await fetch(`${API_BASE_URL}/api/Login/AuthenticateLogin`, {
                     method: 'POST',
@@ -90,6 +90,11 @@ class Login extends Component {
                     } else if (decodedToken.roleid == 1) {
                         window.location.href = "/viewclass"
                     }
+                    setTimeout(() => {
+                        localStorage.removeItem('token');
+                        console.log('Đã xóa token.');
+                        console.log(token);  
+                    }, 60 * 60 * 1000);
                 } else {
                     toast.error("Check Email or Password !!!")
                     this.setState({ checkLogin: false });

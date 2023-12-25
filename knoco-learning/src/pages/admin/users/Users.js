@@ -33,11 +33,13 @@ class Users extends Component {
   async componentDidMount() {
     const token = localStorage.getItem("token");
     if (token !== null) {
-        const decodedToken = jwtDecode(token);
-       
-        if ((Number(decodedToken.roleid) !== 4) || localStorage.getItem("token") === '') {
-            window.location.href = "/";
-        }
+      const decodedToken = jwtDecode(token);
+
+      if ((Number(decodedToken.roleid) !== 4) || localStorage.getItem("token") === '') {
+        window.location.href = "/";
+      }
+    } else {
+      window.location.href = "/";
     }
     await this.getListUser();
   };

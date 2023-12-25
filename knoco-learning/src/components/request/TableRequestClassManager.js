@@ -59,10 +59,10 @@ const TableRequestClassManager = () => {
         })
             .then((response) => {
                 if (response.ok) {
-                    toast.success("Successfull !!!");
+                    toast.success("Request is accepted!");
                 }
                 else if (!response.ok) {
-                    toast.error("Failed. Try Again!!!")
+                    toast.error("Request failed. Try Again!")
                     throw new Error('Failed to update');
                 }
 
@@ -98,7 +98,7 @@ const TableRequestClassManager = () => {
             }
         }
         else if (!response.ok) {
-            toast.error("Failed. Try Again!!!")
+            //toast.error("Failed. Try Again!!!")
             throw new Error('Failed to update');
         }
 
@@ -148,7 +148,7 @@ const TableRequestClassManager = () => {
             Filter: ColumnFilter, // Custom filter component for courseId column
         },
         {
-            Header: 'Chi Tiết',
+            Header: 'Action',
             accessor: '',
             Filter: ColumnFilter, // Custom filter component for courseId column
             disableFilters: true, // Vô hiệu hóa bộ lọc cho cột Button

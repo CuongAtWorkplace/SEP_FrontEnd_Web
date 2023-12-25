@@ -135,7 +135,7 @@ const ProfileTeacher = ({ onBackClick, children, ...props }) => {
                                             <img src={imageSource || myImage} alt={userDt.image || "Profile"} />
                                         </li>
                                         <li>
-                                            <button onClick={openChangeImagePopup}>Change image</button>
+                                            <button onClick={openChangeImagePopup}>Change avatar</button>
                                             <button onClick={openEditProfilePopup}>Edit profile</button>
                                         </li>
                                         <li>

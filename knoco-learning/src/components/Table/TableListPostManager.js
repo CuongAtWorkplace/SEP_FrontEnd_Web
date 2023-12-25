@@ -152,11 +152,11 @@ const TableListPostManager = () => {
       })
         .then((response) => {
           if (response.ok) {
-            toast.success("Successfull")
+            toast.success("Update post successful!")
             fetchData();
           }
           else if (!response.ok) {
-            toast.error("Failed. Try Again!!!")
+            toast.error("Update post failed. Try Again!")
             throw new Error('Failed to update');
           }
 

@@ -96,7 +96,7 @@ const TableListClassTeacher = () => {
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
     {
-      Header: 'Number of week',
+      Header: 'Number in week',
       accessor: 'numberOfWeek',
       Filter: ColumnFilter, // Custom filter component for courseId column
     },

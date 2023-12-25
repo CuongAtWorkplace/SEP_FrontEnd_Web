@@ -89,11 +89,11 @@ const CardAddClass = ({ closePopup }) => {
         })
             .then((response) => {
                 if (response.ok) {
-                    toast.success("Successfull !!!")
+                    toast.success("Create chat room successful!");
                     fetchData();
                 }
                 else if (!response.ok) {
-                    toast.error("Failed. Try Again!!!")
+                    toast.error("Create chat room failed. Try Again!")
                     throw new Error('Failed to update');
                 }
 
@@ -166,18 +166,20 @@ const CardAddClass = ({ closePopup }) => {
                 body: JSON.stringify(classCreate)
             });
             if (response.ok) {
-                toast.success("Add class successfull !");
+
+                console.log('Dữ liệu lớp học đã được cập nhật thành công');
+                toast.success("Add new class successfull!");
                 const data = await response.json();
                 CreateRoomChat(Number(data));
                 closePopup();
                 window.location.reload();
             } else {
                 console.error('Lỗi khi cập nhật dữ liệu lớp học:', response.status, response.statusText);
-                toast.error("Failed. Try Again!!!");
+                toast.error("Add new class failed. Try Again!");
             }
         } catch (error) {
             console.error('Lỗi khi cập nhật dữ liệu lớp học:', error);
-            toast.error("Failed. Try Again!!!");
+            toast.error("Add new class failed. Try Again!");
         }
     };
 
@@ -209,10 +211,11 @@ const CardAddClass = ({ closePopup }) => {
                     <label className="control-label">Fee:</label>
                     <input class="form-control" type="text" id="Fee" name="Fee" min={0} value={fee} onChange={(e) => setFee(e.target.value)} required />
                 </div>
-
                 <div className="form-group">
-                    <label className="control-label">Number of Weeks:</label>
+
+                    <label className="control-label">Number in Weeks:</label>
                     <input class="form-control" type="number" id="NumberOfWeek" name="NumberOfWeek" min={0} value={numberOfWeek} onChange={(e) => setNumberOfWeek(e.target.value)} required />
+
                 </div>
 
                 <div className="form-group">

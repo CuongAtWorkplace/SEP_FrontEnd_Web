@@ -67,52 +67,21 @@ const CardChangeImage = ({ closePopup }) => {
             });
             if (response.ok) {
                 console.log('Hình ảnh đã được tải lên thành công');
-                toast.success("Change image successful!")
+                toast.success("Change avatar successful!")
                 closePopup();
                 window.location.reload();
             } else {
                 console.error('Lỗi khi tải lên hình ảnh:', response.status, response.statusText);
-                toast.error("Update image failed. Not change image!");
+                toast.error("Change avatar failed!");
             }
         } catch (error) {
             console.error('Lỗi khi tải lên hình ảnh:', error);
-            toast.error("Update image failed. Not change image!");
+            toast.error("Change avatar failed!");
         }
     };
 
     const handleSubmit = async (e) => {
-        // const userUpdate = {
-        //     userId: userDt.userId,
-        //     image: selectedImage,
-        // };
-
-        // e.preventDefault();
-
-        // if (!selectedImage) {
-        //     console.error('Vui lòng chọn ảnh');
-        //     return;
-        // }
-
-        // const formData = new FormData();
-        // formData.append('image', selectedImage);
-
-        // try {
-        //     const token = localStorage.getItem("token");
-        //     const decodedToken = jwtDecode(token);
-        //     const response = await fetch(`${API_BASE_URL}/api/User/UploadImage/UploadImage/${decodedToken.userid}`, {
-        //         method: 'POST',
-        //         body: formData
-        //     });
-        //     if (response.ok) {
-        //         console.log('Hình ảnh đã được tải lên thành công');
-        //         closePopup();
-        //         window.location.reload();
-        //     } else {
-        //         console.error('Lỗi khi tải lên hình ảnh:', response.status, response.statusText);
-        //     }
-        // } catch (error) {
-        //     console.error('Lỗi khi tải lên hình ảnh:', error);
-        // }
+        console.log('Hình ảnh đã được tải lên thành công');
     };
 
     return (

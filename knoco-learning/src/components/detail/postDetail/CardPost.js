@@ -78,11 +78,11 @@ const CardPost = () => {
         })
             .then((response) => {
                 if (response.ok) {
-                    toast.success("Successfull !!!")
+                    toast.success("Update post successful!")
                     window.location.href = "/manager/viewpostlistmanager";
                 }
                 else if (!response.ok) {
-                    toast.error("Failed. Try Again!!!")
+                    toast.error("Update post Failed. Try Again!!!")
                     throw new Error('Failed to update');
                 }
 
@@ -162,14 +162,14 @@ const CardPost = () => {
 
             if (updateResponse.ok) {
                 fetchData();
-                toast.success("Successfull !!!");
+                toast.success("Hide comment !!!");
                 
                 setStatus(false);
             } else {
-                throw new Error('Failed to update');
+                throw new Error('Hide comment failed!');
             }
         } catch (error) {
-            toast.error("Failed. Try Again!!!")
+            toast.error("Hide comment failed!")
             console.error('Error updating comment:', error);
             // Xử lý khi gặp lỗi (ví dụ: hiển thị toast lỗi)
 
@@ -207,14 +207,14 @@ const CardPost = () => {
 
             if (updateResponse.ok) {
 
-                toast.success("Successfull !!!")
+                toast.success("Un-hide comment successful!")
                 fetchData();
                 setStatus(false);
             } else {
-                throw new Error('Failed to update');
+                throw new Error('Un-hide comment failed!');
             }
         } catch (error) {
-            toast.error("Failed. Try Again!!!")
+            toast.error("Un-hide comment failed!")
             console.error('Error updating comment:', error);
             // Xử lý khi gặp lỗi (ví dụ: hiển thị toast lỗi)
 

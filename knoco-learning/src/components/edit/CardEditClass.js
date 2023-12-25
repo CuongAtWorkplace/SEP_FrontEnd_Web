@@ -126,15 +126,15 @@ const CardEditClass = ({ closePopup }) => {
             });
             if (response.ok) {
                 console.log('Dữ liệu lớp học đã được cập nhật thành công');
-                toast.success("Successfull !");
+                toast.success("Edit class successful!");
                 closePopup();
                 //window.location.reload();
             } else {
                 console.error('Lỗi khi cập nhật dữ liệu lớp học:', response.status, response.statusText);
-                toast.error("Failed. Try Again!!!");
+                toast.error("Edit class Failed. Try Again!");
             }
         } catch (error) {
-            toast.error("Failed. Try Again!!!");
+            toast.error("Edit class Failed. Try Again!");
             console.error('Lỗi khi cập nhật dữ liệu lớp học:', error);
         }
     };

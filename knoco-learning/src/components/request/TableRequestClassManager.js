@@ -92,7 +92,7 @@ const TableRequestClassManager = () => {
             await UpdateRequestClass(Number(data.classId), Number(data.userId));
             setReloadData(!reloadData);
             try {
-                await fetchData(); 
+                window.location.reload();
             } catch (error) {
                 console.error('Lỗi khi fetch dữ liệu sau khi chỉnh sửa:', error);
             }

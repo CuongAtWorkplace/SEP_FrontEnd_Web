@@ -4,7 +4,7 @@ import '../../style/Teacher/Edit.css';
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import { API_BASE_URL } from "../../paths";
-const CardAddMoney = ({ closePopup }) => {
+const CardLessMoney = ({ closePopup }) => {
     const navigate = useNavigate();
     const params = useParams();
     const [moneyAdd, setMoneyAdd] = useState('');
@@ -31,12 +31,12 @@ const CardAddMoney = ({ closePopup }) => {
             toUser: params.userId,
             totalMoney: moneyAdd,
             createDate: new Date().toISOString().slice(0, 16),
-            type: true
+            type: false
         };
 
         e.preventDefault();
         try {
-            const response = await fetch(`${API_BASE_URL}/api/Payment/AddPayment`, {
+            const response = await fetch(`${API_BASE_URL}/api/Payment/LessPayment`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -44,19 +44,19 @@ const CardAddMoney = ({ closePopup }) => {
                 body: JSON.stringify(money)
             });
             if (response.ok) {
-                try {
-                    const response = await fetch(`${API_BASE_URL}/api/User/UpdateBalanceStudentPurchase/UpdateBalanceStudentPurchase/${moneyAdd}/${params.userId}`
-                    , {
-                        method: 'PUT'
-                    }); // Thay thế URL bằng API thực tế
+                // try {
+                //     const response = await fetch(`${API_BASE_URL}/api/User/UpdateBalanceStudentPurchase/UpdateBalanceStudentPurchase/${moneyAdd}/${params.userId}`
+                //     , {
+                //         method: 'PUT'
+                //     }); // Thay thế URL bằng API thực tế
     
-                if (response.ok) {
-                    window.location.reload();
-                }
-                const responseData = await response.json();
-                } catch (error) {
-                    console.error('Lỗi khi lấy dữ liệu lớp học:', error);
-                }
+                // if (response.ok) {
+                //     window.location.reload();
+                // }
+                // const responseData = await response.json();
+                // } catch (error) {
+                //     console.error('Lỗi khi lấy dữ liệu lớp học:', error);
+                // }
                 console.log('Dữ liệu lớp học đã được cập nhật thành công');
                 closePopup();
                 window.location.reload();
@@ -76,11 +76,11 @@ const CardAddMoney = ({ closePopup }) => {
                     <label className="control-label">Money (vnd) :</label>
                     <input class="form-control" type="number" min={0} id="moneyAdd" name="moneyAdd" value={moneyAdd} onChange={(e) => setMoneyAdd(e.target.value)} required />
                 </div>
-                <button type="submit" id="submit" name="submit" className="btn-btn">Add</button>
+                <button type="submit" id="submit" name="submit" className="btn-btn">Less </button>
                 <button type="button" onClick={closePopup} className="btn-  btn">Cancel</button>
             </form>
         </div>
     );
 };
 
-export default CardAddMoney;
+export default CardLessMoney;

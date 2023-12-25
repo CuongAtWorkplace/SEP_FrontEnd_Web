@@ -63,9 +63,9 @@ const CardAddClass = ({ closePopup }) => {
         try {
             const response = await fetch(`${API_BASE_URL}api/Class/CheckClassName?className=${className}`);
             if (response.ok) {
-                return false; 
+                return true; 
             } else {
-                return true;
+                return false;
             }
         } catch (error) {
             return false;
@@ -89,7 +89,7 @@ const CardAddClass = ({ closePopup }) => {
         })
             .then((response) => {
                 if (response.ok) {
-                    toast.success("Create chat room successful!");
+                
                     fetchData();
                 }
                 else if (!response.ok) {

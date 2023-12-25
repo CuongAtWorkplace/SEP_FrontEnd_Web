@@ -19,19 +19,19 @@ class Login extends Component {
 
     validateForm = () => {
         const { email, password } = this.state;
-       
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            alert('Invalid email');
+            toast.error('Invalid email');
             return false;
         }
-        
+
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
         if (!passwordRegex.test(password)) {
-            alert('Password must be at least 8 characters, include at least one letter and one number');
+            toast.error("Password must be at least 8 characters, include at least one letter and one number");
             return false;
         }
-        return true; 
+        return true;
     };
 
     handleEmailChange = (e) => {
@@ -49,14 +49,14 @@ class Login extends Component {
             });
     }
     componentDidMount() {
-   
+
         this.refreshList();
 
     }
 
     handleLogin = async () => {
         if (this.validateForm()) {
-            const { email, password, redirectPath } = this.state;
+            const { email, password } = this.state;
             try {
                 const response = await fetch(`${API_BASE_URL}/api/Login/AuthenticateLogin`, {
                     method: 'POST',
@@ -80,7 +80,7 @@ class Login extends Component {
 
 
                     if (decodedToken.roleid == 2) {
-                        
+
                         window.location.href = localStorage.getItem('previousPath');
                     }
                     else if (decodedToken.roleid == 3) {
@@ -90,8 +90,13 @@ class Login extends Component {
                     } else if (decodedToken.roleid == 1) {
                         window.location.href = "/viewclass"
                     }
+                    setTimeout(() => {
+                        localStorage.removeItem('token');
+                        console.log('Đã xóa token.');
+                       
+                    }, 60 * 60 * 1000);
                 } else {
-                    toast.error("Check Email or Password !!!")
+                    toast.error(" Incorrect account or password, please try again")
                     this.setState({ checkLogin: false });
                 }
             } catch (error) {
@@ -139,9 +144,9 @@ class Login extends Component {
                     <div class="container-login100">
                         <div class="wrap-login100">
                             <div class="login100-pic js-tilt" data-tilt>
-                            <img src="e-learning-la-gi.jpg"  />
+                                <img src="e-learning-la-gi.jpg" />
                             </div>
-                           
+
                             <form className="login100-form validate-form" >
                                 <span className="login100-form-title">
                                     Member Login

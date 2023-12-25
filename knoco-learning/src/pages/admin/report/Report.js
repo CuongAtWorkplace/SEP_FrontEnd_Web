@@ -6,7 +6,7 @@ import Footer from "../../../components/footer/Footer";
 import SideBar from "../../../components/sidebar/SideBar";
 import { DataGrid } from '@mui/x-data-grid';
 import { API_BASE_URL } from '../../../paths';
-
+import jwtDecode from "jwt-decode";
 class Report extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +16,14 @@ class Report extends Component {
   }
 
   async componentDidMount() {
-    
+    const token = localStorage.getItem("token");
+    if (token !== null) {
+        const decodedToken = jwtDecode(token);
+       
+        if ((Number(decodedToken.roleid) !== 4) || localStorage.getItem("token") === '') {
+            window.location.href = "/";
+        }
+    }
     await this.getListReport();
   };
 
@@ -44,16 +51,7 @@ class Report extends Component {
       { field: "description", headerName: "Description", width: 280 },
       { field: "createDate", headerName: "Create Date", width: 150 },
       { field: "reason", headerName: "Reason", width: 200 },
-      {
-        field: "isChecked", headerName: "Status", width: 100,
-        renderCell: (params) => {
-          return (
-            <div className={`cellWithStatus ${params.row.isChecked}`}>
-              {params.row.isChecked}
-            </div>
-          );
-        },
-      },
+      
     ];
 
     return (

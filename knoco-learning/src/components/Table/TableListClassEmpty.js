@@ -49,37 +49,45 @@ const TableListClassEmpty = (props) => {
     console.log('Clicked row data:', row);
   };
 
-  const AddRequestClass = (classId) => {
+  const AddRequestClass = async (classId) => {
     const token = localStorage.getItem("token");
     if (token !== null) {
       const decodedToken = jwtDecode(token);
-
+  
       const addRequest = {
         classId: classId,
         userId: parseInt(decodedToken.userid, 10),
-        type:null
+        type: null
+      };
+  
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/Class/CreateRequestClassManager`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(addRequest),
+        });
+  
+        if (response.ok) {
+          const confirmResult = window.confirm("Are you sure you want to teach this class?");
+          if (confirmResult) {
+            navigate(`/list-all-course`);
+            toast.success("Sent request! Please wait for approval.");
+          } else {
+            window.close();
+            toast.error("Do not submit request!");
+          }
+        } else {
+          toast.error("Sent request failed. Try Again!");
+          throw new Error('Failed to update');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        toast.error("Sent request failed. Try Again!");
       }
-      fetch(`${API_BASE_URL}/api/Class/CreateRequestClassManager`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(addRequest),
-      })
-        .then((response) => {
-          if (response.ok) {
-            window.confirm("Are you sure you want to teach this class?") ? navigate(`/list-all-course`) : window.close();
-            toast.success("Successfull !");
-          }
-          else if (!response.ok) {
-            toast.error("Failed. Try Again!")
-            throw new Error('Failed to update');
-          }
-
-        })
-
     }
-  }
+  };
 
   const [columns, setColumns] = useState([
     {
@@ -121,11 +129,6 @@ const TableListClassEmpty = (props) => {
           {formatAPIDate(row.original.createDate)}
         </div>
       ),
-    },
-    {
-      Header: 'Status',
-      accessor: 'status',
-      Filter: ColumnFilter, // Custom filter component for courseId column
     },
     {
       Header: 'Action',

@@ -41,11 +41,15 @@ const ViewAllPost = ({ children, ...props }) => {
         });
         const token = localStorage.getItem("token");
         if (token !== null) {
-            const decodedToken = jwtDecode(token);
-
-            // if (Number(decodedToken.roleid) !== 3 || localStorage.getItem("token") === '') {
-            //     navigate(`/`);
-            // }
+          const decodedToken = jwtDecode(token);
+         
+          if (Number(decodedToken.roleid) === 4 || Number(decodedToken.roleid) === 3 || localStorage.getItem("token") === '') {
+           
+          } else {
+            navigate(`/`);
+          }
+        } else {
+          navigate(`/`);
         }
         fetchData();
     }, []);

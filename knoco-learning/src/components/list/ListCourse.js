@@ -37,7 +37,7 @@ const ListCourse = () => {
                                 <small className="m-0"><i className="text-primary"></i></small>
                                 <small className="m-0"><i className="text-primary"></i>{formatAPIDate(course.createDate)}</small>
                             </div>
-                            <Link className="a-link h5" to={`/class-empty/${course.courseId}`}>{course.courseName}</Link>
+                            <Link className="a-link h5" to={`/choose-class/${course.courseId}`}>{course.courseName}</Link>
                             <p>{course.description}</p>
                         </div>
                     </div>
@@ -46,7 +46,7 @@ const ListCourse = () => {
                 // <p>Loading class information...</p>
                 <div className="items-course">
                     <div className="img-course">
-                        <img src={"https://reactjs.org/logo-og.png" || "https://reactjs.org/logo-og.png"} alt="courseName" />
+                        <img className="img-cour" src={"https://reactjs.org/logo-og.png" || "https://reactjs.org/logo-og.png"} alt="courseName" />
                     </div>
                     <div className="course">
                         <div className="first-info">

@@ -10,16 +10,29 @@ import $ from "jquery";
 import CardClass from "../../components/detail/CardClass";
 import TableListLearnerInClass from "../../components/Table/TableListLearnerInClass";
 import CardEditClass from "../../components/edit/CardEditClass"
-
+import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 const ClassDetail = ({ children, ...props }) => {
+    const navigate = useNavigate();
     useEffect(() => {
         // Add click event listener to menu-btn
         $('.menu-btn').on('click', function () {
             $('#menu').toggleClass('active'); // Toggle active class on #menu
         });
+        const token = localStorage.getItem("token");
+        if (token !== null) {
+            const decodedToken = jwtDecode(token);
+            if (Number(decodedToken.roleid) === 1 || localStorage.getItem("token") === '') {
+
+            } else {
+                navigate(`/`);
+            }
+        } else {
+            navigate(`/`);
+        }
     }, []);
 
-    
+
 
     return (
         <div className="body_page" {...props}>
@@ -42,7 +55,6 @@ const ClassDetail = ({ children, ...props }) => {
                 <div className="children">
                     <CardClass />
                     <TableListLearnerInClass />
-                    
                 </div>
 
                 <footer>

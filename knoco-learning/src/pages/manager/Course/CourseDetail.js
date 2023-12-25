@@ -53,9 +53,9 @@ function CourseDetail() {
     if (token !== null) {
       const decodedToken = jwtDecode(token);
       setRoleid(decodedToken.roleid);
-      // if (Number(decodedToken.roleid) === 2 || localStorage.getItem("token") === '') {
-      //     navigate(`/`);
-      // }
+      if (Number(decodedToken.roleid) === 2 || localStorage.getItem("token") === '') {
+          navigate(`/`);
+      }
     } else {
       navigate(`/`);
     }
@@ -139,10 +139,10 @@ function CourseDetail() {
     })
       .then((response) => {
         if (response.ok) {
-          toast.success("Update successfull. Congratulation!!!")
+          toast.success("Update course successfull. Congratulation!!!")
         }
         else if (!response.ok) {
-          toast.error("Update failed. Try Again!!!")
+          toast.error("Update course failed. Try Again!!!")
           throw new Error('Failed to add product');
         }
 

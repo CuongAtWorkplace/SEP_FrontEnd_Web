@@ -28,14 +28,14 @@ const ColumnFilter = ({ column }) => {
     );
 };
 
-
 const TableRequestClassManager = () => {
     const [listClassRequest, setListClassRequest] = useState([]);
     const navigate = useNavigate();
+    const [reloadData, setReloadData] = useState(false);
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [reloadData]);
 
 
     const fetchData = async () => {
@@ -59,10 +59,10 @@ const TableRequestClassManager = () => {
         })
             .then((response) => {
                 if (response.ok) {
-                    toast.success("Successfull !!!");
+                    toast.success("Request is accepted!");
                 }
                 else if (!response.ok) {
-                    toast.error("Failed. Try Again!!!")
+                    toast.error("Request failed. Try Again!")
                     throw new Error('Failed to update');
                 }
 
@@ -89,12 +89,16 @@ const TableRequestClassManager = () => {
         });
 
         if (response.ok) {
-            toast.success("Successfull !!!")
             await UpdateRequestClass(Number(data.classId), Number(data.userId));
-        
+            setReloadData(!reloadData);
+            try {
+                await fetchData(); 
+            } catch (error) {
+                console.error('Lỗi khi fetch dữ liệu sau khi chỉnh sửa:', error);
+            }
         }
         else if (!response.ok) {
-            toast.error("Failed. Try Again!!!")
+            //toast.error("Failed. Try Again!!!")
             throw new Error('Failed to update');
         }
 
@@ -144,7 +148,7 @@ const TableRequestClassManager = () => {
             Filter: ColumnFilter, // Custom filter component for courseId column
         },
         {
-            Header: 'Chi Tiết',
+            Header: 'Action',
             accessor: '',
             Filter: ColumnFilter, // Custom filter component for courseId column
             disableFilters: true, // Vô hiệu hóa bộ lọc cho cột Button

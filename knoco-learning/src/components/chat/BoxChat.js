@@ -53,6 +53,7 @@ const BoxChat = () => {
 					});
 					if (!response.ok) {
 						setcheckToken(false);
+						window.location.href = "/";
 					} 
 				} catch (error) {
 					console.error('Lỗi khi lấy dữ liệu:', error);
@@ -261,13 +262,26 @@ const BoxChat = () => {
 	};
 
 
+	const handleSubmit = () =>{
+		if (messageText && messageText.trim() !== '') {
+			uploadImage();
+		}else{
+			alert('Vui lòng nhập nội dung tin nhắn trước khi gửi.');
+		}
+	}
+
+	const handleBackClick = () => {
+        window.location.href="/classdetail/" + ClassId;
+    };
+
+
 	return (
 		<div className="chat-box">
 			<div className="card">
 				<div className="card-header msg_head">
 					<div className="d-flex">
 						<button>
-							<FontAwesomeIcon className="back-btn" icon={faArrowLeft} />
+							<FontAwesomeIcon className="back-btn" onClick={handleBackClick} icon={faArrowLeft} />
 						</button>
 					</div>
 					<div className="d-flex">
@@ -341,7 +355,7 @@ const BoxChat = () => {
 							value={messageText}
 							onChange={(e) => setMessageText(e.target.value)}
 						></textarea>
-						<div className="input-group-append btn-right" onClick={uploadImage}>
+						<div className="input-group-append btn-right" onClick={handleSubmit}>
 							<span className="send_btn">
 								<FontAwesomeIcon icon={faLocationArrow} />
 							</span>

@@ -74,11 +74,11 @@ const CardChangePassword = ({ closePopup }) => {
                 closePopup();
             } else {
                 console.error('Lỗi khi cập nhật dữ liệu người dùng:', response.status, response.statusText);
-                toast.error("Failed. Try Again!!!");
+                toast.error("Change password failed. Try Again!");
             }
         } catch (error) {
             console.error('Lỗi khi cập nhật dữ liệu người dùng:', error);
-            toast.error("Failed. Try Again!!!");
+            toast.error("Change password failed. Try Again!");
         }
     };
 

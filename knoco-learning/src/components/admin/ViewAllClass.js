@@ -41,12 +41,15 @@ const ViewAllClass = ({ children, ...props }) => {
         const token = localStorage.getItem("token");
         if (token !== null) {
             const decodedToken = jwtDecode(token);
-            if (Number(decodedToken.roleid) == 3) {
+            if (Number(decodedToken.roleid) === 4 || localStorage.getItem("token") === '') {
+
+            } else if (Number(decodedToken.roleid) === 3) {
                 setIsManager(true);
-            }
-            if (localStorage.getItem("token") === '') {
+            } else {
                 navigate(`/`);
             }
+        } else {
+            navigate(`/`);
         }
         fetchData();
     }, []);
@@ -56,7 +59,7 @@ const ViewAllClass = ({ children, ...props }) => {
         const decodedToken = jwtDecode(token);
 
         try {
-            const response = await fetch(`${API_BASE_URL}/api/Class/GetAllClass`);
+            const response = await fetch(`${API_BASE_URL}/api/Class/GetAllClassManage`);
             const responseData = await response.json();
             setData(responseData);
         } catch (error) {
@@ -113,7 +116,7 @@ const ViewAllClass = ({ children, ...props }) => {
             Filter: ColumnFilter, // Custom filter component for courseId column
         },
         {
-            Header: 'Number of week',
+            Header: 'Number in week',
             accessor: 'numberOfWeek',
             Filter: ColumnFilter, // Custom filter component for courseId column
         },
@@ -151,9 +154,21 @@ const ViewAllClass = ({ children, ...props }) => {
             Header: 'Status',
             accessor: 'status',
             Filter: ColumnFilter, // Custom filter component for courseId column
+            Cell: ({ row }) => (
+                <CustomButton isActive={row.original.status} />
+            ),
         },
     ]);
-
+    const CustomButton = ({ isActive }) => (
+        <div>
+            <span></span>
+            {isActive === 1 ? (
+                <button>Active</button>
+            ) : (
+                <button>Close</button>
+            )}
+        </div>
+    );
     const handleRowClick = (row) => {
         console.log('Clicked row data:', row);
     };

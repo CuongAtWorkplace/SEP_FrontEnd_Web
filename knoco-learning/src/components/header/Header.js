@@ -67,7 +67,6 @@ const Header = () => {
             </div>
 
             <div className="profile">
-                <FontAwesomeIcon className="icon-profile" icon={faBell} onClick={handleNotiClick} />
                 {/* <FontAwesomeIcon className="icon-img" icon={faChalkboardUser} onClick={toggleDropdown} /> */}
                 <img src={imageSource || myImage} alt={imageSource || "Profile"} className="icon-img" onClick={toggleDropdown} />
                 <div className={`dropdown-menu ${isDropdownVisible ? "active" : ""}`} id="dropdown-menu">

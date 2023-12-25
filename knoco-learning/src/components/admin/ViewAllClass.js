@@ -155,14 +155,15 @@ const ViewAllClass = ({ children, ...props }) => {
             accessor: 'status',
             Filter: ColumnFilter, // Custom filter component for courseId column
             Cell: ({ row }) => (
-                <CustomButton isActive={row.original.status} />
+                <CustomButton isDate={row.original.endDate} />
             ),
         },
     ]);
-    const CustomButton = ({ isActive }) => (
+    const CustomButton = ({ isDate }) => (
+        
         <div>
             <span></span>
-            {isActive === 1 ? (
+            {(formatAPIDate(new Date().toISOString().slice(0, 16))) <  formatAPIDate(isDate) ? (
                 <button>Active</button>
             ) : (
                 <button>Close</button>

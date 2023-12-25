@@ -189,7 +189,7 @@ const CreateRoomChat = async (classId) => {
                 </div>
 
                 <div className="form-group">
-                    <label className="control-label">Number of Weeks:</label>
+                    <label className="control-label">Number in Weeks:</label>
                     <input class="form-control" type="number" id="NumberOfWeek" name="NumberOfWeek" min={0} value={numberOfWeek} onChange={(e) => setNumberOfWeek(e.target.value)} />
                 </div>
 

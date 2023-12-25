@@ -88,11 +88,6 @@ const TableRequestmanager = () => {
       Filter: ColumnFilter, // Custom filter component for courseId column
     },
     {
-      Header: 'classId',
-      accessor: 'classId',
-      Filter: ColumnFilter, // Custom filter component for courseId column
-    },
-    {
       Header: 'Chi Tiết',
       accessor: '',
       Filter: ColumnFilter, // Custom filter component for courseId column

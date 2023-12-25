@@ -67,6 +67,8 @@ class ViewAllCourse extends Component {
             if ((Number(decodedToken.roleid) !== 3 && Number(decodedToken.roleid) !== 4) || localStorage.getItem("token") === '') {
                 window.location.href = "/";
             }
+        }else{
+            window.location.href = "/";
         }
         this.refreshListByGenre();
 

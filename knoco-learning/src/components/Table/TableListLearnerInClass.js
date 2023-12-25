@@ -57,6 +57,7 @@ const TableListLearnerInClass = (props) => {
   };
 
   const [selectedFile, setSelectedFile] = useState(null);
+  const fileInputRef = React.createRef();
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -94,7 +95,8 @@ const TableListLearnerInClass = (props) => {
   
         if (response.ok) {
           console.log('Tải lên thành công!');
-          toast.success("Upload file successful!")
+          toast.success("Upload file successful!");
+          fileInputRef.current.value = '';
           fetchDataFile();
         } else {
           throw new Error('Upload file failed!');
@@ -165,7 +167,7 @@ const TableListLearnerInClass = (props) => {
       {/* <input type="file" onChange={handleFileChange} /><button onClick={handleUploadClick}>Submit</button> */}
       <div className="box-file">
         <div className="box-upload">
-          <input className="file" type="file" onChange={handleFileChange} />
+          <input className="file" type="file" onChange={handleFileChange} ref={fileInputRef}/>
           <button className="btn-item" onClick={handleUpload}>Upload</button>
         </div>
         {files.map((file, index) => (

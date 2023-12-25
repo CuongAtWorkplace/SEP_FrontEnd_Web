@@ -8,7 +8,7 @@ const CardAddClass = ({ closePopup }) => {
     const [classDt, setClassDt] = useState({});
     const [className, setClassName] = useState('');
     const [course, setCourse] = useState([]);
-    const [courseId, setcourseId] = useState(0);
+    const [courseId, setcourseId] = useState(1);
     const [topic, setTopic] = useState('');
     const [fee, setFee] = useState('');
     const [numberOfWeek, setNumberOfWeek] = useState('');
@@ -24,7 +24,7 @@ const CardAddClass = ({ closePopup }) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/Course/GetAllCourse`); // Thay thế URL bằng API thực tế
+            const response = await fetch(`${ API_BASE_URL }/api/Course/GetAllCourse`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setCourse(responseData);
         } catch (error) {
@@ -59,18 +59,23 @@ const CardAddClass = ({ closePopup }) => {
         }
         return true;
     };
-    const  checkClassNameExistence = async (className) => {
+
+    const checkClassNameExists = async (classname) => {
         try {
-            const response = await fetch(`${API_BASE_URL}api/Class/CheckClassName?className=${className}`);
+            const response = await fetch(`${API_BASE_URL}/api/Class/CheckClassName?className=${classname}`);
+
             if (response.ok) {
-                return true; 
-            } else {
+                return true;
+            } else if (response.status === 404) {
                 return false;
+            } else {
+                throw new Error('Failed to check class name existence');
             }
         } catch (error) {
-            return false;
+            console.error('Error checking class name:', error);
+            throw new Error('Failed to check class name existence');
         }
-    }
+    };
 
     const CreateRoomChat = async (classId) => {
 
@@ -80,7 +85,7 @@ const CardAddClass = ({ closePopup }) => {
             isManagerChat: true,
             classId: classId
         }
-        fetch(`${API_BASE_URL}/api/RequestManager/CreateChatRoomManage`, {
+        fetch(`${ API_BASE_URL }/api/RequestManager/CreateChatRoomManage`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -89,7 +94,7 @@ const CardAddClass = ({ closePopup }) => {
         })
             .then((response) => {
                 if (response.ok) {
-                
+                 
                     fetchData();
                 }
                 else if (!response.ok) {
@@ -133,11 +138,13 @@ const CardAddClass = ({ closePopup }) => {
             toast.error("End date cannot be before start date.");
             return;
         }
-        const checkclassName = checkClassNameExistence(className);
-        if (checkclassName) {
-            toast.error("Class Name is duplicated");
+
+        const isClassNameExists = await checkClassNameExists(className);
+        if (isClassNameExists) {
+            toast.error('Class Name is duplicated.');
             return;
         }
+
         const classCreate = {
             className: className,
             teacherId: null,
@@ -158,7 +165,7 @@ const CardAddClass = ({ closePopup }) => {
         };
 
         try {
-            const response = await fetch(`${API_BASE_URL}/api/Class/CreateClassManager`, {
+            const response = await fetch(`${ API_BASE_URL }/api/Class/CreateClassManager`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

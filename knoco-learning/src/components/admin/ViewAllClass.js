@@ -172,6 +172,7 @@ const ViewAllClass = ({ children, ...props }) => {
     );
     const handleRowClick = (row) => {
         console.log('Clicked row data:', row);
+        navigate(`/classdetail/${row.classId}`);
     };
 
     return (

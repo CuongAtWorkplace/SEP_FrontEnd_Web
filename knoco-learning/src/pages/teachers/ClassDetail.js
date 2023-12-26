@@ -22,7 +22,7 @@ const ClassDetail = ({ children, ...props }) => {
         const token = localStorage.getItem("token");
         if (token !== null) {
             const decodedToken = jwtDecode(token);
-            if (Number(decodedToken.roleid) === 1 || localStorage.getItem("token") === '') {
+            if (Number(decodedToken.roleid) === 1 ||Number(decodedToken.roleid) === 3 || localStorage.getItem("token") === '') {
 
             } else {
                 navigate(`/`);

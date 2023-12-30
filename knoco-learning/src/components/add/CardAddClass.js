@@ -59,18 +59,23 @@ const CardAddClass = ({ closePopup }) => {
         }
         return true;
     };
-    const  checkClassNameExistence = async (className) => {
+
+    const checkClassNameExists = async (classname) => {
         try {
-            const response = await fetch(`${API_BASE_URL}api/Class/CheckClassName?className=${className}`);
+            const response = await fetch(`${API_BASE_URL}/api/Class/CheckClassName?className=${classname}`);
+
             if (response.ok) {
-                return false; 
-            } else {
                 return true;
+            } else if (response.status === 404) {
+                return false;
+            } else {
+                throw new Error('Failed to check class name existence');
             }
         } catch (error) {
-            return false;
+            console.error('Error checking class name:', error);
+            throw new Error('Failed to check class name existence');
         }
-    }
+    };
 
     const CreateRoomChat = async (classId) => {
 
@@ -133,11 +138,13 @@ const CardAddClass = ({ closePopup }) => {
             toast.error("End date cannot be before start date.");
             return;
         }
-        const checkclassName = checkClassNameExistence(className);
-        if (checkclassName) {
-            toast.error("Class Name is duplicated");
+
+        const isClassNameExists = await checkClassNameExists(className);
+        if (isClassNameExists) {
+            toast.error('Class Name is duplicated.');
             return;
         }
+
         const classCreate = {
             className: className,
             teacherId: null,

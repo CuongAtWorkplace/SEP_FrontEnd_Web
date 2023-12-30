@@ -14,6 +14,7 @@ import { API_BASE_URL } from "../../../paths";
 import CardAddClass from "../../../components/add/CardAddClass";
 import CardAddCourse from "../../../components/add/CardAddCourse";
 import CardAddMoney from "../../../components/add/CardAddMoney";
+import CardLessMoney from "../../../components/add/CardLessMoney";
 const UserDetail = () => {
   const [userDetails, setUserDetails] = useState({});
   const [loading, setLoading] = useState(true);
@@ -21,6 +22,7 @@ const UserDetail = () => {
   const [roleid, setRoleid] = useState('');
   const [imageSource, setImageSource] = useState("");
   const [isAddClassPopupVisible, setAddClassPopupVisible] = useState(false);
+  const [isLessClassPopupVisible, setLessClassPopupVisible] = useState(false);
   const [randomString, setRandomString] = useState('');
   // console.log(I);
   const navigate = useNavigate();
@@ -42,6 +44,14 @@ const UserDetail = () => {
 
   const closeAddClassPopup = () => {
     setAddClassPopupVisible(false);
+  }
+
+  const openLessClassPopup = () => {
+    setLessClassPopupVisible(true);
+  }
+
+  const closeLessClassPopup = () => {
+    setLessClassPopupVisible(false);
   }
   const generateRandomString = async (userid) => {
     const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -178,6 +188,7 @@ const UserDetail = () => {
                           <span className="itemKey">Balance:</span>
                           <span className="itemValue">{userDetails.balance}</span>
                           <button type="button" class="btn btn-dark" onClick={openAddClassPopup}>Add Money</button>
+                          <button type="button" class="btn btn-dark" onClick={openLessClassPopup}>Add Money</button>
                         </div>
                         <div className="detailItem">
                           <span className="itemKey">Role       :</span>
@@ -198,6 +209,13 @@ const UserDetail = () => {
                           isAddClassPopupVisible && (
                             <div className="popup">
                               <CardAddMoney closePopup={closeAddClassPopup} />
+                            </div>
+                          )
+                        }
+                        {
+                          isLessClassPopupVisible && (
+                            <div className="popup">
+                              <CardLessMoney closePopup={closeLessClassPopup} />
                             </div>
                           )
                         }

@@ -8,7 +8,7 @@ const CardAddClass = ({ closePopup }) => {
     const [classDt, setClassDt] = useState({});
     const [className, setClassName] = useState('');
     const [course, setCourse] = useState([]);
-    const [courseId, setcourseId] = useState(0);
+    const [courseId, setcourseId] = useState(1);
     const [topic, setTopic] = useState('');
     const [fee, setFee] = useState('');
     const [numberOfWeek, setNumberOfWeek] = useState('');
@@ -24,7 +24,7 @@ const CardAddClass = ({ closePopup }) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/Course/GetAllCourse`); // Thay thế URL bằng API thực tế
+            const response = await fetch(`${ API_BASE_URL }/api/Course/GetAllCourse`); // Thay thế URL bằng API thực tế
             const responseData = await response.json();
             setCourse(responseData);
         } catch (error) {
@@ -85,7 +85,7 @@ const CardAddClass = ({ closePopup }) => {
             isManagerChat: true,
             classId: classId
         }
-        fetch(`${API_BASE_URL}/api/RequestManager/CreateChatRoomManage`, {
+        fetch(`${ API_BASE_URL }/api/RequestManager/CreateChatRoomManage`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ const CardAddClass = ({ closePopup }) => {
         })
             .then((response) => {
                 if (response.ok) {
-                    toast.success("Create chat room successful!");
+                 
                     fetchData();
                 }
                 else if (!response.ok) {
@@ -165,7 +165,7 @@ const CardAddClass = ({ closePopup }) => {
         };
 
         try {
-            const response = await fetch(`${API_BASE_URL}/api/Class/CreateClassManager`, {
+            const response = await fetch(`${ API_BASE_URL }/api/Class/CreateClassManager`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

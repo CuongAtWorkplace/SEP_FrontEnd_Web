@@ -47,6 +47,7 @@ const CardClass = () => {
     const formattedDate = `${month}/${day}/${year}`;
 
     useEffect(() => {
+        
         fetchData();
         fetchCheckUser();
     }, [reloadData]);
@@ -77,7 +78,7 @@ const CardClass = () => {
                 setcheckToken(true);
             } else {
                 setcheckToken(false);
-                toast.success("The teacher is not present in class!")
+                navigate(`/`); 
                 console.log("k co quyen");
             }
         } catch (error) {
